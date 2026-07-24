@@ -179,7 +179,7 @@
     .rates-info-hint { font-size: 0.65rem; color: #e11d48; font-weight: 700; display: flex; align-items: center; gap: 4px; opacity: 0.95; }
     .rate-val-banner { color: #0f172a !important; }
 
-    /* ─── 3. KOMPAKT TOP KATTINTÁSOK SÁV (LETSZTÍTOTT CÍMEKKEL) ─── */
+    /* ─── 3. KOMPAKT TOP 10 KATTINTÁSOK SÁV ─── */
     .top3-container {
         background: rgba(255, 255, 255, 0.65);
         border: 1px solid rgba(185, 196, 208, 0.8);
@@ -348,7 +348,7 @@
     </div>
 </div>
 
-<!-- ─── PROFI DEVIZA TERMINÁL MODÁLIS ─── -->
+<!-- ─── PROFI DEVIZA TERMINÁL MODÁLIS (0:00-TÓL KEZDŐDŐ MÉRÉSEKKEL) ─── -->
 <div class="dev-modal-overlay" id="currency-terminal-modal">
     <div class="dev-card">
         <div class="dev-header">
@@ -504,10 +504,10 @@
 <!-- ─── 2. INTERAKTÍV BALRA ZÁRT DEVIZÁS CSÍK ─── -->
 <div id="standalone-rates-container" class="rates-strip-bar" style="display:none;"></div>
 
-<!-- ─── 3. TOP KATTINTOTT HÍREK SÁV ─── -->
+<!-- ─── 3. TOP 10 KATTINTOTT HÍREK SÁV ─── -->
 <div class="top3-container" id="top3-container">
     <div class="top3-header">
-        <span class="top3-badge">🔥 TOP KATTINTÁSOK</span>
+        <span class="top3-badge">🔥 TOP 10 KATTINTÁS</span>
         <span class="top3-title">Ezekre kattintottatok ma a legtöbbet:</span>
     </div>
     <div class="top3-list" id="top3-list">
@@ -718,7 +718,7 @@
         } catch(e){}
     }
 
-    // ─── TOP KATTINTOTT HÍREK LEKÉRÉSE ÉS MEGJELENÍTÉSE (SZÁMOK NÉLKÜL A NÉZŐKNEK) ───
+    // ─── TOP 10 KATTINTOTT HÍR LEKÉRÉSE ÉS MEGJELENÍTÉSE ───
     async function fetchAndRenderTopClicks() {
         const top3ListEl = document.getElementById('top3-list');
         if (!top3ListEl) return;
@@ -733,10 +733,11 @@
                 return;
             }
 
-            // Szigorú sorrendbe rendezés a kattintások száma szerint (legnépszerűbb legfelül)
+            // Szigorú sorrendbe rendezés a kattintások száma szerint (Top 10)
             const sortedClicks = Object.values(data)
                 .filter(item => item && item.title && item.count > 0)
-                .sort((a, b) => b.count - a.count);
+                .sort((a, b) => b.count - a.count)
+                .slice(0, 10); // TOP 10!
 
             if (sortedClicks.length === 0) {
                 top3ListEl.innerHTML = '<div class="top3-item empty">Még nem érkezett kattintás a mai napon.</div>';
@@ -745,7 +746,6 @@
 
             const medals = ['🥇', '🥈', '🥉'];
 
-            // Csupán a címet és az érmet/sorszámot jelenítjük meg, a darabszám rejtve marad
             top3ListEl.innerHTML = sortedClicks.map((item, index) => {
                 const rankBadge = index < 3 ? medals[index] : `${index + 1}.`;
                 return `
@@ -854,6 +854,7 @@
                 val: val[currKey] ? Number(val[currKey]) : 0
             })).filter(t => t.val > 0);
 
+            // Ha van éjféli (00:00) nyitóárunk és a mérések nem azzal kezdődnek, beszúrjuk a 00:00-s pontot
             const officialOpenVal = mainRatesData?.open ? Number(mainRatesData.open[currKey]) : null;
             if (officialOpenVal && (ticks.length === 0 || ticks[0].time !== "00:00")) {
                 ticks.unshift({
