@@ -152,11 +152,11 @@
     .ticker-bottom-row { display: flex; justify-content: center; width: 100%; overflow: hidden; margin-top: 2px; }
     .ticker-desc { font-family: 'Inter', sans-serif; font-size: 0.74rem; color: #4b5563; line-height: 1.45; text-align: center; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; width: 100%; max-width: 90%; letter-spacing: -0.1px; }
 
-    /* ─── 2. ÁTKÖLTÖZTETETT ÖNÁLLÓ DEVIZÁS CSÍK (A HÍRSÁV ALATT) ─── */
+    /* ─── 2. INTERAKTÍV BALRA ZÁRT DEVIZÁS CSÍK ─── */
     .rates-strip-bar {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         gap: 16px;
         font-family: 'Space Mono', monospace;
         font-size: 0.75rem;
@@ -173,106 +173,46 @@
         user-select: none;
         flex-wrap: wrap;
     }
-    .rates-strip-bar span {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
+    .rates-group-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .rate-clickable-item { display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 3px 8px; border-radius: 6px; transition: background 0.2s, transform 0.15s; }
+    .rate-clickable-item:hover { background: rgba(30, 64, 175, 0.12); transform: translateY(-1px); }
+    .rates-info-hint { font-size: 0.65rem; color: #e11d48; font-weight: 700; display: flex; align-items: center; gap: 4px; opacity: 0.95; }
     .rate-val-banner { color: #0f172a !important; }
 
-    /* ─── 3. TOP 3 PANEL (A DEVIZÁK ALATT, EGYMÁS ALATT) ─── */
+    /* ─── 3. KOMPAKT TOP KATTINTÁSOK SÁV (LETSZTÍTOTT CÍMEKKEL) ─── */
     .top3-container {
         background: rgba(255, 255, 255, 0.65);
         border: 1px solid rgba(185, 196, 208, 0.8);
         border-left: 4px solid #e11d48;
         border-radius: 10px;
-        padding: 8px 14px;
+        padding: 8px 12px;
         margin-bottom: 24px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         width: 100%;
     }
-    .top3-header {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 6px;
-    }
-    .top3-badge {
-        font-family: 'Space Mono', monospace;
-        font-size: 0.62rem;
-        font-weight: 800;
-        color: #ffffff;
-        background: #e11d48;
-        padding: 2px 6px;
-        border-radius: 4px;
-        letter-spacing: 0.4px;
-    }
-    .top3-title {
-        font-weight: 800;
-        font-size: 0.78rem;
-        color: #0b1a26;
-        text-transform: uppercase;
-        letter-spacing: 0.2px;
-    }
+    .top3-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .top3-badge { font-family: 'Space Mono', monospace; font-size: 0.62rem; font-weight: 800; color: #ffffff; background: #e11d48; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.4px; }
+    .top3-title { font-weight: 800; font-size: 0.78rem; color: #0b1a26; text-transform: uppercase; letter-spacing: 0.2px; }
+    
     .top3-list {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 5px;
+        max-height: 125px;
+        overflow-y: auto;
+        padding-right: 4px;
     }
-    .top3-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        background: rgba(255, 255, 255, 0.85);
-        border: 1px solid rgba(185, 196, 208, 0.5);
-        padding: 5px 10px;
-        border-radius: 6px;
-        transition: transform 0.15s, background 0.15s;
-    }
-    .top3-item:hover {
-        background: #ffffff;
-        transform: translateX(2px);
-    }
-    .top3-medal {
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 22px;
-        flex-shrink: 0;
-    }
-    .top3-link {
-        font-weight: 700;
-        font-size: 0.78rem;
-        color: #0b1a26;
-        text-decoration: none;
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        min-width: 0;
-    }
+    .top3-list::-webkit-scrollbar { width: 4px; }
+    .top3-list::-webkit-scrollbar-thumb { background: #b9c4d0; border-radius: 4px; }
+
+    .top3-item { display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(185, 196, 208, 0.5); padding: 5px 10px; border-radius: 6px; transition: transform 0.15s, background 0.15s; }
+    .top3-item:hover { background: #ffffff; transform: translateX(2px); }
+    .top3-rank-badge { font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 800; display: flex; align-items: center; justify-content: center; min-width: 24px; flex-shrink: 0; }
+    .top3-link { font-weight: 700; font-size: 0.78rem; color: #0b1a26; text-decoration: none; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
     .top3-link:hover { color: #e11d48; text-decoration: underline; }
-    .top3-count {
-        font-family: 'Space Mono', monospace;
-        font-size: 0.62rem;
-        font-weight: 700;
-        color: #1e40af;
-        background: rgba(30, 64, 175, 0.08);
-        padding: 2px 6px;
-        border-radius: 10px;
-        white-space: nowrap;
-        flex-shrink: 0;
-    }
-    .top3-item.empty {
-        font-size: 0.75rem;
-        color: #64748b;
-        font-style: italic;
-        justify-content: center;
-        padding: 6px;
-    }
+    .top3-item.empty { font-size: 0.75rem; color: #64748b; font-style: italic; justify-content: center; padding: 8px; }
 
     /* ─── 4. HÍR SZEKCIÓK ─── */
     .sections-container { display: flex; flex-direction: column; gap: 36px; margin-top: 0; }
@@ -315,7 +255,7 @@
     .news-title a:hover { color:#e57373 !important; text-decoration:underline; }
     .news-description { font-size:0.78rem; color:#4b5563 !important; margin-top:8px; line-height:1.5; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 
-    /* ─── NATÍV FEJLESZTŐI MODÁLIS ─── */
+    /* ─── MODÁLISOK ─── */
     .dev-modal-overlay {
         position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
         background: rgba(11, 26, 38, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -325,7 +265,7 @@
 
     .dev-card {
         background: #0f172a; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px;
-        width: 100%; max-width: 950px; max-height: 85vh; display: flex; flex-direction: column;
+        width: 100%; max-width: 950px; max-height: 88vh; display: flex; flex-direction: column;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); color: #f8fafc; overflow: hidden;
     }
 
@@ -339,7 +279,6 @@
 
     .pin-card { max-width: 380px; text-align: center; padding: 28px 24px; }
     .pin-input { width: 100%; padding: 12px; margin: 18px 0; background: #1e293b; border: 1px solid #334155; border-radius: 8px; color: #38bdf8; font-family: 'Space Mono', monospace; font-size: 1.2rem; text-align: center; letter-spacing: 4px; outline: none; }
-    .pin-input:focus { border-color: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
 
     .dev-tabs { display: flex; background: #1e293b; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 0 16px; }
     .dev-tab-btn { padding: 12px 18px; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; color: #94a3b8; background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; transition: all 0.2s; }
@@ -360,6 +299,13 @@
     .btn-danger-all { background: #dc2626; color: #fff; padding: 8px 14px; margin-bottom: 12px; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.72rem; cursor: pointer; border: none; font-weight: 700; }
 
     .ip-badge { font-family: 'Space Mono', monospace; background: rgba(56, 189, 248, 0.1); color: #38bdf8; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(56, 189, 248, 0.2); }
+
+    /* DEVIZA TERMINÁL STÍLUSOK */
+    .term-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 12px; margin-bottom: 16px; }
+    .stat-card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 12px 10px; text-align: center; }
+    .stat-card-title { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.3px; }
+    .stat-card-val { font-family: 'Space Mono', monospace; font-size: 1.05rem; font-weight: 800; color: #f8fafc; margin-top: 4px; }
+    .term-chart-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
 
     #banned-screen {
         position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #090d16; color: #ef4444; z-index: 999999; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; font-family: 'Space Mono', monospace;
@@ -402,7 +348,47 @@
     </div>
 </div>
 
-<!-- ─── NATÍV FEJLESZTŐI MENÜ MODÁLIS ─── -->
+<!-- ─── PROFI DEVIZA TERMINÁL MODÁLIS ─── -->
+<div class="dev-modal-overlay" id="currency-terminal-modal">
+    <div class="dev-card">
+        <div class="dev-header">
+            <div class="dev-title" id="terminal-modal-title">📈 DEVIZA TERMINÁL · EUR / HUF</div>
+            <button class="dev-close-btn" onclick="closeCurrencyTerminal()">BEZÁRÁS [X]</button>
+        </div>
+        <div class="dev-tabs">
+            <button class="dev-tab-btn active" id="tab-curr-EUR" onclick="switchTerminalCurrency('EUR')">🇪🇺 EUR / HUF</button>
+            <button class="dev-tab-btn" id="tab-curr-USD" onclick="switchTerminalCurrency('USD')">🇺🇸 USD / HUF</button>
+            <button class="dev-tab-btn" id="tab-curr-CHF" onclick="switchTerminalCurrency('CHF')">🇨🇭 CHF / HUF</button>
+        </div>
+        <div class="dev-body">
+            <div class="term-stats-grid" id="terminal-stats-grid"></div>
+            
+            <div class="term-chart-card">
+                <div style="font-family:'Space Mono',monospace; font-size:0.72rem; color:#38bdf8; margin-bottom:10px; font-weight:700;">📊 NAPI ÁRFOLYAM-ALAKULÁS 00:00-TÓL (ÉLŐ VONALGRAFIKON)</div>
+                <div id="terminal-chart-container" style="width:100%; height:190px;"></div>
+            </div>
+
+            <div style="font-family:'Space Mono',monospace; font-size:0.75rem; color:#38bdf8; margin-bottom:8px; font-weight:700;">📋 NAPON BELÜLI MÉRÉSEK TÖRTÉNETE (00:00-TÓL)</div>
+            <div class="dev-table-container">
+                <table class="dev-table">
+                    <thead>
+                        <tr>
+                            <th>IDŐPONT</th>
+                            <th>ÁRFOLYAM</th>
+                            <th>VÁLTOZÁS (ELŐZŐ)</th>
+                            <th>VÁLTOZÁS (NYITÓ)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="terminal-history-tbody">
+                        <tr><td colspan="4" style="text-align:center;">Adatok betöltése...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ─── FEJLESZTŐI MODÁLIS ─── -->
 <div class="dev-modal-overlay" id="dev-menu-modal">
     <div class="dev-card">
         <div class="dev-header">
@@ -415,7 +401,6 @@
             <button class="dev-tab-btn" onclick="switchDevTab('banned', event)">🚫 TILTOTT IP-K</button>
         </div>
         <div class="dev-body">
-            <!-- 1. LÁTOGATÓK TAB -->
             <div id="tab-visitors" class="dev-tab-content">
                 <button class="btn-danger-all" onclick="clearAllVisitors()">🗑️ ÖSSZES LÁTOGATÓ TÖRLÉSE</button>
                 <div class="dev-table-container">
@@ -435,7 +420,6 @@
                 </div>
             </div>
 
-            <!-- 2. KATTINTÁSOK TAB -->
             <div id="tab-clicks" class="dev-tab-content" style="display:none;">
                 <button class="btn-danger-all" onclick="clearAllClicks()">🗑️ MAI KATTINTÁSI STATISZTIKA TÖRLÉSE</button>
                 <div class="dev-table-container">
@@ -454,7 +438,6 @@
                 </div>
             </div>
 
-            <!-- 3. TILTOTT IP-K TAB -->
             <div id="tab-banned" class="dev-tab-content" style="display:none;">
                 <div class="dev-table-container">
                     <table class="dev-table">
@@ -518,13 +501,13 @@
     </div>
 </div>
 
-<!-- ─── 2. ÁTKÖLTÖZTETETT ÖNÁLLÓ DEVIZÁS CSÍK (A HÍRSÁV ALATT) ─── -->
+<!-- ─── 2. INTERAKTÍV BALRA ZÁRT DEVIZÁS CSÍK ─── -->
 <div id="standalone-rates-container" class="rates-strip-bar" style="display:none;"></div>
 
-<!-- ─── 3. TOP 3 KATTINTOTT HÍREK SÁV (A DEVIZÁK ALATT, ÉREMKEL) ─── -->
+<!-- ─── 3. TOP KATTINTOTT HÍREK SÁV ─── -->
 <div class="top3-container" id="top3-container">
     <div class="top3-header">
-        <span class="top3-badge">🔥 TOP 3</span>
+        <span class="top3-badge">🔥 TOP KATTINTÁSOK</span>
         <span class="top3-title">Ezekre kattintottatok ma a legtöbbet:</span>
     </div>
     <div class="top3-list" id="top3-list">
@@ -559,6 +542,7 @@
 
     let localGyujtoData = null;
     let localAdasData = null;
+    let localRatesData = null;
     let tickerNews = [];
     let currentTickerIndex = 0;
 
@@ -568,6 +552,7 @@
 
     let currentVisitorIP = "127.0.0.1";
     let currentSessionId = "";
+    let activeTerminalCurr = "EUR";
 
     const HUNGARIAN_CITIES = [
         {name:"Budapest",lat:47.4979,lon:19.0402},{name:"Debrecen",lat:47.5316,lon:21.6273},
@@ -590,6 +575,51 @@
         return array;
     }
 
+    // ─── ÓRA ÉS PONTOS IDŐ UTILS ───
+    let lastThemeUpdate = 0;
+    function applyAstronomicalTheme(force = false) {
+        const now = Date.now();
+        if (!force && now - lastThemeUpdate < 60000) return;
+        lastThemeUpdate = now;
+        const d = new Date(), month = d.getMonth(), hour = d.getHours() + d.getMinutes() / 60;
+        const sun = [{sr:7.4,ss:16.1},{sr:6.8,ss:16.9},{sr:5.8,ss:17.7},{sr:5.8,ss:19.5},{sr:4.8,ss:20.2},{sr:4.4,ss:20.7},{sr:4.7,ss:20.5},{sr:5.4,ss:19.7},{sr:6.1,ss:18.7},{sr:6.8,ss:17.7},{sr:6.7,ss:16.1},{sr:7.3,ss:15.8}];
+        const today = sun[month], sr = today.sr, ss = today.ss;
+        let isDark = false;
+        if (hour < sr - 1.5 || hour > ss + 1.5) isDark = true;
+        else if (hour >= sr - 1.5 && hour < sr - 0.5) isDark = true;
+        else if (hour >= ss + 0.5 && hour < ss + 1.5) isDark = true;
+
+        document.body.classList.toggle('night-order-active', isDark);
+        document.body.style.background = '#cbd5e1'; 
+    }
+
+    function updateLiveClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+        
+        const clockTimeEl = document.getElementById('clock-time');
+        if (clockTimeEl) clockTimeEl.innerHTML = `${h}:${m}<span class="sec">:${s}</span>`;
+
+        const clockDateEl = document.getElementById('clock-date');
+        if (clockDateEl) {
+            const honapok = ["JAN.", "FEB.", "MÁRC.", "ÁPR.", "MÁJ.", "JÚN.", "JÚL.", "AUG.", "SZEPT.", "OKT.", "NOV.", "DEC."];
+            const napok = ["VASÁRNAP", "HÉTFŐ", "KEDD", "SZERDA", "CSÜTÖRTÖK", "PÉNTEK", "SZOMBAT"];
+            const napNev = napok[now.getDay()]; 
+            clockDateEl.textContent = `${now.getFullYear()}. ${honapok[now.getMonth()]} ${String(now.getDate()).padStart(2, '0')}. · ${napNev}`;
+        }
+
+        const currentHour = now.getHours();
+        const timeOfDayInfo = getTimeOfDay(currentHour);
+        const napszakEl = document.getElementById('brand-napszak');
+        if (napszakEl) napszakEl.textContent = timeOfDayInfo.label;
+
+        applyAstronomicalTheme();
+        const container = document.getElementById('sections-container');
+        if (container) container.classList.toggle('night-order', currentHour >= 0 && currentHour < 6);
+    }
+
     // ─── LÁTOGATÓ ÉS KATTINTÁS NYOMKÖVETŐ ───
     async function initVisitorTracking() {
         try {
@@ -599,7 +629,6 @@
 
             const ipKey = currentVisitorIP.replace(/\./g, '_');
 
-            // 1. Tiltólista ellenőrzése
             const banRes = await fetch(`${FIREBASE_URL}/analytics/banned/${ipKey}.json`);
             const isBanned = await banRes.json();
             if (isBanned) {
@@ -607,7 +636,6 @@
                 return;
             }
 
-            // 2. Munkamenet regisztrálása
             let storedSession = sessionStorage.getItem('kb_session_id');
             if (!storedSession) {
                 storedSession = 'vis_' + Date.now() + '_' + Math.floor(Math.random()*1000);
@@ -630,7 +658,6 @@
                 })
             });
 
-            // Globális kattintás figyelő
             document.addEventListener('click', trackUserClicks);
 
         } catch (e){}
@@ -658,7 +685,6 @@
         title = title ? stripFirebaseKeys(title).trim() : "";
         if (!title || !link || link === '#' || link.startsWith('javascript:')) return;
 
-        // 🛡️ 5 perces egyedi védelmi zár (cooldown) az adott cikkre
         const clickKey = "clk_" + btoa(unescape(encodeURIComponent(link))).replace(/[/+=]/g, '_');
         const storageKey = "kb_last_clk_" + clickKey;
         const now = Date.now();
@@ -671,8 +697,7 @@
 
         localStorage.setItem(storageKey, now.toString());
 
-        // Dátum szerinti csomópont (Éjfélkor automatikusan 00:00-kor tiszta lappal indul)
-        const todayStr = new Date().toLocaleDateString('sv-SE'); // YYYY-MM-DD formátum
+        const todayStr = new Date().toLocaleDateString('sv-SE');
 
         try {
             const clickRes = await fetch(`${FIREBASE_URL}/analytics/daily_clicks/${todayStr}/${clickKey}.json`);
@@ -689,17 +714,17 @@
                 })
             });
 
-            fetchAndRenderTop3();
+            fetchAndRenderTopClicks();
         } catch(e){}
     }
 
-    // ─── TOP 3 HÍR LEKÉRÉSE ÉS MEGJELENÍTÉSE (ÉREMKEL) ───
-    async function fetchAndRenderTop3() {
+    // ─── TOP KATTINTOTT HÍREK LEKÉRÉSE ÉS MEGJELENÍTÉSE (SZÁMOK NÉLKÜL A NÉZŐKNEK) ───
+    async function fetchAndRenderTopClicks() {
         const top3ListEl = document.getElementById('top3-list');
         if (!top3ListEl) return;
 
         try {
-            const todayStr = new Date().toLocaleDateString('sv-SE'); // YYYY-MM-DD
+            const todayStr = new Date().toLocaleDateString('sv-SE');
             const res = await fetch(`${FIREBASE_URL}/analytics/daily_clicks/${todayStr}.json`);
             const data = await res.json();
 
@@ -708,10 +733,10 @@
                 return;
             }
 
+            // Szigorú sorrendbe rendezés a kattintások száma szerint (legnépszerűbb legfelül)
             const sortedClicks = Object.values(data)
                 .filter(item => item && item.title && item.count > 0)
-                .sort((a, b) => b.count - a.count)
-                .slice(0, 3);
+                .sort((a, b) => b.count - a.count);
 
             if (sortedClicks.length === 0) {
                 top3ListEl.innerHTML = '<div class="top3-item empty">Még nem érkezett kattintás a mai napon.</div>';
@@ -720,17 +745,256 @@
 
             const medals = ['🥇', '🥈', '🥉'];
 
-            top3ListEl.innerHTML = sortedClicks.map((item, index) => `
-                <div class="top3-item">
-                    <span class="top3-medal" title="${index+1}. helyezett">${medals[index]}</span>
-                    <a href="${item.link}" target="_blank" class="top3-link">${item.title}</a>
-                    <span class="top3-count">${item.count} kattintás</span>
-                </div>
-            `).join('');
+            // Csupán a címet és az érmet/sorszámot jelenítjük meg, a darabszám rejtve marad
+            top3ListEl.innerHTML = sortedClicks.map((item, index) => {
+                const rankBadge = index < 3 ? medals[index] : `${index + 1}.`;
+                return `
+                    <div class="top3-item">
+                        <span class="top3-rank-badge">${rankBadge}</span>
+                        <a href="${item.link}" target="_blank" class="top3-link">${item.title}</a>
+                    </div>
+                `;
+            }).join('');
 
         } catch(e) {
             top3ListEl.innerHTML = '<div class="top3-item empty">Még nem érkezett kattintás a mai napon.</div>';
         }
+    }
+
+    // ─── DEVIZÁK MEGJELENÍTÉSE ───
+    function renderExchangeRates(ratesData) {
+        if (!ratesData || !ratesData.current) return;
+        localRatesData = ratesData;
+
+        const formatVal = (v) => (v !== null && v !== undefined) ? Number(v).toFixed(2) : "---";
+
+        function getChangeBadge(diff) {
+            if (diff === null || diff === undefined) return '';
+            const numDiff = Number(diff);
+            if (Math.abs(numDiff) < 0.01) return `<span style="font-size:0.6rem; opacity:0.6; margin-left:2px;">(=)</span>`;
+            const isUp = numDiff > 0;
+            const arrow = isUp ? '▲' : '▼';
+            const color = isUp ? '#dc2626' : '#16a34a'; 
+            const sign = isUp ? '+' : '';
+            return `<span style="font-size:0.62rem; color:${color}; font-weight:800; margin-left:2px;">${arrow}${sign}${numDiff.toFixed(2)}</span>`;
+        }
+
+        const eurStr = formatVal(ratesData.current.eur);
+        const usdStr = formatVal(ratesData.current.usd);
+        const chfStr = formatVal(ratesData.current.chf);
+
+        const eurChange = getChangeBadge(ratesData.diff?.eur);
+        const usdChange = getChangeBadge(ratesData.diff?.usd);
+        const chfChange = getChangeBadge(ratesData.diff?.chf);
+
+        const container = document.getElementById("standalone-rates-container");
+
+        const htmlContent = `
+            <div class="rates-group-left">
+                <div class="rate-clickable-item" onclick="openCurrencyTerminal('EUR')" title="Kattints az EUR részletes adataiért!">
+                    <img src="https://flagcdn.com/w20/eu.png" style="height: 12px; width: auto; border-radius: 2px;" alt="EU">
+                    <span>EUR: <span class="rate-val-banner">${eurStr} Ft</span>${eurChange}</span>
+                </div>
+                <span style="opacity: 0.35;">|</span>
+                <div class="rate-clickable-item" onclick="openCurrencyTerminal('USD')" title="Kattints az USD részletes adataiért!">
+                    <img src="https://flagcdn.com/w20/us.png" style="height: 12px; width: auto; border-radius: 2px;" alt="US">
+                    <span>USD: <span class="rate-val-banner">${usdStr} Ft</span>${usdChange}</span>
+                </div>
+                <span style="opacity: 0.35;">|</span>
+                <div class="rate-clickable-item" onclick="openCurrencyTerminal('CHF')" title="Kattints a CHF részletes adataiért!">
+                    <img src="https://flagcdn.com/w20/ch.png" style="height: 12px; width: auto; border-radius: 2px;" alt="CH">
+                    <span>CHF: <span class="rate-val-banner">${chfStr} Ft</span>${chfChange}</span>
+                </div>
+            </div>
+            <div class="rates-info-hint">
+                <span>ℹ️ Részletekért kattints az adott devizára!</span>
+            </div>
+        `;
+
+        if (container) {
+            container.innerHTML = htmlContent;
+            container.style.display = "flex";
+        }
+    }
+
+    // ─── PROFI DEVIZA TERMINÁL KÖZPONT (0:00-TÓL KEZDŐDŐ MÉRÉSEKKEL) ───
+    async function openCurrencyTerminal(currency = "EUR") {
+        activeTerminalCurr = currency;
+        document.getElementById('currency-terminal-modal').classList.add('active');
+        await loadCurrencyTerminalData();
+    }
+
+    function closeCurrencyTerminal() {
+        document.getElementById('currency-terminal-modal').classList.remove('active');
+    }
+
+    function switchTerminalCurrency(currency) {
+        activeTerminalCurr = currency;
+        document.querySelectorAll('#currency-terminal-modal .dev-tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`tab-curr-${currency}`).classList.add('active');
+        loadCurrencyTerminalData();
+    }
+
+    async function loadCurrencyTerminalData() {
+        const todayStr = new Date().toLocaleDateString('sv-SE');
+        document.getElementById('terminal-modal-title').innerText = `📈 DEVIZA TERMINÁL · ${activeTerminalCurr} / HUF (${todayStr})`;
+
+        try {
+            const [historyRes, mainRatesRes] = await Promise.all([
+                fetch(`${FIREBASE_URL}/rates_history/${todayStr}.json`),
+                fetch(`${FIREBASE_URL}/rates.json`)
+            ]);
+
+            const historyObj = await historyRes.json() || {};
+            const mainRatesData = await mainRatesRes.json() || {};
+
+            const currKey = activeTerminalCurr.toLowerCase();
+            let ticks = Object.entries(historyObj).map(([key, val]) => ({
+                time: val.time || key.replace('_', ':'),
+                val: val[currKey] ? Number(val[currKey]) : 0
+            })).filter(t => t.val > 0);
+
+            const officialOpenVal = mainRatesData?.open ? Number(mainRatesData.open[currKey]) : null;
+            if (officialOpenVal && (ticks.length === 0 || ticks[0].time !== "00:00")) {
+                ticks.unshift({
+                    time: "00:00 (Nyitó)",
+                    val: officialOpenVal
+                });
+            }
+
+            renderTerminalStats(ticks);
+            renderTerminalChart(ticks);
+            renderTerminalTable(ticks);
+        } catch(e) {
+            console.warn("Terminál adatbetöltési hiba:", e);
+        }
+    }
+
+    function renderTerminalStats(ticks) {
+        const grid = document.getElementById('terminal-stats-grid');
+        if (!grid) return;
+
+        if (ticks.length === 0) {
+            grid.innerHTML = '<div style="color:#94a3b8; font-size:0.8rem; padding:10px;">A mai napon még nem érkezett idősoros mérés.</div>';
+            return;
+        }
+
+        const values = ticks.map(t => t.val);
+        const liveVal = values[values.length - 1];
+        const openVal = values[0];
+        const highVal = Math.max(...values);
+        const lowVal = Math.min(...values);
+        const avgVal = values.reduce((a, b) => a + b, 0) / values.length;
+        const diffVal = liveVal - openVal;
+        const pctVal = openVal ? ((diffVal / openVal) * 100) : 0;
+
+        const diffColor = diffVal > 0 ? '#ef4444' : (diffVal < 0 ? '#22c55e' : '#94a3b8');
+        const sign = diffVal > 0 ? '+' : '';
+
+        grid.innerHTML = `
+            <div class="stat-card">
+                <div class="stat-card-title">Pillanatnyi Ár</div>
+                <div class="stat-card-val" style="color:#38bdf8;">${liveVal.toFixed(2)} Ft</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-title">Napi Nyitó (00:00)</div>
+                <div class="stat-card-val">${openVal.toFixed(2)} Ft</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-title">Napi Csúcs (Max)</div>
+                <div class="stat-card-val" style="color:#ef4444;">${highVal.toFixed(2)} Ft</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-title">Napi Mélypont (Min)</div>
+                <div class="stat-card-val" style="color:#22c55e;">${lowVal.toFixed(2)} Ft</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-title">Napi Átlag</div>
+                <div class="stat-card-val">${avgVal.toFixed(2)} Ft</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-title">Elmozdulás</div>
+                <div class="stat-card-val" style="color:${diffColor};">${sign}${diffVal.toFixed(2)} Ft (${sign}${pctVal.toFixed(2)}%)</div>
+            </div>
+        `;
+    }
+
+    function renderTerminalChart(ticks) {
+        const container = document.getElementById('terminal-chart-container');
+        if (!container) return;
+
+        if (ticks.length < 2) {
+            container.innerHTML = '<div style="color:#94a3b8; font-size:0.8rem; display:flex; align-items:center; justify-content:center; height:100%;">Több mérés szükséges a vonalgrafikon kirajzolásához...</div>';
+            return;
+        }
+
+        const width = container.clientWidth || 800;
+        const height = 180;
+        const pad = 25;
+
+        const values = ticks.map(t => t.val);
+        let min = Math.min(...values);
+        let max = Math.max(...values);
+        if (min === max) { min -= 0.5; max += 0.5; }
+
+        const points = ticks.map((t, i) => {
+            const x = pad + (i / (ticks.length - 1)) * (width - pad * 2);
+            const y = height - pad - ((t.val - min) / (max - min)) * (height - pad * 2);
+            return { x, y, val: t.val, time: t.time };
+        });
+
+        const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
+        const fillD = `${pathD} L ${points[points.length-1].x.toFixed(1)} ${height - pad} L ${points[0].x.toFixed(1)} ${height - pad} Z`;
+
+        const strokeColor = points[points.length-1].val >= points[0].val ? '#ef4444' : '#22c55e';
+
+        container.innerHTML = `
+            <svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="${strokeColor}" stop-opacity="0.3"/>
+                        <stop offset="100%" stop-color="${strokeColor}" stop-opacity="0.0"/>
+                    </linearGradient>
+                </defs>
+                <path d="${fillD}" fill="url(#chartGrad)"/>
+                <path d="${pathD}" fill="none" stroke="${strokeColor}" stroke-width="2.5" stroke-linecap="round"/>
+                ${points.map(p => `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.5" fill="${strokeColor}"><title>${p.time} - ${p.val.toFixed(2)} Ft</title></circle>`).join('')}
+            </svg>
+        `;
+    }
+
+    function renderTerminalTable(ticks) {
+        const tbody = document.getElementById('terminal-history-tbody');
+        if (!tbody) return;
+
+        if (ticks.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Nincs rögzített mérés ma.</td></tr>';
+            return;
+        }
+
+        const openVal = ticks[0].val;
+
+        tbody.innerHTML = [...ticks].reverse().map((t, idx, arr) => {
+            const prevVal = idx < arr.length - 1 ? arr[idx + 1].val : t.val;
+            const diffPrev = t.val - prevVal;
+            const diffOpen = t.val - openVal;
+
+            const formatDiff = (d) => {
+                if (Math.abs(d) < 0.01) return '<span style="color:#94a3b8;">(=)</span>';
+                const color = d > 0 ? '#ef4444' : '#22c55e';
+                const sign = d > 0 ? '+' : '';
+                return `<span style="color:${color}; font-weight:700;">${sign}${d.toFixed(2)} Ft</span>`;
+            };
+
+            return `
+                <tr>
+                    <td><strong>${t.time}</strong></td>
+                    <td style="font-weight:800; color:#38bdf8;">${t.val.toFixed(2)} Ft</td>
+                    <td>${formatDiff(diffPrev)}</td>
+                    <td>${formatDiff(diffOpen)}</td>
+                </tr>
+            `;
+        }).join('');
     }
 
     // ─── FEJLESZTŐI MODÁLIS LOGIKA ───
@@ -765,8 +1029,8 @@
     }
 
     function switchDevTab(tabName, event) {
-        document.querySelectorAll('.dev-tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.dev-tab-content').forEach(content => content.style.display = 'none');
+        document.querySelectorAll('#dev-menu-modal .dev-tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('#dev-menu-modal .dev-tab-content').forEach(content => content.style.display = 'none');
 
         if (event && event.target) event.target.classList.add('active');
         document.getElementById(`tab-${tabName}`).style.display = 'block';
@@ -912,7 +1176,7 @@
             const todayStr = new Date().toLocaleDateString('sv-SE');
             await fetch(`${FIREBASE_URL}/analytics/daily_clicks/${todayStr}/${key}.json`, { method: 'DELETE' });
             loadDevAnalyticsData();
-            fetchAndRenderTop3();
+            fetchAndRenderTopClicks();
         } catch(e){ alert("Hiba történt!"); }
     }
 
@@ -922,7 +1186,7 @@
             const todayStr = new Date().toLocaleDateString('sv-SE');
             await fetch(`${FIREBASE_URL}/analytics/daily_clicks/${todayStr}.json`, { method: 'DELETE' });
             loadDevAnalyticsData();
-            fetchAndRenderTop3();
+            fetchAndRenderTopClicks();
         } catch(e){ alert("Hiba történt!"); }
     }
 
@@ -1205,91 +1469,6 @@
         weatherCycleIntervalId = setInterval(showNext, 4000); 
     }
 
-    // ─── DEVIZÁK MEGJELENÍTÉSE AZ ÚJ KÜLÖNÁLLÓ CSÍKBAN ───
-    function renderExchangeRates(ratesData) {
-        if (!ratesData || !ratesData.current) return;
-
-        const formatVal = (v) => (v !== null && v !== undefined) ? Number(v).toFixed(2) : "---";
-
-        function getChangeBadge(diff) {
-            if (diff === null || diff === undefined) return '';
-            const numDiff = Number(diff);
-            if (Math.abs(numDiff) < 0.01) return `<span style="font-size:0.6rem; opacity:0.6; margin-left:2px;">(=)</span>`;
-            const isUp = numDiff > 0;
-            const arrow = isUp ? '▲' : '▼';
-            const color = isUp ? '#dc2626' : '#16a34a'; 
-            const sign = isUp ? '+' : '';
-            return `<span style="font-size:0.62rem; color:${color}; font-weight:800; margin-left:2px;">${arrow}${sign}${numDiff.toFixed(2)}</span>`;
-        }
-
-        const eurStr = formatVal(ratesData.current.eur);
-        const usdStr = formatVal(ratesData.current.usd);
-        const chfStr = formatVal(ratesData.current.chf);
-
-        const eurChange = getChangeBadge(ratesData.diff?.eur);
-        const usdChange = getChangeBadge(ratesData.diff?.usd);
-        const chfChange = getChangeBadge(ratesData.diff?.chf);
-
-        const container = document.getElementById("standalone-rates-container");
-
-        const htmlContent = `
-            <span><img src="https://flagcdn.com/w20/eu.png" style="height: 12px; width: auto; border-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.15);" alt="EU"> EUR: <span class="rate-val-banner">${eurStr} Ft</span>${eurChange}</span>
-            <span style="opacity: 0.35;">|</span>
-            <span><img src="https://flagcdn.com/w20/us.png" style="height: 12px; width: auto; border-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.15);" alt="US"> USD: <span class="rate-val-banner">${usdStr} Ft</span>${usdChange}</span>
-            <span style="opacity: 0.35;">|</span>
-            <span><img src="https://flagcdn.com/w20/ch.png" style="height: 12px; width: auto; border-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.15);" alt="CH"> CHF: <span class="rate-val-banner">${chfStr} Ft</span>${chfChange}</span>
-        `;
-
-        if (container) {
-            container.innerHTML = htmlContent;
-            container.style.display = "flex";
-        }
-    }
-
-    let lastThemeUpdate=0;
-    function applyAstronomicalTheme(force=false) {
-        const now=Date.now();
-        if(!force && now-lastThemeUpdate<60000) return;
-        lastThemeUpdate=now;
-        const d=new Date(), month=d.getMonth(), hour=d.getHours()+d.getMinutes()/60;
-        const sun=[{sr:7.4,ss:16.1},{sr:6.8,ss:16.9},{sr:5.8,ss:17.7},{sr:5.8,ss:19.5},{sr:4.8,ss:20.2},{sr:4.4,ss:20.7},{sr:4.7,ss:20.5},{sr:5.4,ss:19.7},{sr:6.1,ss:18.7},{sr:6.8,ss:17.7},{sr:6.7,ss:16.1},{sr:7.3,ss:15.8}];
-        const today=sun[month], sr=today.sr, ss=today.ss;
-        let isDark=false;
-        if(hour<sr-1.5 || hour>ss+1.5) isDark=true;
-        else if(hour>=sr-1.5 && hour<sr-0.5) isDark=true;
-        else if(hour>=ss+0.5 && hour<ss+1.5) isDark=true;
-
-        document.body.classList.toggle('night-order-active', isDark);
-        document.body.style.background = '#cbd5e1'; 
-    }
-
-    function updateLiveClock() {
-        const now=new Date();
-        const h=String(now.getHours()).padStart(2,'0');
-        const m=String(now.getMinutes()).padStart(2,'0');
-        const s=String(now.getSeconds()).padStart(2,'0');
-        
-        const clockTimeEl = document.getElementById('clock-time');
-        if (clockTimeEl) clockTimeEl.innerHTML = `${h}:${m}<span class="sec">:${s}</span>`;
-
-        const clockDateEl = document.getElementById('clock-date');
-        if (clockDateEl) {
-            const honapok=["JAN.","FEB.","MÁRC.","ÁPR.","MÁJ.","JÚN.","JÚL.","AUG.","SZEPT.","OKT.","NOV.","DEC."];
-            const napok=["VASÁRNAP","HÉTFŐ","KEDD","SZERDA","CSÜTÖRTÖK","PÉNTEK","SZOMBAT"];
-            const napNev = napok[now.getDay()]; 
-            clockDateEl.textContent = `${now.getFullYear()}. ${honapok[now.getMonth()]} ${String(now.getDate()).padStart(2,'0')}. · ${napNev}`;
-        }
-
-        const currentHour = now.getHours();
-        const timeOfDayInfo = getTimeOfDay(currentHour);
-        const napszakEl = document.getElementById('brand-napszak');
-        if (napszakEl) napszakEl.textContent = timeOfDayInfo.label;
-
-        applyAstronomicalTheme();
-        const container=document.getElementById('sections-container');
-        if (container) container.classList.toggle('night-order', currentHour>=0 && currentHour<6);
-    }
-
     function createHourCard(date, isNight) {
         const hour = date.getHours();
         const start = String(hour).padStart(2,'0');
@@ -1508,7 +1687,7 @@
             renderNightList(localAdasData);
             renderExchangeRates(ratesData);
             updateTickerList(); 
-            fetchAndRenderTop3();
+            fetchAndRenderTopClicks();
         } catch(e) {
             renderDayList(localGyujtoData || {});
             renderNightList(localAdasData || {});
