@@ -936,21 +936,6 @@
         padding: 4px;
     }
 
-    .sky-badge-weather {
-        font-size: 13px;
-        font-weight: 700;
-        color: #0284c7;
-        margin-top: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        background: rgba(2, 132, 199, 0.08);
-        padding: 4px 10px;
-        border-radius: 6px;
-        border: 1px solid rgba(2, 132, 199, 0.2);
-    }
-
     .hero-wind-box {
         flex: 1;
         display: flex;
@@ -964,7 +949,7 @@
         color: #0f172a;
     }
 
-    /* 🌀 KÉP ALAPJÁN ÚJRA-TERVEZETT, PÁVAKÉK ÉLŐ SZÉLIRÁNY-MUTATÓ COMPASS */
+    /* 🌀 PÁVAKÉK ÉLŐ SZÉLIRÁNY-MUTATÓ COMPASS */
     .hero-mini-compass {
         position: relative;
         width: 82px;
@@ -1099,7 +1084,7 @@
     .stat-label-weather { font-size: 10.5px; color: #475569; text-transform: uppercase; font-family: 'Space Mono', monospace; font-weight: 700; }
     .stat-value-weather { font-size: 13.5px; font-weight: 700; font-family: 'Space Mono', monospace; color: #0f172a; }
 
-    /* 🚨 METEOROLÓGIAI VESZÉLYJELZÉS & RIASZTÁSI TÉRKÉP STÍLUSOK (TESZT.HTML ALAPJÁN) */
+    /* 🚨 METEOROLÓGIAI VESZÉLYJELZÉS & RIASZTÁSI TÉRKÉP STÍLUSOK */
     .alert-grid-nyir {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -1337,7 +1322,7 @@
     .rain-segment-weather { font-size: 11.5px; color: #334155; padding: 3px 0; display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(148, 163, 184, 0.25); gap: 4px; }
     .rain-event-end-weather { font-weight: 700; color: #16a34a; font-size: 11.5px; margin-top: 4px; font-family: 'Space Mono', monospace; }
 
-    /* 📜 MAI MÉRÉSEK NAPLÓJA FIX KONTÉNER & TÁBLÁZAT (NINCS ESŐ OSZLOP TÚLCSORDULÁS) */
+    /* 📜 MAI MÉRÉSEK NAPLÓJA FIX KONTÉNER & TÁBLÁZAT */
     .table-wrapper-weather {
         max-height: 320px;
         overflow-y: auto;
@@ -2198,7 +2183,7 @@
         tomorrow: "https://androidapi.idokep.hu/kistersegi/riaszt_48_transp.png"
     };
 
-    // ⚡ IDŐJÁRÁS VILÁGÍTÓAN CACHELT ELŐZŐ HTML ELEMEK
+    // ⚡ IDŐJÁRÁS CACHELT ELEMEK
     let cachedWeatherHTML = {
         left: '',
         rain: '',
@@ -3196,7 +3181,7 @@
             if (t.val === maxVal) tagHtml = '<span style="color:#ef4444; font-weight:800;">🔥 NAPI CSÚCS</span>';
             else if (t.val === minVal) tagHtml = '<span style="color:#22c55e; font-weight:800;">🧊 NAPI MÉLYPONT</span>';
 
-            return `
+            return`
                 <tr>
                     <td><strong>${t.time}</strong></td>
                     <td style="font-weight:800; color:#38bdf8;">${t.val.toFixed(2)} Ft</td>
@@ -3874,2087 +3859,2087 @@
         const num = Number(uv);
         if (num <= 2) return 'background: rgba(34, 197, 94, 0.1); color: #15803d; border: 1px solid rgba(34, 197, 94, 0.25);';
         if (num <= 5) return 'background: rgba(245, 158, 11, 0.12); color: #b45309; border: 1px solid rgba(245, 158, 11, 0.28);';
-if (num <= 7) return 'background: rgba(249, 115, 22, 0.14); color: #c2410c; border: 1px solid rgba(249, 115, 22, 0.3);';
-return 'background: rgba(239, 68, 68, 0.15); color: #b91c1c; border: 1px solid rgba(239, 68, 68, 0.35); font-weight: 700;';
-}
-
-/* ------------------------------------------------------------- */
-/* 🌤️ NYÍREGYHÁZA AKTUÁLIS IDŐJÁRÁSA DASHBOARD ENGINE */
-/* ------------------------------------------------------------- */
-function fmt(val) {
-  if (val === undefined || val === null || val === "N/A") return "N/A";
-  const num = Number(val);
-  return isNaN(num) ? val : num.toFixed(num % 1 === 0 ? 1 : (num * 10) % 1 === 0 ? 1 : 2);
-}
-
-function getTempColor(val) {
-  if (val === "N/A" || val === undefined) return "#0f172a";
-  const t = Number(val);
-  if (t < 0) return "#0284c7";      
-  if (t < 15) return "#0f766e";     
-  if (t < 25) return "#15803d";     
-  if (t < 32) return "#b45309";     
-  return "#dc2626";                 
-}
-
-function getWindColor(val) {
-  if (val === "N/A" || val === undefined) return "#0f172a";
-  const w = Number(val);
-  if (w < 10) return "#15803d";     
-  if (w < 25) return "#0284c7";     
-  if (w < 45) return "#b45309";     
-  return "#dc2626";                 
-}
-
-function getUvColor(val) {
-  if (val === "N/A" || val === undefined) return "#0f172a";
-  const u = Number(val);
-  if (u < 3) return "#15803d";      
-  if (u < 6) return "#b45309";      
-  if (u < 8) return "#c2410c";      
-  if (u < 11) return "#dc2626";     
-  return "#7e22ce";                 
-}
-
-const alertNamesNyir = {
-    zivatar: "⚡ Zivatar",
-    szel: "💨 Szél",
-    eso: "🌧️ Eső",
-    onoseso: "🧊 Ónos eső",
-    hofuvas: "❄️ Hófúvás",
-    ho: "☃️ Havazás",
-    kod: "🌫️ Köd",
-    fagy: "🥶 Fagy",
-    meleg: "☀️ Hőség"
-};
-
-const levelTextNyir = {
-    0: "🟢 Nincs",
-    1: "🟡 I. Fok",
-    2: "🟠 II. Fok",
-    3: "🔴 III. Fok"
-};
-
-function showNyirMap(type, btnEl) {
-    document.querySelectorAll('.map-tab-btn-nyir').forEach(b => b.classList.remove('active'));
-    if (btnEl) btnEl.classList.add('active');
-    const imgEl = document.getElementById('nyirMapImg');
-    if (imgEl && idokepMapUrls[type]) {
-        imgEl.src = idokepMapUrls[type] + '?_cb=' + Date.now();
-    }
-}
-
-function renderNyirAlerts(alertsData) {
-    const panel = document.getElementById('alerts-panel');
-    if (!panel) return;
-
-    let alertHtml = "";
-    const defaultAlerts = [
-        { type: "zivatar", level: 0 },
-        { type: "szel", level: 0 },
-        { type: "eso", level: 0 },
-        { type: "onoseso", level: 0 },
-        { type: "hofuvas", level: 0 },
-        { type: "ho", level: 0 },
-        { type: "kod", level: 0 },
-        { type: "fagy", level: 0 },
-        { type: "meleg", level: 0 }
-    ];
-
-    const activeAlerts = (alertsData && Array.isArray(alertsData) && alertsData.length > 0) ? alertsData : defaultAlerts;
-
-    activeAlerts.forEach(a => {
-        const name = alertNamesNyir[a.type] || a.type;
-        const lvl = a.level || 0;
-        const status = levelTextNyir[lvl] || "🟢 Nincs";
-        
-        alertHtml += `
-            <div class="alert-box-nyir alert-level-${lvl}">
-                ${name}<br>${status}
-            </div>
-        `;
-    });
-
-    panel.innerHTML = `<div class="alert-grid-nyir">${alertHtml}</div>`;
-}
-
-async function loadWeather() {
-  if (!nyirWeatherConfig || !nyirWeatherConfig.enabled) return;
-
-  const leftPanel = document.getElementById('left-panel');
-  if (leftPanel && !weatherLoadedOnce) {
-    leftPanel.innerHTML = `
-      <div class="weather-loader-container">
-        <div class="weather-loader-text">⚡ Töltöm az aktuális időjárási értékeket...</div>
-        <div class="weather-loader-bar-bg">
-          <div class="weather-loader-bar-fill"></div>
-        </div>
-      </div>
-    `;
-  }
-
-  try {
-    // PÁRHUZAMOSAN LEKÉRJÜK A WEATHER.COM FORECAST ÉS AZ IDŐKÉP WORKER ADATOKAT
-    await Promise.all([
-        fetchWeatherComForecast(),
-        fetch(IDOKEP_WORKER_URL)
-            .then(r => r.json())
-            .then(idokepData => {
-                if (idokepData && !idokepData.error) {
-                    nyirIdokepData = idokepData;
-                    if (idokepData.map_now) idokepMapUrls.now = idokepData.map_now;
-                    if (idokepData.map_today) idokepMapUrls.today = idokepData.map_today;
-                    if (idokepData.map_tomorrow) idokepMapUrls.tomorrow = idokepData.map_tomorrow;
-                }
-            })
-            .catch(e => console.warn("Időkép Worker hiba:", e))
-    ]);
-
-    const deployUrl = nyirWeatherConfig.url || "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec";
-    const cacheUrl = deployUrl + (deployUrl.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
-    const response = await fetch(cacheUrl, { cache: "no-store" });
-    const data = await response.json();
-
-    if (data) {
-      globalWeatherStats = data.stats || null;
-      if (data.current) {
-        renderCurrentCard(data.current, data.history || []);
-        renderNyirAlerts(nyirIdokepData?.alerts?.today || nyirIdokepData?.alerts?.now);
-        renderRainLog(data.rainLog);
-        renderWhenLast(data.whenLast);
-        renderStats(data.stats);
-        renderTableOrList(data.history || []);
-        weatherLoadedOnce = true;
-      }
-    }
-  } catch (err) {
-    console.error("Hiba a Nyíregyháza időjárási adatok frissítésekor: ", err);
-  }
-}
-
-function renderCurrentCard(curr, historyList = []) {
-  staticPwsDataCurrent = curr; 
-  const leftPanel = document.getElementById('left-panel');
-  const timeTop = document.getElementById('time-top');
-  const activeTag = document.getElementById('active-station-tag');
-
-  const activeTagStr = "📍 Nyíregyháza • " + (curr.activeStation || "Nyíregyháza #1");
-  const timeTopStr = "⏱️ Utolsó mérés: " + curr.time;
-
-  if (timeTop) timeTop.innerText = timeTopStr;
-  if (activeTag) activeTag.innerText = activeTagStr;
-  
-  cachedWeatherHTML.activeTag = activeTagStr;
-  cachedWeatherHTML.timeTop = timeTopStr;
-
-  const mainTempColor = getTempColor(curr.temp);
-  const uvColor = getUvColor(curr.uvi);
-
-  // 24 ÓRÁS ARCHÍVUMBÓL KISZÁMÍTOTT MÉRT MAX / MIN + BEÁLLÁSI IDŐPONTOK
-  let calculatedMax = null;
-  let calculatedMaxTime = '';
-  let calculatedMin = null;
-  let calculatedMinTime = '';
-
-  if (historyList && historyList.length > 0) {
-    historyList.forEach(item => {
-      const tVal = Number(item.temp);
-      if (!isNaN(tVal)) {
-        if (calculatedMax === null || tVal > calculatedMax) {
-          calculatedMax = tVal;
-          calculatedMaxTime = item.time || '';
-        }
-        if (calculatedMin === null || tVal < calculatedMin) {
-          calculatedMin = tVal;
-          calculatedMinTime = item.time || '';
-        }
-      }
-    });
-  }
-
-  const todayStats = globalWeatherStats?.today || {};
-  
-  const finalMaxVal = calculatedMax !== null ? calculatedMax : (todayStats.maxTemp ? parseFloat(todayStats.maxTemp) : curr.temp);
-  const finalMinVal = calculatedMin !== null ? calculatedMin : (todayStats.minTemp ? parseFloat(todayStats.minTemp) : curr.temp);
-
-  const measuredMaxStr = finalMaxVal !== null && !isNaN(finalMaxVal) ? `${Number(finalMaxVal).toFixed(1)}°C` : '--°C';
-  const measuredMaxTimeStr = calculatedMaxTime ? ` (${calculatedMaxTime})` : (todayStats.maxTempTime ? ` (${todayStats.maxTempTime})` : '');
-
-  const measuredMinStr = finalMinVal !== null && !isNaN(finalMinVal) ? `${Number(finalMinVal).toFixed(1)}°C` : '--°C';
-  const measuredMinTimeStr = calculatedMinTime ? ` (${calculatedMinTime})` : (todayStats.minTempTime ? ` (${todayStats.minTempTime})` : '');
-
-  // Weather.com API Előrejelzett Várható Max/Min
-  const forecastMaxStr = weatherComForecastFull?.temperatureMax && weatherComForecastFull.temperatureMax[0] !== null ? `${Number(weatherComForecastFull.temperatureMax[0]).toFixed(1)}°C` : (todayStats.forecastMax || '--°C');
-  const forecastMinStr = weatherComForecastFull?.temperatureMin && weatherComForecastFull.temperatureMin[0] !== null ? `${Number(weatherComForecastFull.temperatureMin[0]).toFixed(1)}°C` : (todayStats.forecastMin || '--°C');
-
-  const makeCard = (label, val, unit = "", color = "#0f172a") => {
-    if (val === undefined || val === null || val === "N/A") return "";
-    return `
-      <div class="grid-item-weather">
-        <div class="grid-label-weather">${label}</div>
-        <div class="grid-value-weather" style="color:${color}">${fmt(val)} ${unit}</div>
-      </div>
-    `;
-  };
-
-  let gridHtml = "";
-  gridHtml += makeCard("Páratartalom", curr.hum, "%", "#0284c7");
-  gridHtml += makeCard("Harmatpont", curr.dew, "°C", getTempColor(curr.dew));
-  gridHtml += makeCard("Hőindex", curr.heat, "°C", getTempColor(curr.heat));
-  gridHtml += makeCard("Légnyomás", curr.bar, "hPa", "#7e22ce");
-  gridHtml += makeCard("Széllökés", curr.gust, "km/h", getWindColor(curr.gust));
-  gridHtml += makeCard("Csapadék", curr.rain, "mm", "#0284c7");
-  gridHtml += makeCard("Intenzitás", curr.rainrate, "mm/h", "#0284c7");
-  gridHtml += makeCard("Napsugárzás", curr.solarrad, "W/m²", "#b45309");
-  gridHtml += makeCard("UV Index", curr.uvi, "", uvColor);
-
-  const generatedLeftHtml = `
-    <div class="hero-studio-weather">
-      <div class="hero-split-container">
-        <!-- AKTUÁLIS HŐMÉRSÉKLET, ÉGKÉP ÉS KÖZVETLENÜL ALATTA A HŐÉRZET -->
-        <div class="hero-temp-box">
-          <div style="font-size:10px; font-weight:700; color:${mainTempColor}; letter-spacing:1px; font-family:'Space Mono',monospace;">HŐMÉRSÉKLET</div>
-          <div class="main-temp-weather" style="color:${mainTempColor}; text-shadow: 0 2px 10px rgba(0,0,0,0.04);">${fmt(curr.temp)}°C</div>
-          
-          <!-- ÉGKÉP (CSAK HA VAN ADAT) -->
-          ${nyirIdokepData && nyirIdokepData.sky_text ? `
-            <div class="sky-badge-weather">
-              <span>${nyirIdokepData.sky_emoji || '☀️'}</span>
-              <span>${nyirIdokepData.sky_text}</span>
-            </div>
-          ` : ''}
-
-          <!-- HŐÉRZET A FŐ HŐMÉRSÉKLET / ÉGKÉP ALATT -->
-          <div style="font-size:11px; font-weight:700; color:#0f766e; font-family:'Space Mono',monospace; margin-top:4px; background:rgba(15,118,110,0.08); padding:3px 8px; border-radius:6px; border:1px solid rgba(15,118,110,0.2);">
-            🌡️ Hőérzet: <strong>${fmt(curr.chill || curr.heat || curr.temp)}°C</strong>
-          </div>
-        </div>
-
-        <!-- FOTO ALAPJÁN ÚJRA-TERVEZETT, ZÖLD NYILAS ÉLŐ COMPASS -->
-        <div class="hero-wind-box">
-          <div style="font-size:9.5px; font-weight:700; color:#0284c7; letter-spacing:0.5px; font-family:'Space Mono',monospace; display:flex; align-items:center;">
-            <span class="live-dot-wind ${isLiveWindActive ? '' : 'offline'}" id="hero-live-wind-dot"></span> ÉLŐ SZÉL
-          </div>
-
-          <div class="hero-mini-compass">
-            <span class="hero-compass-lbl hero-lbl-n">É</span>
-            <span class="hero-compass-lbl hero-lbl-e">K</span>
-            <span class="hero-compass-lbl hero-lbl-s">D</span>
-            <span class="hero-compass-lbl hero-lbl-w">NY</span>
-            <div class="hero-mini-needle" id="hero-live-needle" style="transform: rotate(${currentLiveWindDir}deg);">
-              <svg class="hero-mini-needle-svg" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L18.5 24L12 18.5L5.5 24L12 2Z" fill="#22c55e" stroke="#16a34a" stroke-width="0.5"/>
-                <path d="M12 46L18.5 24L12 29.5L5.5 24L12 46Z" fill="#15803d" opacity="0.6"/>
-                <circle cx="12" cy="24" r="3.5" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
-              </svg>
-            </div>
-          </div>
-
-          <!-- EGÉSZ SZÁMÚ SEBESSÉG -->
-          <div class="wind-speed-main" id="hero-live-wind-spd">0 km/h</div>
-          
-          <!-- BEAUFORT SKÁLA SZERINTI MINŐSÍTÉS -->
-          <div class="wind-beaufort-tag" id="hero-live-beaufort">Szélcsend</div>
-          
-          <!-- TELJES ÉGTÁJ MEGNEVEZÉS -->
-          <div class="wind-dir-full-text" id="hero-live-wind-dir">Északi</div>
-        </div>
-      </div>
-      
-      <!-- LENTI SÁV: TIZEDES PONTOSSÁGÚ MÉRT ÉS ELŐREJELZETT EXTRÉMEK BEÁLLÁSI IDŐPONTOKKAL -->
-      <div class="hero-stats-weather">
-        <div class="stat-box-weather">
-          <div class="stat-label-weather" style="color:#dc2626;">🔥 MÉRT MAX / MIN</div>
-          <div class="stat-value-weather" style="font-size:12px;">
-            <span style="color:#dc2626;">${measuredMaxStr}${measuredMaxTimeStr}</span> / <span style="color:#0284c7;">${measuredMinStr}${measuredMinTimeStr}</span>
-          </div>
-        </div>
-        
-        <div class="stat-box-weather">
-          <div class="stat-label-weather" style="color:#2563eb;">🔮 ELŐREJELZETT MAX / MIN</div>
-          <div class="stat-value-weather" style="font-size:12px;">
-            <span style="color:#dc2626;">${forecastMaxStr}</span> / <span style="color:#0284c7;">${forecastMinStr}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid-small-weather">
-      ${gridHtml}
-    </div>
-  `;
-
-  cachedWeatherHTML.left = generatedLeftHtml;
-  if (leftPanel) leftPanel.innerHTML = generatedLeftHtml;
-
-  updateWindDisplayUI();
-}
-
-function renderWhenLast(whenLast) {
-  const panel = document.getElementById('when-last-panel');
-  if (!panel) return;
-
-  if (!whenLast) {
-    panel.innerHTML = '<div style="color:#94a3b8; font-size:11px; text-align:center;">Adatok betöltése...</div>';
-    return;
-  }
-
-  const generatedHtml = `
-    <div class="stats-grid-weather">
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">🌧️ Utolsó Eső</div>
-        <div class="stat-card-val-weather" style="color:#0284c7;">${whenLast.lastRain || '--'}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">⚡ Felhőszakadás</div>
-        <div class="stat-card-val-weather" style="color:#7e22ce;">${whenLast.lastStorm || '--'}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">💨 Erős Szél</div>
-        <div class="stat-card-val-weather" style="color:#7e22ce;">${whenLast.lastHighWind || '--'}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">☀️ Forró Nap</div>
-        <div class="stat-card-val-weather" style="color:#dc2626;">${whenLast.lastHotDay || '--'}</div>
-      </div>
-      <div class="stat-card-box-weather" style="grid-column: 1 / -1;">
-        <div class="stat-card-title-weather">❄️ Utolsó Fagynap (<0°C)</div>
-        <div class="stat-card-val-weather" style="color:#0284c7;">${whenLast.lastFrostDay || '--'}</div>
-      </div>
-    </div>
-  `;
-
-  cachedWeatherHTML.whenLast = generatedHtml;
-  panel.innerHTML = generatedHtml;
-}
-
-function renderRainLog(rainLog) {
-  const panel = document.getElementById('rain-panel');
-  if (!panel) return;
-
-  if (!rainLog) {
-    panel.innerHTML = '<div style="color:#94a3b8; font-size:11px; text-align:center;">Adatok betöltése...</div>';
-    return;
-  }
-
-  let html = `<div class="rain-summary-badge-weather">🌧️ Mai Csapadék (00:00-tól): ${rainLog.todayTotalRain !== undefined ? rainLog.todayTotalRain : '0'} mm</div>`;
-
-  if (!rainLog.events || rainLog.events.length === 0) {
-    html += `<div style="color:#475569; font-size:11.5px; margin-top:2px; font-family:\'Space Mono\',monospace; font-weight:700;">☀️ Ma még nem esett csapadék Nyíregyházán.</div>`;
-  } else {
-    rainLog.events.forEach(ev => {
-      html += `<div class="rain-event-box-weather">`;
-      html += `<div class="rain-event-header-weather">💧 Esemény (${ev.startTime} - ${ev.endTime}) • ${ev.totalMm} mm</div>`;
-      
-      ev.segments.forEach(seg => {
-        html += `
-          <div class="rain-segment-weather">
-            <span>${seg.timeRange} - ${seg.category}</span>
-            <span style="color:#0284c7; font-weight:700;">${seg.mm} mm</span>
-          </div>
-        `;
-      });
-
-      html += `<div class="rain-event-end-weather">${ev.summary}</div>`;
-      html += `</div>`;
-    });
-  }
-
-  cachedWeatherHTML.rain = html;
-  panel.innerHTML = html;
-}
-
-function renderStats(stats) {
-  const panel = document.getElementById('stats-panel');
-  if (!panel) return;
-
-  // KIZÁRÓLAG VALÓS GOOGLE SHEETS / PWS ADATOK + IDŐPONTOK (HAMIS ADATOK NÉLKÜL)
-  const allTime = stats?.allTime || {};
-  const today = stats?.today || {};
-
-  const startDateStr = allTime.startDate ? `📅 ${allTime.startDate}` : "📅 Rögzítés kezdete adatbázis szerint";
-
-  const maxTempStr = allTime.maxTemp ? `${allTime.maxTemp}${allTime.maxTempDate ? ' (' + allTime.maxTempDate + ')' : ''}` : '--';
-  const minTempStr = allTime.minTemp ? `${allTime.minTemp}${allTime.minTempDate ? ' (' + allTime.minTempDate + ')' : ''}` : '--';
-  const maxGustStr = allTime.maxGust ? `${allTime.maxGust}${allTime.maxGustDate ? ' (' + allTime.maxGustDate + ')' : ''}` : '--';
-  const maxRainDayStr = allTime.maxRainDay ? `${allTime.maxRainDay}${allTime.maxRainDayDate ? ' (' + allTime.maxRainDayDate + ')' : ''}` : '--';
-  const maxRainRateStr = allTime.maxRainRate ? `${allTime.maxRainRate}${allTime.maxRainRateDate ? ' (' + allTime.maxRainRateDate + ')' : ''}` : '--';
-
-  const generatedHtml = `
-    <div style="font-size:11px; font-family:'Space Mono',monospace; font-weight:700; color:#0284c7; background:rgba(2,132,199,0.08); padding:6px 10px; border-radius:8px; margin-bottom:8px; border:1px solid rgba(2,132,199,0.2); text-align:center;">
-      📜 MÉRÉSEK KEZDETE: <strong>${startDateStr}</strong>
-    </div>
-
-    <div class="stats-grid-weather">
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">☀️ Rekord Meleg (Max)</div>
-        <div class="stat-card-val-weather" style="color:#dc2626;">${maxTempStr}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">❄️ Rekord Hideg (Min)</div>
-        <div class="stat-card-val-weather" style="color:#0284c7;">${minTempStr}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">💨 Max Széllökés</div>
-        <div class="stat-card-val-weather" style="color:#7e22ce;">${maxGustStr}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">🌧️ Max Napi Csapadék</div>
-        <div class="stat-card-val-weather" style="color:#0284c7;">${maxRainDayStr}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">⚡ Max Intenzitás</div>
-        <div class="stat-card-val-weather" style="color:#0284c7;">${maxRainRateStr}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">🌵 Aszályos Napok</div>
-        <div class="stat-card-val-weather" style="color:#b45309;">${allTime.dryDays ? allTime.dryDays + ' nap' : '--'}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">↕️ Napi Hőingás</div>
-        <div class="stat-card-val-weather" style="color:#b45309;">${today.rangeTemp || '--'}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">☀️ Napsütéses Órák</div>
-        <div class="stat-card-val-weather" style="color:#b45309;">${today.sunHours || '--'}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">🌫️ Köd / Harmat</div>
-        <div class="stat-card-val-weather" style="color:#0284c7;">${today.fogRisk || '--'}</div>
-      </div>
-      <div class="stat-card-box-weather">
-        <div class="stat-card-title-weather">🏠 Energia Igény</div>
-        <div class="stat-card-val-weather" style="color:#c2410c;">${today.cddHdd || '--'}</div>
-      </div>
-    </div>
-  `;
-
-  cachedWeatherHTML.stats = generatedHtml;
-  panel.innerHTML = generatedHtml;
-}
-
-function renderTableOrList(history) {
-  const container = document.getElementById('log-view-container');
-  if (!container || !history) return;
-
-  const reversed = [...history].reverse();
-  const isMobile = window.innerWidth < 768;
-
-  // Színezett Jelölések Kiszámítása a Naplóban
-  const validTemps = history.map(h => Number(h.temp)).filter(t => !isNaN(t));
-  const maxLogTemp = validTemps.length > 0 ? Math.max(...validTemps) : null;
-  const minLogTemp = validTemps.length > 0 ? Math.min(...validTemps) : null;
-
-  let generatedHtml = '';
-
-  if (isMobile) {
-    let listHtml = `<div class="mobile-log-list-weather">`;
-    reversed.forEach(row => {
-      const tNum = Number(row.temp);
-      const tColor = getTempColor(row.temp);
-      const wColor = getWindColor(row.wind);
-
-      let tagBadge = '';
-      if (tNum === maxLogTemp) {
-        tagBadge = `<span style="background:rgba(220,38,38,0.15); color:#dc2626; padding:1px 5px; border-radius:4px; font-size:10px; font-weight:800; border:1px solid rgba(220,38,38,0.3);">🔥 MAX</span>`;
-      } else if (tNum === minLogTemp) {
-        tagBadge = `<span style="background:rgba(2,132,199,0.15); color:#0284c7; padding:1px 5px; border-radius:4px; font-size:10px; font-weight:800; border:1px solid rgba(2,132,199,0.3);">🧊 MIN</span>`;
-      }
-
-      listHtml += `
-        <div class="mobile-log-card-weather">
-          <div class="mobile-log-top-weather">
-            <span>⏱️ ${row.time} ${tagBadge}</span>
-            <span style="color:${tColor}">${fmt(row.temp)}°C</span>
-            <span style="color:#0284c7">🌧️ ${fmt(row.rain)} mm</span>
-          </div>
-          <div class="mobile-log-sub-weather">
-            <span>Pára: ${fmt(row.hum)}%</span>
-            <span>Légny.: ${fmt(row.bar)} hPa</span>
-            <span style="color:${wColor}">Szél: ${fmt(row.wind)} km/h</span>
-          </div>
-        </div>
-      `;
-    });
-    listHtml += `</div>`;
-    generatedHtml = listHtml;
-  } else {
-    let tableHtml = `
-      <div class="table-wrapper-weather">
-        <table>
-          <thead>
-            <tr>
-              <th style="width:25%;">Idő</th>
-              <th style="width:18%;">Hőm.</th>
-              <th style="width:14%;">Pára</th>
-              <th style="width:15%;">Légny.</th>
-              <th style="width:14%;">Szél</th>
-              <th style="width:14%;">Eső</th>
-            </tr>
-          </thead>
-          <tbody>
-    `;
-    reversed.forEach(row => {
-      const tNum = Number(row.temp);
-      const tColor = getTempColor(row.temp);
-      const wColor = getWindColor(row.wind);
-
-      let tagBadge = '';
-      if (tNum === maxLogTemp) {
-        tagBadge = `<span style="background:rgba(220,38,38,0.15); color:#dc2626; padding:1px 4px; border-radius:4px; font-size:9px; font-weight:800; border:1px solid rgba(220,38,38,0.3); margin-left:2px;">🔥MAX</span>`;
-      } else if (tNum === minLogTemp) {
-        tagBadge = `<span style="background:rgba(2,132,199,0.15); color:#0284c7; padding:1px 4px; border-radius:4px; font-size:9px; font-weight:800; border:1px solid rgba(2,132,199,0.3); margin-left:2px;">🧊MIN</span>`;
-      }
-
-      tableHtml += `
-        <tr>
-          <td><strong>${row.time}</strong>${tagBadge}</td>
-          <td style="color:${tColor}; font-weight:700;">${fmt(row.temp)}°C</td>
-          <td>${fmt(row.hum)}%</td>
-          <td>${fmt(row.bar)}</td>
-          <td style="color:${wColor}; font-weight:700;">${fmt(row.wind)}</td>
-          <td style="color:#0284c7;">${fmt(row.rain)}</td>
-        </tr>
-      `;
-    });
-    tableHtml += `</tbody></table></div>`;
-    generatedHtml = tableHtml;
-  }
-
-  cachedWeatherHTML.table = generatedHtml;
-  container.innerHTML = generatedHtml;
-}
-
-function scheduleClockSync() {
-  const now = new Date();
-  const mins = now.getMinutes();
-  const secs = now.getSeconds();
-  const ms = now.getMilliseconds();
-  
-  const nextTargetMin = Math.ceil((mins + 0.001) / 10) * 10;
-  const diffMins = nextTargetMin - mins;
-  const msToNext = (diffMins * 60 * 1000) - (secs * 1000) - ms + 2000;
-  
-  setTimeout(function() {
-    loadWeather();
-    scheduleClockSync();
-  }, msToNext);
-}
-
-/* 🌧️ 0. ÉLŐ CSAPADÉK & RADAR MONITOR ENGINE */
-async function fetchRadarNowcastData() {
-    const stripContainer = document.getElementById('radar-inline-strip-wrapper');
-    if (!stripContainer) return;
-
-    if (!radarConfig || !radarConfig.enabled) {
-        stripContainer.style.display = 'none';
-        return;
+        if (num <= 7) return 'background: rgba(249, 115, 22, 0.14); color: #c2410c; border: 1px solid rgba(249, 115, 22, 0.3);';
+        return 'background: rgba(239, 68, 68, 0.15); color: #b91c1c; border: 1px solid rgba(239, 68, 68, 0.35); font-weight: 700;';
     }
 
-    try {
-        const lat = radarConfig.lat || 47.9554;
-        const lon = radarConfig.lon || 21.7167;
-        const userRadiusKm = radarConfig.radiusKm || 50;
-
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&minutely_15=precipitation,precipitation_probability&daily=precipitation_sum&timezone=auto&forecast_minutely_15=16`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error("Radar API hiba");
-        const data = await res.json();
-        
-        const minutely = data.minutely_15;
-        const daily = data.daily;
-        if (!minutely || !minutely.precipitation) throw new Error("Nincs csapadékadat");
-
-        const precips = minutely.precipitation;
-        const probs = minutely.precipitation_probability || [];
-        const times = minutely.time || [];
-        const todayPrecipSum = (daily && daily.precipitation_sum && daily.precipitation_sum[0] !== undefined) ? Number(daily.precipitation_sum[0]) : 0;
-
-        let activeCells = [];
-        let maxPrecipOverall = 0;
-
-        for (let i = 0; i < precips.length; i++) {
-            const p = precips[i] || 0;
-            if (p > maxPrecipOverall) maxPrecipOverall = p;
-
-            if (p > 0.1) {
-                const etaMin = i * 15;
-                const distEst = etaMin === 0 ? 0 : Math.max(1, Math.round(etaMin * 0.65));
-                
-                if (distEst <= userRadiusKm) {
-                    activeCells.push({
-                        index: i,
-                        precip: p,
-                        etaMin: etaMin,
-                        timeStr: times[i] ? new Date(times[i]).toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit'}) : '',
-                        distKm: distEst,
-                        prob: probs[i] !== undefined ? probs[i] : 0
-                    });
-                }
-            }
-        }
-
-        const cityName = radarConfig.cityName || "Nyíregyháza";
-
-        if (activeCells.length === 0) {
-            if (radarConfig.autoHide) {
-                stripContainer.style.display = 'none';
-                return;
-            }
-            stripContainer.innerHTML = `
-                <div class="rates-strip-bar" style="margin-bottom:14px; background:rgba(255,255,255,0.88);">
-                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-family:'Space Mono',monospace; font-size:0.75rem;">
-                        <span style="font-weight:700; color:#15803d;">☀️ RADAR MONITOR (${cityName}):</span>
-                        <span style="color:#0f172a; font-weight:600;">A beállított ${userRadiusKm} km-es sugáron belül nincs közeledő csapadéksáv.</span>
-                        <span>|</span>
-                        <span>🌧️ <strong>Mai eddigi eső:</strong> <strong style="color:#0284c7;">${todayPrecipSum.toFixed(1)} mm</strong></span>
-                        <span style="color:#64748b; font-size:0.65rem; font-weight:600;">(Frissítve: ${new Date().toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit'})})</span>
-                    </div>
-                </div>
-            `;
-            stripContainer.style.display = 'block';
-        } else {
-            activeCells.sort((a, b) => {
-                if (b.precip >= 10 && a.precip < 10) return 1;
-                if (a.precip >= 10 && b.precip < 10) return -1;
-                return a.etaMin - b.etaMin;
-            });
-
-            const primaryCell = activeCells[0];
-            const multiCellNote = activeCells.length > 1 ? ` (Több csapadékcella is mozgásban van!)` : ``;
-
-            let prob = primaryCell.prob;
-            if (primaryCell.etaMin === 0) {
-                prob = Math.max(98, prob || 95);
-            } else if (primaryCell.etaMin <= 20 && primaryCell.precip >= 1.0) {
-                prob = Math.max(85, prob || 85);
-            } else {
-                prob = Math.min(99, Math.max(prob || 0, Math.round(primaryCell.precip * 25 + 40)));
-            }
-
-            let typeStr = "Csendes eső";
-            let typeBg = "background:rgba(14,165,233,0.12); color:#0284c7; border:1px solid rgba(14,165,233,0.3);";
-            if (primaryCell.precip >= 10) {
-                typeStr = "⚡ Heves felhőszakadás / Zivatar";
-                typeBg = "background:rgba(220,38,38,0.15); color:#dc2626; border:1px solid rgba(220,38,38,0.35);";
-            } else if (primaryCell.precip >= 3) {
-                typeStr = "🌧️ Mérsékelt / Erős eső";
-                typeBg = "background:rgba(245,158,11,0.15); color:#d97706; border:1px solid rgba(245,158,11,0.35);";
-            }
-
-            const etaText = primaryCell.etaMin === 0 ? "⚠️ ÉPPEN ESIK / MEGÉRKEZETT" : `~${primaryCell.etaMin} perc múlva (${primaryCell.timeStr})`;
-
-            stripContainer.innerHTML = `
-                <div class="rates-strip-bar" style="margin-bottom:14px; border-color:rgba(220,38,38,0.3); background:rgba(254,242,242,0.92);">
-                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-family:'Space Mono',monospace; font-size:0.75rem;">
-                        <span style="padding:3px 8px; border-radius:6px; font-weight:700; ${typeBg}">🌧️ CSAPADÉK RIASZTÁS (${cityName})${multiCellNote}</span>
-                        <span>⏱️ <strong>Érkezés:</strong> ${etaText}</span>
-                        <span>|</span>
-                        <span>📍 <strong>Távolság:</strong> ~${primaryCell.distKm} km (NY-NYÉ)</span>
-                        <span>|</span>
-                        <span>💧 <strong>Intenzitás:</strong> ${primaryCell.precip.toFixed(1)} mm/h (${typeStr})</span>
-                        <span>|</span>
-                        <span>🌧️ <strong>Mai eddigi eső:</strong> <strong style="color:#0284c7;">${todayPrecipSum.toFixed(1)} mm</strong></span>
-                        <span>|</span>
-                        <span>🎯 <strong>Valószínűség:</strong> ${prob}%</span>
-                    </div>
-                </div>
-            `;
-            stripContainer.style.display = 'block';
-        }
-    } catch(e) {
-        if (stripContainer && radarConfig.autoHide) stripContainer.style.display = 'none';
+    /* ------------------------------------------------------------- */
+    /* 🌤️ NYÍREGYHÁZA AKTUÁLIS IDŐJÁRÁSA DASHBOARD ENGINE & ÚJ PROFI LAYOUT */
+    /* ------------------------------------------------------------- */
+    function fmt(val) {
+      if (val === undefined || val === null || val === "N/A") return "N/A";
+      const num = Number(val);
+      return isNaN(num) ? val : num.toFixed(num % 1 === 0 ? 1 : (num * 10) % 1 === 0 ? 1 : 2);
     }
-}
 
-function startRadarEngine() {
-    if (radarIntervalId) clearInterval(radarIntervalId);
-    fetchRadarNowcastData();
-    const intervalMin = Math.max(1, parseInt(radarConfig.intervalMin) || 2);
-    radarIntervalId = setInterval(fetchRadarNowcastData, intervalMin * 60 * 1000);
-}
+    function getTempColor(val) {
+      if (val === "N/A" || val === undefined) return "#0f172a";
+      const t = Number(val);
+      if (t < 0) return "#0284c7";      
+      if (t < 15) return "#0f766e";     
+      if (t < 25) return "#15803d";     
+      if (t < 32) return "#b45309";     
+      return "#dc2626";                 
+    }
 
-async function saveRadarConfig() {
-    const enabled = document.getElementById('radar-enabled-checkbox').checked;
-    const autoHide = document.getElementById('radar-autohide-checkbox').checked;
-    const cityName = document.getElementById('radar-city-input').value.trim() || 'Nyíregyháza';
-    const lat = parseFloat(document.getElementById('radar-lat-input').value) || 47.9554;
-    const lon = parseFloat(document.getElementById('radar-lon-input').value) || 21.7167;
-    const radiusKm = Math.max(5, parseInt(document.getElementById('radar-radius-input').value) || 50);
-    const intervalMin = Math.max(1, parseInt(document.getElementById('radar-interval-input').value) || 2);
+    function getWindColor(val) {
+      if (val === "N/A" || val === undefined) return "#0f172a";
+      const w = Number(val);
+      if (w < 10) return "#15803d";     
+      if (w < 25) return "#0284c7";     
+      if (w < 45) return "#b45309";     
+      return "#dc2626";                 
+    }
 
-    radarConfig = {
-        enabled, autoHide, cityName, lat, lon, radiusKm, intervalMin,
-        updatedAt: new Date().toISOString()
+    function getUvColor(val) {
+      if (val === "N/A" || val === undefined) return "#0f172a";
+      const u = Number(val);
+      if (u < 3) return "#15803d";      
+      if (u < 6) return "#b45309";      
+      if (u < 8) return "#c2410c";      
+      if (u < 11) return "#dc2626";     
+      return "#7e22ce";                 
+    }
+
+    const alertNamesNyir = {
+        zivatar: "⚡ Zivatar",
+        szel: "💨 Szél",
+        eso: "🌧️ Eső",
+        onoseso: "🧊 Ónos eső",
+        hofuvas: "❄️ Hófúvás",
+        ho: "☃️ Havazás",
+        kod: "🌫️ Köd",
+        fagy: "🥶 Fagy",
+        meleg: "☀️ Hőség"
     };
 
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/radar_config.json`, {
-            method: 'PUT',
-            body: JSON.stringify(radarConfig)
+    const levelTextNyir = {
+        0: "🟢 Nincs",
+        1: "🟡 I. Fok",
+        2: "🟠 II. Fok",
+        3: "🔴 III. Fok"
+    };
+
+    function showNyirMap(type, btnEl) {
+        document.querySelectorAll('.map-tab-btn-nyir').forEach(b => b.classList.remove('active'));
+        if (btnEl) btnEl.classList.add('active');
+        const imgEl = document.getElementById('nyirMapImg');
+        if (imgEl && idokepMapUrls[type]) {
+            imgEl.src = idokepMapUrls[type] + '?_cb=' + Date.now();
+        }
+    }
+
+    function renderNyirAlerts(alertsData) {
+        const panel = document.getElementById('alerts-panel');
+        if (!panel) return;
+
+        let alertHtml = "";
+        const defaultAlerts = [
+            { type: "zivatar", level: 0 },
+            { type: "szel", level: 0 },
+            { type: "eso", level: 0 },
+            { type: "onoseso", level: 0 },
+            { type: "hofuvas", level: 0 },
+            { type: "ho", level: 0 },
+            { type: "kod", level: 0 },
+            { type: "fagy", level: 0 },
+            { type: "meleg", level: 0 }
+        ];
+
+        const activeAlerts = (alertsData && Array.isArray(alertsData) && alertsData.length > 0) ? alertsData : defaultAlerts;
+
+        activeAlerts.forEach(a => {
+            const name = alertNamesNyir[a.type] || a.type;
+            const lvl = a.level || 0;
+            const status = levelTextNyir[lvl] || "🟢 Nincs";
+            
+            alertHtml += `
+                <div class="alert-box-nyir alert-level-${lvl}">
+                    ${name}<br>${status}
+                </div>
+            `;
         });
-        alert(`✅ Radar Beállítások elmentve!\nVáros: ${cityName}\nPásztázási Sugár: ${radiusKm} km\nFrissítés: ${intervalMin} perc`);
-        startRadarEngine();
-    } catch(e) { alert("Hiba a mentéskor!"); }
-}
 
-/* 🧊 1. FIX FEJLÉC KOCKA IDŐJÁRÁS LOGIKA */
-async function fetchKockaPwsData() {
-    const widgetBox = document.getElementById('weather-widget-box');
-    const contentBox = document.getElementById('unified-weather-strip');
-
-    if (!widgetBox || !contentBox) return;
-
-    const mode = kockaPwsConfig?.mode || 'pws';
-
-    if (mode === 'off') {
-        widgetBox.style.display = 'none';
-        return;
+        panel.innerHTML = `<div class="alert-grid-nyir">${alertHtml}</div>`;
     }
 
-    if (mode === 'radio') {
-        widgetBox.setAttribute('style', 'background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 1px solid var(--border-color); display: flex; cursor: pointer;');
-        widgetBox.onclick = openRadioPickerModal;
-        contentBox.innerHTML = `
-            <div class="radio-cube-container">
-                <div class="radio-cube-top">
-                    <span class="radio-cube-title">${radioConfig.name || 'ÉLŐ RÁDIÓ'}</span>
-                    <div class="radio-cube-status-dot ${isRadioPlaying ? 'active' : ''}" id="radio-cube-dot"></div>
+    async function loadWeather() {
+      if (!nyirWeatherConfig || !nyirWeatherConfig.enabled) return;
+
+      const leftPanel = document.getElementById('left-panel');
+      if (leftPanel && !weatherLoadedOnce) {
+        leftPanel.innerHTML = `
+          <div class="weather-loader-container">
+            <div class="weather-loader-text">⚡ Töltöm az aktuális időjárási értékeket...</div>
+            <div class="weather-loader-bar-bg">
+              <div class="weather-loader-bar-fill"></div>
+            </div>
+          </div>
+        `;
+      }
+
+      try {
+        await Promise.all([
+            fetchWeatherComForecast(),
+            fetch(IDOKEP_WORKER_URL)
+                .then(r => r.json())
+                .then(idokepData => {
+                    if (idokepData && !idokepData.error) {
+                        nyirIdokepData = idokepData;
+                        if (idokepData.map_now) idokepMapUrls.now = idokepData.map_now;
+                        if (idokepData.map_today) idokepMapUrls.today = idokepData.map_today;
+                        if (idokepData.map_tomorrow) idokepMapUrls.tomorrow = idokepData.map_tomorrow;
+                        
+                        // Azonnal a legfrissebb 1-3 órás térképet töltjük be timestamp-pel
+                        showNyirMap('now', document.querySelector('.map-tab-btn-nyir'));
+                    }
+                })
+                .catch(e => console.warn("Időkép Worker hiba:", e))
+        ]);
+
+        const deployUrl = nyirWeatherConfig.url || "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec";
+        const cacheUrl = deployUrl + (deployUrl.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+        const response = await fetch(cacheUrl, { cache: "no-store" });
+        const data = await response.json();
+
+        if (data) {
+          globalWeatherStats = data.stats || null;
+          if (data.current) {
+            renderCurrentCard(data.current, data.history || []);
+            renderNyirAlerts(nyirIdokepData?.alerts?.today || nyirIdokepData?.alerts?.now);
+            renderRainLog(data.rainLog);
+            renderWhenLast(data.whenLast);
+            renderStats(data.stats);
+            renderTableOrList(data.history || []);
+            weatherLoadedOnce = true;
+          }
+        }
+      } catch (err) {
+        console.error("Hiba a Nyíregyháza időjárási adatok frissítésekor: ", err);
+      }
+    }
+
+    function renderCurrentCard(curr, historyList = []) {
+      staticPwsDataCurrent = curr; 
+      const leftPanel = document.getElementById('left-panel');
+      const timeTop = document.getElementById('time-top');
+      const activeTag = document.getElementById('active-station-tag');
+
+      const activeTagStr = "📍 Nyíregyháza • " + (curr.activeStation || "Nyíregyháza #1");
+      const timeTopStr = "⏱️ Utolsó mérés: " + curr.time;
+
+      if (timeTop) timeTop.innerText = timeTopStr;
+      if (activeTag) activeTag.innerText = activeTagStr;
+      
+      cachedWeatherHTML.activeTag = activeTagStr;
+      cachedWeatherHTML.timeTop = timeTopStr;
+
+      const mainTempColor = getTempColor(curr.temp);
+      const uvColor = getUvColor(curr.uvi);
+
+      // 24 ÓRÁS ARCHÍVUMBÓL KISZÁMÍTOTT MÉRT MAX / MIN + BEÁLLÁSI IDŐPONTOK
+      let calculatedMax = null;
+      let calculatedMaxTime = '';
+      let calculatedMin = null;
+      let calculatedMinTime = '';
+
+      if (historyList && historyList.length > 0) {
+        historyList.forEach(item => {
+          const tVal = Number(item.temp);
+          if (!isNaN(tVal)) {
+            if (calculatedMax === null || tVal > calculatedMax) {
+              calculatedMax = tVal;
+              calculatedMaxTime = item.time || '';
+            }
+            if (calculatedMin === null || tVal < calculatedMin) {
+              calculatedMin = tVal;
+              calculatedMinTime = item.time || '';
+            }
+          }
+        });
+      }
+
+      const todayStats = globalWeatherStats?.today || {};
+      
+      const finalMaxVal = calculatedMax !== null ? calculatedMax : (todayStats.maxTemp ? parseFloat(todayStats.maxTemp) : curr.temp);
+      const finalMinVal = calculatedMin !== null ? calculatedMin : (todayStats.minTemp ? parseFloat(todayStats.minTemp) : curr.temp);
+
+      const measuredMaxStr = finalMaxVal !== null && !isNaN(finalMaxVal) ? `${Number(finalMaxVal).toFixed(1)}°C` : '--°C';
+      const measuredMaxTimeStr = calculatedMaxTime ? `${calculatedMaxTime}` : (todayStats.maxTempTime || '--:--');
+
+      const measuredMinStr = finalMinVal !== null && !isNaN(finalMinVal) ? `${Number(finalMinVal).toFixed(1)}°C` : '--°C';
+      const measuredMinTimeStr = calculatedMinTime ? `${calculatedMinTime}` : (todayStats.minTempTime || '--:--');
+
+      // Weather.com API Előrejelzett Várható Max/Min
+      const forecastMaxStr = weatherComForecastFull?.temperatureMax && weatherComForecastFull.temperatureMax[0] !== null ? `${Number(weatherComForecastFull.temperatureMax[0]).toFixed(1)}°C` : (todayStats.forecastMax || '--°C');
+      const forecastMinStr = weatherComForecastFull?.temperatureMin && weatherComForecastFull.temperatureMin[0] !== null ? `${Number(weatherComForecastFull.temperatureMin[0]).toFixed(1)}°C` : (todayStats.forecastMin || '--°C');
+
+      const makeCard = (label, val, unit = "", color = "#0f172a") => {
+        if (val === undefined || val === null || val === "N/A") return "";
+        return `
+          <div class="grid-item-weather">
+            <div class="grid-label-weather">${label}</div>
+            <div class="grid-value-weather" style="color:${color}">${fmt(val)} ${unit}</div>
+          </div>
+        `;
+      };
+
+      let gridHtml = "";
+      gridHtml += makeCard("Páratartalom", curr.hum, "%", "#0284c7");
+      gridHtml += makeCard("Harmatpont", curr.dew, "°C", getTempColor(curr.dew));
+      gridHtml += makeCard("Hőindex", curr.heat, "°C", getTempColor(curr.heat));
+      gridHtml += makeCard("Légnyomás", curr.bar, "hPa", "#7e22ce");
+      gridHtml += makeCard("Széllökés", curr.gust, "km/h", getWindColor(curr.gust));
+      gridHtml += makeCard("Csapadék", curr.rain, "mm", "#0284c7");
+      gridHtml += makeCard("Intenzitás", curr.rainrate, "mm/h", "#0284c7");
+      gridHtml += makeCard("Napsugárzás", curr.solarrad, "W/m²", "#b45309");
+      gridHtml += makeCard("UV Index", curr.uvi, "", uvColor);
+
+      const generatedLeftHtml = `
+        <div class="hero-studio-weather">
+          <div class="hero-split-container">
+            <!-- AKTUÁLIS HŐMÉRSÉKLET ÉS HŐÉRZET (ÉGKÉP LEÍRÁS ELTÁVOLÍTVA) -->
+            <div class="hero-temp-box">
+              <div style="font-size:10px; font-weight:700; color:${mainTempColor}; letter-spacing:1px; font-family:'Space Mono',monospace;">HŐMÉRSÉKLET</div>
+              <div class="main-temp-weather" style="color:${mainTempColor}; text-shadow: 0 2px 10px rgba(0,0,0,0.04);">${fmt(curr.temp)}°C</div>
+              
+              <div style="font-size:11px; font-weight:700; color:#0f766e; font-family:'Space Mono',monospace; margin-top:6px; background:rgba(15,118,110,0.08); padding:3px 8px; border-radius:6px; border:1px solid rgba(15,118,110,0.2);">
+                🌡️ Hőérzet: <strong>${fmt(curr.chill || curr.heat || curr.temp)}°C</strong>
+              </div>
+            </div>
+
+            <!-- PÁVAKÉK ÉLŐ COMPASS -->
+            <div class="hero-wind-box">
+              <div style="font-size:9.5px; font-weight:700; color:#0284c7; letter-spacing:0.5px; font-family:'Space Mono',monospace; display:flex; align-items:center;">
+                <span class="live-dot-wind ${isLiveWindActive ? '' : 'offline'}" id="hero-live-wind-dot"></span> ÉLŐ SZÉL
+              </div>
+
+              <div class="hero-mini-compass">
+                <span class="hero-compass-lbl hero-lbl-n">É</span>
+                <span class="hero-compass-lbl hero-lbl-e">K</span>
+                <span class="hero-compass-lbl hero-lbl-s">D</span>
+                <span class="hero-compass-lbl hero-lbl-w">NY</span>
+                <div class="hero-mini-needle" id="hero-live-needle" style="transform: rotate(${currentLiveWindDir}deg);">
+                  <svg class="hero-mini-needle-svg" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L18.5 24L12 18.5L5.5 24L12 2Z" fill="#22c55e" stroke="#16a34a" stroke-width="0.5"/>
+                    <path d="M12 46L18.5 24L12 29.5L5.5 24L12 46Z" fill="#15803d" opacity="0.6"/>
+                    <circle cx="12" cy="24" r="3.5" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
+                  </svg>
                 </div>
-                <div class="radio-cube-mid">
-                    <button class="radio-cube-play-btn" id="radio-cube-btn" onclick="event.stopPropagation(); toggleRadioPlay();">${isRadioPlaying ? '⏸️ PAUSE' : '▶️ PLAY'}</button>
-                    <div class="radio-eq-container">
-                        <div class="eq-bar ${isRadioPlaying ? 'playing' : ''}"></div>
-                        <div class="eq-bar ${isRadioPlaying ? 'playing' : ''}"></div>
-                        <div class="eq-bar ${isRadioPlaying ? 'playing' : ''}"></div>
-                        <div class="eq-bar ${isRadioPlaying ? 'playing' : ''}"></div>
+              </div>
+
+              <div class="wind-speed-main" id="hero-live-wind-spd">0 km/h</div>
+              <div class="wind-beaufort-tag" id="hero-live-beaufort">Szélcsend</div>
+              <div class="wind-dir-full-text" id="hero-live-wind-dir">Északi</div>
+            </div>
+          </div>
+          
+          <!-- LENTI SÁV: PROFI IDŐJÁRÁS ÁLLOMÁSOK SZERINTI EGYMÁS ALATTI MÉRT ÉS ELŐREJELZETT ÉRTÉKEK -->
+          <div class="hero-stats-weather">
+            <div class="stat-box-weather" style="align-items:flex-start; text-align:left; padding-left:8px;">
+              <div class="stat-label-weather" style="color:#1e3a8a; margin-bottom:4px; font-size:10px;">📊 MÉRT ÉRTÉKEK</div>
+              <div style="font-size:11.5px; font-family:'Space Mono',monospace; font-weight:700; display:flex; flex-direction:column; gap:3px; width:100%;">
+                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                  <span style="color:#dc2626;">🔥 Max: <strong>${measuredMaxStr}</strong></span>
+                  <span style="font-size:9.5px; color:#64748b; font-weight:600;">(${measuredMaxTimeStr})</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                  <span style="color:#0284c7;">🧊 Min: <strong>${measuredMinStr}</strong></span>
+                  <span style="font-size:9.5px; color:#64748b; font-weight:600;">(${measuredMinTimeStr})</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="stat-box-weather" style="align-items:flex-start; text-align:left; border-left:1px solid rgba(148, 163, 184, 0.25); padding-left:12px;">
+              <div class="stat-label-weather" style="color:#2563eb; margin-bottom:4px; font-size:10px;">🔮 ELŐREJELZETT ÉRTÉKEK</div>
+              <div style="font-size:11.5px; font-family:'Space Mono',monospace; font-weight:700; display:flex; flex-direction:column; gap:3px; width:100%;">
+                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                  <span style="color:#dc2626;">🔴 Max: <strong>${forecastMaxStr}</strong></span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                  <span style="color:#0284c7;">🔵 Min: <strong>${forecastMinStr}</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-small-weather">
+          ${gridHtml}
+        </div>
+      `;
+
+      cachedWeatherHTML.left = generatedLeftHtml;
+      if (leftPanel) leftPanel.innerHTML = generatedLeftHtml;
+
+      updateWindDisplayUI();
+    }
+
+    function renderWhenLast(whenLast) {
+      const panel = document.getElementById('when-last-panel');
+      if (!panel) return;
+
+      if (!whenLast) {
+        panel.innerHTML = '<div style="color:#94a3b8; font-size:11px; text-align:center;">Adatok betöltése...</div>';
+        return;
+      }
+
+      const generatedHtml = `
+        <div class="stats-grid-weather">
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">🌧️ Utolsó Eső</div>
+            <div class="stat-card-val-weather" style="color:#0284c7;">${whenLast.lastRain || '--'}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">⚡ Felhőszakadás</div>
+            <div class="stat-card-val-weather" style="color:#7e22ce;">${whenLast.lastStorm || '--'}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">💨 Erős Szél</div>
+            <div class="stat-card-val-weather" style="color:#7e22ce;">${whenLast.lastHighWind || '--'}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">☀️ Forró Nap</div>
+            <div class="stat-card-val-weather" style="color:#dc2626;">${whenLast.lastHotDay || '--'}</div>
+          </div>
+          <div class="stat-card-box-weather" style="grid-column: 1 / -1;">
+            <div class="stat-card-title-weather">❄️ Utolsó Fagynap (<0°C)</div>
+            <div class="stat-card-val-weather" style="color:#0284c7;">${whenLast.lastFrostDay || '--'}</div>
+          </div>
+        </div>
+      `;
+
+      cachedWeatherHTML.whenLast = generatedHtml;
+      panel.innerHTML = generatedHtml;
+    }
+
+    function renderRainLog(rainLog) {
+      const panel = document.getElementById('rain-panel');
+      if (!panel) return;
+
+      if (!rainLog) {
+        panel.innerHTML = '<div style="color:#94a3b8; font-size:11px; text-align:center;">Adatok betöltése...</div>';
+        return;
+      }
+
+      let html = `<div class="rain-summary-badge-weather">🌧️ Mai Csapadék (00:00-tól): ${rainLog.todayTotalRain !== undefined ? rainLog.todayTotalRain : '0'} mm</div>`;
+
+      if (!rainLog.events || rainLog.events.length === 0) {
+        html += `<div style="color:#475569; font-size:11.5px; margin-top:2px; font-family:\'Space Mono\',monospace; font-weight:700;">☀️ Ma még nem esett csapadék Nyíregyházán.</div>`;
+      } else {
+        rainLog.events.forEach(ev => {
+          html += `<div class="rain-event-box-weather">`;
+          html += `<div class="rain-event-header-weather">💧 Esemény (${ev.startTime} - ${ev.endTime}) • ${ev.totalMm} mm</div>`;
+          
+          ev.segments.forEach(seg => {
+            html += `
+              <div class="rain-segment-weather">
+                <span>${seg.timeRange} - ${seg.category}</span>
+                <span style="color:#0284c7; font-weight:700;">${seg.mm} mm</span>
+              </div>
+            `;
+          });
+
+          html += `<div class="rain-event-end-weather">${ev.summary}</div>`;
+          html += `</div>`;
+        });
+      }
+
+      cachedWeatherHTML.rain = html;
+      panel.innerHTML = html;
+    }
+
+    function renderStats(stats) {
+      const panel = document.getElementById('stats-panel');
+      if (!panel) return;
+
+      const allTime = stats?.allTime || {};
+      const today = stats?.today || {};
+
+      const startDateStr = allTime.startDate ? `📅 ${allTime.startDate}` : "📅 Rögzítés kezdete adatbázis szerint";
+
+      const maxTempStr = allTime.maxTemp ? `${allTime.maxTemp}${allTime.maxTempDate ? ' (' + allTime.maxTempDate + ')' : ''}` : '--';
+      const minTempStr = allTime.minTemp ? `${allTime.minTemp}${allTime.minTempDate ? ' (' + allTime.minTempDate + ')' : ''}` : '--';
+      const maxGustStr = allTime.maxGust ? `${allTime.maxGust}${allTime.maxGustDate ? ' (' + allTime.maxGustDate + ')' : ''}` : '--';
+      const maxRainDayStr = allTime.maxRainDay ? `${allTime.maxRainDay}${allTime.maxRainDayDate ? ' (' + allTime.maxRainDayDate + ')' : ''}` : '--';
+      const maxRainRateStr = allTime.maxRainRate ? `${allTime.maxRainRate}${allTime.maxRainRateDate ? ' (' + allTime.maxRainRateDate + ')' : ''}` : '--';
+
+      const generatedHtml = `
+        <div style="font-size:11px; font-family:'Space Mono',monospace; font-weight:700; color:#0284c7; background:rgba(2,132,199,0.08); padding:6px 10px; border-radius:8px; margin-bottom:8px; border:1px solid rgba(2,132,199,0.2); text-align:center;">
+          📜 MÉRÉSEK KEZDETE: <strong>${startDateStr}</strong>
+        </div>
+
+        <div class="stats-grid-weather">
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">☀️ Rekord Meleg (Max)</div>
+            <div class="stat-card-val-weather" style="color:#dc2626;">${maxTempStr}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">❄️ Rekord Hideg (Min)</div>
+            <div class="stat-card-val-weather" style="color:#0284c7;">${minTempStr}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">💨 Max Széllökés</div>
+            <div class="stat-card-val-weather" style="color:#7e22ce;">${maxGustStr}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">🌧️ Max Napi Csapadék</div>
+            <div class="stat-card-val-weather" style="color:#0284c7;">${maxRainDayStr}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">⚡ Max Intenzitás</div>
+            <div class="stat-card-val-weather" style="color:#0284c7;">${maxRainRateStr}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">🌵 Aszályos Napok</div>
+            <div class="stat-card-val-weather" style="color:#b45309;">${allTime.dryDays ? allTime.dryDays + ' nap' : '--'}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">↕️ Napi Hőingás</div>
+            <div class="stat-card-val-weather" style="color:#b45309;">${today.rangeTemp || '--'}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">☀️ Napsütéses Órák</div>
+            <div class="stat-card-val-weather" style="color:#b45309;">${today.sunHours || '--'}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">🌫️ Köd / Harmat</div>
+            <div class="stat-card-val-weather" style="color:#0284c7;">${today.fogRisk || '--'}</div>
+          </div>
+          <div class="stat-card-box-weather">
+            <div class="stat-card-title-weather">🏠 Energia Igény</div>
+            <div class="stat-card-val-weather" style="color:#c2410c;">${today.cddHdd || '--'}</div>
+          </div>
+        </div>
+      `;
+
+      cachedWeatherHTML.stats = generatedHtml;
+      panel.innerHTML = generatedHtml;
+    }
+
+    function renderTableOrList(history) {
+      const container = document.getElementById('log-view-container');
+      if (!container || !history) return;
+
+      const reversed = [...history].reverse();
+      const isMobile = window.innerWidth < 768;
+
+      const validTemps = history.map(h => Number(h.temp)).filter(t => !isNaN(t));
+      const maxLogTemp = validTemps.length > 0 ? Math.max(...validTemps) : null;
+      const minLogTemp = validTemps.length > 0 ? Math.min(...validTemps) : null;
+
+      let generatedHtml = '';
+
+      if (isMobile) {
+        let listHtml = `<div class="mobile-log-list-weather">`;
+        reversed.forEach(row => {
+          const tNum = Number(row.temp);
+          const tColor = getTempColor(row.temp);
+          const wColor = getWindColor(row.wind);
+
+          let tagBadge = '';
+          if (tNum === maxLogTemp) {
+            tagBadge = `<span style="background:rgba(220,38,38,0.15); color:#dc2626; padding:1px 5px; border-radius:4px; font-size:10px; font-weight:800; border:1px solid rgba(220,38,38,0.3);">🔥 MAX</span>`;
+          } else if (tNum === minLogTemp) {
+            tagBadge = `<span style="background:rgba(2,132,199,0.15); color:#0284c7; padding:1px 5px; border-radius:4px; font-size:10px; font-weight:800; border:1px solid rgba(2,132,199,0.3);">🧊 MIN</span>`;
+          }
+
+          listHtml += `
+            <div class="mobile-log-card-weather">
+              <div class="mobile-log-top-weather">
+                <span>⏱️ ${row.time} ${tagBadge}</span>
+                <span style="color:${tColor}">${fmt(row.temp)}°C</span>
+                <span style="color:#0284c7">🌧️ ${fmt(row.rain)} mm</span>
+              </div>
+              <div class="mobile-log-sub-weather">
+                <span>Pára: ${fmt(row.hum)}%</span>
+                <span>Légny.: ${fmt(row.bar)} hPa</span>
+                <span style="color:${wColor}">Szél: ${fmt(row.wind)} km/h</span>
+              </div>
+            </div>
+          `;
+        });
+        listHtml += `</div>`;
+        generatedHtml = listHtml;
+      } else {
+        let tableHtml = `
+          <div class="table-wrapper-weather">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:25%;">Idő</th>
+                  <th style="width:18%;">Hőm.</th>
+                  <th style="width:14%;">Pára</th>
+                  <th style="width:15%;">Légny.</th>
+                  <th style="width:14%;">Szél</th>
+                  <th style="width:14%;">Eső</th>
+                </tr>
+              </thead>
+              <tbody>
+        `;
+        reversed.forEach(row => {
+          const tNum = Number(row.temp);
+          const tColor = getTempColor(row.temp);
+          const wColor = getWindColor(row.wind);
+
+          let tagBadge = '';
+          if (tNum === maxLogTemp) {
+            tagBadge = `<span style="background:rgba(220,38,38,0.15); color:#dc2626; padding:1px 4px; border-radius:4px; font-size:9px; font-weight:800; border:1px solid rgba(220,38,38,0.3); margin-left:2px;">🔥MAX</span>`;
+          } else if (tNum === minLogTemp) {
+            tagBadge = `<span style="background:rgba(2,132,199,0.15); color:#0284c7; padding:1px 4px; border-radius:4px; font-size:9px; font-weight:800; border:1px solid rgba(2,132,199,0.3); margin-left:2px;">🧊MIN</span>`;
+          }
+
+          tableHtml += `
+            <tr>
+              <td><strong>${row.time}</strong>${tagBadge}</td>
+              <td style="color:${tColor}; font-weight:700;">${fmt(row.temp)}°C</td>
+              <td>${fmt(row.hum)}%</td>
+              <td>${fmt(row.bar)}</td>
+              <td style="color:${wColor}; font-weight:700;">${fmt(row.wind)}</td>
+              <td style="color:#0284c7;">${fmt(row.rain)}</td>
+            </tr>
+          `;
+        });
+        tableHtml += `</tbody></table></div>`;
+        generatedHtml = tableHtml;
+      }
+
+      cachedWeatherHTML.table = generatedHtml;
+      container.innerHTML = generatedHtml;
+    }
+
+    function scheduleClockSync() {
+      const now = new Date();
+      const mins = now.getMinutes();
+      const secs = now.getSeconds();
+      const ms = now.getMilliseconds();
+      
+      const nextTargetMin = Math.ceil((mins + 0.001) / 10) * 10;
+      const diffMins = nextTargetMin - mins;
+      const msToNext = (diffMins * 60 * 1000) - (secs * 1000) - ms + 2000;
+      
+      setTimeout(function() {
+        loadWeather();
+        scheduleClockSync();
+      }, msToNext);
+    }
+
+    /* 🌧️ 0. ÉLŐ CSAPADÉK & RADAR MONITOR ENGINE */
+    async function fetchRadarNowcastData() {
+        const stripContainer = document.getElementById('radar-inline-strip-wrapper');
+        if (!stripContainer) return;
+
+        if (!radarConfig || !radarConfig.enabled) {
+            stripContainer.style.display = 'none';
+            return;
+        }
+
+        try {
+            const lat = radarConfig.lat || 47.9554;
+            const lon = radarConfig.lon || 21.7167;
+            const userRadiusKm = radarConfig.radiusKm || 50;
+
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&minutely_15=precipitation,precipitation_probability&daily=precipitation_sum&timezone=auto&forecast_minutely_15=16`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("Radar API hiba");
+            const data = await res.json();
+            
+            const minutely = data.minutely_15;
+            const daily = data.daily;
+            if (!minutely || !minutely.precipitation) throw new Error("Nincs csapadékadat");
+
+            const precips = minutely.precipitation;
+            const probs = minutely.precipitation_probability || [];
+            const times = minutely.time || [];
+            const todayPrecipSum = (daily && daily.precipitation_sum && daily.precipitation_sum[0] !== undefined) ? Number(daily.precipitation_sum[0]) : 0;
+
+            let activeCells = [];
+            let maxPrecipOverall = 0;
+
+            for (let i = 0; i < precips.length; i++) {
+                const p = precips[i] || 0;
+                if (p > maxPrecipOverall) maxPrecipOverall = p;
+
+                if (p > 0.1) {
+                    const etaMin = i * 15;
+                    const distEst = etaMin === 0 ? 0 : Math.max(1, Math.round(etaMin * 0.65));
+                    
+                    if (distEst <= userRadiusKm) {
+                        activeCells.push({
+                            index: i,
+                            precip: p,
+                            etaMin: etaMin,
+                            timeStr: times[i] ? new Date(times[i]).toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit'}) : '',
+                            distKm: distEst,
+                            prob: probs[i] !== undefined ? probs[i] : 0
+                        });
+                    }
+                }
+            }
+
+            const cityName = radarConfig.cityName || "Nyíregyháza";
+
+            if (activeCells.length === 0) {
+                if (radarConfig.autoHide) {
+                    stripContainer.style.display = 'none';
+                    return;
+                }
+                stripContainer.innerHTML = `
+                    <div class="rates-strip-bar" style="margin-bottom:14px; background:rgba(255,255,255,0.88);">
+                        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-family:'Space Mono',monospace; font-size:0.75rem;">
+                            <span style="font-weight:700; color:#15803d;">☀️ RADAR MONITOR (${cityName}):</span>
+                            <span style="color:#0f172a; font-weight:600;">A beállított ${userRadiusKm} km-es sugáron belül nincs közeledő csapadéksáv.</span>
+                            <span>|</span>
+                            <span>🌧️ <strong>Mai eddigi eső:</strong> <strong style="color:#0284c7;">${todayPrecipSum.toFixed(1)} mm</strong></span>
+                            <span style="color:#64748b; font-size:0.65rem; font-weight:600;">(Frissítve: ${new Date().toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit'})})</span>
+                        </div>
                     </div>
-                </div>
-                <div class="radio-cube-bottom" id="radio-cube-track">
-                    ${isRadioPlaying ? (radioConfig.nowPlaying || '🎵 Élő adás') : '🔴 Kattints rádióválasztáshoz'}
-                </div>
-            </div>
-        `;
-        return;
+                `;
+                stripContainer.style.display = 'block';
+            } else {
+                activeCells.sort((a, b) => {
+                    if (b.precip >= 10 && a.precip < 10) return 1;
+                    if (a.precip >= 10 && b.precip < 10) return -1;
+                    return a.etaMin - b.etaMin;
+                });
+
+                const primaryCell = activeCells[0];
+                const multiCellNote = activeCells.length > 1 ? ` (Több csapadékcella is mozgásban van!)` : ``;
+
+                let prob = primaryCell.prob;
+                if (primaryCell.etaMin === 0) {
+                    prob = Math.max(98, prob || 95);
+                } else if (primaryCell.etaMin <= 20 && primaryCell.precip >= 1.0) {
+                    prob = Math.max(85, prob || 85);
+                } else {
+                    prob = Math.min(99, Math.max(prob || 0, Math.round(primaryCell.precip * 25 + 40)));
+                }
+
+                let typeStr = "Csendes eső";
+                let typeBg = "background:rgba(14,165,233,0.12); color:#0284c7; border:1px solid rgba(14,165,233,0.3);";
+                if (primaryCell.precip >= 10) {
+                    typeStr = "⚡ Heves felhőszakadás / Zivatar";
+                    typeBg = "background:rgba(220,38,38,0.15); color:#dc2626; border:1px solid rgba(220,38,38,0.35);";
+                } else if (primaryCell.precip >= 3) {
+                    typeStr = "🌧️ Mérsékelt / Erős eső";
+                    typeBg = "background:rgba(245,158,11,0.15); color:#d97706; border:1px solid rgba(245,158,11,0.35);";
+                }
+
+                const etaText = primaryCell.etaMin === 0 ? "⚠️ ÉPPEN ESIK / MEGÉRKEZETT" : `~${primaryCell.etaMin} perc múlva (${primaryCell.timeStr})`;
+
+                stripContainer.innerHTML = `
+                    <div class="rates-strip-bar" style="margin-bottom:14px; border-color:rgba(220,38,38,0.3); background:rgba(254,242,242,0.92);">
+                        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-family:'Space Mono',monospace; font-size:0.75rem;">
+                            <span style="padding:3px 8px; border-radius:6px; font-weight:700; ${typeBg}">🌧️ CSAPADÉK RIASZTÁS (${cityName})${multiCellNote}</span>
+                            <span>⏱️ <strong>Érkezés:</strong> ${etaText}</span>
+                            <span>|</span>
+                            <span>📍 <strong>Távolság:</strong> ~${primaryCell.distKm} km (NY-NYÉ)</span>
+                            <span>|</span>
+                            <span>💧 <strong>Intenzitás:</strong> ${primaryCell.precip.toFixed(1)} mm/h (${typeStr})</span>
+                            <span>|</span>
+                            <span>🌧️ <strong>Mai eddigi eső:</strong> <strong style="color:#0284c7;">${todayPrecipSum.toFixed(1)} mm</strong></span>
+                            <span>|</span>
+                            <span>🎯 <strong>Valószínűség:</strong> ${prob}%</span>
+                        </div>
+                    </div>
+                `;
+                stripContainer.style.display = 'block';
+            }
+        } catch(e) {
+            if (stripContainer && radarConfig.autoHide) stripContainer.style.display = 'none';
+        }
     }
 
-    widgetBox.onclick = null;
-
-    if (mode === 'logo') {
-        widgetBox.setAttribute('style', 'background: rgba(255, 255, 255, 0.92); border: 1px solid var(--border-color); display: flex;');
-        contentBox.innerHTML = `
-            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font-family:'Space Mono',monospace; text-align:center; width:100%;">
-                <div style="display:flex; align-items:center; gap:4px;">
-                    <svg class="kb-icon-mini-watermark" viewBox="0 0 24 24" fill="none" style="width:18px; height:18px;"><path d="M3 8V5a2 2 0 0 1 2-2h3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 1-2 2h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 4" opacity="0.5"/></svg>
-                    <span style="font-weight:800; font-size:0.92rem; color:#1e3a8a;">KÉPBEN<span style="color:#dc2626;">!</span></span>
-                </div>
-                <span style="font-size:0.55rem; font-weight:700; color:#dc2626;">Készítette: Robi</span>
-            </div>
-        `;
-        return;
+    function startRadarEngine() {
+        if (radarIntervalId) clearInterval(radarIntervalId);
+        fetchRadarNowcastData();
+        const intervalMin = Math.max(1, parseInt(radarConfig.intervalMin) || 2);
+        radarIntervalId = setInterval(fetchRadarNowcastData, intervalMin * 60 * 1000);
     }
 
-    if (!kockaPwsConfig || !kockaPwsConfig.stationId) {
-        widgetBox.style.display = 'none';
-        return;
+    async function saveRadarConfig() {
+        const enabled = document.getElementById('radar-enabled-checkbox').checked;
+        const autoHide = document.getElementById('radar-autohide-checkbox').checked;
+        const cityName = document.getElementById('radar-city-input').value.trim() || 'Nyíregyháza';
+        const lat = parseFloat(document.getElementById('radar-lat-input').value) || 47.9554;
+        const lon = parseFloat(document.getElementById('radar-lon-input').value) || 21.7167;
+        const radiusKm = Math.max(5, parseInt(document.getElementById('radar-radius-input').value) || 50);
+        const intervalMin = Math.max(1, parseInt(document.getElementById('radar-interval-input').value) || 2);
+
+        radarConfig = {
+            enabled, autoHide, cityName, lat, lon, radiusKm, intervalMin,
+            updatedAt: new Date().toISOString()
+        };
+
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/radar_config.json`, {
+                method: 'PUT',
+                body: JSON.stringify(radarConfig)
+            });
+            alert(`✅ Radar Beállítások elmentve!\nVáros: ${cityName}\nPásztázási Sugár: ${radiusKm} km\nFrissítés: ${intervalMin} perc`);
+            startRadarEngine();
+        } catch(e) { alert("Hiba a mentéskor!"); }
     }
 
-    try {
-        const url = `https://api.weather.com/v2/pws/observations/current?stationId=${kockaPwsConfig.stationId}&format=json&units=m&numericPrecision=decimal&apiKey=${WEATHER_API_KEY}`;
-        const res = await fetch(url);
-        
-        if (!res.ok) {
+    /* 🧊 1. FIX FEJLÉC KOCKA IDŐJÁRÁS LOGIKA */
+    async function fetchKockaPwsData() {
+        const widgetBox = document.getElementById('weather-widget-box');
+        const contentBox = document.getElementById('unified-weather-strip');
+
+        if (!widgetBox || !contentBox) return;
+
+        const mode = kockaPwsConfig?.mode || 'pws';
+
+        if (mode === 'off') {
             widgetBox.style.display = 'none';
             return;
         }
 
-        const data = await res.json();
-        if (data && data.observations && data.observations[0]) {
-            const obs = data.observations[0];
-            const rawTemp = obs.metric?.temp;
-
-            if (rawTemp !== undefined && rawTemp !== null && !isNaN(rawTemp)) {
-                contentBox.innerHTML = `
-                    <span class="weather-box-city" id="weather-city">${kockaPwsConfig.customName || obs.neighborhood || kockaPwsConfig.stationId}</span>
-                    <span class="weather-box-temp" id="weather-temp">${formatSmartDecimal(rawTemp, 1)}°</span>
-                `;
-                const styleAttr = getWeatherTempStyle(rawTemp);
-                widgetBox.setAttribute('style', styleAttr);
-                widgetBox.style.display = 'flex';
-                return;
-            }
-        }
-        widgetBox.style.display = 'none';
-    } catch(e) {
-        widgetBox.style.display = 'none';
-    }
-}
-
-function startKockaPwsEngine() {
-    if (kockaFetchIntervalId) clearInterval(kockaFetchIntervalId);
-    fetchKockaPwsData();
-    const intervalMin = Math.max(1, parseInt(kockaPwsConfig.intervalMin) || 1);
-    kockaFetchIntervalId = setInterval(fetchKockaPwsData, intervalMin * 60 * 1000);
-}
-
-async function saveKockaPwsConfig() {
-    const modeSelect = document.getElementById('kocka-mode-select').value;
-    const urlInput = document.getElementById('kocka-pws-url-input').value.trim();
-    const customNameInput = document.getElementById('kocka-pws-name-input').value.trim();
-    const intervalInput = parseInt(document.getElementById('kocka-pws-interval-input').value) || 1;
-    const stationId = extractPwsStationId(urlInput);
-
-    kockaPwsConfig = {
-        mode: modeSelect,
-        stationId: stationId,
-        customName: customNameInput || stationId,
-        url: urlInput || `https://www.wunderground.com/dashboard/pws/${stationId}`,
-        intervalMin: Math.max(1, Math.min(60, intervalInput)),
-        updatedAt: new Date().toISOString()
-    };
-
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/pws_kocka.json`, {
-            method: 'PUT',
-            body: JSON.stringify(kockaPwsConfig)
-        });
-        alert(`✅ Fejléc Kocka Beállítások elmentve! Mód: ${modeSelect.toUpperCase()}`);
-        startKockaPwsEngine();
-    } catch(e) { alert("Hiba a mentéskor!"); }
-}
-
-/* 🌡️ 2. ALSÓ SÁV PWS IDŐJÁRÁS LOGIKA */
-async function fetchAllPwsDataForStrip() {
-    if (!pwsStationsList || pwsStationsList.length === 0) {
-        pwsCachedResults = [];
-        renderPwsStripCurrent();
-        updateUnifiedMediaBarVisibility();
-        return;
-    }
-
-    try {
-        const fetchPromises = pwsStationsList.map(st => {
-            const url = `https://api.weather.com/v2/pws/observations/current?stationId=${st.stationId}&format=json&units=m&numericPrecision=decimal&apiKey=${WEATHER_API_KEY}`;
-            return fetch(url)
-                .then(r => r.ok ? r.json() : null)
-                .then(d => (d && d.observations && d.observations[0]) ? { station: st, obs: d.observations[0] } : null)
-                .catch(() => null);
-        });
-
-        const results = await Promise.all(fetchPromises);
-        pwsCachedResults = results.filter(r => r && r.obs);
-        renderPwsStripCurrent();
-    } catch(e) {
-        pwsCachedResults = [];
-        renderPwsStripCurrent();
-    }
-    updateUnifiedMediaBarVisibility();
-}
-
-function renderPwsStripCurrent() {
-    const container = document.getElementById('pws-section-wrapper');
-    if (!container) return;
-
-    if (pwsCachedResults.length === 0) {
-        if (pwsStationsList.length > 0) {
-            container.innerHTML = '<div class="pws-inline-strip" style="border-color:rgba(239,68,68,0.4);"><span style="color:#ef4444; font-weight:800;">📡 PWS: ⚠️ Az állomások pillanatnyilag offline-ok</span></div>';
-        } else {
-            container.innerHTML = '';
-        }
-        return;
-    }
-
-    if (pwsCurrentIndex >= pwsCachedResults.length) pwsCurrentIndex = 0;
-    const res = pwsCachedResults[pwsCurrentIndex];
-
-    const obs = res.obs;
-    const st = res.station;
-    const metric = obs.metric || {};
-    const rawTemp = metric.temp;
-    const temp = formatSmartDecimal(rawTemp, 1);
-    const heatIndex = formatSmartDecimal(metric.heatIndex !== undefined ? metric.heatIndex : metric.temp, 1);
-    const humidity = formatSmartDecimal(obs.humidity, 1);
-    const windSpd = formatSmartDecimal(metric.windSpeed, 1);
-    const windDir = getWindCardinal(obs.winddir);
-    const pressure = formatSmartDecimal(metric.pressure, 1);
-    const rainTotal = formatSmartDecimal(metric.precipTotal, 1);
-    const uv = obs.uv !== undefined ? formatSmartDecimal(obs.uv, 1) : null;
-    const displayName = st.customName || obs.neighborhood || st.stationId;
-
-    container.innerHTML = `
-        <div class="pws-inline-strip" title="Frissítve: ${obs.obsTimeLocal || 'most'} · Állomás (${pwsCurrentIndex + 1}/${pwsCachedResults.length}): ${displayName}">
-            <div class="pws-metric-item" style="color:#ef4444; font-weight:800; background:rgba(220,38,38,0.08); border:1px solid rgba(220,38,38,0.2);">📡 ${displayName}</div>
-            <span style="opacity:0.3;">|</span>
-            <div class="pws-metric-item" style="${getWeatherTempStyle(rawTemp)}">🌡️ <span class="pws-metric-val">${temp}°C</span> <span style="font-size:0.6rem; opacity:0.85;">(Hőérzet: ${heatIndex}°)</span></div>
-            <span style="opacity:0.3;">|</span>
-            <div class="pws-metric-item" style="${getHumidityStyle(obs.humidity)}">💧 pára: <span class="pws-metric-val">${humidity}%</span></div>
-            <span style="opacity:0.3;">|</span>
-            <div class="pws-metric-item" style="${getWindStyle(metric.windSpeed)}">💨 szél: <span class="pws-metric-val">${windSpd} km/h ${windDir}</span></div>
-            <span style="opacity:0.3;">|</span>
-            <div class="pws-metric-item" style="${getPressureStyle(metric.pressure)}">🧭 nyomás: <span class="pws-metric-val">${pressure} hPa</span></div>
-            <span style="opacity:0.3;">|</span>
-            <div class="pws-metric-item" style="${getRainStyle(metric.precipTotal)}">🌧️ csapadék: <span class="pws-metric-val">${rainTotal} mm</span></div>
-            ${uv !== null ? `<span style="opacity:0.3;">|</span><div class="pws-metric-item" style="${getUvStyle(obs.uv)}">☀️ UV: <span class="pws-metric-val">${uv}</span></div>` : ''}
-        </div>
-    `;
-}
-
-function startPwsEngine() {
-    if (pwsFetchIntervalId) clearInterval(pwsFetchIntervalId);
-    if (pwsStripCycleIntervalId) clearInterval(pwsStripCycleIntervalId);
-
-    if (pwsStationsList && pwsStationsList.length > 0) {
-        fetchAllPwsDataForStrip();
-        
-        const minMin = Math.min(...pwsStationsList.map(s => parseInt(s.intervalMin) || 1));
-        const fetchMs = Math.max(1, minMin) * 60 * 1000;
-        pwsFetchIntervalId = setInterval(fetchAllPwsDataForStrip, fetchMs);
-
-        pwsStripCycleIntervalId = setInterval(() => {
-            if (pwsCachedResults.length > 1) {
-                pwsCurrentIndex = (pwsCurrentIndex + 1) % pwsCachedResults.length;
-                renderPwsStripCurrent();
-            }
-        }, 10000);
-    } else {
-        const container = document.getElementById('pws-section-wrapper');
-        if (container) container.innerHTML = '';
-        updateUnifiedMediaBarVisibility();
-    }
-}
-
-function renderDevPwsStationsList() {
-    const tbody = document.getElementById('pws-stations-tbody');
-    if (!tbody) return;
-
-    if (!pwsStationsList || pwsStationsList.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#94a3b8;">Nincs rögzített időjárás állomás.</td></tr>';
-        return;
-    }
-
-    tbody.innerHTML = pwsStationsList.map((st, idx) => `
-        <tr>
-            <td><strong style="color:#38bdf8;">#${idx + 1}</strong></td>
-            <td><strong style="color:#f8fafc;">${st.customName || 'Egyedi Állomás'}</strong></td>
-            <td><span class="ip-badge">${st.stationId}</span></td>
-            <td>
-                <input type="number" min="1" max="120" value="${st.intervalMin || 1}" onchange="updatePwsStationInterval(${idx}, this.value)" style="width:65px; background:#1e293b; color:#38bdf8; border:1px solid #334155; border-radius:4px; padding:3px 6px; font-family:'Space Mono',monospace; font-size:0.75rem; font-weight:700; outline:none;"> perc
-            </td>
-            <td style="white-space:nowrap;">
-                <button class="btn-act btn-alias" style="padding:3px 8px; font-size:0.65rem;" onclick="movePwsStationOrder(${idx}, -1)" ${idx === 0 ? 'disabled' : ''}>▲ FEL</button>
-                <button class="btn-act btn-alias" style="padding:3px 8px; font-size:0.65rem;" onclick="movePwsStationOrder(${idx}, 1)" ${idx === pwsStationsList.length - 1 ? 'disabled' : ''}>▼ LE</button>
-                <button class="btn-act btn-ban" style="padding:3px 8px; font-size:0.65rem;" onclick="removePwsStationFromList(${idx})">🗑️ TÖRLÉS</button>
-            </td>
-        </tr>
-    `).join('');
-}
-
-function movePwsStationOrder(index, direction) {
-    const newIndex = index + direction;
-    if (newIndex >= 0 && newIndex < pwsStationsList.length) {
-        const temp = pwsStationsList[index];
-        pwsStationsList[index] = pwsStationsList[newIndex];
-        pwsStationsList[newIndex] = temp;
-        renderDevPwsStationsList();
-    }
-}
-
-function updatePwsStationInterval(index, val) {
-    if (pwsStationsList[index]) {
-        pwsStationsList[index].intervalMin = Math.max(1, parseInt(val) || 1);
-    }
-}
-
-function addPwsStationFromInput() {
-    if (pwsStationsList.length >= 30) {
-        alert("⚠️ Rögzíthetsz több állomást is!");
-    }
-
-    const urlInput = document.getElementById('pws-url-input').value.trim();
-    const customNameInput = document.getElementById('pws-name-input').value.trim();
-    const stationId = extractPwsStationId(urlInput);
-
-    if (!stationId) {
-        alert("⚠️ Nem sikerült felismerni a PWS állomás azonosítóját!");
-        return;
-    }
-
-    const newStation = {
-        stationId: stationId,
-        customName: customNameInput || stationId,
-        url: urlInput || `https://www.wunderground.com/dashboard/pws/${stationId}`,
-        intervalMin: 1
-    };
-
-    pwsStationsList.push(newStation);
-    renderDevPwsStationsList();
-
-    document.getElementById('pws-url-input').value = '';
-    document.getElementById('pws-name-input').value = '';
-}
-
-function removePwsStationFromList(index) {
-    if (index >= 0 && index < pwsStationsList.length) {
-        pwsStationsList.splice(index, 1);
-        renderDevPwsStationsList();
-    }
-}
-
-async function saveAllPwsStations() {
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/pws_stations.json`, {
-            method: 'PUT',
-            body: JSON.stringify(pwsStationsList)
-        });
-        alert(`✅ ${pwsStationsList.length} db sáv időjárási állomás elmentve!`);
-        startPwsEngine();
-    } catch(e) { alert("Hiba az állomások mentésekor!"); }
-}
-
-async function clearAllPwsStations() {
-    if (!confirm("Biztosan törölni szeretnéd az ÖSSZES hírsáv időjárási állomást?")) return;
-    pwsStationsList = [];
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/pws_stations.json`, { method: 'DELETE' });
-        renderDevPwsStationsList();
-        alert("🗑️ Minden sáv időjárási állomás törölve!");
-        startPwsEngine();
-    } catch(e) { alert("Hiba a törléskor!"); }
-}
-
-function renderDevBreakingNewsList() {
-    const container = document.getElementById('dev-breaking-list-container');
-    if (!container) return;
-
-    if (!breakingKeywords || !Array.isArray(breakingKeywords) || breakingKeywords.length === 0) {
-        container.innerHTML = '<div style="color:#94a3b8; font-size:0.75rem; padding:8px;">Nincs megadva rendkívüli kulcsszó.</div>';
-        return;
-    }
-
-    let allItems = [];
-    if (localGyujtoData) {
-        Object.entries(localGyujtoData).forEach(([key, item]) => {
-            if (item && item.title) allItems.push({ ...item, id: key });
-        });
-    }
-    if (localAdasData) {
-        Object.entries(localAdasData).forEach(([key, item]) => {
-            if (item && item.title && !allItems.some(i => i.id === key)) allItems.push({ ...item, id: key });
-        });
-    }
-
-    const matchedItems = allItems.filter(item => {
-        const titleLower = (item.title || '').toLowerCase();
-        const descLower = (item.description || '').toLowerCase();
-        return breakingKeywords.some(kw => kw && kw.trim() !== '' && (titleLower.includes(kw.toLowerCase()) || descLower.includes(kw.toLowerCase())));
-    });
-
-    const activeBreaking = matchedItems.filter(item => !breakingExcludedMap[item.id]);
-    const excludedBreakingKeys = Object.keys(breakingExcludedMap);
-
-    let html = '';
-
-    if (activeBreaking.length === 0) {
-        html += '<div style="color:#94a3b8; font-size:0.75rem; margin-bottom:12px;">Jelenleg nincs aktív hír a rendkívüli oszlopban.</div>';
-    } else {
-        html += `<div style="font-family:'Space Mono',monospace; font-size:0.7rem; color:#22c55e; margin-bottom:8px;">🟢 AKTÍVAN MEGJELENŐ RENDKÍVÜLI CIKKEK (${activeBreaking.length} db):</div>`;
-        html += '<div class="dev-table-container" style="margin-bottom:16px;"><table class="dev-table"><thead><tr><th>CIKK CÍME</th><th>FORRÁS / IDŐ</th><th>MŰVELET</th></tr></thead><tbody>';
-        
-        html += activeBreaking.map(item => {
-            const d = new Date(item.date);
-            const timeStr = d.toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit'});
-            return `
-                <tr>
-                    <td style="max-width:380px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                        <a href="${item.link || '#'}" target="_blank" style="color:#f8fafc; text-decoration:none; font-weight:600;">${item.title}</a>
-                    </td>
-                    <td><span style="color:#38bdf8; font-weight:700;">${cleanProviderName(item)}</span> · <span style="color:#94a3b8;">${timeStr}</span></td>
-                    <td>
-                        <button class="btn-act btn-ban" style="padding:4px 10px; font-size:0.65rem;" onclick="excludeBreakingItem('${item.id}', '${item.title.replace(/'/g, "\\'")}')">🗑️ KIVÉTEL</button>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-        html += '</tbody></table></div>';
-    }
-
-    if (excludedBreakingKeys.length > 0) {
-        html += `<div style="font-family:'Space Mono',monospace; font-size:0.7rem; color:#ef4444; margin-top:14px; margin-bottom:8px;">🚫 KIVETT / TÖRÖLT CIKKEK (${excludedBreakingKeys.length} db):</div>`;
-        html += '<div class="dev-table-container"><table class="dev-table"><thead><tr><th>CÍM</th><th>MŰVELET</th></tr></thead><tbody>';
-        html += excludedBreakingKeys.map(key => {
-            const ex = breakingExcludedMap[key];
-            const titleStr = typeof ex === 'object' ? (ex.title || key) : 'Cikk';
-            return `
-                <tr>
-                    <td style="color:#94a3b8;">${titleStr}</td>
-                    <td>
-                        <button class="btn-act btn-unban" style="padding:4px 10px; font-size:0.65rem;" onclick="restoreBreakingItem('${key}')">↺ VISSZAÁLLÍTÁS</button>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-        html += '</tbody></table></div>';
-    }
-
-    container.innerHTML = html;
-}
-
-async function excludeBreakingItem(itemKey, title) {
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/breaking_excluded/${itemKey}.json`, {
-            method: 'PUT',
-            body: JSON.stringify({ title: title, excludedAt: new Date().toISOString() })
-        });
-        breakingExcludedMap[itemKey] = { title: title };
-        await fetchDatabases();
-        loadDevAnalyticsData();
-    } catch(e){ alert("Hiba a törléskor!"); }
-}
-
-async function restoreBreakingItem(itemKey) {
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/breaking_excluded/${itemKey}.json`, {
-            method: 'DELETE'
-        });
-        delete breakingExcludedMap[itemKey];
-        await fetchDatabases();
-        loadDevAnalyticsData();
-    } catch(e){ alert("Hiba a visszaállításkor!"); }
-}
-
-async function saveBroadcastNotice() {
-    const text = document.getElementById('broadcast-msg-input').value.trim();
-    if (!text) return alert("Adjon meg egy üzenetet!");
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/broadcast.json`, {
-            method: 'PUT',
-            body: JSON.stringify({ text: text, updatedAt: new Date().toISOString() })
-        });
-        alert("✅ Tévéhír kiküldve!");
-        updateRealtimeOnlineCount();
-    } catch(e){ alert("Hiba történt!"); }
-}
-
-async function deleteBroadcastNotice() {
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/broadcast.json`, { method: 'DELETE' });
-        document.getElementById('broadcast-msg-input').value = '';
-        alert("🗑️ Tévéhír törölve!");
-        updateRealtimeOnlineCount();
-    } catch(e){ alert("Hiba történt!"); }
-}
-
-async function saveBlacklistKeywords() {
-    const val = document.getElementById('blacklist-input').value;
-    const keywords = val.split(',').map(s => s.trim().toLowerCase()).filter(s => s.length > 0);
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/blacklist.json`, {
-            method: 'PUT',
-            body: JSON.stringify(keywords)
-        });
-        blacklistKeywords = keywords;
-        alert("💾 Cikk feketelista elmentve!");
-        fetchDatabases();
-    } catch(e){ alert("Hiba történt!"); }
-}
-
-async function saveBreakingKeywords() {
-    const val = document.getElementById('breaking-keywords-input').value;
-    const keywords = val.split(',').map(s => s.trim().toLowerCase()).filter(s => s.length > 0);
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/breaking_keywords.json`, {
-            method: 'PUT',
-            body: JSON.stringify(keywords)
-        });
-        breakingKeywords = keywords;
-        alert("🚨 Rendkívüli hírek kulcsszavai elmentve!");
-        fetchDatabases();
-    } catch(e){ alert("Hiba történt mentéskor!"); }
-}
-
-async function clearBreakingKeywords() {
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/breaking_keywords.json`, { method: 'DELETE' });
-        breakingKeywords = [];
-        if (document.getElementById('breaking-keywords-input')) {
-            document.getElementById('breaking-keywords-input').value = '';
-        }
-        alert("🗑️ Rendkívüli kulcsszavak törölve!");
-        fetchDatabases();
-    } catch(e){ alert("Hiba történt törléskor!"); }
-}
-
-function filterVisitorsList() {
-    const input = document.getElementById('visitor-search-input').value.toLowerCase();
-    const cards = document.querySelectorAll('.visitor-ip-card');
-    cards.forEach(card => {
-        const text = card.innerText.toLowerCase();
-        card.style.display = text.includes(input) ? 'block' : 'none';
-    });
-}
-
-async function clearOldInactives() {
-    if (!confirm("Biztosan törölni szeretnéd a 24 óránál régebbi munkameneteket?")) return;
-    try {
-        const res = await fetch(`${FIREBASE_URL}/analytics/visitors.json`);
-        const visitors = await res.json() || {};
-        const nowMs = Date.now();
-        const cutoff = 24 * 60 * 60 * 1000;
-
-        for (const [visId, v] of Object.entries(visitors)) {
-            const lastMs = v.lastActive ? new Date(v.lastActive).getTime() : 0;
-            if (nowMs - lastMs > cutoff) {
-                await fetch(`${FIREBASE_URL}/analytics/visitors/${visId}.json`, { method: 'DELETE' });
-            }
-        }
-        loadDevAnalyticsData();
-        alert("🧹 Inaktív munkamenetek törölve!");
-    } catch(e){ alert("Hiba történt!"); }
-}
-
-function renderVisitorsTable(visitors, ipNames, banned) {
-    const container = document.getElementById('visitors-cards-container');
-    if (!container) return;
-
-    const items = Object.entries(visitors);
-
-    if (items.length === 0) {
-        container.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">Nincs rögzített látogató.</div>';
-        return;
-    }
-
-    const nowMs = Date.now();
-    const groupedByIP = {};
-    let mobileCount = 0;
-    let desktopCount = 0;
-    const regionMap = {};
-
-    items.forEach(([visId, data]) => {
-        const ip = data.ip || "127.0.0.1";
-        if (!groupedByIP[ip]) {
-            groupedByIP[ip] = { ip: ip, location: data.location || "Magyarország", sessions: [] };
-        }
-        groupedByIP[ip].sessions.push({ visId, ...data });
-
-        if (data.deviceType && data.deviceType.includes("Mobil")) mobileCount++;
-        else desktopCount++;
-
-        const reg = data.location ? data.location.split(',')[0] : 'Ismeretlen';
-        regionMap[reg] = (regionMap[reg] || 0) + 1;
-    });
-
-    const totalIPs = Object.keys(groupedByIP).length;
-    const totalSessions = items.length;
-    const totalDevices = mobileCount + desktopCount || 1;
-    const mobilePct = Math.round((mobileCount / totalDevices) * 100);
-    const desktopPct = 100 - mobilePct;
-
-    let topRegion = "-";
-    let maxRegCount = 0;
-    Object.entries(regionMap).forEach(([reg, count]) => {
-        if (count > maxRegCount) { maxRegCount = count; topRegion = reg; }
-    });
-
-    document.getElementById('stat-total-ips').textContent = totalIPs;
-    document.getElementById('stat-total-sessions').textContent = totalSessions;
-    document.getElementById('stat-device-ratio').textContent = `${mobilePct}% / ${desktopPct}%`;
-    document.getElementById('stat-top-region').textContent = topRegion;
-
-    const ipGroups = Object.values(groupedByIP).map(group => {
-        let totalClicks = 0;
-        let isAnyOnline = false;
-
-        group.sessions.forEach(s => {
-            totalClicks += (s.clicksCount || 0);
-            const lastActiveMs = s.lastActive ? new Date(s.lastActive).getTime() : 0;
-            if (nowMs - lastActiveMs < 60000) { isAnyOnline = true; }
-        });
-
-        group.sessions.sort((a, b) => new Date(b.startTime || 0) - new Date(a.startTime || 0));
-        return { ...group, totalClicks, isAnyOnline };
-    }).sort((a, b) => b.totalClicks - a.totalClicks);
-
-    container.innerHTML = ipGroups.map(group => {
-        const ipKey = group.ip.replace(/\./g, '_');
-        const isIPBanned = !!banned[ipKey];
-        const customName = ipNames[ipKey]?.name ? ` <span style="color:#f59e0b; font-weight:800;">[💻 ${ipNames[ipKey].name}]</span>` : '';
-        
-        let ipBadgeClass = group.isAnyOnline ? 'color:#22c55e; border-color:rgba(34,197,94,0.3);' : 'color:#38bdf8;';
-        if (isIPBanned) ipBadgeClass = 'color:#ef4444; border-color:rgba(239,68,68,0.5); background:rgba(239,68,68,0.1);';
-
-        const banButtonHtml = isIPBanned ? 
-            `<button class="btn-act btn-unban" onclick="unbanIP('${ipKey}')">✅ IP TILTVA (FELOLDÁS)</button>` :
-            `<button class="btn-act btn-ban" onclick="banVisitorIP('${group.ip}')">🚫 IP TILTÁSA</button>`;
-
-        const sessionRowsHtml = group.sessions.map(s => {
-            const startDate = s.startTime ? new Date(s.startTime) : new Date();
-            const endDate = s.lastActive ? new Date(s.lastActive) : startDate;
-
-            const dateStr = startDate.toLocaleDateString('hu-HU');
-            const startTimeStr = startDate.toLocaleTimeString('hu-HU');
-            const endTimeStr = endDate.toLocaleTimeString('hu-HU');
-
-            const sec = s.activeSeconds || 0;
-            const min = Math.floor(sec / 60);
-            const rSec = sec % 60;
-            const durationStr = min > 0 ? `${min}p ${rSec}mp` : `${rSec}mp`;
-
-            const sOnline = (nowMs - (s.lastActive ? new Date(s.lastActive).getTime() : 0)) < 60000;
-            const statusStr = sOnline ? '<span style="color:#22c55e; font-weight:800;">🟢 ONLINE</span>' : '<span style="color:#64748b;">⚪ OFFLINE</span>';
-            const deviceStr = s.device || "💻 Asztali (Windows · Chrome)";
-
-            let clickHistoryHtml = '';
-            if (s.click_history) {
-                const clickHistoryItems = Object.entries(s.click_history).map(([cKey, c]) => `
-                    <div class="click-history-item">
-                        <span style="color:#38bdf8; font-weight:700; font-family:'Space Mono',monospace;">${c.time || '--:--'}</span>
-                        <a href="${c.link || '#'}" target="_blank" class="click-history-link" title="${c.title}">${c.title}</a>
-                        <button class="btn-act btn-del" style="padding:2px 6px; font-size:0.6rem;" onclick="deleteSingleClickHistory('${s.visId}', '${cKey}')" title="Kattintás törlése">🗑️</button>
+        if (mode === 'radio') {
+            widgetBox.setAttribute('style', 'background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 1px solid var(--border-color); display: flex; cursor: pointer;');
+            widgetBox.onclick = openRadioPickerModal;
+            contentBox.innerHTML = `
+                <div class="radio-cube-container">
+                    <div class="radio-cube-top">
+                        <span class="radio-cube-title">${radioConfig.name || 'ÉLŐ RÁDIÓ'}</span>
+                        <div class="radio-cube-status-dot ${isRadioPlaying ? 'active' : ''}" id="radio-cube-dot"></div>
                     </div>
-                `).join('');
-                clickHistoryHtml = `
-                    <div class="click-history-box">
-                        <div style="font-weight:700; color:#38bdf8; font-size:0.65rem; margin-bottom:4px;">🖱️ MEGTEKINTETT CIKKEK:</div>
-                        ${clickHistoryItems}
-                    </div>
-                `;
-            }
-
-            return `
-                <div class="visitor-session-row">
-                    <div class="session-meta-line">
-                        <div><strong>📅 ${dateStr}</strong> &nbsp;|&nbsp; <span>⏱️ ${startTimeStr} – ${endTimeStr}</span></div>
-                        <div><span class="device-badge">${deviceStr}</span></div>
-                        <div>${statusStr}</div>
-                        <div>⏳ <strong>${durationStr}</strong> (aktív)</div>
-                        <div><strong style="color:#38bdf8;">${s.clicksCount || 0} kattintás</strong></div>
-                        <div><button class="btn-act btn-del" onclick="deleteVisitor('${s.visId}')">🗑️ MENET TÖRLÉSE</button></div>
-                    </div>
-                    ${clickHistoryHtml}
-                </div>
-            `;
-        }).join('');
-
-        return `
-            <div class="visitor-ip-card">
-                <div class="visitor-ip-header">
-                    <div>
-                        <span class="ip-badge" style="${ipBadgeClass}">${group.ip}</span>
-                        ${isIPBanned ? '<span style="color:#ef4444; font-weight:800; font-size:0.75rem; margin-left:6px;">[⛔ IP TILTVA]</span>' : ''}
-                        ${customName}
-                        <span style="font-size:0.75rem; color:#38bdf8; margin-left:8px;">📍 ${group.location}</span>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <button class="btn-act btn-alias" onclick="setIPAlias('${group.ip}')">✏️ NÉV</button>
-                        ${banButtonHtml}
-                    </div>
-                </div>
-                ${sessionRowsHtml}
-            </div>
-        `;
-    }).join('');
-}
-
-async function setIPAlias(ip) {
-    const ipKey = ip.replace(/\./g, '_');
-    try {
-        const currentRes = await fetch(`${FIREBASE_URL}/analytics/ip_names/${ipKey}.json`);
-        const currentData = await currentRes.json();
-        const currentName = currentData?.name || "";
-
-        const newName = prompt(`Adjon meg egy elnevezést ehhez az IP-címhez (${ip}):`, currentName);
-        if (newName === null) return;
-
-        if (newName.trim() === "") {
-            await fetch(`${FIREBASE_URL}/analytics/ip_names/${ipKey}.json`, { method: 'DELETE' });
-        } else {
-            await fetch(`${FIREBASE_URL}/analytics/ip_names/${ipKey}.json`, {
-                method: 'PUT',
-                body: JSON.stringify({ name: newName.trim() })
-            });
-        }
-        loadDevAnalyticsData();
-    } catch(e) { alert("Hiba a név elmentésekor!"); }
-}
-
-function renderClicksTable(clicks) {
-    const tbody = document.getElementById('clicks-table-body');
-    const items = Object.entries(clicks);
-
-    if (items.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Nincs rögzített kattintás ma.</td></tr>';
-        return;
-    }
-
-    tbody.innerHTML = items.map(([key, data]) => `
-        <tr>
-            <td style="max-width:350px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                <a href="${data.link || '#'}" target="_blank" style="color:#f8fafc; text-decoration:none;">${data.title || 'Cikk'}</a>
-            </td>
-            <td><strong style="color:#38bdf8;">${data.count || 1}x</strong></td>
-            <td><button class="btn-act btn-del" onclick="deleteClickMetric('${key}')">🗑️ TÖRLÉS</button></td>
-        </tr>
-    `).join('');
-}
-
-function renderBannedTable(banned) {
-    const tbody = document.getElementById('banned-table-body');
-    const items = Object.entries(banned);
-
-    if (items.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Nincs tiltott IP cím.</td></tr>';
-        return;
-    }
-
-    tbody.innerHTML = items.map(([ipKey, data]) => {
-        const origIP = ipKey.replace(/_/g, '.');
-        return `
-            <tr>
-                <td><span class="ip-badge banned-badge">${origIP}</span> <strong style="color:#ef4444; margin-left:6px;">⛔ TILTVA</strong></td>
-                <td>${data.bannedAt ? new Date(data.bannedAt).toLocaleString('hu-HU') : 'Folyamatos'}</td>
-                <td><button class="btn-act btn-unban" onclick="unbanIP('${ipKey}')">UNBAN / FELOLDÁS</button></td>
-            </tr>
-        `;
-    }).join('');
-}
-
-async function banVisitorIP(ip) {
-    if (ip === currentVisitorIP) return alert("❌ A saját IP-címedet nem tilthatod ki!");
-    if (!confirm(`Biztosan tiltani szeretnéd a(z) ${ip} IP címet?`)) return;
-    const ipKey = ip.replace(/\./g, '_');
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/banned/${ipKey}.json`, {
-            method: 'PUT',
-            body: JSON.stringify({ bannedAt: new Date().toISOString() })
-        });
-        loadDevAnalyticsData();
-    } catch(e){ alert("Hiba történt!"); }
-}
-
-async function unbanIP(ipKey) {
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/banned/${ipKey}.json`, { method: 'DELETE' });
-        loadDevAnalyticsData();
-    } catch(e){ alert("Hiba történt!"); }
-}
-
-async function deleteSingleClickHistory(visId, clickHistoryKey) {
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/visitors/${visId}/click_history/${clickHistoryKey}.json`, { method: 'DELETE' });
-        loadDevAnalyticsData();
-    } catch(e){}
-}
-
-async function deleteVisitor(visId) {
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/visitors/${visId}.json`, { method: 'DELETE' });
-        loadDevAnalyticsData();
-    } catch(e){}
-}
-
-async function clearAllVisitors() {
-    if (!confirm("Biztosan törölni szeretnéd az ÖSSZES látogatót?")) return;
-    try {
-        await fetch(`${FIREBASE_URL}/analytics/visitors.json`, { method: 'DELETE' });
-        loadDevAnalyticsData();
-    } catch(e){}
-}
-
-async function deleteClickMetric(key) {
-    try {
-        const todayStr = new Date().toLocaleDateString('sv-SE');
-        await fetch(`${FIREBASE_URL}/analytics/daily_clicks/${todayStr}/${key}.json`, { method: 'DELETE' });
-        loadDevAnalyticsData();
-    } catch(e){}
-}
-
-async function clearAllClicks() {
-    if (!confirm("Biztosan törölni szeretnéd a mai kattintási statisztikát?")) return;
-    try {
-        const todayStr = new Date().toLocaleDateString('sv-SE');
-        await fetch(`${FIREBASE_URL}/analytics/daily_clicks/${todayStr}.json`, { method: 'DELETE' });
-        loadDevAnalyticsData();
-    } catch(e){}
-}
-
-function cleanText(str) {
-    if (typeof str !== 'string') return str;
-    return str.trim();
-}
-
-function isBlacklisted(title) {
-    if (!title || !blacklistKeywords || !Array.isArray(blacklistKeywords) || blacklistKeywords.length === 0) return false;
-    const lowerTitle = String(title).toLowerCase();
-    return blacklistKeywords.some(kw => kw && typeof kw === 'string' && kw.trim() !== '' && lowerTitle.includes(kw.toLowerCase()));
-}
-
-function parseRssDate(str, feedName) {
-    if (!str) return new Date();
-    let d = new Date(str);
-    if (isNaN(d.getTime())) {
-        let s = String(str).trim();
-        if (/^\d{4}[\.-]\d{2}[\.-]\d{2}/.test(s)) {
-            s = s.replace(/\./g, '-').replace(/\s+/, 'T');
-        }
-        d = new Date(s);
-        if (isNaN(d.getTime())) d = new Date();
-    }
-    return d;
-}
-
-function getSourceLogoUrl(item) {
-    if (!item) return null;
-    if (item.link) {
-        try { return `https://www.google.com/s2/favicons?sz=64&domain=${new URL(item.link).hostname}`; } catch(e){}
-    }
-    return null;
-}
-
-function cleanProviderName(item) {
-    if (!item) return 'FORRÁS';
-    let name = item.source || '';
-    if (!name && item.link) {
-        try {
-            const hostname = new URL(item.link).hostname;
-            name = hostname.replace('www.', '').split('.')[0];
-        } catch(e) { name = 'FORRÁS'; }
-    }
-    name = cleanText(name); 
-    return name.toUpperCase().trim() || 'FORRÁS';
-}
-
-function triggerNewsFlip() {
-    const wrapper = document.getElementById('ticker-news-wrapper');
-    if (wrapper) {
-        wrapper.classList.remove('flip-active');
-        void wrapper.offsetWidth; 
-        wrapper.classList.add('flip-active');
-    }
-}
-
-function updateTickerList() {
-    const now = new Date();
-    const hour = now.getHours();
-
-    let thresholdHours = 2;
-    if (hour >= 0 && hour < 6) {
-        thresholdHours = 4;
-    } else if (hour >= 6 && hour < 22) {
-        thresholdHours = 2;
-    } else {
-        thresholdHours = 4;
-    }
-
-    const thresholdTime = now.getTime() - (thresholdHours * 60 * 60 * 1000);
-
-    let allItems = [];
-    if (localGyujtoData) allItems.push(...Object.values(localGyujtoData));
-    if (localAdasData) allItems.push(...Object.values(localAdasData));
-
-    const uniqueItems = new Map();
-    allItems.forEach(item => {
-        if (item && item.link && !isBlacklisted(item.title)) {
-            const d = parseRssDate(item.date, item.source); 
-            uniqueItems.set(item.link, { ...item, date: d.toISOString() });
-        }
-    });
-
-    const validItems = Array.from(uniqueItems.values()).filter(item => {
-        if (!item.date) return false;
-        const d = new Date(item.date).getTime();
-        return d >= thresholdTime && d <= now.getTime();
-    });
-
-    const shuffledItems = shuffleArray([...validItems]);
-    const previousActiveLink = tickerNews[currentTickerIndex]?.link;
-
-    tickerNews = shuffledItems;
-
-    if (tickerNews.length === 0) {
-        currentTickerIndex = 0;
-        renderTickerItem(null, thresholdHours);
-    } else {
-        const matchedIndex = tickerNews.findIndex(item => item.link === previousActiveLink);
-        if (matchedIndex !== -1) {
-            currentTickerIndex = matchedIndex;
-            renderTickerItem(tickerNews[currentTickerIndex], thresholdHours);
-        } else {
-            currentTickerIndex = 0;
-            renderTickerItem(tickerNews[0], thresholdHours);
-        }
-    }
-}
-
-function renderTickerItem(item, thresholdHours = 2) {
-    const logo = document.getElementById('ticker-source-logo');
-    const sourceName = document.getElementById('ticker-source-name');
-    const time = document.getElementById('ticker-time');
-    const title = document.getElementById('ticker-title');
-    const desc = document.getElementById('ticker-desc');
-
-    if (!item) {
-        if (logo) logo.style.display = 'none';
-        if (sourceName) sourceName.textContent = 'RENDSZER';
-        if (time) time.textContent = new Date().toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit'});
-        if (title) {
-            title.textContent = `Nincs aktív hír az elmúlt ${thresholdHours} órában.`;
-            title.href = '#';
-        }
-        if (desc) {
-            desc.textContent = 'Friss hírforrások keresése és szinkronizálása folyamatos...';
-        }
-        triggerNewsFlip(); 
-    } else {
-        const d = new Date(item.date);
-        const logoUrl = getSourceLogoUrl(item);
-
-        if (logo) {
-            if (logoUrl) {
-                logo.src = logoUrl;
-                logo.style.display = 'inline-block';
-            } else logo.style.display = 'none';
-        }
-        if (sourceName) sourceName.textContent = cleanProviderName(item);
-        if (time) time.textContent = d.toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit'});
-
-        const fullTitle = cleanText(item.title || '');
-        if (title) {
-            title.href = item.link || '#';
-            title.textContent = fullTitle;
-        }
-
-        const fullDesc = cleanText(item.description || '');
-        if (desc) {
-            desc.textContent = fullDesc || 'Nincs további leírás.';
-        }
-        triggerNewsFlip(); 
-    }
-}
-
-function cycleTicker() {
-    if (tickerNews.length <= 1) return;
-    currentTickerIndex = (currentTickerIndex + 1) % tickerNews.length;
-    renderTickerItem(tickerNews[currentTickerIndex]);
-}
-
-function createNewsItemCard(item, isAllFeed, isBreaking) {
-    const div = document.createElement('div');
-    div.className = 'news-item' + (isAllFeed ? ' is-all-card' : '') + (isBreaking ? ' is-breaking-card' : '');
-    div.dataset.id = item.id;
-    
-    const d = new Date(item.date);
-    const timeStr = d.toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-    const logo = getSourceLogoUrl(item);
-    const src = cleanProviderName(item); 
-    const desc = (item.description || '').trim(); 
-    const descHtml = desc ? `<div class="news-description">${desc}</div>` : '';
-
-    let imgHtml = '';
-    if (item.img && typeof item.img === 'string' && item.img.startsWith('http')) {
-        imgHtml = `<div class="news-card-img-box">
-            <img src="${item.img}" class="news-card-img" alt="Cikk borítókép" loading="lazy" decoding="async" onerror="this.parentElement.style.display='none'">
-        </div>`;
-    }
-
-    div.innerHTML = `
-        <div class="news-meta">
-            <div class="source-wrapper">
-                ${logo ? `<img class="source-logo" src="${logo}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` : ''}
-                <span class="source-name">${src}</span>
-            </div>
-            <span class="news-time">${timeStr}</span>
-        </div>
-        <div class="news-title"><a href="${item.link || '#'}" target="_blank">${cleanText(item.title || '')}</a></div>
-        ${imgHtml}
-        ${descHtml}
-    `;
-    return div;
-}
-
-function createNyirWeatherColumnHTML() {
-    return `
-        <div class="nyir-weather-block">
-            <div style="background:rgba(255,255,255,0.92); border:1px solid var(--border-color); border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; box-shadow: 0 2px 8px rgba(15,23,42,0.03);">
-                <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#0284c7; font-family:'Space Mono',monospace;" id="active-station-tag">${cachedWeatherHTML.activeTag || '📍 Nyíregyháza • Állomás...'}</div>
-                <div style="font-size:11px; color:#475569; font-family:'Space Mono',monospace; font-weight:600;" id="time-top">${cachedWeatherHTML.timeTop || 'Mérés ideje: ...'}</div>
-            </div>
-
-            <div>
-                <div class="card-title-weather">📡 NYÍREGYHÁZA PWS ÁLLOMÁS</div>
-                <div id="left-panel">${cachedWeatherHTML.left || `
-                    <div class="weather-loader-container">
-                        <div class="weather-loader-text">⚡ Töltöm az aktuális időjárási értékeket...</div>
-                        <div class="weather-loader-bar-bg">
-                            <div class="weather-loader-bar-fill"></div>
+                    <div class="radio-cube-mid">
+                        <button class="radio-cube-play-btn" id="radio-cube-btn" onclick="event.stopPropagation(); toggleRadioPlay();">${isRadioPlaying ? '⏸️ PAUSE' : '▶️ PLAY'}</button>
+                        <div class="radio-eq-container">
+                            <div class="eq-bar ${isRadioPlaying ? 'playing' : ''}"></div>
+                            <div class="eq-bar ${isRadioPlaying ? 'playing' : ''}"></div>
+                            <div class="eq-bar ${isRadioPlaying ? 'playing' : ''}"></div>
+                            <div class="eq-bar ${isRadioPlaying ? 'playing' : ''}"></div>
                         </div>
                     </div>
-                `}</div>
-            </div>
-
-            <div>
-                <div class="card-title-weather">🚨 METEOROLÓGIAI VESZÉLYJELZÉS</div>
-                <div id="alerts-panel"><div class="loading-weather">Veszélyjelzés betöltése...</div></div>
-            </div>
-
-            <div>
-                <div class="card-title-weather">🗺️ KISTÉRSÉGI RIASZTÁSI TÉRKÉP</div>
-                <div class="map-tabs-nyir">
-                    <button class="map-tab-btn-nyir active" onclick="showNyirMap('now', this)">MOST (1-3h)</button>
-                    <button class="map-tab-btn-nyir" onclick="showNyirMap('today', this)">MA (24h)</button>
-                    <button class="map-tab-btn-nyir" onclick="showNyirMap('tomorrow', this)">HOLNAP (48h)</button>
-                </div>
-                <div class="map-container-nyir">
-                    <img id="nyirMapImg" src="https://androidapi.idokep.hu/kistersegi/riaszt_1-3_transp.png" class="map-img-nyir" alt="Riasztási térkép">
-                </div>
-            </div>
-
-            <div>
-                <div class="card-title-weather">🌧️ CSAPADÉK-ESEMÉNY NAPLÓ</div>
-                <div id="rain-panel">${cachedWeatherHTML.rain || '<div class="loading-weather">Adatok betöltése...</div>'}</div>
-            </div>
-
-            <div>
-                <div class="card-title-weather">🕒 MIKOR VOLT UTOLJÁRA...</div>
-                <div id="when-last-panel">${cachedWeatherHTML.whenLast || '<div class="loading-weather">Adatok betöltése...</div>'}</div>
-            </div>
-
-            <div>
-                <div class="card-title-weather">📊 METEOROLÓGIAI REKORDOK</div>
-                <div id="stats-panel">${cachedWeatherHTML.stats || '<div class="loading-weather">Adatok betöltése...</div>'}</div>
-            </div>
-
-            <div>
-                <div class="card-title-weather">📜 MAI MÉRÉSEK NAPLÓJA</div>
-                <div id="log-view-container">
-                    ${cachedWeatherHTML.table || `
-                    <div class="table-wrapper-weather">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th style="width:25%;">Idő</th>
-                                    <th style="width:18%;">Hőm.</th>
-                                    <th style="width:14%;">Pára</th>
-                                    <th style="width:15%;">Légny.</th>
-                                    <th style="width:14%;">Szél</th>
-                                    <th style="width:14%;">Eső</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-body">
-                                <tr><td colspan="6" style="text-align:center;">Adatok betöltése...</td></tr>
-                            </tbody>
-                        </table>
+                    <div class="radio-cube-bottom" id="radio-cube-track">
+                        ${isRadioPlaying ? (radioConfig.nowPlaying || '🎵 Élő adás') : '🔴 Kattints rádióválasztáshoz'}
                     </div>
-                    `}
                 </div>
+            `;
+            return;
+        }
+
+        widgetBox.onclick = null;
+
+        if (mode === 'logo') {
+            widgetBox.setAttribute('style', 'background: rgba(255, 255, 255, 0.92); border: 1px solid var(--border-color); display: flex;');
+            contentBox.innerHTML = `
+                <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font-family:'Space Mono',monospace; text-align:center; width:100%;">
+                    <div style="display:flex; align-items:center; gap:4px;">
+                        <svg class="kb-icon-mini-watermark" viewBox="0 0 24 24" fill="none" style="width:18px; height:18px;"><path d="M3 8V5a2 2 0 0 1 2-2h3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 1-2 2h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 4" opacity="0.5"/></svg>
+                        <span style="font-weight:800; font-size:0.92rem; color:#1e3a8a;">KÉPBEN<span style="color:#dc2626;">!</span></span>
+                    </div>
+                    <span style="font-size:0.55rem; font-weight:700; color:#dc2626;">Készítette: Robi</span>
+                </div>
+            `;
+            return;
+        }
+
+        if (!kockaPwsConfig || !kockaPwsConfig.stationId) {
+            widgetBox.style.display = 'none';
+            return;
+        }
+
+        try {
+            const url = `https://api.weather.com/v2/pws/observations/current?stationId=${kockaPwsConfig.stationId}&format=json&units=m&numericPrecision=decimal&apiKey=${WEATHER_API_KEY}`;
+            const res = await fetch(url);
+            
+            if (!res.ok) {
+                widgetBox.style.display = 'none';
+                return;
+            }
+
+            const data = await res.json();
+            if (data && data.observations && data.observations[0]) {
+                const obs = data.observations[0];
+                const rawTemp = obs.metric?.temp;
+
+                if (rawTemp !== undefined && rawTemp !== null && !isNaN(rawTemp)) {
+                    contentBox.innerHTML = `
+                        <span class="weather-box-city" id="weather-city">${kockaPwsConfig.customName || obs.neighborhood || kockaPwsConfig.stationId}</span>
+                        <span class="weather-box-temp" id="weather-temp">${formatSmartDecimal(rawTemp, 1)}°</span>
+                    `;
+                    const styleAttr = getWeatherTempStyle(rawTemp);
+                    widgetBox.setAttribute('style', styleAttr);
+                    widgetBox.style.display = 'flex';
+                    return;
+                }
+            }
+            widgetBox.style.display = 'none';
+        } catch(e) {
+            widgetBox.style.display = 'none';
+        }
+    }
+
+    function startKockaPwsEngine() {
+        if (kockaFetchIntervalId) clearInterval(kockaFetchIntervalId);
+        fetchKockaPwsData();
+        const intervalMin = Math.max(1, parseInt(kockaPwsConfig.intervalMin) || 1);
+        kockaFetchIntervalId = setInterval(fetchKockaPwsData, intervalMin * 60 * 1000);
+    }
+
+    async function saveKockaPwsConfig() {
+        const modeSelect = document.getElementById('kocka-mode-select').value;
+        const urlInput = document.getElementById('kocka-pws-url-input').value.trim();
+        const customNameInput = document.getElementById('kocka-pws-name-input').value.trim();
+        const intervalInput = parseInt(document.getElementById('kocka-pws-interval-input').value) || 1;
+        const stationId = extractPwsStationId(urlInput);
+
+        kockaPwsConfig = {
+            mode: modeSelect,
+            stationId: stationId,
+            customName: customNameInput || stationId,
+            url: urlInput || `https://www.wunderground.com/dashboard/pws/${stationId}`,
+            intervalMin: Math.max(1, Math.min(60, intervalInput)),
+            updatedAt: new Date().toISOString()
+        };
+
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/pws_kocka.json`, {
+                method: 'PUT',
+                body: JSON.stringify(kockaPwsConfig)
+            });
+            alert(`✅ Fejléc Kocka Beállítások elmentve! Mód: ${modeSelect.toUpperCase()}`);
+            startKockaPwsEngine();
+        } catch(e) { alert("Hiba a mentéskor!"); }
+    }
+
+    /* 🌡️ 2. ALSÓ SÁV PWS IDŐJÁRÁS LOGIKA */
+    async function fetchAllPwsDataForStrip() {
+        if (!pwsStationsList || pwsStationsList.length === 0) {
+            pwsCachedResults = [];
+            renderPwsStripCurrent();
+            updateUnifiedMediaBarVisibility();
+            return;
+        }
+
+        try {
+            const fetchPromises = pwsStationsList.map(st => {
+                const url = `https://api.weather.com/v2/pws/observations/current?stationId=${st.stationId}&format=json&units=m&numericPrecision=decimal&apiKey=${WEATHER_API_KEY}`;
+                return fetch(url)
+                    .then(r => r.ok ? r.json() : null)
+                    .then(d => (d && d.observations && d.observations[0]) ? { station: st, obs: d.observations[0] } : null)
+                    .catch(() => null);
+            });
+
+            const results = await Promise.all(fetchPromises);
+            pwsCachedResults = results.filter(r => r && r.obs);
+            renderPwsStripCurrent();
+        } catch(e) {
+            pwsCachedResults = [];
+            renderPwsStripCurrent();
+        }
+        updateUnifiedMediaBarVisibility();
+    }
+
+    function renderPwsStripCurrent() {
+        const container = document.getElementById('pws-section-wrapper');
+        if (!container) return;
+
+        if (pwsCachedResults.length === 0) {
+            if (pwsStationsList.length > 0) {
+                container.innerHTML = '<div class="pws-inline-strip" style="border-color:rgba(239,68,68,0.4);"><span style="color:#ef4444; font-weight:800;">📡 PWS: ⚠️ Az állomások pillanatnyilag offline-ok</span></div>';
+            } else {
+                container.innerHTML = '';
+            }
+            return;
+        }
+
+        if (pwsCurrentIndex >= pwsCachedResults.length) pwsCurrentIndex = 0;
+        const res = pwsCachedResults[pwsCurrentIndex];
+
+        const obs = res.obs;
+        const st = res.station;
+        const metric = obs.metric || {};
+        const rawTemp = metric.temp;
+        const temp = formatSmartDecimal(rawTemp, 1);
+        const heatIndex = formatSmartDecimal(metric.heatIndex !== undefined ? metric.heatIndex : metric.temp, 1);
+        const humidity = formatSmartDecimal(obs.humidity, 1);
+        const windSpd = formatSmartDecimal(metric.windSpeed, 1);
+        const windDir = getWindCardinal(obs.winddir);
+        const pressure = formatSmartDecimal(metric.pressure, 1);
+        const rainTotal = formatSmartDecimal(metric.precipTotal, 1);
+        const uv = obs.uv !== undefined ? formatSmartDecimal(obs.uv, 1) : null;
+        const displayName = st.customName || obs.neighborhood || st.stationId;
+
+        container.innerHTML = `
+            <div class="pws-inline-strip" title="Frissítve: ${obs.obsTimeLocal || 'most'} · Állomás (${pwsCurrentIndex + 1}/${pwsCachedResults.length}): ${displayName}">
+                <div class="pws-metric-item" style="color:#ef4444; font-weight:800; background:rgba(220,38,38,0.08); border:1px solid rgba(220,38,38,0.2);">📡 ${displayName}</div>
+                <span style="opacity:0.3;">|</span>
+                <div class="pws-metric-item" style="${getWeatherTempStyle(rawTemp)}">🌡️ <span class="pws-metric-val">${temp}°C</span> <span style="font-size:0.6rem; opacity:0.85;">(Hőérzet: ${heatIndex}°)</span></div>
+                <span style="opacity:0.3;">|</span>
+                <div class="pws-metric-item" style="${getHumidityStyle(obs.humidity)}">💧 pára: <span class="pws-metric-val">${humidity}%</span></div>
+                <span style="opacity:0.3;">|</span>
+                <div class="pws-metric-item" style="${getWindStyle(metric.windSpeed)}">💨 szél: <span class="pws-metric-val">${windSpd} km/h ${windDir}</span></div>
+                <span style="opacity:0.3;">|</span>
+                <div class="pws-metric-item" style="${getPressureStyle(metric.pressure)}">🧭 nyomás: <span class="pws-metric-val">${pressure} hPa</span></div>
+                <span style="opacity:0.3;">|</span>
+                <div class="pws-metric-item" style="${getRainStyle(metric.precipTotal)}">🌧️ csapadék: <span class="pws-metric-val">${rainTotal} mm</span></div>
+                ${uv !== null ? `<span style="opacity:0.3;">|</span><div class="pws-metric-item" style="${getUvStyle(obs.uv)}">☀️ UV: <span class="pws-metric-val">${uv}</span></div>` : ''}
             </div>
-        </div>
-    `;
-}
+        `;
+    }
 
-function renderChannelColumns(dataObject, gridId, startTime, endTime, isYesterday = false) {
-    if (!dataObject) dataObject = {};
-    const grid = document.getElementById(gridId);
-    if (!grid) return;
+    function startPwsEngine() {
+        if (pwsFetchIntervalId) clearInterval(pwsFetchIntervalId);
+        if (pwsStripCycleIntervalId) clearInterval(pwsStripCycleIntervalId);
 
-    // ELMENTJÜK A BELSŐ GÖRGETÉSI POZÍCIÓKAT (ÍGY GYENGE GÉPEKEN IS 100% AKADÁSMENTES MARAD A GÖRGETÉS)
-    const scrollPositions = {};
-    grid.querySelectorAll('.channel-column-body').forEach((el, idx) => {
-        scrollPositions[idx] = el.scrollTop;
-    });
+        if (pwsStationsList && pwsStationsList.length > 0) {
+            fetchAllPwsDataForStrip();
+            
+            const minMin = Math.min(...pwsStationsList.map(s => parseInt(s.intervalMin) || 1));
+            const fetchMs = Math.max(1, minMin) * 60 * 1000;
+            pwsFetchIntervalId = setInterval(fetchAllPwsDataForStrip, fetchMs);
 
-    const allItems = Object.entries(dataObject)
-        .filter(([key, item]) => {
-            if (!item || !item.date || isBlacklisted(item.title)) return false;
-            const d = parseRssDate(item.date, item.source); 
-            const t = d.getTime();
-            return !isNaN(t) && t >= startTime && t <= endTime;
-        })
-        .map(([key, item]) => {
-            const d = parseRssDate(item.date, item.source); 
-            return { ...item, id: key, parsedDate: d, date: d.toISOString() }; 
-        });
-
-    allItems.sort((a, b) => b.parsedDate - a.parsedDate);
-
-    const refDate = isYesterday ? new Date(Date.now() - 24 * 60 * 60 * 1000) : new Date();
-    const yyyy = refDate.getFullYear();
-    const mm = String(refDate.getMonth() + 1).padStart(2, '0');
-    const dd = String(refDate.getDate()).padStart(2, '0');
-    const columnHeaderDate = `${yyyy}.${mm}.${dd}.`;
-
-    const channelGroups = {};
-    allItems.forEach(item => {
-        const providerName = cleanProviderName(item);
-        if (!channelGroups[providerName]) {
-            channelGroups[providerName] = [];
+            pwsStripCycleIntervalId = setInterval(() => {
+                if (pwsCachedResults.length > 1) {
+                    pwsCurrentIndex = (pwsCurrentIndex + 1) % pwsCachedResults.length;
+                    renderPwsStripCurrent();
+                }
+            }, 10000);
+        } else {
+            const container = document.getElementById('pws-section-wrapper');
+            if (container) container.innerHTML = '';
+            updateUnifiedMediaBarVisibility();
         }
-        channelGroups[providerName].push(item);
-    });
+    }
 
-    const columnsData = [
-        {
-            name: isYesterday ? "📜 TEGNAPI ÖSSZES HÍR" : "🌐 MAI ÖSSZES HÍR",
-            isAll: true,
-            isBreaking: false,
-            isWeather: false,
-            items: allItems,
-            logo: null,
-            theme: { bg: 'linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%)', border: '#3b82f6' }
+    function renderDevPwsStationsList() {
+        const tbody = document.getElementById('pws-stations-tbody');
+        if (!tbody) return;
+
+        if (!pwsStationsList || pwsStationsList.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#94a3b8;">Nincs rögzített időjárás állomás.</td></tr>';
+            return;
         }
-    ];
 
-    if (breakingKeywords && Array.isArray(breakingKeywords) && breakingKeywords.length > 0) {
-        const breakingItems = allItems.filter(item => {
-            if (breakingExcludedMap && breakingExcludedMap[item.id]) return false;
+        tbody.innerHTML = pwsStationsList.map((st, idx) => `
+            <tr>
+                <td><strong style="color:#38bdf8;">#${idx + 1}</strong></td>
+                <td><strong style="color:#f8fafc;">${st.customName || 'Egyedi Állomás'}</strong></td>
+                <td><span class="ip-badge">${st.stationId}</span></td>
+                <td>
+                    <input type="number" min="1" max="120" value="${st.intervalMin || 1}" onchange="updatePwsStationInterval(${idx}, this.value)" style="width:65px; background:#1e293b; color:#38bdf8; border:1px solid #334155; border-radius:4px; padding:3px 6px; font-family:'Space Mono',monospace; font-size:0.75rem; font-weight:700; outline:none;"> perc
+                </td>
+                <td style="white-space:nowrap;">
+                    <button class="btn-act btn-alias" style="padding:3px 8px; font-size:0.65rem;" onclick="movePwsStationOrder(${idx}, -1)" ${idx === 0 ? 'disabled' : ''}>▲ FEL</button>
+                    <button class="btn-act btn-alias" style="padding:3px 8px; font-size:0.65rem;" onclick="movePwsStationOrder(${idx}, 1)" ${idx === pwsStationsList.length - 1 ? 'disabled' : ''}>▼ LE</button>
+                    <button class="btn-act btn-ban" style="padding:3px 8px; font-size:0.65rem;" onclick="removePwsStationFromList(${idx})">🗑️ TÖRLÉS</button>
+                </td>
+            </tr>
+        `).join('');
+    }
 
+    function movePwsStationOrder(index, direction) {
+        const newIndex = index + direction;
+        if (newIndex >= 0 && newIndex < pwsStationsList.length) {
+            const temp = pwsStationsList[index];
+            pwsStationsList[index] = pwsStationsList[newIndex];
+            pwsStationsList[newIndex] = temp;
+            renderDevPwsStationsList();
+        }
+    }
+
+    function updatePwsStationInterval(index, val) {
+        if (pwsStationsList[index]) {
+            pwsStationsList[index].intervalMin = Math.max(1, parseInt(val) || 1);
+        }
+    }
+
+    function addPwsStationFromInput() {
+        if (pwsStationsList.length >= 30) {
+            alert("⚠️ Rögzíthetsz több állomást is!");
+        }
+
+        const urlInput = document.getElementById('pws-url-input').value.trim();
+        const customNameInput = document.getElementById('pws-name-input').value.trim();
+        const stationId = extractPwsStationId(urlInput);
+
+        if (!stationId) {
+            alert("⚠️ Nem sikerült felismerni a PWS állomás azonosítóját!");
+            return;
+        }
+
+        const newStation = {
+            stationId: stationId,
+            customName: customNameInput || stationId,
+            url: urlInput || `https://www.wunderground.com/dashboard/pws/${stationId}`,
+            intervalMin: 1
+        };
+
+        pwsStationsList.push(newStation);
+        renderDevPwsStationsList();
+
+        document.getElementById('pws-url-input').value = '';
+        document.getElementById('pws-name-input').value = '';
+    }
+
+    function removePwsStationFromList(index) {
+        if (index >= 0 && index < pwsStationsList.length) {
+            pwsStationsList.splice(index, 1);
+            renderDevPwsStationsList();
+        }
+    }
+
+    async function saveAllPwsStations() {
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/pws_stations.json`, {
+                method: 'PUT',
+                body: JSON.stringify(pwsStationsList)
+            });
+            alert(`✅ ${pwsStationsList.length} db sáv időjárási állomás elmentve!`);
+            startPwsEngine();
+        } catch(e) { alert("Hiba az állomások mentésekor!"); }
+    }
+
+    async function clearAllPwsStations() {
+        if (!confirm("Biztosan törölni szeretnéd az ÖSSZES hírsáv időjárási állomást?")) return;
+        pwsStationsList = [];
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/pws_stations.json`, { method: 'DELETE' });
+            renderDevPwsStationsList();
+            alert("🗑️ Minden sáv időjárási állomás törölve!");
+            startPwsEngine();
+        } catch(e) { alert("Hiba a törléskor!"); }
+    }
+
+    function renderDevBreakingNewsList() {
+        const container = document.getElementById('dev-breaking-list-container');
+        if (!container) return;
+
+        if (!breakingKeywords || !Array.isArray(breakingKeywords) || breakingKeywords.length === 0) {
+            container.innerHTML = '<div style="color:#94a3b8; font-size:0.75rem; padding:8px;">Nincs megadva rendkívüli kulcsszó.</div>';
+            return;
+        }
+
+        let allItems = [];
+        if (localGyujtoData) {
+            Object.entries(localGyujtoData).forEach(([key, item]) => {
+                if (item && item.title) allItems.push({ ...item, id: key });
+            });
+        }
+        if (localAdasData) {
+            Object.entries(localAdasData).forEach(([key, item]) => {
+                if (item && item.title && !allItems.some(i => i.id === key)) allItems.push({ ...item, id: key });
+            });
+        }
+
+        const matchedItems = allItems.filter(item => {
             const titleLower = (item.title || '').toLowerCase();
             const descLower = (item.description || '').toLowerCase();
             return breakingKeywords.some(kw => kw && kw.trim() !== '' && (titleLower.includes(kw.toLowerCase()) || descLower.includes(kw.toLowerCase())));
         });
 
-        columnsData.push({
-            name: "🚨 RENDKÍVÜLI HÍREK",
-            isAll: false,
-            isBreaking: true,
-            isWeather: false,
-            items: breakingItems,
-            logo: null,
-            theme: { bg: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)', border: '#ef4444' }
+        const activeBreaking = matchedItems.filter(item => !breakingExcludedMap[item.id]);
+        const excludedBreakingKeys = Object.keys(breakingExcludedMap);
+
+        let html = '';
+
+        if (activeBreaking.length === 0) {
+            html += '<div style="color:#94a3b8; font-size:0.75rem; margin-bottom:12px;">Jelenleg nincs aktív hír a rendkívüli oszlopban.</div>';
+        } else {
+            html += `<div style="font-family:'Space Mono',monospace; font-size:0.7rem; color:#22c55e; margin-bottom:8px;">🟢 AKTÍVAN MEGJELENŐ RENDKÍVÜLI CIKKEK (${activeBreaking.length} db):</div>`;
+            html += '<div class="dev-table-container" style="margin-bottom:16px;"><table class="dev-table"><thead><tr><th>CIKK CÍME</th><th>FORRÁS / IDŐ</th><th>MŰVELET</th></tr></thead><tbody>';
+            
+            html += activeBreaking.map(item => {
+                const d = new Date(item.date);
+                const timeStr = d.toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit'});
+                return `
+                    <tr>
+                        <td style="max-width:380px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                            <a href="${item.link || '#'}" target="_blank" style="color:#f8fafc; text-decoration:none; font-weight:600;">${item.title}</a>
+                        </td>
+                        <td><span style="color:#38bdf8; font-weight:700;">${cleanProviderName(item)}</span> · <span style="color:#94a3b8;">${timeStr}</span></td>
+                        <td>
+                            <button class="btn-act btn-ban" style="padding:4px 10px; font-size:0.65rem;" onclick="excludeBreakingItem('${item.id}', '${item.title.replace(/'/g, "\\'")}')">🗑️ KIVÉTEL</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            html += '</tbody></table></div>';
+        }
+
+        if (excludedBreakingKeys.length > 0) {
+            html += `<div style="font-family:'Space Mono',monospace; font-size:0.7rem; color:#ef4444; margin-top:14px; margin-bottom:8px;">🚫 KIVETT / TÖRÖLT CIKKEK (${excludedBreakingKeys.length} db):</div>`;
+            html += '<div class="dev-table-container"><table class="dev-table"><thead><tr><th>CÍM</th><th>MŰVELET</th></tr></thead><tbody>';
+            html += excludedBreakingKeys.map(key => {
+                const ex = breakingExcludedMap[key];
+                const titleStr = typeof ex === 'object' ? (ex.title || key) : 'Cikk';
+                return `
+                    <tr>
+                        <td style="color:#94a3b8;">${titleStr}</td>
+                        <td>
+                            <button class="btn-act btn-unban" style="padding:4px 10px; font-size:0.65rem;" onclick="restoreBreakingItem('${key}')">↺ VISSZAÁLLÍTÁS</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            html += '</tbody></table></div>';
+        }
+
+        container.innerHTML = html;
+    }
+
+    async function excludeBreakingItem(itemKey, title) {
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/breaking_excluded/${itemKey}.json`, {
+                method: 'PUT',
+                body: JSON.stringify({ title: title, excludedAt: new Date().toISOString() })
+            });
+            breakingExcludedMap[itemKey] = { title: title };
+            await fetchDatabases();
+            loadDevAnalyticsData();
+        } catch(e){ alert("Hiba a törléskor!"); }
+    }
+
+    async function restoreBreakingItem(itemKey) {
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/breaking_excluded/${itemKey}.json`, {
+                method: 'DELETE'
+            });
+            delete breakingExcludedMap[itemKey];
+            await fetchDatabases();
+            loadDevAnalyticsData();
+        } catch(e){ alert("Hiba a visszaállításkor!"); }
+    }
+
+    async function saveBroadcastNotice() {
+        const text = document.getElementById('broadcast-msg-input').value.trim();
+        if (!text) return alert("Adjon meg egy üzenetet!");
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/broadcast.json`, {
+                method: 'PUT',
+                body: JSON.stringify({ text: text, updatedAt: new Date().toISOString() })
+            });
+            alert("✅ Tévéhír kiküldve!");
+            updateRealtimeOnlineCount();
+        } catch(e){ alert("Hiba történt!"); }
+    }
+
+    async function deleteBroadcastNotice() {
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/broadcast.json`, { method: 'DELETE' });
+            document.getElementById('broadcast-msg-input').value = '';
+            alert("🗑️ Tévéhír törölve!");
+            updateRealtimeOnlineCount();
+        } catch(e){ alert("Hiba történt!"); }
+    }
+
+    async function saveBlacklistKeywords() {
+        const val = document.getElementById('blacklist-input').value;
+        const keywords = val.split(',').map(s => s.trim().toLowerCase()).filter(s => s.length > 0);
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/blacklist.json`, {
+                method: 'PUT',
+                body: JSON.stringify(keywords)
+            });
+            blacklistKeywords = keywords;
+            alert("💾 Cikk feketelista elmentve!");
+            fetchDatabases();
+        } catch(e){ alert("Hiba történt!"); }
+    }
+
+    async function saveBreakingKeywords() {
+        const val = document.getElementById('breaking-keywords-input').value;
+        const keywords = val.split(',').map(s => s.trim().toLowerCase()).filter(s => s.length > 0);
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/breaking_keywords.json`, {
+                method: 'PUT',
+                body: JSON.stringify(keywords)
+            });
+            breakingKeywords = keywords;
+            alert("🚨 Rendkívüli hírek kulcsszavai elmentve!");
+            fetchDatabases();
+        } catch(e){ alert("Hiba történt mentéskor!"); }
+    }
+
+    async function clearBreakingKeywords() {
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/breaking_keywords.json`, { method: 'DELETE' });
+            breakingKeywords = [];
+            if (document.getElementById('breaking-keywords-input')) {
+                document.getElementById('breaking-keywords-input').value = '';
+            }
+            alert("🗑️ Rendkívüli kulcsszavak törölve!");
+            fetchDatabases();
+        } catch(e){ alert("Hiba történt törléskor!"); }
+    }
+
+    function filterVisitorsList() {
+        const input = document.getElementById('visitor-search-input').value.toLowerCase();
+        const cards = document.querySelectorAll('.visitor-ip-card');
+        cards.forEach(card => {
+            const text = card.innerText.toLowerCase();
+            card.style.display = text.includes(input) ? 'block' : 'none';
         });
     }
 
-    const sortedProviders = Object.keys(channelGroups).sort((a, b) => {
-        return channelGroups[b].length - channelGroups[a].length;
-    });
+    async function clearOldInactives() {
+        if (!confirm("Biztosan törölni szeretnéd a 24 óránál régebbi munkameneteket?")) return;
+        try {
+            const res = await fetch(`${FIREBASE_URL}/analytics/visitors.json`);
+            const visitors = await res.json() || {};
+            const nowMs = Date.now();
+            const cutoff = 24 * 60 * 60 * 1000;
 
-    sortedProviders.forEach((provName, idx) => {
-        const providerItems = channelGroups[provName];
-        const theme = HEADER_THEMES[idx % HEADER_THEMES.length];
-        columnsData.push({
-            name: provName,
-            isAll: false,
-            isBreaking: false,
-            isWeather: false,
-            items: providerItems,
-            logo: getSourceLogoUrl(providerItems[0]),
-            theme: theme
+            for (const [visId, v] of Object.entries(visitors)) {
+                const lastMs = v.lastActive ? new Date(v.lastActive).getTime() : 0;
+                if (nowMs - lastMs > cutoff) {
+                    await fetch(`${FIREBASE_URL}/analytics/visitors/${visId}.json`, { method: 'DELETE' });
+                }
+            }
+            loadDevAnalyticsData();
+            alert("🧹 Inaktív munkamenetek törölve!");
+        } catch(e){ alert("Hiba történt!"); }
+    }
+
+    function renderVisitorsTable(visitors, ipNames, banned) {
+        const container = document.getElementById('visitors-cards-container');
+        if (!container) return;
+
+        const items = Object.entries(visitors);
+
+        if (items.length === 0) {
+            container.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">Nincs rögzített látogató.</div>';
+            return;
+        }
+
+        const nowMs = Date.now();
+        const groupedByIP = {};
+        let mobileCount = 0;
+        let desktopCount = 0;
+        const regionMap = {};
+
+        items.forEach(([visId, data]) => {
+            const ip = data.ip || "127.0.0.1";
+            if (!groupedByIP[ip]) {
+                groupedByIP[ip] = { ip: ip, location: data.location || "Magyarország", sessions: [] };
+            }
+            groupedByIP[ip].sessions.push({ visId, ...data });
+
+            if (data.deviceType && data.deviceType.includes("Mobil")) mobileCount++;
+            else desktopCount++;
+
+            const reg = data.location ? data.location.split(',')[0] : 'Ismeretlen';
+            regionMap[reg] = (regionMap[reg] || 0) + 1;
         });
-    });
 
-    if (!isYesterday && nyirWeatherConfig && nyirWeatherConfig.enabled) {
-        const weatherColObj = {
-            name: "🌤️ NYÍREGYHÁZA IDŐJÁRÁS",
-            isAll: false,
-            isBreaking: false,
-            isWeather: true,
-            items: [],
-            logo: null,
-            theme: { bg: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)', border: '#38bdf8' }
-        };
+        const totalIPs = Object.keys(groupedByIP).length;
+        const totalSessions = items.length;
+        const totalDevices = mobileCount + desktopCount || 1;
+        const mobilePct = Math.round((mobileCount / totalDevices) * 100);
+        const desktopPct = 100 - mobilePct;
 
-        const targetPos = Math.max(0, Math.min(columnsData.length, (parseInt(nyirWeatherConfig.position) || 2) - 1));
-        columnsData.splice(targetPos, 0, weatherColObj);
+        let topRegion = "-";
+        let maxRegCount = 0;
+        Object.entries(regionMap).forEach(([reg, count]) => {
+            if (count > maxRegCount) { maxRegCount = count; topRegion = reg; }
+        });
+
+        document.getElementById('stat-total-ips').textContent = totalIPs;
+        document.getElementById('stat-total-sessions').textContent = totalSessions;
+        document.getElementById('stat-device-ratio').textContent = `${mobilePct}% / ${desktopPct}%`;
+        document.getElementById('stat-top-region').textContent = topRegion;
+
+        const ipGroups = Object.values(groupedByIP).map(group => {
+            let totalClicks = 0;
+            let isAnyOnline = false;
+
+            group.sessions.forEach(s => {
+                totalClicks += (s.clicksCount || 0);
+                const lastActiveMs = s.lastActive ? new Date(s.lastActive).getTime() : 0;
+                if (nowMs - lastActiveMs < 60000) { isAnyOnline = true; }
+            });
+
+            group.sessions.sort((a, b) => new Date(b.startTime || 0) - new Date(a.startTime || 0));
+            return { ...group, totalClicks, isAnyOnline };
+        }).sort((a, b) => b.totalClicks - a.totalClicks);
+
+        container.innerHTML = ipGroups.map(group => {
+            const ipKey = group.ip.replace(/\./g, '_');
+            const isIPBanned = !!banned[ipKey];
+            const customName = ipNames[ipKey]?.name ? ` <span style="color:#f59e0b; font-weight:800;">[💻 ${ipNames[ipKey].name}]</span>` : '';
+            
+            let ipBadgeClass = group.isAnyOnline ? 'color:#22c55e; border-color:rgba(34,197,94,0.3);' : 'color:#38bdf8;';
+            if (isIPBanned) ipBadgeClass = 'color:#ef4444; border-color:rgba(239,68,68,0.5); background:rgba(239,68,68,0.1);';
+
+            const banButtonHtml = isIPBanned ? 
+                `<button class="btn-act btn-unban" onclick="unbanIP('${ipKey}')">✅ IP TILTVA (FELOLDÁS)</button>` :
+                `<button class="btn-act btn-ban" onclick="banVisitorIP('${group.ip}')">🚫 IP TILTÁSA</button>`;
+
+            const sessionRowsHtml = group.sessions.map(s => {
+                const startDate = s.startTime ? new Date(s.startTime) : new Date();
+                const endDate = s.lastActive ? new Date(s.lastActive) : startDate;
+
+                const dateStr = startDate.toLocaleDateString('hu-HU');
+                const startTimeStr = startDate.toLocaleTimeString('hu-HU');
+                const endTimeStr = endDate.toLocaleTimeString('hu-HU');
+
+                const sec = s.activeSeconds || 0;
+                const min = Math.floor(sec / 60);
+                const rSec = sec % 60;
+                const durationStr = min > 0 ? `${min}p ${rSec}mp` : `${rSec}mp`;
+
+                const sOnline = (nowMs - (s.lastActive ? new Date(s.lastActive).getTime() : 0)) < 60000;
+                const statusStr = sOnline ? '<span style="color:#22c55e; font-weight:800;">🟢 ONLINE</span>' : '<span style="color:#64748b;">⚪ OFFLINE</span>';
+                const deviceStr = s.device || "💻 Asztali (Windows · Chrome)";
+
+                let clickHistoryHtml = '';
+                if (s.click_history) {
+                    const clickHistoryItems = Object.entries(s.click_history).map(([cKey, c]) => `
+                        <div class="click-history-item">
+                            <span style="color:#38bdf8; font-weight:700; font-family:'Space Mono',monospace;">${c.time || '--:--'}</span>
+                            <a href="${c.link || '#'}" target="_blank" class="click-history-link" title="${c.title}">${c.title}</a>
+                            <button class="btn-act btn-del" style="padding:2px 6px; font-size:0.6rem;" onclick="deleteSingleClickHistory('${s.visId}', '${cKey}')" title="Kattintás törlése">🗑️</button>
+                        </div>
+                    `).join('');
+                    clickHistoryHtml = `
+                        <div class="click-history-box">
+                            <div style="font-weight:700; color:#38bdf8; font-size:0.65rem; margin-bottom:4px;">🖱️ MEGTEKINTETT CIKKEK:</div>
+                            ${clickHistoryItems}
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="visitor-session-row">
+                        <div class="session-meta-line">
+                            <div><strong>📅 ${dateStr}</strong> &nbsp;|&nbsp; <span>⏱️ ${startTimeStr} – ${endTimeStr}</span></div>
+                            <div><span class="device-badge">${deviceStr}</span></div>
+                            <div>${statusStr}</div>
+                            <div>⏳ <strong>${durationStr}</strong> (aktív)</div>
+                            <div><strong style="color:#38bdf8;">${s.clicksCount || 0} kattintás</strong></div>
+                            <div><button class="btn-act btn-del" onclick="deleteVisitor('${s.visId}')">🗑️ MENET TÖRLÉSE</button></div>
+                        </div>
+                        ${clickHistoryHtml}
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="visitor-ip-card">
+                    <div class="visitor-ip-header">
+                        <div>
+                            <span class="ip-badge" style="${ipBadgeClass}">${group.ip}</span>
+                            ${isIPBanned ? '<span style="color:#ef4444; font-weight:800; font-size:0.75rem; margin-left:6px;">[⛔ IP TILTVA]</span>' : ''}
+                            ${customName}
+                            <span style="font-size:0.75rem; color:#38bdf8; margin-left:8px;">📍 ${group.location}</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <button class="btn-act btn-alias" onclick="setIPAlias('${group.ip}')">✏️ NÉV</button>
+                            ${banButtonHtml}
+                        </div>
+                    </div>
+                    ${sessionRowsHtml}
+                </div>
+            `;
+        }).join('');
     }
 
-    grid.innerHTML = '';
+    async function setIPAlias(ip) {
+        const ipKey = ip.replace(/\./g, '_');
+        try {
+            const currentRes = await fetch(`${FIREBASE_URL}/analytics/ip_names/${ipKey}.json`);
+            const currentData = await currentRes.json();
+            const currentName = currentData?.name || "";
 
-    if (allItems.length === 0 && (!nyirWeatherConfig || !nyirWeatherConfig.enabled)) {
-        grid.innerHTML = '<div class="empty-state" style="text-align:center; color:#64748b; padding:30px; width:100%; grid-column: 1 / -1; font-family:\'Space Mono\',monospace;">Nincs megjeleníthető hír ebben az idősávban.</div>';
-        return;
+            const newName = prompt(`Adjon meg egy elnevezést ehhez az IP-címhez (${ip}):`, currentName);
+            if (newName === null) return;
+
+            if (newName.trim() === "") {
+                await fetch(`${FIREBASE_URL}/analytics/ip_names/${ipKey}.json`, { method: 'DELETE' });
+            } else {
+                await fetch(`${FIREBASE_URL}/analytics/ip_names/${ipKey}.json`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ name: newName.trim() })
+                });
+            }
+            loadDevAnalyticsData();
+        } catch(e) { alert("Hiba a név elmentésekor!"); }
     }
 
-    const fragment = document.createDocumentFragment();
+    function renderClicksTable(clicks) {
+        const tbody = document.getElementById('clicks-table-body');
+        const items = Object.entries(clicks);
 
-    columnsData.forEach((col, idx) => {
-        const colDiv = document.createElement('div');
-        colDiv.className = 'channel-column' + (col.isAll ? ' is-all-feed' : '') + (col.isBreaking ? ' is-breaking-column' : '') + (col.isWeather ? ' is-weather-column' : '');
-        colDiv.style.borderTop = `4px solid ${col.theme.border}`;
-        
-        const headerDiv = document.createElement('div');
-        headerDiv.className = 'channel-column-header';
-        headerDiv.style.background = col.theme.bg;
-        headerDiv.style.borderBottom = `2px solid ${col.theme.border}`;
-        
-        let logoHtml = col.isAll ? 
-            '<span style="font-size:1.15rem; flex-shrink:0;">🌐</span>' : 
-            (col.isBreaking ? '<span style="font-size:1.15rem; flex-shrink:0;">🚨</span>' :
-            (col.isWeather ? '<span style="font-size:1.15rem; flex-shrink:0;">🌤️</span>' :
-            (col.logo ? `<img src="${col.logo}" class="channel-header-logo" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` : '<span style="font-size:1rem;">📰</span>')));
+        if (items.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Nincs rögzített kattintás ma.</td></tr>';
+            return;
+        }
 
-        headerDiv.innerHTML = `
-            <div class="channel-brand-info">
-                ${logoHtml}
-                <span class="channel-header-title">${col.name}</span>
+        tbody.innerHTML = items.map(([key, data]) => `
+            <tr>
+                <td style="max-width:350px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                    <a href="${data.link || '#'}" target="_blank" style="color:#f8fafc; text-decoration:none;">${data.title || 'Cikk'}</a>
+                </td>
+                <td><strong style="color:#38bdf8;">${data.count || 1}x</strong></td>
+                <td><button class="btn-act btn-del" onclick="deleteClickMetric('${key}')">🗑️ TÖRLÉS</button></td>
+            </tr>
+        `).join('');
+    }
+
+    function renderBannedTable(banned) {
+        const tbody = document.getElementById('banned-table-body');
+        const items = Object.entries(banned);
+
+        if (items.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Nincs tiltott IP cím.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = items.map(([ipKey, data]) => {
+            const origIP = ipKey.replace(/_/g, '.');
+            return `
+                <tr>
+                    <td><span class="ip-badge banned-badge">${origIP}</span> <strong style="color:#ef4444; margin-left:6px;">⛔ TILTVA</strong></td>
+                    <td>${data.bannedAt ? new Date(data.bannedAt).toLocaleString('hu-HU') : 'Folyamatos'}</td>
+                    <td><button class="btn-act btn-unban" onclick="unbanIP('${ipKey}')">UNBAN / FELOLDÁS</button></td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    async function banVisitorIP(ip) {
+        if (ip === currentVisitorIP) return alert("❌ A saját IP-címedet nem tilthatod ki!");
+        if (!confirm(`Biztosan tiltani szeretnéd a(z) ${ip} IP címet?`)) return;
+        const ipKey = ip.replace(/\./g, '_');
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/banned/${ipKey}.json`, {
+                method: 'PUT',
+                body: JSON.stringify({ bannedAt: new Date().toISOString() })
+            });
+            loadDevAnalyticsData();
+        } catch(e){ alert("Hiba történt!"); }
+    }
+
+    async function unbanIP(ipKey) {
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/banned/${ipKey}.json`, { method: 'DELETE' });
+            loadDevAnalyticsData();
+        } catch(e){ alert("Hiba történt!"); }
+    }
+
+    async function deleteSingleClickHistory(visId, clickHistoryKey) {
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/visitors/${visId}/click_history/${clickHistoryKey}.json`, { method: 'DELETE' });
+            loadDevAnalyticsData();
+        } catch(e){}
+    }
+
+    async function deleteVisitor(visId) {
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/visitors/${visId}.json`, { method: 'DELETE' });
+            loadDevAnalyticsData();
+        } catch(e){}
+    }
+
+    async function clearAllVisitors() {
+        if (!confirm("Biztosan törölni szeretnéd az ÖSSZES látogatót?")) return;
+        try {
+            await fetch(`${FIREBASE_URL}/analytics/visitors.json`, { method: 'DELETE' });
+            loadDevAnalyticsData();
+        } catch(e){}
+    }
+
+    async function deleteClickMetric(key) {
+        try {
+            const todayStr = new Date().toLocaleDateString('sv-SE');
+            await fetch(`${FIREBASE_URL}/analytics/daily_clicks/${todayStr}/${key}.json`, { method: 'DELETE' });
+            loadDevAnalyticsData();
+        } catch(e){}
+    }
+
+    async function clearAllClicks() {
+        if (!confirm("Biztosan törölni szeretnéd a mai kattintási statisztikát?")) return;
+        try {
+            const todayStr = new Date().toLocaleDateString('sv-SE');
+            await fetch(`${FIREBASE_URL}/analytics/daily_clicks/${todayStr}.json`, { method: 'DELETE' });
+            loadDevAnalyticsData();
+        } catch(e){}
+    }
+
+    function cleanText(str) {
+        if (typeof str !== 'string') return str;
+        return str.trim();
+    }
+
+    function isBlacklisted(title) {
+        if (!title || !blacklistKeywords || !Array.isArray(blacklistKeywords) || blacklistKeywords.length === 0) return false;
+        const lowerTitle = String(title).toLowerCase();
+        return blacklistKeywords.some(kw => kw && typeof kw === 'string' && kw.trim() !== '' && lowerTitle.includes(kw.toLowerCase()));
+    }
+
+    function parseRssDate(str, feedName) {
+        if (!str) return new Date();
+        let d = new Date(str);
+        if (isNaN(d.getTime())) {
+            let s = String(str).trim();
+            if (/^\d{4}[\.-]\d{2}[\.-]\d{2}/.test(s)) {
+                s = s.replace(/\./g, '-').replace(/\s+/, 'T');
+            }
+            d = new Date(s);
+            if (isNaN(d.getTime())) d = new Date();
+        }
+        return d;
+    }
+
+    function getSourceLogoUrl(item) {
+        if (!item) return null;
+        if (item.link) {
+            try { return `https://www.google.com/s2/favicons?sz=64&domain=${new URL(item.link).hostname}`; } catch(e){}
+        }
+        return null;
+    }
+
+    function cleanProviderName(item) {
+        if (!item) return 'FORRÁS';
+        let name = item.source || '';
+        if (!name && item.link) {
+            try {
+                const hostname = new URL(item.link).hostname;
+                name = hostname.replace('www.', '').split('.')[0];
+            } catch(e) { name = 'FORRÁS'; }
+        }
+        name = cleanText(name); 
+        return name.toUpperCase().trim() || 'FORRÁS';
+    }
+
+    function triggerNewsFlip() {
+        const wrapper = document.getElementById('ticker-news-wrapper');
+        if (wrapper) {
+            wrapper.classList.remove('flip-active');
+            void wrapper.offsetWidth; 
+            wrapper.classList.add('flip-active');
+        }
+    }
+
+    function updateTickerList() {
+        const now = new Date();
+        const hour = now.getHours();
+
+        let thresholdHours = 2;
+        if (hour >= 0 && hour < 6) {
+            thresholdHours = 4;
+        } else if (hour >= 6 && hour < 22) {
+            thresholdHours = 2;
+        } else {
+            thresholdHours = 4;
+        }
+
+        const thresholdTime = now.getTime() - (thresholdHours * 60 * 60 * 1000);
+
+        let allItems = [];
+        if (localGyujtoData) allItems.push(...Object.values(localGyujtoData));
+        if (localAdasData) allItems.push(...Object.values(localAdasData));
+
+        const uniqueItems = new Map();
+        allItems.forEach(item => {
+            if (item && item.link && !isBlacklisted(item.title)) {
+                const d = parseRssDate(item.date, item.source); 
+                uniqueItems.set(item.link, { ...item, date: d.toISOString() });
+            }
+        });
+
+        const validItems = Array.from(uniqueItems.values()).filter(item => {
+            if (!item.date) return false;
+            const d = new Date(item.date).getTime();
+            return d >= thresholdTime && d <= now.getTime();
+        });
+
+        const shuffledItems = shuffleArray([...validItems]);
+        const previousActiveLink = tickerNews[currentTickerIndex]?.link;
+
+        tickerNews = shuffledItems;
+
+        if (tickerNews.length === 0) {
+            currentTickerIndex = 0;
+            renderTickerItem(null, thresholdHours);
+        } else {
+            const matchedIndex = tickerNews.findIndex(item => item.link === previousActiveLink);
+            if (matchedIndex !== -1) {
+                currentTickerIndex = matchedIndex;
+                renderTickerItem(tickerNews[currentTickerIndex], thresholdHours);
+            } else {
+                currentTickerIndex = 0;
+                renderTickerItem(tickerNews[0], thresholdHours);
+            }
+        }
+    }
+
+    function renderTickerItem(item, thresholdHours = 2) {
+        const logo = document.getElementById('ticker-source-logo');
+        const sourceName = document.getElementById('ticker-source-name');
+        const time = document.getElementById('ticker-time');
+        const title = document.getElementById('ticker-title');
+        const desc = document.getElementById('ticker-desc');
+
+        if (!item) {
+            if (logo) logo.style.display = 'none';
+            if (sourceName) sourceName.textContent = 'RENDSZER';
+            if (time) time.textContent = new Date().toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit'});
+            if (title) {
+                title.textContent = `Nincs aktív hír az elmúlt ${thresholdHours} órában.`;
+                title.href = '#';
+            }
+            if (desc) {
+                desc.textContent = 'Friss hírforrások keresése és szinkronizálása folyamatos...';
+            }
+            triggerNewsFlip(); 
+        } else {
+            const d = new Date(item.date);
+            const logoUrl = getSourceLogoUrl(item);
+
+            if (logo) {
+                if (logoUrl) {
+                    logo.src = logoUrl;
+                    logo.style.display = 'inline-block';
+                } else logo.style.display = 'none';
+            }
+            if (sourceName) sourceName.textContent = cleanProviderName(item);
+            if (time) time.textContent = d.toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit'});
+
+            const fullTitle = cleanText(item.title || '');
+            if (title) {
+                title.href = item.link || '#';
+                title.textContent = fullTitle;
+            }
+
+            const fullDesc = cleanText(item.description || '');
+            if (desc) {
+                desc.textContent = fullDesc || 'Nincs további leírás.';
+            }
+            triggerNewsFlip(); 
+        }
+    }
+
+    function cycleTicker() {
+        if (tickerNews.length <= 1) return;
+        currentTickerIndex = (currentTickerIndex + 1) % tickerNews.length;
+        renderTickerItem(tickerNews[currentTickerIndex]);
+    }
+
+    function createNewsItemCard(item, isAllFeed, isBreaking) {
+        const div = document.createElement('div');
+        div.className = 'news-item' + (isAllFeed ? ' is-all-card' : '') + (isBreaking ? ' is-breaking-card' : '');
+        div.dataset.id = item.id;
+        
+        const d = new Date(item.date);
+        const timeStr = d.toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+        const logo = getSourceLogoUrl(item);
+        const src = cleanProviderName(item); 
+        const desc = (item.description || '').trim(); 
+        const descHtml = desc ? `<div class="news-description">${desc}</div>` : '';
+
+        let imgHtml = '';
+        if (item.img && typeof item.img === 'string' && item.img.startsWith('http')) {
+            imgHtml = `<div class="news-card-img-box">
+                <img src="${item.img}" class="news-card-img" alt="Cikk borítókép" loading="lazy" decoding="async" onerror="this.parentElement.style.display='none'">
+            </div>`;
+        }
+
+        div.innerHTML = `
+            <div class="news-meta">
+                <div class="source-wrapper">
+                    ${logo ? `<img class="source-logo" src="${logo}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` : ''}
+                    <span class="source-name">${src}</span>
+                </div>
+                <span class="news-time">${timeStr}</span>
             </div>
-            <div class="channel-header-meta">
-                <span class="channel-header-date">${columnHeaderDate}</span>
-                <span class="channel-header-badge">${col.isWeather ? 'ÉLŐ' : col.items.length + ' db'}</span>
+            <div class="news-title"><a href="${item.link || '#'}" target="_blank">${cleanText(item.title || '')}</a></div>
+            ${imgHtml}
+            ${descHtml}
+        `;
+        return div;
+    }
+
+    function createNyirWeatherColumnHTML() {
+        return `
+            <div class="nyir-weather-block">
+                <div style="background:rgba(255,255,255,0.92); border:1px solid var(--border-color); border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; box-shadow: 0 2px 8px rgba(15,23,42,0.03);">
+                    <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:#0284c7; font-family:'Space Mono',monospace;" id="active-station-tag">${cachedWeatherHTML.activeTag || '📍 Nyíregyháza • Állomás...'}</div>
+                    <div style="font-size:11px; color:#475569; font-family:'Space Mono',monospace; font-weight:600;" id="time-top">${cachedWeatherHTML.timeTop || 'Mérés ideje: ...'}</div>
+                </div>
+
+                <div>
+                    <div class="card-title-weather">📡 NYÍREGYHÁZA PWS ÁLLOMÁS</div>
+                    <div id="left-panel">${cachedWeatherHTML.left || `
+                        <div class="weather-loader-container">
+                            <div class="weather-loader-text">⚡ Töltöm az aktuális időjárási értékeket...</div>
+                            <div class="weather-loader-bar-bg">
+                                <div class="weather-loader-bar-fill"></div>
+                            </div>
+                        </div>
+                    `}</div>
+                </div>
+
+                <div>
+                    <div class="card-title-weather">🚨 METEOROLÓGIAI VESZÉLYJELZÉS</div>
+                    <div id="alerts-panel"><div class="loading-weather">Veszélyjelzés betöltése...</div></div>
+                </div>
+
+                <div>
+                    <div class="card-title-weather">🗺️ KISTÉRSÉGI RIASZTÁSI TÉRKÉP</div>
+                    <div class="map-tabs-nyir">
+                        <button class="map-tab-btn-nyir active" onclick="showNyirMap('now', this)">MOST (1-3h)</button>
+                        <button class="map-tab-btn-nyir" onclick="showNyirMap('today', this)">MA (24h)</button>
+                        <button class="map-tab-btn-nyir" onclick="showNyirMap('tomorrow', this)">HOLNAP (48h)</button>
+                    </div>
+                    <div class="map-container-nyir">
+                        <img id="nyirMapImg" src="https://androidapi.idokep.hu/kistersegi/riaszt_1-3_transp.png" class="map-img-nyir" alt="Riasztási térkép">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card-title-weather">🌧️ CSAPADÉK-ESEMÉNY NAPLÓ</div>
+                    <div id="rain-panel">${cachedWeatherHTML.rain || '<div class="loading-weather">Adatok betöltése...</div>'}</div>
+                </div>
+
+                <div>
+                    <div class="card-title-weather">🕒 MIKOR VOLT UTOLJÁRA...</div>
+                    <div id="when-last-panel">${cachedWeatherHTML.whenLast || '<div class="loading-weather">Adatok betöltése...</div>'}</div>
+                </div>
+
+                <div>
+                    <div class="card-title-weather">📊 METEOROLÓGIAI REKORDOK</div>
+                    <div id="stats-panel">${cachedWeatherHTML.stats || '<div class="loading-weather">Adatok betöltése...</div>'}</div>
+                </div>
+
+                <div>
+                    <div class="card-title-weather">📜 MAI MÉRÉSEK NAPLÓJA</div>
+                    <div id="log-view-container">
+                        ${cachedWeatherHTML.table || `
+                        <div class="table-wrapper-weather">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width:25%;">Idő</th>
+                                        <th style="width:18%;">Hőm.</th>
+                                        <th style="width:14%;">Pára</th>
+                                        <th style="width:15%;">Légny.</th>
+                                        <th style="width:14%;">Szél</th>
+                                        <th style="width:14%;">Eső</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body">
+                                    <tr><td colspan="6" style="text-align:center;">Adatok betöltése...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        `}
+                    </div>
+                </div>
             </div>
         `;
+    }
 
-        const bodyDiv = document.createElement('div');
-        bodyDiv.className = 'channel-column-body';
+    function renderChannelColumns(dataObject, gridId, startTime, endTime, isYesterday = false) {
+        if (!dataObject) dataObject = {};
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
 
-        if (col.isWeather) {
-            bodyDiv.innerHTML = createNyirWeatherColumnHTML();
-            setTimeout(() => { loadWeather(); }, 100);
-        } else if (col.items.length === 0 && col.isBreaking) {
-            bodyDiv.innerHTML = '<div style="text-align:center; color:#94a3b8; font-size:0.8rem; padding:20px;">Nincs a megadott rendkívüli kulcsszavaknak megfelelő hír.</div>';
-        } else {
-            const bodyFrag = document.createDocumentFragment();
-            col.items.forEach(item => {
-                const card = createNewsItemCard(item, col.isAll, col.isBreaking);
-                bodyFrag.appendChild(card);
+        const scrollPositions = {};
+        grid.querySelectorAll('.channel-column-body').forEach((el, idx) => {
+            scrollPositions[idx] = el.scrollTop;
+        });
+
+        const allItems = Object.entries(dataObject)
+            .filter(([key, item]) => {
+                if (!item || !item.date || isBlacklisted(item.title)) return false;
+                const d = parseRssDate(item.date, item.source); 
+                const t = d.getTime();
+                return !isNaN(t) && t >= startTime && t <= endTime;
+            })
+            .map(([key, item]) => {
+                const d = parseRssDate(item.date, item.source); 
+                return { ...item, id: key, parsedDate: d, date: d.toISOString() }; 
             });
-            bodyDiv.appendChild(bodyFrag);
+
+        allItems.sort((a, b) => b.parsedDate - a.parsedDate);
+
+        const refDate = isYesterday ? new Date(Date.now() - 24 * 60 * 60 * 1000) : new Date();
+        const yyyy = refDate.getFullYear();
+        const mm = String(refDate.getMonth() + 1).padStart(2, '0');
+        const dd = String(refDate.getDate()).padStart(2, '0');
+        const columnHeaderDate = `${yyyy}.${mm}.${dd}.`;
+
+        const channelGroups = {};
+        allItems.forEach(item => {
+            const providerName = cleanProviderName(item);
+            if (!channelGroups[providerName]) {
+                channelGroups[providerName] = [];
+            }
+            channelGroups[providerName].push(item);
+        });
+
+        const columnsData = [
+            {
+                name: isYesterday ? "📜 TEGNAPI ÖSSZES HÍR" : "🌐 MAI ÖSSZES HÍR",
+                isAll: true,
+                isBreaking: false,
+                isWeather: false,
+                items: allItems,
+                logo: null,
+                theme: { bg: 'linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%)', border: '#3b82f6' }
+            }
+        ];
+
+        if (breakingKeywords && Array.isArray(breakingKeywords) && breakingKeywords.length > 0) {
+            const breakingItems = allItems.filter(item => {
+                if (breakingExcludedMap && breakingExcludedMap[item.id]) return false;
+
+                const titleLower = (item.title || '').toLowerCase();
+                const descLower = (item.description || '').toLowerCase();
+                return breakingKeywords.some(kw => kw && kw.trim() !== '' && (titleLower.includes(kw.toLowerCase()) || descLower.includes(kw.toLowerCase())));
+            });
+
+            columnsData.push({
+                name: "🚨 RENDKÍVÜLI HÍREK",
+                isAll: false,
+                isBreaking: true,
+                isWeather: false,
+                items: breakingItems,
+                logo: null,
+                theme: { bg: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)', border: '#ef4444' }
+            });
         }
 
-        colDiv.appendChild(headerDiv);
-        colDiv.appendChild(bodyDiv);
-        fragment.appendChild(colDiv);
-    });
+        const sortedProviders = Object.keys(channelGroups).sort((a, b) => {
+            return channelGroups[b].length - channelGroups[a].length;
+        });
 
-    grid.appendChild(fragment);
+        sortedProviders.forEach((provName, idx) => {
+            const providerItems = channelGroups[provName];
+            const theme = HEADER_THEMES[idx % HEADER_THEMES.length];
+            columnsData.push({
+                name: provName,
+                isAll: false,
+                isBreaking: false,
+                isWeather: false,
+                items: providerItems,
+                logo: getSourceLogoUrl(providerItems[0]),
+                theme: theme
+            });
+        });
 
-    // VISSZAÁLLÍTJUK A GÖRGETÉSI POZÍCIÓKAT
-    grid.querySelectorAll('.channel-column-body').forEach((el, idx) => {
-        if (scrollPositions[idx] !== undefined) {
-            el.scrollTop = scrollPositions[idx];
+        if (!isYesterday && nyirWeatherConfig && nyirWeatherConfig.enabled) {
+            const weatherColObj = {
+                name: "🌤️ NYÍREGYHÁZA IDŐJÁRÁS",
+                isAll: false,
+                isBreaking: false,
+                isWeather: true,
+                items: [],
+                logo: null,
+                theme: { bg: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)', border: '#38bdf8' }
+            };
+
+            const targetPos = Math.max(0, Math.min(columnsData.length, (parseInt(nyirWeatherConfig.position) || 2) - 1));
+            columnsData.splice(targetPos, 0, weatherColObj);
         }
-    });
-}
 
-function renderNewsroomDayNightCycle(combinedDataObject) {
-    const now = new Date();
-    const currentHour = now.getHours();
+        grid.innerHTML = '';
 
-    const today00 = new Date(now);
-    today00.setHours(0, 0, 0, 0);
+        if (allItems.length === 0 && (!nyirWeatherConfig || !nyirWeatherConfig.enabled)) {
+            grid.innerHTML = '<div class="empty-state" style="text-align:center; color:#64748b; padding:30px; width:100%; grid-column: 1 / -1; font-family:\'Space Mono\',monospace;">Nincs megjeleníthető hír ebben az idősávban.</div>';
+            return;
+        }
 
-    const yesterday00 = new Date(now);
-    yesterday00.setDate(yesterday00.getDate() - 1);
-    yesterday00.setHours(0, 0, 0, 0);
+        const fragment = document.createDocumentFragment();
 
-    const yesterday2359 = new Date(now);
-    yesterday2359.setDate(yesterday2359.getDate() - 1);
-    yesterday2359.setHours(23, 59, 59, 999);
+        columnsData.forEach((col, idx) => {
+            const colDiv = document.createElement('div');
+            colDiv.className = 'channel-column' + (col.isAll ? ' is-all-feed' : '') + (col.isBreaking ? ' is-breaking-column' : '') + (col.isWeather ? ' is-weather-column' : '');
+            colDiv.style.borderTop = `4px solid ${col.theme.border}`;
+            
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'channel-column-header';
+            headerDiv.style.background = col.theme.bg;
+            headerDiv.style.borderBottom = `2px solid ${col.theme.border}`;
+            
+            let logoHtml = col.isAll ? 
+                '<span style="font-size:1.15rem; flex-shrink:0;">🌐</span>' : 
+                (col.isBreaking ? '<span style="font-size:1.15rem; flex-shrink:0;">🚨</span>' :
+                (col.isWeather ? '<span style="font-size:1.15rem; flex-shrink:0;">🌤️</span>' :
+                (col.logo ? `<img src="${col.logo}" class="channel-header-logo" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` : '<span style="font-size:1rem;">📰</span>')));
 
-    renderChannelColumns(combinedDataObject, 'today-grid', today00.getTime(), now.getTime(), false);
+            headerDiv.innerHTML = `
+                <div class="channel-brand-info">
+                    ${logoHtml}
+                    <span class="channel-header-title">${col.name}</span>
+                </div>
+                <div class="channel-header-meta">
+                    <span class="channel-header-date">${columnHeaderDate}</span>
+                    <span class="channel-header-badge">${col.isWeather ? 'ÉLŐ' : col.items.length + ' db'}</span>
+                </div>
+            `;
 
-    const noticeBanner = document.getElementById('yesterday-notice-banner');
-    const dividerBlock = document.getElementById('yesterday-divider-block');
-    const yesterdayWrapper = document.getElementById('yesterday-wrapper');
-    const lockBadge = document.getElementById('yesterday-lock-badge');
+            const bodyDiv = document.createElement('div');
+            bodyDiv.className = 'channel-column-body';
 
-    if (currentHour < 6) {
-        if (noticeBanner) noticeBanner.style.display = 'flex';
-        if (dividerBlock) dividerBlock.style.display = 'block';
-        if (yesterdayWrapper) yesterdayWrapper.style.display = 'block';
+            if (col.isWeather) {
+                bodyDiv.innerHTML = createNyirWeatherColumnHTML();
+                setTimeout(() => { loadWeather(); }, 100);
+            } else if (col.items.length === 0 && col.isBreaking) {
+                bodyDiv.innerHTML = '<div style="text-align:center; color:#94a3b8; font-size:0.8rem; padding:20px;">Nincs a megadott rendkívüli kulcsszavaknak megfelelő hír.</div>';
+            } else {
+                const bodyFrag = document.createDocumentFragment();
+                col.items.forEach(item => {
+                    const card = createNewsItemCard(item, col.isAll, col.isBreaking);
+                    bodyFrag.appendChild(card);
+                });
+                bodyDiv.appendChild(bodyFrag);
+            }
 
-        const yyyyy = yesterday2359.getFullYear();
-        const ymm = String(yesterday2359.getMonth() + 1).padStart(2, '0');
-        const ydd = String(yesterday2359.getDate()).padStart(2, '0');
-        if (lockBadge) lockBadge.textContent = `🔒 LEZÁRVA: ${yyyyy}.${ymm}.${ydd}. 23:59:59`;
+            colDiv.appendChild(headerDiv);
+            colDiv.appendChild(bodyDiv);
+            fragment.appendChild(colDiv);
+        });
 
-        renderChannelColumns(combinedDataObject, 'yesterday-grid', yesterday00.getTime(), yesterday2359.getTime(), true);
-    } else {
-        if (noticeBanner) noticeBanner.style.display = 'none';
-        if (dividerBlock) dividerBlock.style.display = 'none';
-        if (yesterdayWrapper) yesterdayWrapper.style.display = 'none';
-        
-        const yesterdayGrid = document.getElementById('yesterday-grid');
-        if (yesterdayGrid) yesterdayGrid.innerHTML = '';
+        grid.appendChild(fragment);
+
+        grid.querySelectorAll('.channel-column-body').forEach((el, idx) => {
+            if (scrollPositions[idx] !== undefined) {
+                el.scrollTop = scrollPositions[idx];
+            }
+        });
     }
-}
 
-async function fetchDatabases() {
-    try {
-        const t = Date.now();
-        const [gyujtoRes, adasRes, ratesRes, filterRes, breakingRes, excludedRes, pwsRes, kockaRes, radarRes, radioRes, nyirRes, radioListRes, themeRes] = await Promise.all([
-            fetch(`${FIREBASE_URL}/newsroom_gyujto.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/newsroom_adas.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/rates.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/analytics/blacklist.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/analytics/breaking_keywords.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/analytics/breaking_excluded.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/analytics/pws_stations.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/analytics/pws_kocka.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/analytics/radar_config.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/analytics/radio_config.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/analytics/nyir_weather_config.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/analytics/radio_stations.json?t=${t}`, { cache: 'no-store' }),
-            fetch(`${FIREBASE_URL}/analytics/theme_config.json?t=${t}`, { cache: 'no-store' })
-        ]);
-        const gyujtoData = await gyujtoRes.json();
-        const adasData = await adasRes.json();
-        const ratesData = await ratesRes.json();
-        blacklistKeywords = await filterRes.json() || [];
-        breakingKeywords = await breakingRes.json() || [];
-        breakingExcludedMap = await excludedRes.json() || {};
-        
-        const pwsData = await pwsRes.json();
-        pwsStationsList = Array.isArray(pwsData) ? pwsData : [];
+    function renderNewsroomDayNightCycle(combinedDataObject) {
+        const now = new Date();
+        const currentHour = now.getHours();
 
-        kockaPwsConfig = await kockaRes.json() || { mode: 'pws', stationId: '', customName: '', intervalMin: 1 };
-        radarConfig = await radarRes.json() || { enabled: true, autoHide: false, cityName: 'Nyíregyháza', lat: 47.9554, lon: 21.7167, radiusKm: 50, intervalMin: 2 };
-        radioConfig = await radioRes.json() || { name: '', streamUrl: '', metaUrl: '', nowPlaying: '' };
-        nyirWeatherConfig = await nyirRes.json() || { enabled: false, forecastStripEnabled: false, forecastPosition: 'top', forecastIntervalMin: 15, position: 2, url: "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec" };
+        const today00 = new Date(now);
+        today00.setHours(0, 0, 0, 0);
 
-        const rList = await radioListRes.json();
-        radioStationsList = Array.isArray(rList) ? rList : [];
+        const yesterday00 = new Date(now);
+        yesterday00.setDate(yesterday00.getDate() - 1);
+        yesterday00.setHours(0, 0, 0, 0);
 
-        const thConfig = await themeRes.json();
-        if (thConfig) applyThemeConfig(thConfig);
+        const yesterday2359 = new Date(now);
+        yesterday2359.setDate(yesterday2359.getDate() - 1);
+        yesterday2359.setHours(23, 59, 59, 999);
 
-        localGyujtoData = gyujtoData || {};
-        localAdasData = adasData || {};
+        renderChannelColumns(combinedDataObject, 'today-grid', today00.getTime(), now.getTime(), false);
 
-        const combinedData = { ...localAdasData, ...localGyujtoData };
+        const noticeBanner = document.getElementById('yesterday-notice-banner');
+        const dividerBlock = document.getElementById('yesterday-divider-block');
+        const yesterdayWrapper = document.getElementById('yesterday-wrapper');
+        const lockBadge = document.getElementById('yesterday-lock-badge');
 
-        renderNewsroomDayNightCycle(combinedData);
-        renderExchangeRates(ratesData);
-        updateTickerList(); 
+        if (currentHour < 6) {
+            if (noticeBanner) noticeBanner.style.display = 'flex';
+            if (dividerBlock) dividerBlock.style.display = 'block';
+            if (yesterdayWrapper) yesterdayWrapper.style.display = 'block';
+
+            const yyyyy = yesterday2359.getFullYear();
+            const ymm = String(yesterday2359.getMonth() + 1).padStart(2, '0');
+            const ydd = String(yesterday2359.getDate()).padStart(2, '0');
+            if (lockBadge) lockBadge.textContent = `🔒 LEZÁRVA: ${yyyyy}.${ymm}.${ydd}. 23:59:59`;
+
+            renderChannelColumns(combinedDataObject, 'yesterday-grid', yesterday00.getTime(), yesterday2359.getTime(), true);
+        } else {
+            if (noticeBanner) noticeBanner.style.display = 'none';
+            if (dividerBlock) dividerBlock.style.display = 'none';
+            if (yesterdayWrapper) yesterdayWrapper.style.display = 'none';
+            
+            const yesterdayGrid = document.getElementById('yesterday-grid');
+            if (yesterdayGrid) yesterdayGrid.innerHTML = '';
+        }
+    }
+
+    async function fetchDatabases() {
+        try {
+            const t = Date.now();
+            const [gyujtoRes, adasRes, ratesRes, filterRes, breakingRes, excludedRes, pwsRes, kockaRes, radarRes, radioRes, nyirRes, radioListRes, themeRes] = await Promise.all([
+                fetch(`${FIREBASE_URL}/newsroom_gyujto.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/newsroom_adas.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/rates.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/analytics/blacklist.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/analytics/breaking_keywords.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/analytics/breaking_excluded.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/analytics/pws_stations.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/analytics/pws_kocka.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/analytics/radar_config.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/analytics/radio_config.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/analytics/nyir_weather_config.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/analytics/radio_stations.json?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/analytics/theme_config.json?t=${t}`, { cache: 'no-store' })
+            ]);
+            const gyujtoData = await gyujtoRes.json();
+            const adasData = await adasRes.json();
+            const ratesData = await ratesRes.json();
+            blacklistKeywords = await filterRes.json() || [];
+            breakingKeywords = await breakingRes.json() || [];
+            breakingExcludedMap = await excludedRes.json() || {};
+            
+            const pwsData = await pwsRes.json();
+            pwsStationsList = Array.isArray(pwsData) ? pwsData : [];
+
+            kockaPwsConfig = await kockaRes.json() || { mode: 'pws', stationId: '', customName: '', intervalMin: 1 };
+            radarConfig = await radarRes.json() || { enabled: true, autoHide: false, cityName: 'Nyíregyháza', lat: 47.9554, lon: 21.7167, radiusKm: 50, intervalMin: 2 };
+            radioConfig = await radioRes.json() || { name: '', streamUrl: '', metaUrl: '', nowPlaying: '' };
+            nyirWeatherConfig = await nyirRes.json() || { enabled: false, forecastStripEnabled: false, forecastPosition: 'top', forecastIntervalMin: 15, position: 2, url: "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec" };
+
+            const rList = await radioListRes.json();
+            radioStationsList = Array.isArray(rList) ? rList : [];
+
+            const thConfig = await themeRes.json();
+            if (thConfig) applyThemeConfig(thConfig);
+
+            localGyujtoData = gyujtoData || {};
+            localAdasData = adasData || {};
+
+            const combinedData = { ...localAdasData, ...localGyujtoData };
+
+            renderNewsroomDayNightCycle(combinedData);
+            renderExchangeRates(ratesData);
+            updateTickerList(); 
+            updateRealtimeOnlineCount();
+            startPwsEngine();
+            startKockaPwsEngine();
+            startRadarEngine();
+            initRadioEngine();
+        } catch(e) {
+            const combinedData = { ...(localAdasData || {}), ...(localGyujtoData || {}) };
+            renderNewsroomDayNightCycle(combinedData);
+            updateTickerList();
+        }
+    }
+
+    async function initNewsroomApp() {
+        updateLiveClock();
+        setInterval(updateLiveClock, 1000);
+
+        initVisitorTracking();
+
         updateRealtimeOnlineCount();
-        startPwsEngine();
-        startKockaPwsEngine();
-        startRadarEngine();
-        initRadioEngine();
-    } catch(e) {
-        const combinedData = { ...(localAdasData || {}), ...(localGyujtoData || {}) };
-        renderNewsroomDayNightCycle(combinedData);
-        updateTickerList();
+        setInterval(updateRealtimeOnlineCount, 5000);
+
+        connectLiveWindWs();
+
+        try { await fetchDatabases(); } catch (e) {}
+
+        setInterval(async () => {
+            await fetchDatabases();
+        }, 2 * 60 * 1000);
+
+        setInterval(cycleTicker, 12000);
+        setInterval(updateTickerList, 3 * 60 * 1000);
+
+        scheduleNextWatermarkFlip();
+
+        if (nyirWeatherConfig && nyirWeatherConfig.enabled) {
+            scheduleClockSync();
+            
+            // Azonnali legfrissebb 1-3h kistérségi riasztási térkép betöltése
+            setTimeout(() => {
+                showNyirMap('now', document.querySelector('.map-tab-btn-nyir'));
+            }, 500);
+        }
     }
-}
 
-async function initNewsroomApp() {
-    updateLiveClock();
-    setInterval(updateLiveClock, 1000);
-
-    initVisitorTracking();
-
-    updateRealtimeOnlineCount();
-    setInterval(updateRealtimeOnlineCount, 5000);
-
-    // Élő valós idejű szélmérő WebSocket kapcsolat indítása (Jánosbokor)
-    connectLiveWindWs();
-
-    try { await fetchDatabases(); } catch (e) {}
-
-    setInterval(async () => {
-        await fetchDatabases();
-    }, 2 * 60 * 1000);
-
-    setInterval(cycleTicker, 12000);
-    setInterval(updateTickerList, 3 * 60 * 1000);
-
-    scheduleNextWatermarkFlip();
-
-    if (nyirWeatherConfig && nyirWeatherConfig.enabled) {
-        scheduleClockSync();
-    }
-}
-
-window.addEventListener('DOMContentLoaded', initNewsroomApp);
-   </script>
+    window.addEventListener('DOMContentLoaded', initNewsroomApp);
+</script>
 </body>
 </html>
