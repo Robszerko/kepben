@@ -221,34 +221,40 @@
         user-select: none; 
     }
 
+    /* 📌 NÉZŐSZÁMLÁLÓ FIXEN A HÍRSÁV JOBB FELSŐ SARKÁBAN */
     .header-live-badge {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        z-index: 15;
         display: flex;
         align-items: center;
-        gap: 8px;
-        background: rgba(241, 245, 249, 0.9);
-        border: 1px solid var(--border-color);
-        padding: 8px 14px;
-        border-radius: 12px;
+        gap: 6px;
+        background: rgba(34, 197, 94, 0.12);
+        border: 1px solid rgba(34, 197, 94, 0.35);
+        padding: 3px 9px;
+        border-radius: 8px;
         font-family: 'Space Mono', monospace;
-        font-size: 0.8rem;
+        font-size: 0.72rem;
         font-weight: 700;
         color: #15803d !important;
         backdrop-filter: blur(8px);
         flex-shrink: 0;
         user-select: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
-    .header-live-person-icon { width: 16px; height: 16px; fill: #15803d; flex-shrink: 0; display: inline-block; }
+    .header-live-person-icon { width: 14px; height: 14px; fill: #15803d; flex-shrink: 0; display: inline-block; }
 
-    /* 🧊 FIX KOCKA WIDGET (145px x 78px) */
+    /* 🧊 JOBB FELSŐ KOCKA WIDGET (205px x 78px - VILÁGOSABB MODERN RÁDIÓ DITÁJ) */
     .weather-widget-box {
-        width: 145px;
+        width: 205px;
         height: 78px;
         min-height: 78px;
         max-height: 78px;
         background: rgba(241, 245, 249, 0.88);
         border: 1px solid var(--border-color);
         border-radius: 12px;
-        display: none;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -264,7 +270,7 @@
     .weather-box-city { font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #1e40af !important; letter-spacing: 0.4px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; padding: 0 4px; }
     .weather-box-temp { font-family: 'Space Mono', monospace; font-size: 1.15rem; font-weight: 700; color: #0f172a !important; margin-top: 2px; }
 
-    /* 📻 HIGH-TECH KOCKA RÁDIÓ STÍLUSOK */
+    /* 📻 VILÁGOSABB, PRÉMIUM VIZUÁLIS RÁDIÓ STÍLUSOK BEÉPÍTETT HANGERŐ CSÚSZKÁVAL */
     .radio-cube-container {
         width: 100%;
         height: 100%;
@@ -273,13 +279,13 @@
         justify-content: space-between;
         align-items: center;
         padding: 6px 8px;
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+        background: linear-gradient(135deg, rgba(30, 58, 138, 0.92) 0%, rgba(2, 132, 199, 0.92) 100%);
+        border: 1px solid rgba(56, 189, 248, 0.5);
         border-radius: 10px;
         font-family: 'Space Mono', monospace;
-        box-shadow: inset 0 0 12px rgba(56, 189, 248, 0.15);
-        color: #f8fafc;
+        box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.2), 0 4px 12px rgba(2, 132, 199, 0.25);
+        color: #ffffff;
         user-select: none;
-        cursor: pointer;
     }
     .radio-cube-top {
         display: flex;
@@ -289,16 +295,19 @@
         gap: 4px;
     }
     .radio-cube-title {
-        font-size: 0.65rem;
+        font-size: 0.68rem;
         font-weight: 800;
-        color: #38bdf8;
+        color: #ffffff;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 90px;
+        max-width: 140px;
         text-transform: uppercase;
         letter-spacing: 0.3px;
+        cursor: pointer;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
+    .radio-cube-title:hover { color: #e0f2fe; text-decoration: underline; }
     .radio-cube-status-dot {
         width: 8px;
         height: 8px;
@@ -323,35 +332,57 @@
         justify-content: space-between;
         width: 100%;
         padding: 0 2px;
+        gap: 4px;
     }
-    .radio-cube-play-btn {
-        background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-        border: 1px solid rgba(56, 189, 248, 0.4);
+    .radio-step-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.35);
         color: #ffffff;
-        font-size: 0.68rem;
+        border-radius: 6px;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 0.65rem;
+        transition: all 0.2s;
+        flex-shrink: 0;
+    }
+    .radio-step-btn:hover { background: #ffffff; color: #0284c7; }
+    
+    .radio-cube-play-btn {
+        background: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        color: #0284c7;
+        font-size: 0.65rem;
         font-weight: 800;
         padding: 3px 8px;
         border-radius: 6px;
         cursor: pointer;
         transition: all 0.2s;
-        box-shadow: 0 2px 6px rgba(2, 132, 199, 0.4);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         display: flex;
         align-items: center;
         gap: 4px;
+        flex: 1;
+        justify-content: center;
     }
     .radio-cube-play-btn:hover {
         background: #38bdf8;
+        color: #ffffff;
         transform: translateY(-1px);
     }
     .radio-eq-container {
         display: flex;
         align-items: flex-end;
-        gap: 2.5px;
+        gap: 2px;
         height: 16px;
+        flex-shrink: 0;
     }
     .eq-bar {
         width: 3px;
-        background: #38bdf8;
+        background: #ffffff;
         border-radius: 2px;
         height: 4px;
         transition: height 0.2s ease;
@@ -364,17 +395,8 @@
     .eq-bar.playing:nth-child(3) { animation-delay: 0.5s; }
     .eq-bar.playing:nth-child(4) { animation-delay: 0.2s; }
     @keyframes eqAnim {
-        0% { height: 3px; background: #0284c7; }
-        100% { height: 16px; background: #38bdf8; box-shadow: 0 0 6px #38bdf8; }
-    }
-    .radio-cube-bottom {
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        font-size: 0.55rem;
-        color: #cbd5e1;
-        font-weight: 600;
-        text-align: center;
+        0% { height: 3px; background: rgba(255,255,255,0.5); }
+        100% { height: 16px; background: #ffffff; box-shadow: 0 0 6px #ffffff; }
     }
 
     /* 📻 RÁDIÓ CSATORNAVÁLASZTÓ KÁRTYÁK */
@@ -402,12 +424,14 @@
 
     /* 📣 FIX NAGYSÁGÚ HÍRSAV PANEL */
     .ticker-block {
+        position: relative;
         flex: 1;
         min-width: 0;
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(241, 245, 249, 0.92) 100%) !important;
         border: 1px solid var(--border-color) !important;
         border-radius: 12px;
         padding: 6px 14px; 
+        padding-right: 85px !important;
         display: flex;
         align-items: center;
         backdrop-filter: blur(8px);
@@ -906,7 +930,10 @@
         100% { width: 100%; }
     }
 
+    /* 📸 ÉLŐ KÉP HÁTTÉR TÁMOGATÁS A HŐMÉRSÉKLET KÁRTYÁN */
     .hero-studio-weather {
+        position: relative;
+        overflow: hidden;
         background: 
             radial-gradient(circle at 0% 0%, rgba(206, 43, 55, 0.05) 0%, transparent 45%),
             radial-gradient(circle at 100% 100%, rgba(0, 135, 81, 0.05) 0%, transparent 45%),
@@ -916,6 +943,44 @@
         padding: 14px 12px;
         text-align: center;
         box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.5);
+        transition: background 0.5s ease;
+    }
+
+    .hero-bg-image-layer {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0.38;
+        transition: opacity 0.8s ease-in-out;
+        pointer-events: none;
+    }
+
+    .hero-bg-overlay-layer {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(241, 245, 249, 0.92) 100%);
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .hero-studio-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .idokep-photo-credit {
+        font-size: 0.65rem;
+        font-family: 'Space Mono', monospace;
+        color: #0284c7;
+        font-weight: 700;
+        margin-top: 8px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.78);
+        padding: 3px 8px;
+        border-radius: 6px;
+        display: inline-block;
+        border: 1px solid rgba(2, 132, 199, 0.2);
     }
 
     .hero-split-container {
@@ -1012,14 +1077,14 @@
         display: inline-block;
         width: 7px;
         height: 7px;
-        background-color: #22c55e;
+        background-color: #ffffff;
         border-radius: 50%;
         margin-right: 4px;
-        box-shadow: 0 0 6px #22c55e;
+        box-shadow: 0 0 6px #ffffff;
         animation: pulseWind 1s infinite;
     }
     .live-dot-wind.offline {
-        background-color: #f59e0b;
+        background-color: #94a3b8;
         box-shadow: none;
         animation: none;
     }
@@ -1150,100 +1215,133 @@
         border-radius: 8px;
     }
 
-    /* 📺 WEATHER.COM SZÉLES BONTÁSÚ TV METEOROLÓGIAI SÁV STÍLUSOK ("NYÍREGYHÁZA TÁVOLABBI KILÁTÁSOK") */
+    /* 📺 ULTRA-MODERN WEATHER.COM 5 NAPOS "NYÍREGYHÁZA TÁVOLABBI KILÁTÁSOK" SZÉLES KÁRTYA STÍLUSOK */
     .forecast-strip-card {
         width: 100%;
         background: 
-            radial-gradient(circle at 0% 0%, rgba(206, 43, 55, 0.04) 0%, transparent 40%),
-            radial-gradient(circle at 100% 100%, rgba(0, 135, 81, 0.04) 0%, transparent 40%),
-            rgba(255, 255, 255, 0.92);
-        border: 1px solid rgba(2, 132, 199, 0.35);
-        border-radius: 16px;
-        padding: 14px 16px;
+            radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 45%),
+            radial-gradient(circle at 100% 100%, rgba(34, 197, 94, 0.08) 0%, transparent 45%),
+            linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(240, 249, 255, 0.94) 100%);
+        border: 1.5px solid rgba(2, 132, 199, 0.4);
+        border-radius: 20px;
+        padding: 16px 20px;
+        margin-top: 10px;
         margin-bottom: 24px;
-        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-        backdrop-filter: blur(12px);
+        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08), inset 0 0 20px rgba(56, 189, 248, 0.05);
+        backdrop-filter: blur(16px);
+        transition: all 0.3s ease;
     }
 
     .forecast-strip-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
         font-family: 'Space Mono', monospace;
-        font-size: 0.8rem;
-        font-weight: 700;
+        font-size: 0.85rem;
+        font-weight: 800;
         color: #0284c7;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.6px;
         border-bottom: 1px solid rgba(148, 163, 184, 0.25);
-        padding-bottom: 8px;
+        padding-bottom: 10px;
     }
 
     .forecast-days-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 12px;
+        gap: 14px;
         width: 100%;
     }
 
     .forecast-day-col {
-        background: rgba(241, 245, 249, 0.85);
-        border: 1px solid rgba(203, 213, 225, 0.85);
-        border-radius: 12px;
-        padding: 10px 8px;
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid rgba(203, 213, 225, 0.9);
+        border-radius: 16px;
+        padding: 12px 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 4px;
+        gap: 6px;
         text-align: center;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
     }
     .forecast-day-col:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(2, 132, 199, 0.15);
         background: #ffffff;
+        border-color: #38bdf8;
     }
 
     .forecast-day-name {
         font-family: 'Space Mono', monospace;
-        font-size: 0.78rem;
+        font-size: 0.82rem;
         font-weight: 800;
         color: #1e3a8a;
         text-transform: uppercase;
     }
 
+    .forecast-icon-large {
+        font-size: 2.2rem;
+        line-height: 1;
+        margin: 2px 0;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+        animation: gentleFloat 3s ease-in-out infinite alternate;
+    }
+    @keyframes gentleFloat {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-3px); }
+    }
+
     .forecast-temps-row {
         display: flex;
+        align-items: center;
         gap: 6px;
         font-family: 'Space Mono', monospace;
-        font-size: 0.95rem;
+        font-size: 1.05rem;
         font-weight: 800;
         margin: 2px 0;
     }
     .forecast-max { color: #dc2626; }
     .forecast-min { color: #0284c7; }
 
+    .forecast-temp-bar-bg {
+        width: 100%;
+        height: 5px;
+        background: rgba(148, 163, 184, 0.2);
+        border-radius: 3px;
+        overflow: hidden;
+        margin: 2px 0;
+    }
+    .forecast-temp-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #0284c7 0%, #eab308 50%, #dc2626 100%);
+        border-radius: 3px;
+    }
+
     .forecast-desc-text {
-        font-size: 0.68rem;
-        color: #475569;
-        font-weight: 600;
-        line-height: 1.2;
-        min-height: 28px;
+        font-size: 0.7rem;
+        color: #334155;
+        font-weight: 700;
+        line-height: 1.25;
+        min-height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
     .forecast-sub-meta {
-        font-size: 0.62rem;
+        font-size: 0.64rem;
         font-family: 'Space Mono', monospace;
         color: #0284c7;
         font-weight: 700;
         background: rgba(2, 132, 199, 0.08);
-        padding: 2px 5px;
-        border-radius: 4px;
+        padding: 3px 6px;
+        border-radius: 6px;
         border: 1px solid rgba(2, 132, 199, 0.2);
+        width: 100%;
+        text-align: center;
     }
 
     .grid-small-weather {
@@ -1439,11 +1537,12 @@
             min-height: 78px !important;
             max-height: 78px !important;
             padding: 6px 10px;
+            padding-right: 80px !important;
         }
         .ticker-top-row { flex-wrap: wrap; justify-content: flex-start; text-align: left; gap: 6px; }
         .ticker-title-link { max-width: 100% !important; text-align: left; white-space: normal !important; word-break: break-word; }
 
-        .header-live-badge { justify-content: center; }
+        .header-live-badge { top: 4px; right: 6px; font-size: 0.68rem; padding: 2px 6px; }
         
         .weather-widget-box { width: 100%; height: auto; padding: 8px; flex-direction: row; }
         .weather-box-content { flex-direction: row; gap: 10px; justify-content: center; }
@@ -1780,13 +1879,13 @@
                     <div style="background:#0f172a; border:1px solid #334155; border-radius:10px; padding:12px; margin-bottom:16px;">
                         <label style="font-family:'Space Mono',monospace; font-size:0.7rem; color:#cbd5e1; display:block; margin-bottom:4px;">FEJLÉC KOCKA MÓDJA:</label>
                         <select id="kocka-mode-select" onchange="toggleKockaModeInputs(this.value)" style="width:100%; background:#1e293b; color:#38bdf8; border:1px solid #334155; border-radius:6px; padding:8px; font-family:'Space Mono',monospace; font-size:0.8rem; font-weight:700; outline:none; margin-bottom:10px; cursor:pointer;">
+                            <option value="radio" selected>📻 Élő Online Rádió (Kocka Lejátszó)</option>
                             <option value="pws">🌡️ PWS Időjárás (Város + Hőmérséklet)</option>
-                            <option value="radio">📻 Élő Online Rádió (Azonnali Kocka Lejátszó)</option>
                             <option value="logo">🖼️ Nagy KÉPBEN! Logó ("Készítette: Robi")</option>
                             <option value="off">🚫 Kikapcsolva (Doboz Elrejtése)</option>
                         </select>
 
-                        <div id="kocka-pws-fields-container">
+                        <div id="kocka-pws-fields-container" style="display:none;">
                             <label style="font-family:'Space Mono',monospace; font-size:0.68rem; color:#cbd5e1; display:block; margin-bottom:4px;">KOCKA WUNDERGROUND LINK VAGY STATION ID:</label>
                             <input type="text" id="kocka-pws-url-input" style="width:100%; background:#1e293b; color:#38bdf8; border:1px solid #334155; border-radius:6px; padding:8px; font-family:'Space Mono',monospace; font-size:0.78rem; outline:none; margin-bottom:8px;" placeholder="Pl.: https://www.wunderground.com/dashboard/pws/IBUDAPES100 vagy IBUDAPES100">
 
@@ -1892,7 +1991,7 @@
             <div id="tab-nyir-weather" class="dev-tab-content" style="display:none;">
                 <div class="stat-card" style="text-align:left; padding:16px; margin-bottom:16px; border-color:rgba(56,189,248,0.4);">
                     <div style="font-family:'Space Mono',monospace; color:#38bdf8; font-weight:700; margin-bottom:8px;">🌤️ NYÍREGYHÁZA IDŐJÁRÁS & FORECAST SÁV BEÁLLÍTÁSOK</div>
-                    <p style="font-size:0.75rem; color:#94a3b8; margin-bottom:12px;">Itt kapcsolhatod be a Nyíregyháza Időjárási blokkot, valamint a multi-day előrejelző <strong>Nyíregyháza távolabbi kilátások</strong> kártyát!</p>
+                    <p style="font-size:0.75rem; color:#94a3b8; margin-bottom:12px;">Itt kapcsolhatod be a Nyíregyháza Időjárási blokkot, a multi-day előrejelző kártyát, valamint kiválaszthatod az <strong>Elsődleges Időjárási Adatforrást</strong>!</p>
                     
                     <div style="background:#0f172a; border:1px solid #334155; border-radius:10px; padding:14px; margin-bottom:14px;">
                         <label style="font-family:'Space Mono',monospace; font-size:0.8rem; color:#f8fafc; cursor:pointer; display:flex; align-items:center; gap:10px; margin-bottom:12px;">
@@ -1905,19 +2004,27 @@
                             <span>📺 <strong>"NYÍREGYHÁZA TÁVOLABBI KILÁTÁSOK" PANEL BEKAPCSOLÁSA</strong></span>
                         </label>
 
+                        <label style="font-family:'Space Mono',monospace; font-size:0.68rem; color:#cbd5e1; display:block; margin-bottom:4px;">ELSŐDLEGES IDŐJÁRÁSI ADATFORRÁS:</label>
+                        <select id="nyir-weather-primary-source-select" style="width:100%; background:#1e293b; color:#38bdf8; border:1px solid #334155; border-radius:6px; padding:8px; font-family:'Space Mono',monospace; font-size:0.8rem; font-weight:700; outline:none; margin-bottom:12px; cursor:pointer;">
+                            <option value="idokep" selected>⚡ Időkép Élő (Másodperces frissítés, automata 30 perc PWS tartalékkal)</option>
+                            <option value="pws">📡 WeatherCloud / PWS Állomás (Helyi műszerek)</option>
+                        </select>
+
                         <div style="display:flex; gap:10px; margin-bottom:12px;">
                             <div style="flex:1;">
                                 <label style="font-family:'Space Mono',monospace; font-size:0.68rem; color:#cbd5e1; display:block; margin-bottom:4px;">ELŐREJELZÉS POZÍCIÓJA:</label>
                                 <select id="forecast-position-select" style="width:100%; background:#1e293b; color:#38bdf8; border:1px solid #334155; border-radius:6px; padding:8px; font-family:'Space Mono',monospace; font-size:0.78rem; font-weight:700; outline:none; cursor:pointer;">
-                                    <option value="top">Híroszlopok felett (Széles sávként)</option>
-                                    <option value="bottom">Híroszlopok alatt (Széles sávként)</option>
-                                    <option value="weather_col">Időjárás Oszlopon belül (Kompakt kártyasor)</option>
+                                    <option value="under_top3" selected>Közvetlenül az 1. hármas híroszlop alatt (Alapértelmezett)</option>
+                                    <option value="top">Híroszlopok felett (Legfelül)</option>
+                                    <option value="above_header">Oldal legtetején (Bannerként)</option>
+                                    <option value="below_rates">Deviza sáv alatt</option>
+                                    <option value="bottom">Híroszlopok alatt (Legalul)</option>
                                 </select>
                             </div>
 
                             <div style="flex:1;">
                                 <label style="font-family:'Space Mono',monospace; font-size:0.68rem; color:#cbd5e1; display:block; margin-bottom:4px;">FRISSÍTÉSI SŰRŰSÉG (PERC):</label>
-                                <input type="number" id="forecast-interval-input" min="5" max="180" value="15" style="width:100%; background:#1e293b; color:#38bdf8; border:1px solid #334155; border-radius:6px; padding:8px; font-family:'Space Mono',monospace; font-size:0.78rem; font-weight:700; outline:none;">
+                                <input type="number" id="forecast-interval-input" min="5" max="180" value="10" style="width:100%; background:#1e293b; color:#38bdf8; border:1px solid #334155; border-radius:6px; padding:8px; font-family:'Space Mono',monospace; font-size:0.78rem; font-weight:700; outline:none;">
                             </div>
                         </div>
 
@@ -2014,6 +2121,12 @@
 
     <!-- 📣 FIX NAGYSÁGÚ HÍRSAV PANEL -->
     <div class="ticker-block">
+        <!-- 📌 FIXEN A HÍRSÁV JOBB FELSŐ SARKÁBAN LÉVŐ ÉLŐ NÉZŐSZÁMLÁLÓ -->
+        <div class="header-live-badge" id="ticker-live-badge" title="Pillanatnyi aktív olvasók az oldalon">
+            <svg class="header-live-person-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <span id="header-online-count">0</span>
+        </div>
+
         <div class="ticker-content" id="news-ticker-content">
             <div class="ticker-news-wrapper" id="ticker-news-wrapper">
                 <div class="ticker-top-row">
@@ -2029,12 +2142,7 @@
         </div>
     </div>
 
-    <div class="header-live-badge" title="Pillanatnyi aktív olvasók az oldalon">
-        <svg class="header-live-person-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        <span id="header-online-count">0</span>
-    </div>
-
-    <!-- 🧊 FIX FEJLÉC KOCKA WIDGET -->
+    <!-- 🧊 JOBB FELSŐ KOCKA (VILÁGOSABB MODERN RÁDIÓ PLAYER VEZÉRLÉS) -->
     <div class="weather-widget-box" id="weather-widget-box">
         <div class="weather-box-content" id="unified-weather-strip">
             <span class="weather-box-city" id="weather-city">--</span>
@@ -2049,9 +2157,6 @@
 <!-- 1. KÁRTYA: ÁRFOLYAMOK SÁV -->
 <div id="standalone-rates-container" class="rates-strip-bar" style="display:none;"></div>
 
-<!-- 📺 WEATHER.COM 5 NAPOS "NYÍREGYHÁZA TÁVOLABBI KILÁTÁSOK" SZÉLES KÁRTYA (FEJLÉC / OSZLOPOK FELETT) -->
-<div id="weather-forecast-strip-container" style="display:none;"></div>
-
 <!-- 3. KÁRTYA: PWS HÍRSÁV -->
 <div id="unified-media-bar" class="radio-player-bar" style="display:none;">
     <audio id="radio-audio-element" preload="none"></audio>
@@ -2063,6 +2168,9 @@
         <div class="channels-multi-grid" id="today-grid"></div>
     </div>
     
+    <!-- 📺 WEATHER.COM 5 NAPOS "NYÍREGYHÁZA TÁVOLABBI KILÁTÁSOK" SZÉLES KÁRTYA (AZ ELSŐ HÁRMAS HÍROSZLOP ALATT) -->
+    <div id="weather-forecast-strip-container" style="display:none;"></div>
+
     <div id="yesterday-divider-block" class="yesterday-divider-container">
         <div class="yesterday-divider-card">
             <div class="yesterday-divider-line"></div>
@@ -2103,8 +2211,8 @@
     let pwsCurrentIndex = 0;
     let pwsStripCycleIntervalId = null;
 
-    // FIX KOCKA PWS VÁLTOZÓK
-    let kockaPwsConfig = { mode: 'pws', stationId: '', customName: '', intervalMin: 1 };
+    // FIX KOCKA PWS VÁLTOZÓK (ALAPÉRTEKÉBEN RÁDIÓ MÓDBAN)
+    let kockaPwsConfig = { mode: 'radio', stationId: '', customName: '', intervalMin: 1 };
     let kockaFetchIntervalId = null;
 
     // 🌧️ RADAR & NOWCAST VÁLTOZÓK
@@ -2128,6 +2236,8 @@
     let lastRadioCurrentTime = -1;
     let radioStallCount = 0;
     let radioPlayTimeout = null;
+    let radioVolume = parseFloat(localStorage.getItem('kb_radio_vol') || "1.0");
+    let isRadioMuted = false;
 
     let tickerNews = [];
     let currentTickerIndex = 0;
@@ -2145,8 +2255,9 @@
     let nyirWeatherConfig = {
         enabled: false,
         forecastStripEnabled: false,
-        forecastPosition: 'top', // 'top' | 'bottom' | 'weather_col'
-        forecastIntervalMin: 15,
+        forecastPosition: 'under_top3', // 'under_top3' | 'top' | 'above_header' | 'below_rates' | 'bottom'
+        forecastIntervalMin: 10,
+        primarySource: 'idokep', // 'idokep' | 'pws'
         position: 2,
         url: "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec"
     };
@@ -2158,7 +2269,7 @@
         fontFamily: 'Inter'
     };
 
-    // 🌪️ VALÓS IDEJŰ (JAN2) SZÉLMÉRŐ WEBSOCKET ÉS TARTALÉK VÁLTOZÓK
+    // 🌪️ VALÓS IDEJŰ SZÉLMÉRŐ WEBSOCKET ÉS IDŐKÉP MONITORING
     const windWsServers = [
         'wss://mpszel.idokep.hu/socket.io/?EIO=3&transport=websocket',
         'wss://janosbokor.androjid21.workers.dev/'
@@ -2175,7 +2286,8 @@
     let staticPwsDataCurrent = null; 
     let globalWeatherStats = null;   
     let weatherComForecastFull = null; // Weather.com API 5 napos teljes objektum
-    let nyirIdokepData = null; // Időkép Worker Égkép, Riasztás, Térképek
+    let nyirIdokepData = null; // Időkép Worker Égkép, Riasztás, Térképek, Élő Kép & Szerző
+    let idokepLastSuccessTimestamp = 0; // Időkép utolsó sikeres frissítésének időbélyege (30 perces timeout követéshez)
 
     let idokepMapUrls = {
         now: "https://androidapi.idokep.hu/kistersegi/riaszt_1-3_transp.png",
@@ -2513,26 +2625,42 @@
         const beaufortEl = document.getElementById('hero-live-beaufort');
         const dirTextEl = document.getElementById('hero-live-wind-dir');
         const needleEl = document.getElementById('hero-live-needle');
-        const dotEl = document.getElementById('hero-live-wind-dot');
+        const liveTagContainer = document.getElementById('hero-live-tag-container');
 
         if (!spdEl || !needleEl) return;
 
         let spdKmh = 0;
         let dirDeg = 0;
+        const isIdokepFresh = nyirIdokepData && (Date.now() - idokepLastSuccessTimestamp < 30 * 60 * 1000);
 
-        if (isLiveWindActive) {
-            spdKmh = Math.round(currentLiveWindSpeed);
-            dirDeg = currentLiveWindDir;
-            if (dotEl) {
-                dotEl.classList.remove('offline');
-                dotEl.title = "Élő WebSocket mérés aktív";
+        if (isLiveWindActive || isIdokepFresh) {
+            if (isLiveWindActive) {
+                spdKmh = Math.round(currentLiveWindSpeed);
+                dirDeg = currentLiveWindDir;
+            } else {
+                spdKmh = Math.round(parseFloat(nyirIdokepData.wind_speed || nyirIdokepData.speed) || 0);
+                dirDeg = parseInt(nyirIdokepData.wind_dir) || 0;
+            }
+
+            // 🚨 KÉRÉS SZERINT: PIROS LAYER AZ ÉLŐ SZÉL FELIRAT MÖGÖTT, NEM VILLOG
+            if (liveTagContainer) {
+                liveTagContainer.innerHTML = `
+                    <div style="font-size:9.5px; font-weight:800; color:#ffffff; background:#dc2626; padding:2px 8px; border-radius:4px; letter-spacing:0.5px; font-family:'Space Mono',monospace; display:inline-flex; align-items:center; box-shadow:0 2px 6px rgba(220,38,38,0.3);">
+                        <span class="live-dot-wind" id="hero-live-wind-dot"></span> ÉLŐ SZÉL
+                    </div>
+                `;
             }
         } else {
             spdKmh = Math.round(Number(staticPwsDataCurrent?.wind) || 0);
             dirDeg = Number(staticPwsDataCurrent?.wdirDeg) || 0;
-            if (dotEl) {
-                dotEl.classList.add('offline');
-                dotEl.title = "Standard PWS mérés";
+
+            // SIMA SZÜRKE KIÍRÁS TARTALÉK PWS MÓDBAN
+            if (liveTagContainer) {
+                liveTagContainer.innerHTML = `
+                    <div style="font-size:9.5px; font-weight:700; color:#475569; letter-spacing:0.5px; font-family:'Space Mono',monospace; display:inline-flex; align-items:center;">
+                        <span class="live-dot-wind offline" id="hero-live-wind-dot"></span> SZÉL (PWS)
+                    </div>
+                `;
             }
         }
 
@@ -2575,6 +2703,19 @@
         }
     }
 
+    function getWeatherIconForPhrase(phrase) {
+        if (!phrase) return '🌤️';
+        const p = phrase.toLowerCase();
+        if (p.includes('zivatar') || p.includes('dörg')) return '⛈️';
+        if (p.includes('eső') || p.includes('zápor') || p.includes('szitál')) return '🌧️';
+        if (p.includes('hó') || p.includes('fagy') || p.includes('ónos')) return '❄️';
+        if (p.includes('köd') || p.includes('pára')) return '🌫️';
+        if (p.includes('felhő') || p.includes('borult')) return '☁️';
+        if (p.includes('nap') || p.includes('derült') || p.includes('tiszta')) return '☀️';
+        if (p.includes('szél') || p.includes('vihar')) return '💨';
+        return '🌤️';
+    }
+
     function renderForecastStripCard() {
         const container = document.getElementById('weather-forecast-strip-container');
         if (!container) return;
@@ -2582,6 +2723,35 @@
         if (!nyirWeatherConfig || !nyirWeatherConfig.forecastStripEnabled || !weatherComForecastFull) {
             container.style.display = 'none';
             return;
+        }
+
+        // KÉRÉS SZERINT: HELYILEG KÖZVETLENÜL AZ ELSŐ HÁRMAS HÍROSZLOP ALATT HELYEZZÜK EL
+        const pos = nyirWeatherConfig.forecastPosition || 'under_top3';
+        if (pos === 'under_top3') {
+            const todayWrapper = document.getElementById('today-wrapper');
+            if (todayWrapper && todayWrapper.parentNode && container.nextSibling !== todayWrapper.nextSibling) {
+                todayWrapper.parentNode.insertBefore(container, todayWrapper.nextSibling);
+            }
+        } else if (pos === 'above_header') {
+            const header = document.querySelector('.control-header');
+            if (header && header.parentNode && container.parentNode !== header.parentNode) {
+                header.parentNode.insertBefore(container, header);
+            }
+        } else if (pos === 'below_rates') {
+            const rates = document.getElementById('standalone-rates-container');
+            if (rates && rates.parentNode && container.parentNode !== rates.parentNode) {
+                rates.parentNode.insertBefore(container, rates.nextSibling);
+            }
+        } else if (pos === 'bottom') {
+            const sections = document.getElementById('sections-container');
+            if (sections && sections.parentNode && container.parentNode !== sections.parentNode) {
+                sections.parentNode.insertBefore(container, sections.nextSibling);
+            }
+        } else { // 'top'
+            const sections = document.getElementById('sections-container');
+            if (sections && sections.parentNode && container.parentNode !== sections.parentNode) {
+                sections.parentNode.insertBefore(container, sections);
+            }
         }
 
         const data = weatherComForecastFull;
@@ -2598,8 +2768,29 @@
             if (i === 0) dayLabel = "MA";
             else if (i === 1) dayLabel = "HOLNAP";
 
-            const max = maxTemps[i] !== null && maxTemps[i] !== undefined ? `${Math.round(maxTemps[i])}°C` : '--°C';
-            const min = minTemps[i] !== null && minTemps[i] !== undefined ? `${Math.round(minTemps[i])}°C` : '--°C';
+            let max = maxTemps[i];
+            let min = minTemps[i] !== null && minTemps[i] !== undefined ? Math.round(minTemps[i]) : 10;
+
+            // FIX DÉLUTÁNI HŐMÉRSÉKLET HIBA: ha Weather.com API délután null/alacsonyabb mint a mért max
+            if (i === 0) {
+                const isIdokepFresh = nyirIdokepData && (Date.now() - idokepLastSuccessTimestamp < 30 * 60 * 1000);
+                const primaryPref = nyirWeatherConfig.primarySource || 'idokep';
+                let liveT = null;
+                if (primaryPref === 'idokep' && isIdokepFresh && nyirIdokepData.temp !== undefined) {
+                    liveT = Number(nyirIdokepData.temp);
+                } else if (staticPwsDataCurrent && staticPwsDataCurrent.temp !== undefined) {
+                    liveT = Number(staticPwsDataCurrent.temp);
+                }
+
+                const measuredMax = globalWeatherStats?.today?.maxTemp ? parseFloat(globalWeatherStats.today.maxTemp) : liveT;
+                if (max === null || max === undefined || (liveT !== null && !isNaN(liveT) && liveT > max) || (measuredMax !== null && !isNaN(measuredMax) && measuredMax > max)) {
+                    max = (measuredMax !== null && !isNaN(measuredMax)) ? Math.round(measuredMax) : (liveT !== null ? Math.round(liveT) : 25);
+                } else {
+                    max = Math.round(max);
+                }
+            } else {
+                max = (max !== null && max !== undefined) ? Math.round(max) : 20;
+            }
 
             let phrase = "Változékony";
             let precipProb = 0;
@@ -2618,20 +2809,37 @@
                 uvVal = daypart.uvIndex[daypartIdx] !== undefined ? daypart.uvIndex[daypartIdx] : 5;
             }
 
+            const iconEmoji = getWeatherIconForPhrase(phrase);
+
+            // Uv színskála
+            let uvColor = '#22c55e';
+            if (uvVal >= 3) uvColor = '#eab308';
+            if (uvVal >= 6) uvColor = '#f97316';
+            if (uvVal >= 8) uvColor = '#ef4444';
+
+            // Csapadék valószínűségi szín
+            let precipBg = 'rgba(2, 132, 199, 0.08)';
+            if (precipProb > 50) precipBg = 'rgba(2, 132, 199, 0.2)';
+            if (precipProb > 80) precipBg = 'rgba(37, 99, 235, 0.25)';
+
             columnsHtml += `
                 <div class="forecast-day-col">
                     <span class="forecast-day-name">${dayLabel}</span>
+                    <div class="forecast-icon-large">${iconEmoji}</div>
                     <div class="forecast-temps-row">
-                        <span class="forecast-max">${max}</span>
-                        <span style="opacity:0.4;">/</span>
-                        <span class="forecast-min">${min}</span>
+                        <span class="forecast-max">${max}°C</span>
+                        <span style="opacity:0.35;">/</span>
+                        <span class="forecast-min">${min}°C</span>
+                    </div>
+                    <div class="forecast-temp-bar-bg">
+                        <div class="forecast-temp-bar-fill" style="width: ${Math.min(100, Math.max(10, (max + 10) * 2))}%;"></div>
                     </div>
                     <div class="forecast-desc-text">${phrase}</div>
-                    <div style="display:flex; flex-direction:column; gap:3px; width:100%; margin-top:4px;">
-                        <span class="forecast-sub-meta">💧 Csapadék: <strong>${precipProb}%</strong></span>
+                    <div style="display:flex; flex-direction:column; gap:4px; width:100%; margin-top:4px;">
+                        <span class="forecast-sub-meta" style="background:${precipBg};">💧 Csapadék: <strong>${precipProb}%</strong></span>
                         <span class="forecast-sub-meta" style="color:#10b981; background:rgba(16,185,129,0.08); border-color:rgba(16,185,129,0.2);">💨 Szél: <strong>${Math.round(windSpd)} km/h ${windDirStr}</strong></span>
-                        <span class="forecast-sub-meta" style="color:#6366f1; background:rgba(99,102,241,0.08); border-color:rgba(99,102,241,0.2);">💧 Pára: <strong>${rhProb}%</strong></span>
-                        <span class="forecast-sub-meta" style="color:#b45309; background:rgba(245,158,11,0.08); border-color:rgba(245,158,11,0.2);">☀️ UV: <strong>${uvVal}</strong></span>
+                        <span class="forecast-sub-meta" style="color:#6366f1; background:rgba(99,102,241,0.08); border-color:rgba(99,102,241,0.2);">💧 Páratartalom: <strong>${rhProb}%</strong></span>
+                        <span class="forecast-sub-meta" style="color:${uvColor}; background:rgba(245,158,11,0.08); border-color:rgba(245,158,11,0.2);">☀️ UV Index: <strong>${uvVal}</strong></span>
                     </div>
                 </div>
             `;
@@ -2640,7 +2848,10 @@
         container.innerHTML = `
             <div class="forecast-strip-card">
                 <div class="forecast-strip-header">
-                    <span>📺 NYÍREGYHÁZA TÁVOLABBI KILÁTÁSOK</span>
+                    <span style="display:flex; align-items:center; gap:8px;">
+                        <span>📺 NYÍREGYHÁZA TÁVOLABBI KILÁTÁSOK</span>
+                        <span style="font-size:0.65rem; background:rgba(2,132,199,0.12); padding:2px 8px; border-radius:6px; color:#0284c7;">5 NAPOS METEOROLÓGIA</span>
+                    </span>
                     <span style="font-size:0.65rem; color:#64748b;">WEATHER.COM V3 METEOROLÓGIA</span>
                 </div>
                 <div class="forecast-days-grid">
@@ -3091,21 +3302,21 @@
             </div>
             <div class="stat-card">
                 <div class="stat-card-title">🔥 Napi Csúcs (Max)</div>
-                <div class="stat-card-val" style="color:#ef4444;">${highVal.toFixed(2)} Ft</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-card-title">🧊 Napi Mélypont (Min)</div>
-                <div class="stat-card-val" style="color:#22c55e;">${lowVal.toFixed(2)} Ft</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-card-title">⚡ Volatilitás / Sáv</div>
-                <div class="stat-card-val" style="color:#f59e0b;">${spreadFt.toFixed(2)} Ft (${spreadPct.toFixed(2)}%)</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-card-title">🎯 Napi Átlag</div>
-                <div class="stat-card-val">${avgVal.toFixed(2)} Ft</div>
-            </div>
-        `;
+                    <div class="stat-card-val" style="color:#ef4444;">${highVal.toFixed(2)} Ft</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-title">🧊 Napi Mélypont (Min)</div>
+                    <div class="stat-card-val" style="color:#22c55e;">${lowVal.toFixed(2)} Ft</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-title">⚡ Volatilitás / Sáv</div>
+                    <div class="stat-card-val" style="color:#f59e0b;">${spreadFt.toFixed(2)} Ft (${spreadPct.toFixed(2)}%)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-title">🎯 Napi Átlag</div>
+                    <div class="stat-card-val">${avgVal.toFixed(2)} Ft</div>
+                </div>
+            `;
     }
 
     function renderTerminalChart(ticks) {
@@ -3181,7 +3392,7 @@
             if (t.val === maxVal) tagHtml = '<span style="color:#ef4444; font-weight:800;">🔥 NAPI CSÚCS</span>';
             else if (t.val === minVal) tagHtml = '<span style="color:#22c55e; font-weight:800;">🧊 NAPI MÉLYPONT</span>';
 
-            return`
+            return `
                 <tr>
                     <td><strong>${t.time}</strong></td>
                     <td style="font-weight:800; color:#38bdf8;">${t.val.toFixed(2)} Ft</td>
@@ -3340,10 +3551,10 @@
             const pwsData = await pwsRes.json();
             pwsStationsList = Array.isArray(pwsData) ? pwsData : [];
 
-            kockaPwsConfig = await kockaRes.json() || { mode: 'pws', stationId: '', customName: '', intervalMin: 1 };
+            kockaPwsConfig = await kockaRes.json() || { mode: 'radio', stationId: '', customName: '', intervalMin: 1 };
             radarConfig = await radarRes.json() || { enabled: true, autoHide: false, cityName: 'Nyíregyháza', lat: 47.9554, lon: 21.7167, radiusKm: 50, intervalMin: 2 };
             radioConfig = await radioRes.json() || { name: '', streamUrl: '', metaUrl: '', nowPlaying: '' };
-            nyirWeatherConfig = await nyirRes.json() || { enabled: false, forecastStripEnabled: false, forecastPosition: 'top', forecastIntervalMin: 15, position: 2, url: "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec" };
+            nyirWeatherConfig = await nyirRes.json() || { enabled: false, forecastStripEnabled: false, forecastPosition: 'under_top3', forecastIntervalMin: 10, primarySource: 'idokep', position: 2, url: "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec" };
 
             const rList = await radioListRes.json();
             radioStationsList = Array.isArray(rList) ? rList : [];
@@ -3369,7 +3580,7 @@
             if (document.getElementById('radar-interval-input')) document.getElementById('radar-interval-input').value = radarConfig.intervalMin || 2;
 
             // Kocka kitöltése
-            const currentKockaMode = kockaPwsConfig.mode || 'pws';
+            const currentKockaMode = kockaPwsConfig.mode || 'radio';
             if (document.getElementById('kocka-mode-select')) document.getElementById('kocka-mode-select').value = currentKockaMode;
             toggleKockaModeInputs(currentKockaMode);
             if (document.getElementById('kocka-pws-url-input')) document.getElementById('kocka-pws-url-input').value = kockaPwsConfig.url || kockaPwsConfig.stationId || '';
@@ -3379,8 +3590,9 @@
             // Nyíregyháza Weather Dashboard kitöltése
             if (document.getElementById('nyir-weather-enabled-checkbox')) document.getElementById('nyir-weather-enabled-checkbox').checked = !!nyirWeatherConfig.enabled;
             if (document.getElementById('forecast-strip-enabled-checkbox')) document.getElementById('forecast-strip-enabled-checkbox').checked = !!nyirWeatherConfig.forecastStripEnabled;
-            if (document.getElementById('forecast-position-select')) document.getElementById('forecast-position-select').value = nyirWeatherConfig.forecastPosition || 'top';
-            if (document.getElementById('forecast-interval-input')) document.getElementById('forecast-interval-input').value = nyirWeatherConfig.forecastIntervalMin || 15;
+            if (document.getElementById('forecast-position-select')) document.getElementById('forecast-position-select').value = nyirWeatherConfig.forecastPosition || 'under_top3';
+            if (document.getElementById('forecast-interval-input')) document.getElementById('forecast-interval-input').value = nyirWeatherConfig.forecastIntervalMin || 10;
+            if (document.getElementById('nyir-weather-primary-source-select')) document.getElementById('nyir-weather-primary-source-select').value = nyirWeatherConfig.primarySource || 'idokep';
             if (document.getElementById('nyir-weather-position-select')) document.getElementById('nyir-weather-position-select').value = nyirWeatherConfig.position || 2;
             if (document.getElementById('nyir-weather-url-input')) document.getElementById('nyir-weather-url-input').value = nyirWeatherConfig.url || "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec";
 
@@ -3411,8 +3623,9 @@
     async function saveNyirWeatherConfig() {
         const enabled = document.getElementById('nyir-weather-enabled-checkbox').checked;
         const forecastStripEnabled = document.getElementById('forecast-strip-enabled-checkbox').checked;
-        const forecastPosition = document.getElementById('forecast-position-select').value || 'top';
-        const forecastIntervalMin = parseInt(document.getElementById('forecast-interval-input').value) || 15;
+        const forecastPosition = document.getElementById('forecast-position-select').value || 'under_top3';
+        const forecastIntervalMin = parseInt(document.getElementById('forecast-interval-input').value) || 10;
+        const primarySource = document.getElementById('nyir-weather-primary-source-select').value || 'idokep';
         const position = parseInt(document.getElementById('nyir-weather-position-select').value) || 2;
         const urlInput = document.getElementById('nyir-weather-url-input').value.trim() || "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec";
 
@@ -3421,6 +3634,7 @@
             forecastStripEnabled: forecastStripEnabled,
             forecastPosition: forecastPosition,
             forecastIntervalMin: forecastIntervalMin,
+            primarySource: primarySource,
             position: position,
             url: urlInput,
             updatedAt: new Date().toISOString()
@@ -3431,7 +3645,7 @@
                 method: 'PUT',
                 body: JSON.stringify(nyirWeatherConfig)
             });
-            alert(`✅ Időjárás és TV Forecast Sáv Beállítások elmentve!\nOszlop: ${enabled ? '🟢 BEKAPCSOLVA' : '🔴 KIKAPCSOLVA'}\nElőrejelzés: ${forecastStripEnabled ? '🟢 BEKAPCSOLVA' : '🔴 KIKAPCSOLVA'} (${forecastPosition})`);
+            alert(`✅ Időjárás Beállítások elmentve!\nElsődleges forrás: ${primarySource.toUpperCase()}\nOszlop: ${enabled ? '🟢 BEKAPCSOLVA' : '🔴 KIKAPCSOLVA'}`);
             await fetchDatabases();
         } catch(e) {
             alert("Hiba az Időjárás beállítások mentésekor!");
@@ -3623,6 +3837,33 @@
         radioStationsList.forEach((_, idx) => checkRadioStationHealth(idx));
     }
 
+    function stepRadioStation(direction) {
+        if (!radioStationsList || radioStationsList.length === 0) return;
+        let currentIdx = radioStationsList.findIndex(st => st.streamUrl === radioConfig.streamUrl);
+        if (currentIdx === -1) currentIdx = 0;
+        let nextIdx = (currentIdx + direction + radioStationsList.length) % radioStationsList.length;
+        selectAndPlayRadioStation(nextIdx);
+    }
+
+    function changeRadioVolume(val) {
+        radioVolume = parseFloat(val);
+        localStorage.setItem('kb_radio_vol', radioVolume.toString());
+        const audio = document.getElementById('radio-audio-element');
+        if (audio) {
+            audio.volume = isRadioMuted ? 0 : radioVolume;
+        }
+        updateRadioUI();
+    }
+
+    function toggleMuteRadio() {
+        isRadioMuted = !isRadioMuted;
+        const audio = document.getElementById('radio-audio-element');
+        if (audio) {
+            audio.volume = isRadioMuted ? 0 : radioVolume;
+        }
+        updateRadioUI();
+    }
+
     function initRadioEngine() {
         const audio = document.getElementById('radio-audio-element');
 
@@ -3635,6 +3876,7 @@
 
         if (audio) {
             audio.preload = "auto";
+            audio.volume = isRadioMuted ? 0 : radioVolume;
             audio.onstalled = handleAudioStall;
             audio.onerror = handleAudioStall;
             audio.onended = handleAudioStall;
@@ -3750,7 +3992,17 @@
     function updateRadioUI() {
         const cubeBtn = document.getElementById('radio-cube-btn');
         const cubeDot = document.getElementById('radio-cube-dot');
+        const cubeTitle = document.querySelector('.radio-cube-title');
+        const cubeTrack = document.getElementById('radio-cube-track');
         const eqBars = document.querySelectorAll('.eq-bar');
+
+        if (cubeTitle && radioConfig.name) {
+            cubeTitle.textContent = radioConfig.name;
+        }
+
+        if (cubeTrack) {
+            cubeTrack.textContent = isRadioPlaying ? (radioConfig.nowPlaying || '🎵 Élő adás') : '🔴 Válassz rádióadót';
+        }
 
         if (isRadioPlaying) {
             if (cubeBtn) cubeBtn.innerHTML = '⏸️ PAUSE';
@@ -3986,6 +4238,7 @@
                 .then(idokepData => {
                     if (idokepData && !idokepData.error) {
                         nyirIdokepData = idokepData;
+                        idokepLastSuccessTimestamp = Date.now();
                         if (idokepData.map_now) idokepMapUrls.now = idokepData.map_now;
                         if (idokepData.map_today) idokepMapUrls.today = idokepData.map_today;
                         if (idokepData.map_tomorrow) idokepMapUrls.tomorrow = idokepData.map_tomorrow;
@@ -4012,6 +4265,38 @@
             renderStats(data.stats);
             renderTableOrList(data.history || []);
             weatherLoadedOnce = true;
+
+            // 📊 KÉRÉS SZERINT: A PILLANATNYI KIÍRT ÉRTÉKEK ACCURATE MENTÉSE A GOOGLE DRIVE TÁBLÁZATBA
+            try {
+              const isIdokepFresh = nyirIdokepData && (Date.now() - idokepLastSuccessTimestamp < 30 * 60 * 1000);
+              const primaryPref = nyirWeatherConfig.primarySource || 'idokep';
+              let liveTempToSave = data.current.temp;
+              let liveWindToSave = isLiveWindActive ? Math.round(currentLiveWindSpeed) : data.current.wind;
+
+              if (primaryPref === 'idokep' && isIdokepFresh && nyirIdokepData.temp !== undefined) {
+                  liveTempToSave = nyirIdokepData.temp;
+                  if (!isLiveWindActive && nyirIdokepData.wind_speed !== undefined) {
+                      liveWindToSave = nyirIdokepData.wind_speed;
+                  }
+              }
+              
+              fetch(deployUrl, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  timestamp: new Date().toISOString(),
+                  temp: liveTempToSave,
+                  hum: data.current.hum,
+                  bar: data.current.bar,
+                  wind: liveWindToSave,
+                  gust: data.current.gust,
+                  rain: data.current.rain,
+                  sky_text: nyirIdokepData?.sky_text || '',
+                  source: "NewsroomLive"
+                })
+              }).catch(e => {});
+            } catch(e) {}
           }
         }
       } catch (err) {
@@ -4034,10 +4319,24 @@
       cachedWeatherHTML.activeTag = activeTagStr;
       cachedWeatherHTML.timeTop = timeTopStr;
 
-      const mainTempColor = getTempColor(curr.temp);
+      // KÉRÉS SZERINT: ELSŐDLEGES ADATFORRÁS KIVÁLASZTÁS A DEV MENÜBŐL (30 PERCES TIMEOUT-TAL)
+      const isIdokepFresh = nyirIdokepData && (Date.now() - idokepLastSuccessTimestamp < 30 * 60 * 1000);
+      const primaryPref = nyirWeatherConfig.primarySource || 'idokep';
+      let currentTemp = curr.temp;
+
+      if (primaryPref === 'idokep' && isIdokepFresh && nyirIdokepData.temp !== undefined) {
+          currentTemp = nyirIdokepData.temp;
+      }
+
+      const mainTempColor = getTempColor(currentTemp);
       const uvColor = getUvColor(curr.uvi);
 
-      // 24 ÓRÁS ARCHÍVUMBÓL KISZÁMÍTOTT MÉRT MAX / MIN + BEÁLLÁSI IDŐPONTOK
+      const skyEmoji = (isIdokepFresh && nyirIdokepData.sky_emoji) ? nyirIdokepData.sky_emoji : '';
+      const skyText = (isIdokepFresh && nyirIdokepData.sky_text) ? nyirIdokepData.sky_text : '';
+      const bgImageUrl = (isIdokepFresh && nyirIdokepData.bg_image_url) ? nyirIdokepData.bg_image_url : '';
+      const bgAuthor = (isIdokepFresh && nyirIdokepData.bg_image_author) ? nyirIdokepData.bg_image_author : '';
+
+      // 24 ÓRÁS ARCHÍVUMBÓL PONTOSAN KISZÁMÍTOTT MÉRT MAX / MIN + BEÁLLÁSI IDŐPONTOK JAVÍTÁSA
       let calculatedMax = null;
       let calculatedMaxTime = '';
       let calculatedMin = null;
@@ -4047,11 +4346,11 @@
         historyList.forEach(item => {
           const tVal = Number(item.temp);
           if (!isNaN(tVal)) {
-            if (calculatedMax === null || tVal > calculatedMax) {
+            if (calculatedMax === null || tVal >= calculatedMax) {
               calculatedMax = tVal;
               calculatedMaxTime = item.time || '';
             }
-            if (calculatedMin === null || tVal < calculatedMin) {
+            if (calculatedMin === null || tVal <= calculatedMin) {
               calculatedMin = tVal;
               calculatedMinTime = item.time || '';
             }
@@ -4059,10 +4358,16 @@
         });
       }
 
+      if (currentTemp !== undefined && currentTemp !== null && !isNaN(currentTemp)) {
+        const liveT = Number(currentTemp);
+        if (calculatedMax === null || liveT > calculatedMax) calculatedMax = liveT;
+        if (calculatedMin === null || liveT < calculatedMin) calculatedMin = liveT;
+      }
+
       const todayStats = globalWeatherStats?.today || {};
       
-      const finalMaxVal = calculatedMax !== null ? calculatedMax : (todayStats.maxTemp ? parseFloat(todayStats.maxTemp) : curr.temp);
-      const finalMinVal = calculatedMin !== null ? calculatedMin : (todayStats.minTemp ? parseFloat(todayStats.minTemp) : curr.temp);
+      const finalMaxVal = calculatedMax !== null ? calculatedMax : (todayStats.maxTemp ? parseFloat(todayStats.maxTemp) : currentTemp);
+      const finalMinVal = calculatedMin !== null ? calculatedMin : (todayStats.minTemp ? parseFloat(todayStats.minTemp) : currentTemp);
 
       const measuredMaxStr = finalMaxVal !== null && !isNaN(finalMaxVal) ? `${Number(finalMaxVal).toFixed(1)}°C` : '--°C';
       const measuredMaxTimeStr = calculatedMaxTime ? `${calculatedMaxTime}` : (todayStats.maxTempTime || '--:--');
@@ -4095,72 +4400,85 @@
       gridHtml += makeCard("Napsugárzás", curr.solarrad, "W/m²", "#b45309");
       gridHtml += makeCard("UV Index", curr.uvi, "", uvColor);
 
+      const bgImgLayer = bgImageUrl ? `<img src="${bgImageUrl}" class="hero-bg-image-layer" alt="Élő Időkép Fotó" referrerpolicy="no-referrer">` : '';
+      const bgOverlayLayer = bgImageUrl ? `<div class="hero-bg-overlay-layer"></div>` : '';
+      const photoCreditHtml = bgAuthor ? `<div class="idokep-photo-credit">📸 Fotó: ${bgAuthor} (Időkép)</div>` : '';
+      const skyHtml = (skyEmoji || skyText) ? `<div style="font-size:12px; font-weight:800; color:#0284c7; font-family:'Space Mono',monospace; margin-top:4px;">${skyEmoji} ${skyText}</div>` : '';
+
       const generatedLeftHtml = `
         <div class="hero-studio-weather">
-          <div class="hero-split-container">
-            <!-- AKTUÁLIS HŐMÉRSÉKLET ÉS HŐÉRZET (ÉGKÉP LEÍRÁS ELTÁVOLÍTVA) -->
-            <div class="hero-temp-box">
-              <div style="font-size:10px; font-weight:700; color:${mainTempColor}; letter-spacing:1px; font-family:'Space Mono',monospace;">HŐMÉRSÉKLET</div>
-              <div class="main-temp-weather" style="color:${mainTempColor}; text-shadow: 0 2px 10px rgba(0,0,0,0.04);">${fmt(curr.temp)}°C</div>
-              
-              <div style="font-size:11px; font-weight:700; color:#0f766e; font-family:'Space Mono',monospace; margin-top:6px; background:rgba(15,118,110,0.08); padding:3px 8px; border-radius:6px; border:1px solid rgba(15,118,110,0.2);">
-                🌡️ Hőérzet: <strong>${fmt(curr.chill || curr.heat || curr.temp)}°C</strong>
-              </div>
-            </div>
-
-            <!-- PÁVAKÉK ÉLŐ COMPASS -->
-            <div class="hero-wind-box">
-              <div style="font-size:9.5px; font-weight:700; color:#0284c7; letter-spacing:0.5px; font-family:'Space Mono',monospace; display:flex; align-items:center;">
-                <span class="live-dot-wind ${isLiveWindActive ? '' : 'offline'}" id="hero-live-wind-dot"></span> ÉLŐ SZÉL
-              </div>
-
-              <div class="hero-mini-compass">
-                <span class="hero-compass-lbl hero-lbl-n">É</span>
-                <span class="hero-compass-lbl hero-lbl-e">K</span>
-                <span class="hero-compass-lbl hero-lbl-s">D</span>
-                <span class="hero-compass-lbl hero-lbl-w">NY</span>
-                <div class="hero-mini-needle" id="hero-live-needle" style="transform: rotate(${currentLiveWindDir}deg);">
-                  <svg class="hero-mini-needle-svg" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L18.5 24L12 18.5L5.5 24L12 2Z" fill="#22c55e" stroke="#16a34a" stroke-width="0.5"/>
-                    <path d="M12 46L18.5 24L12 29.5L5.5 24L12 46Z" fill="#15803d" opacity="0.6"/>
-                    <circle cx="12" cy="24" r="3.5" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
-                  </svg>
+          ${bgImgLayer}
+          ${bgOverlayLayer}
+          <div class="hero-studio-content">
+            <div class="hero-split-container">
+              <!-- AKTUÁLIS HŐMÉRSÉKLET ÉS HŐÉRZET -->
+              <div class="hero-temp-box">
+                <div style="font-size:10px; font-weight:700; color:${mainTempColor}; letter-spacing:1px; font-family:'Space Mono',monospace;">HŐMÉRSÉKLET</div>
+                <div class="main-temp-weather" style="color:${mainTempColor}; text-shadow: 0 2px 10px rgba(0,0,0,0.04);">${fmt(currentTemp)}°C</div>
+                ${skyHtml}
+                
+                <div style="font-size:11px; font-weight:700; color:#0f766e; font-family:'Space Mono',monospace; margin-top:6px; background:rgba(15,118,110,0.08); padding:3px 8px; border-radius:6px; border:1px solid rgba(15,118,110,0.2);">
+                  🌡️ Hőérzet: <strong>${fmt(curr.chill || curr.heat || currentTemp)}°C</strong>
                 </div>
               </div>
 
-              <div class="wind-speed-main" id="hero-live-wind-spd">0 km/h</div>
-              <div class="wind-beaufort-tag" id="hero-live-beaufort">Szélcsend</div>
-              <div class="wind-dir-full-text" id="hero-live-wind-dir">Északi</div>
-            </div>
-          </div>
-          
-          <!-- LENTI SÁV: PROFI IDŐJÁRÁS ÁLLOMÁSOK SZERINTI EGYMÁS ALATTI MÉRT ÉS ELŐREJELZETT ÉRTÉKEK -->
-          <div class="hero-stats-weather">
-            <div class="stat-box-weather" style="align-items:flex-start; text-align:left; padding-left:8px;">
-              <div class="stat-label-weather" style="color:#1e3a8a; margin-bottom:4px; font-size:10px;">📊 MÉRT ÉRTÉKEK</div>
-              <div style="font-size:11.5px; font-family:'Space Mono',monospace; font-weight:700; display:flex; flex-direction:column; gap:3px; width:100%;">
-                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-                  <span style="color:#dc2626;">🔥 Max: <strong>${measuredMaxStr}</strong></span>
-                  <span style="font-size:9.5px; color:#64748b; font-weight:600;">(${measuredMaxTimeStr})</span>
+              <!-- PÁVAKÉK ÉLŐ COMPASS & PIROS ÉLŐ LAYER -->
+              <div class="hero-wind-box">
+                <div id="hero-live-tag-container">
+                  <div style="font-size:9.5px; font-weight:800; color:#ffffff; background:#dc2626; padding:2px 8px; border-radius:4px; letter-spacing:0.5px; font-family:'Space Mono',monospace; display:inline-flex; align-items:center; box-shadow:0 2px 6px rgba(220,38,38,0.3);">
+                    <span class="live-dot-wind" id="hero-live-wind-dot"></span> ÉLŐ SZÉL
+                  </div>
                 </div>
-                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-                  <span style="color:#0284c7;">🧊 Min: <strong>${measuredMinStr}</strong></span>
-                  <span style="font-size:9.5px; color:#64748b; font-weight:600;">(${measuredMinTimeStr})</span>
+
+                <div class="hero-mini-compass">
+                  <span class="hero-compass-lbl hero-lbl-n">É</span>
+                  <span class="hero-compass-lbl hero-lbl-e">K</span>
+                  <span class="hero-compass-lbl hero-lbl-s">D</span>
+                  <span class="hero-compass-lbl hero-lbl-w">NY</span>
+                  <div class="hero-mini-needle" id="hero-live-needle" style="transform: rotate(${currentLiveWindDir}deg);">
+                    <svg class="hero-mini-needle-svg" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2L18.5 24L12 18.5L5.5 24L12 2Z" fill="#22c55e" stroke="#16a34a" stroke-width="0.5"/>
+                      <path d="M12 46L18.5 24L12 29.5L5.5 24L12 46Z" fill="#15803d" opacity="0.6"/>
+                      <circle cx="12" cy="24" r="3.5" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
+                    </svg>
+                  </div>
                 </div>
+
+                <div class="wind-speed-main" id="hero-live-wind-spd">0 km/h</div>
+                <div class="wind-beaufort-tag" id="hero-live-beaufort">Szélcsend</div>
+                <div class="wind-dir-full-text" id="hero-live-wind-dir">Északi</div>
               </div>
             </div>
             
-            <div class="stat-box-weather" style="align-items:flex-start; text-align:left; border-left:1px solid rgba(148, 163, 184, 0.25); padding-left:12px;">
-              <div class="stat-label-weather" style="color:#2563eb; margin-bottom:4px; font-size:10px;">🔮 ELŐREJELZETT ÉRTÉKEK</div>
-              <div style="font-size:11.5px; font-family:'Space Mono',monospace; font-weight:700; display:flex; flex-direction:column; gap:3px; width:100%;">
-                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-                  <span style="color:#dc2626;">🔴 Max: <strong>${forecastMaxStr}</strong></span>
+            <!-- LENTI SÁV: PROFI IDŐJÁRÁS ÁLLOMÁSOK SZERINTI EGYMÁS ALATTI MÉRT ÉS ELŐREJELZETT ÉRTÉKEK -->
+            <div class="hero-stats-weather">
+              <div class="stat-box-weather" style="align-items:flex-start; text-align:left; padding-left:8px;">
+                <div class="stat-label-weather" style="color:#1e3a8a; margin-bottom:4px; font-size:10px;">📊 MÉRT ÉRTÉKEK</div>
+                <div style="font-size:11.5px; font-family:'Space Mono',monospace; font-weight:700; display:flex; flex-direction:column; gap:3px; width:100%;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                    <span style="color:#dc2626;">🔥 Max: <strong>${measuredMaxStr}</strong></span>
+                    <span style="font-size:9.5px; color:#64748b; font-weight:600;">(${measuredMaxTimeStr})</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                    <span style="color:#0284c7;">🧊 Min: <strong>${measuredMinStr}</strong></span>
+                    <span style="font-size:9.5px; color:#64748b; font-weight:600;">(${measuredMinTimeStr})</span>
+                  </div>
                 </div>
-                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-                  <span style="color:#0284c7;">🔵 Min: <strong>${forecastMinStr}</strong></span>
+              </div>
+              
+              <div class="stat-box-weather" style="align-items:flex-start; text-align:left; border-left:1px solid rgba(148, 163, 184, 0.25); padding-left:12px;">
+                <div class="stat-label-weather" style="color:#2563eb; margin-bottom:4px; font-size:10px;">🔮 ELŐREJELZETT ÉRTÉKEK</div>
+                <div style="font-size:11.5px; font-family:'Space Mono',monospace; font-weight:700; display:flex; flex-direction:column; gap:3px; width:100%;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                    <span style="color:#dc2626;">🔴 Max: <strong>${forecastMaxStr}</strong></span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                    <span style="color:#0284c7;">🔵 Min: <strong>${forecastMinStr}</strong></span>
+                  </div>
                 </div>
               </div>
             </div>
+            ${photoCreditHtml}
           </div>
         </div>
 
@@ -4581,14 +4899,14 @@
         } catch(e) { alert("Hiba a mentéskor!"); }
     }
 
-    /* 🧊 1. FIX FEJLÉC KOCKA IDŐJÁRÁS LOGIKA */
+    /* 🧊 1. JOBB FELSŐ KOCKA (VILÁGOSABB MODERN RÁDIÓ PLAYER VEZÉRLÉS BEÉPÍTETT HANGERŐ CSÚSZKÁVAL) */
     async function fetchKockaPwsData() {
         const widgetBox = document.getElementById('weather-widget-box');
         const contentBox = document.getElementById('unified-weather-strip');
 
         if (!widgetBox || !contentBox) return;
 
-        const mode = kockaPwsConfig?.mode || 'pws';
+        const mode = kockaPwsConfig?.mode || 'radio';
 
         if (mode === 'off') {
             widgetBox.style.display = 'none';
@@ -4596,16 +4914,18 @@
         }
 
         if (mode === 'radio') {
-            widgetBox.setAttribute('style', 'background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 1px solid var(--border-color); display: flex; cursor: pointer;');
-            widgetBox.onclick = openRadioPickerModal;
+            widgetBox.setAttribute('style', 'background: linear-gradient(135deg, rgba(30, 58, 138, 0.92) 0%, rgba(2, 132, 199, 0.92) 100%); border: 1px solid rgba(56, 189, 248, 0.5); display: flex;');
+            widgetBox.onclick = null;
             contentBox.innerHTML = `
                 <div class="radio-cube-container">
                     <div class="radio-cube-top">
-                        <span class="radio-cube-title">${radioConfig.name || 'ÉLŐ RÁDIÓ'}</span>
+                        <span class="radio-cube-title" onclick="openRadioPickerModal()" title="Kattints ide a csatornalista megnyitásához!">${radioConfig.name || 'ÉLŐ RÁDIÓ'} ⚙️</span>
                         <div class="radio-cube-status-dot ${isRadioPlaying ? 'active' : ''}" id="radio-cube-dot"></div>
                     </div>
                     <div class="radio-cube-mid">
-                        <button class="radio-cube-play-btn" id="radio-cube-btn" onclick="event.stopPropagation(); toggleRadioPlay();">${isRadioPlaying ? '⏸️ PAUSE' : '▶️ PLAY'}</button>
+                        <button class="radio-step-btn" onclick="stepRadioStation(-1)" title="Előző adó">⏮️</button>
+                        <button class="radio-cube-play-btn" id="radio-cube-btn" onclick="toggleRadioPlay()">${isRadioPlaying ? '⏸️ PAUSE' : '▶️ PLAY'}</button>
+                        <button class="radio-step-btn" onclick="stepRadioStation(1)" title="Következő adó">⏭️</button>
                         <div class="radio-eq-container">
                             <div class="eq-bar ${isRadioPlaying ? 'playing' : ''}"></div>
                             <div class="eq-bar ${isRadioPlaying ? 'playing' : ''}"></div>
@@ -4613,8 +4933,12 @@
                             <div class="eq-bar ${isRadioPlaying ? 'playing' : ''}"></div>
                         </div>
                     </div>
-                    <div class="radio-cube-bottom" id="radio-cube-track">
-                        ${isRadioPlaying ? (radioConfig.nowPlaying || '🎵 Élő adás') : '🔴 Kattints rádióválasztáshoz'}
+                    <div class="radio-cube-bottom" style="display:flex; align-items:center; justify-content:space-between; gap:6px;">
+                        <span id="radio-cube-track" style="flex:1; overflow:hidden; text-overflow:ellipsis;">${isRadioPlaying ? (radioConfig.nowPlaying || '🎵 Élő adás') : '🔴 Válassz rádióadót'}</span>
+                        <div style="display:flex; align-items:center; gap:3px; flex-shrink:0;">
+                            <span style="font-size:0.6rem; cursor:pointer;" onclick="toggleMuteRadio()" id="premium-vol-icon">🔊</span>
+                            <input type="range" min="0" max="1" step="0.05" value="${radioVolume}" oninput="changeRadioVolume(this.value)" style="width:40px; accent-color:#38bdf8; cursor:pointer; height:3px;">
+                        </div>
                     </div>
                 </div>
             `;
@@ -4628,7 +4952,7 @@
             contentBox.innerHTML = `
                 <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font-family:'Space Mono',monospace; text-align:center; width:100%;">
                     <div style="display:flex; align-items:center; gap:4px;">
-                        <svg class="kb-icon-mini-watermark" viewBox="0 0 24 24" fill="none" style="width:18px; height:18px;"><path d="M3 8V5a2 2 0 0 1 2-2h3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 1-2 2h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 4" opacity="0.5"/></svg>
+                        <svg class="kb-icon-mini-watermark" viewBox="0 0 24 24" fill="none" style="width:18px; height:18px;"><path d="M3 8V5a2 2 0 0 1 2-2h3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M21 16v3a2 2 0 0 1-2 2h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 4" opacity="0.5"/></svg>
                         <span style="font-weight:800; font-size:0.92rem; color:#1e3a8a;">KÉPBEN<span style="color:#dc2626;">!</span></span>
                     </div>
                     <span style="font-size:0.55rem; font-weight:700; color:#dc2626;">Készítette: Robi</span>
@@ -4654,7 +4978,13 @@
             const data = await res.json();
             if (data && data.observations && data.observations[0]) {
                 const obs = data.observations[0];
-                const rawTemp = obs.metric?.temp;
+                const isIdokepFresh = nyirIdokepData && (Date.now() - idokepLastSuccessTimestamp < 30 * 60 * 1000);
+                const primaryPref = nyirWeatherConfig.primarySource || 'idokep';
+                let rawTemp = obs.metric?.temp;
+
+                if (primaryPref === 'idokep' && isIdokepFresh && nyirIdokepData.temp !== undefined) {
+                    rawTemp = nyirIdokepData.temp;
+                }
 
                 if (rawTemp !== undefined && rawTemp !== null && !isNaN(rawTemp)) {
                     contentBox.innerHTML = `
@@ -5876,10 +6206,10 @@
             const pwsData = await pwsRes.json();
             pwsStationsList = Array.isArray(pwsData) ? pwsData : [];
 
-            kockaPwsConfig = await kockaRes.json() || { mode: 'pws', stationId: '', customName: '', intervalMin: 1 };
+            kockaPwsConfig = await kockaRes.json() || { mode: 'radio', stationId: '', customName: '', intervalMin: 1 };
             radarConfig = await radarRes.json() || { enabled: true, autoHide: false, cityName: 'Nyíregyháza', lat: 47.9554, lon: 21.7167, radiusKm: 50, intervalMin: 2 };
             radioConfig = await radioRes.json() || { name: '', streamUrl: '', metaUrl: '', nowPlaying: '' };
-            nyirWeatherConfig = await nyirRes.json() || { enabled: false, forecastStripEnabled: false, forecastPosition: 'top', forecastIntervalMin: 15, position: 2, url: "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec" };
+            nyirWeatherConfig = await nyirRes.json() || { enabled: false, forecastStripEnabled: false, forecastPosition: 'under_top3', forecastIntervalMin: 10, primarySource: 'idokep', position: 2, url: "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec" };
 
             const rList = await radioListRes.json();
             radioStationsList = Array.isArray(rList) ? rList : [];
