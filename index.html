@@ -2085,7 +2085,7 @@
 </div>
 
 <div id="yesterday-notice-banner" class="yesterday-notice-banner">
-    <span>ℹ️ A TEGNAPI NAP HÍREIT LEJJEBB GÖRGETVE TEKINTHETI MEG</span>
+    <span>ℹ️ A TEGNAPI NAP HÍREIT LEJJEBB GÖRGETVE TEKINTHETED MEG</span>
 </div>
 
 <div id="public-broadcast-banner" class="broadcast-banner">
@@ -3237,30 +3237,30 @@
 
     async function loadCurrencyTerminalData() {
         const flagIcon = activeTerminalCurr === 'EUR' ? '🇪🇺' : (activeTerminalCurr === 'USD' ? '🇺🇸' : '🇨🇭');
-        document.getElementById('terminal-modal-title').innerHTML = `📈 DEVIZA TERMINÁL · ${flagIcon} ${activeTerminalCurr} / HUF (${selectedTerminalDate})`;
+        const titleEl = document.getElementById('terminal-modal-title');
+        if (titleEl) {
+            titleEl.innerHTML = `📈 DEVIZA TERMINÁL · ${flagIcon} ${activeTerminalCurr} / HUF (${selectedTerminalDate})`;
+        }
 
         try {
-            const t = Date.now();
-            const [historyRes, mainRatesRes] = await Promise.all([
-                fetch(`${FIREBASE_URL}/rates_history/${selectedTerminalDate}.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/rates.json?t=${t}`, { cache: 'no-store' })
-            ]);
-
-            const historyObj = await historyRes.json() || {};
-            const mainRatesData = await mainRatesRes.json() || {};
-
             const currKey = activeTerminalCurr.toLowerCase();
-            let ticks = Object.entries(historyObj).map(([key, val]) => ({
-                time: val.time || key.replace('_', ':'),
-                val: val[currKey] ? Number(val[currKey]) : 0
-            })).filter(t => t.val > 0);
+            const mainRates = localRatesData || {};
+            const liveVal = mainRates.current ? Number(mainRates.current[currKey]) : 0;
+            const openVal = mainRates.open ? Number(mainRates.open[currKey]) : liveVal;
 
-            const officialOpenVal = mainRatesData?.open ? Number(mainRatesData.open[currKey]) : null;
-            if (officialOpenVal && (ticks.length === 0 || ticks[0].time !== "00:00")) {
-                ticks.unshift({
-                    time: "00:00 (Nyitó)",
-                    val: officialOpenVal
-                });
+            let ticks = currentTerminalTicks || [];
+            if (ticks.length === 0 && liveVal > 0) {
+                ticks = [
+                    { time: "00:00 (Nyitó)", val: openVal },
+                    { time: mainRates.time || "Élő", val: liveVal }
+                ];
+            } else if (liveVal > 0) {
+                const lastTick = ticks[ticks.length - 1];
+                if (!lastTick || lastTick.time !== (mainRates.time || "Élő")) {
+                    if (mainRates.isMarketOpen !== false) {
+                        ticks.push({ time: mainRates.time || "Élő", val: liveVal });
+                    }
+                }
             }
 
             currentTerminalTicks = ticks;
@@ -5708,13 +5708,19 @@
             let s = String(str).trim();
             if (/^\d{4}[\.-]\d{2}[\.-]\d{2}/.test(s)) {
                 s = s.replace(/\./g, '-').replace(/\s+/, 'T');
+                d = new Date(s);
             }
-            d = new Date(s);
-            if (isNaN(d.getTime())) d = new Date();
         }
+        if (isNaN(d.getTime())) d = new Date();
+
+        // 🛡️ VÉDELEM: Ha a portál jövőbeli időbélyeget küld (hogy előreugorjon), levágjuk a valós jelenlegi percre!
+        const now = Date.now();
+        if (d.getTime() > now) {
+            d = new Date(now);
+        }
+
         return d;
     }
-
     function getSourceLogoUrl(item) {
         if (!item) return null;
         if (item.link) {
@@ -5856,19 +5862,13 @@
         div.dataset.id = item.id;
         
         const d = new Date(item.date);
-        const timeStr = d.toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+        const timeStr = d.toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit'});
         const logo = getSourceLogoUrl(item);
         const src = cleanProviderName(item); 
         const desc = (item.description || '').trim(); 
         const descHtml = desc ? `<div class="news-description">${desc}</div>` : '';
 
-        let imgHtml = '';
-        if (item.img && typeof item.img === 'string' && item.img.startsWith('http')) {
-            imgHtml = `<div class="news-card-img-box">
-                <img src="${item.img}" class="news-card-img" alt="Cikk borítókép" loading="lazy" decoding="async" onerror="this.parentElement.style.display='none'">
-            </div>`;
-        }
-
+        // Képek kihagyva a maximális sebesség és akadásmentes görgetés érdekében
         div.innerHTML = `
             <div class="news-meta">
                 <div class="source-wrapper">
@@ -5878,13 +5878,11 @@
                 <span class="news-time">${timeStr}</span>
             </div>
             <div class="news-title"><a href="${item.link || '#'}" target="_blank">${cleanText(item.title || '')}</a></div>
-            ${imgHtml}
             ${descHtml}
         `;
         return div;
     }
-
-    function createNyirWeatherColumnHTML() {
+ function createNyirWeatherColumnHTML() {
         return `
             <div class="nyir-weather-block">
                 <div style="background:rgba(255,255,255,0.92); border:1px solid var(--border-color); border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; box-shadow: 0 2px 8px rgba(15,23,42,0.03);">
@@ -5974,6 +5972,8 @@
             scrollPositions[idx] = el.scrollTop;
         });
 
+        const cutoffTime = Math.min(startTime, Date.now() - (36 * 60 * 60 * 1000));
+
         const allItems = Object.entries(dataObject)
             .filter(([key, item]) => {
                 if (!item || !item.date || isBlacklisted(item.title)) return false;
@@ -6036,9 +6036,10 @@
         }
 
         const sortedProviders = Object.keys(channelGroups).sort((a, b) => {
-            return channelGroups[b].length - channelGroups[a].length;
+            const latestA = channelGroups[a][0] ? channelGroups[a][0].parsedDate.getTime() : 0;
+            const latestB = channelGroups[b][0] ? channelGroups[b][0].parsedDate.getTime() : 0;
+            return latestB - latestA;
         });
-
         sortedProviders.forEach((provName, idx) => {
             const providerItems = channelGroups[provName];
             const theme = HEADER_THEMES[idx % HEADER_THEMES.length];
@@ -6136,27 +6137,32 @@
     }
 
     function renderNewsroomDayNightCycle(combinedDataObject) {
+        if (!combinedDataObject) combinedDataObject = {};
+        
         const now = new Date();
         const currentHour = now.getHours();
 
-        const today00 = new Date(now);
-        today00.setHours(0, 0, 0, 0);
+        // 1. MAI NAP HATÁRAI: Ma 00:00:00-tól a mostani pillanatig (23:59:59-ig)
+        const today00 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+        const todayStartMs = today00.getTime();
+        const todayEndMs = now.getTime();
 
-        const yesterday00 = new Date(now);
-        yesterday00.setDate(yesterday00.getDate() - 1);
-        yesterday00.setHours(0, 0, 0, 0);
+        // 2. TEGNAPI NAP HATÁRAI: Tegnap 00:00:00-tól Tegnap 23:59:59-ig
+        const yesterday00 = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, 0, 0, 0, 0);
+        const yesterday2359 = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, 23, 59, 59, 999);
+        const yesterdayStartMs = yesterday00.getTime();
+        const yesterdayEndMs = yesterday2359.getTime();
 
-        const yesterday2359 = new Date(now);
-        yesterday2359.setDate(yesterday2359.getDate() - 1);
-        yesterday2359.setHours(23, 59, 59, 999);
+        // Felső rács: MINDIG a mai nap friss hírei (00:00:00-tól indulva gyűlik)
+        renderChannelColumns(combinedDataObject, 'today-grid', todayStartMs, todayEndMs, false);
 
-        renderChannelColumns(combinedDataObject, 'today-grid', today00.getTime(), now.getTime(), false);
-
+        // Éjszakai felületi elemek
         const noticeBanner = document.getElementById('yesterday-notice-banner');
         const dividerBlock = document.getElementById('yesterday-divider-block');
         const yesterdayWrapper = document.getElementById('yesterday-wrapper');
         const lockBadge = document.getElementById('yesterday-lock-badge');
 
+        // 🌙 ÉJSZAKAI IDŐSZAK (00:00:00 és 05:59:59 között):
         if (currentHour < 6) {
             if (noticeBanner) noticeBanner.style.display = 'flex';
             if (dividerBlock) dividerBlock.style.display = 'block';
@@ -6167,8 +6173,11 @@
             const ydd = String(yesterday2359.getDate()).padStart(2, '0');
             if (lockBadge) lockBadge.textContent = `🔒 LEZÁRVA: ${yyyyy}.${ymm}.${ydd}. 23:59:59`;
 
-            renderChannelColumns(combinedDataObject, 'yesterday-grid', yesterday00.getTime(), yesterday2359.getTime(), true);
-        } else {
+            // Alsó rács: A tegnapi nap zárt hírei oszlopokba rendezve
+            renderChannelColumns(combinedDataObject, 'yesterday-grid', yesterdayStartMs, yesterdayEndMs, true);
+        } 
+        // ☀️ NAPPALI IDŐSZAK (06:00:00 és 23:59:59 között): Automata törlés/eltüntetés
+        else {
             if (noticeBanner) noticeBanner.style.display = 'none';
             if (dividerBlock) dividerBlock.style.display = 'none';
             if (yesterdayWrapper) yesterdayWrapper.style.display = 'none';
@@ -6177,53 +6186,61 @@
             if (yesterdayGrid) yesterdayGrid.innerHTML = '';
         }
     }
-
     async function fetchDatabases() {
         try {
             const t = Date.now();
-            const [gyujtoRes, adasRes, ratesRes, filterRes, breakingRes, excludedRes, pwsRes, kockaRes, radarRes, radioRes, nyirRes, radioListRes, themeRes] = await Promise.all([
-                fetch(`${FIREBASE_URL}/newsroom_gyujto.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/newsroom_adas.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/rates.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/analytics/blacklist.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/analytics/breaking_keywords.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/analytics/breaking_excluded.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/analytics/pws_stations.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/analytics/pws_kocka.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/analytics/radar_config.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/analytics/radio_config.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/analytics/nyir_weather_config.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/analytics/radio_stations.json?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/analytics/theme_config.json?t=${t}`, { cache: 'no-store' })
+            // A híreket és devizát a működő Cloudflare Workerből kérjük le, a beállításokat pedig a háttérből
+            const [workerRes, filterRes, breakingRes, excludedRes, pwsRes, kockaRes, radarRes, radioRes, nyirRes, radioListRes, themeRes] = await Promise.all([
+                fetch(`https://kepbenoszlop.androjid21.workers.dev/?t=${t}`, { cache: 'no-store' }),
+                fetch(`${FIREBASE_URL}/analytics/blacklist.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+                fetch(`${FIREBASE_URL}/analytics/breaking_keywords.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+                fetch(`${FIREBASE_URL}/analytics/breaking_excluded.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+                fetch(`${FIREBASE_URL}/analytics/pws_stations.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+                fetch(`${FIREBASE_URL}/analytics/pws_kocka.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+                fetch(`${FIREBASE_URL}/analytics/radar_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+                fetch(`${FIREBASE_URL}/analytics/radio_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+                fetch(`${FIREBASE_URL}/analytics/nyir_weather_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+                fetch(`${FIREBASE_URL}/analytics/radio_stations.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+                fetch(`${FIREBASE_URL}/analytics/theme_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null)
             ]);
-            const gyujtoData = await gyujtoRes.json();
-            const adasData = await adasRes.json();
-            const ratesData = await ratesRes.json();
-            blacklistKeywords = await filterRes.json() || [];
-            breakingKeywords = await breakingRes.json() || [];
-            breakingExcludedMap = await excludedRes.json() || {};
+
+            const workerData = await workerRes.json();
             
-            const pwsData = await pwsRes.json();
-            pwsStationsList = Array.isArray(pwsData) ? pwsData : [];
+            if (filterRes) blacklistKeywords = await filterRes.json() || [];
+            if (breakingRes) breakingKeywords = await breakingRes.json() || [];
+            if (excludedRes) breakingExcludedMap = await excludedRes.json() || {};
+            
+            if (pwsRes) {
+                const pwsData = await pwsRes.json();
+                pwsStationsList = Array.isArray(pwsData) ? pwsData : [];
+            }
 
-            kockaPwsConfig = await kockaRes.json() || { mode: 'radio', stationId: '', customName: '', intervalMin: 1 };
-            radarConfig = await radarRes.json() || { enabled: true, autoHide: false, cityName: 'Nyíregyháza', lat: 47.9554, lon: 21.7167, radiusKm: 50, intervalMin: 2 };
-            radioConfig = await radioRes.json() || { name: '', streamUrl: '', metaUrl: '', nowPlaying: '' };
-            nyirWeatherConfig = await nyirRes.json() || { enabled: false, forecastStripEnabled: false, forecastPosition: 'under_top3', forecastIntervalMin: 10, primarySource: 'idokep', position: 2, url: "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec" };
+            if (kockaRes) kockaPwsConfig = await kockaRes.json() || { mode: 'radio', stationId: '', customName: '', intervalMin: 1 };
+            if (radarRes) radarConfig = await radarRes.json() || { enabled: true, autoHide: false, cityName: 'Nyíregyháza', lat: 47.9554, lon: 21.7167, radiusKm: 50, intervalMin: 2 };
+            if (radioRes) radioConfig = await radioRes.json() || { name: '', streamUrl: '', metaUrl: '', nowPlaying: '' };
+            if (nyirRes) nyirWeatherConfig = await nyirRes.json() || { enabled: false, forecastStripEnabled: false, forecastPosition: 'under_top3', forecastIntervalMin: 10, primarySource: 'idokep', position: 2, url: "https://script.google.com/macros/s/AKfycbxYfOyPRy62vtVzJgcdwRMaDtBEPrFCd6h7nK0mHOMgjLSKyni2TFvFJR5phv1EzIrcsA/exec" };
 
-            const rList = await radioListRes.json();
-            radioStationsList = Array.isArray(rList) ? rList : [];
+            if (radioListRes) {
+                const rList = await radioListRes.json();
+                radioStationsList = Array.isArray(rList) ? rList : [];
+            }
 
-            const thConfig = await themeRes.json();
-            if (thConfig) applyThemeConfig(thConfig);
+            if (themeRes) {
+                const thConfig = await themeRes.json();
+                if (thConfig) applyThemeConfig(thConfig);
+            }
 
-            localGyujtoData = gyujtoData || {};
-            localAdasData = adasData || {};
+            if (workerData && workerData.news) {
+                localGyujtoData = workerData.news;
+                localAdasData = workerData.news;
+                renderNewsroomDayNightCycle(workerData.news);
+            }
 
-            const combinedData = { ...localAdasData, ...localGyujtoData };
+            if (workerData && workerData.rates) {
+                localRatesData = workerData.rates;
+                renderExchangeRates(workerData.rates);
+            }
 
-            renderNewsroomDayNightCycle(combinedData);
-            renderExchangeRates(ratesData);
             updateTickerList(); 
             updateRealtimeOnlineCount();
             startPwsEngine();
@@ -6231,12 +6248,9 @@
             startRadarEngine();
             initRadioEngine();
         } catch(e) {
-            const combinedData = { ...(localAdasData || {}), ...(localGyujtoData || {}) };
-            renderNewsroomDayNightCycle(combinedData);
-            updateTickerList();
+            console.error("Hiba az adatok szinkronizálásakor:", e);
         }
     }
-
     async function initNewsroomApp() {
         updateLiveClock();
         setInterval(updateLiveClock, 1000);
