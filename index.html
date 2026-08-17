@@ -1595,56 +1595,6 @@
     </div>
 </div>
 
-<div class="dev-modal-overlay" id="currency-terminal-modal">
-    <div class="dev-card">
-        <div class="dev-header">
-            <div class="dev-title" id="terminal-modal-title">📈 DEVIZA TERMINÁL · EUR / HUF</div>
-            <div style="display:flex; align-items:center; gap:8px;">
-                <select id="terminal-date-select" onchange="changeTerminalDate(this.value)" style="background:#0f172a; color:#38bdf8; border:1px solid #334155; padding:6px 10px; border-radius:6px; font-family:'Space Mono',monospace; font-size:0.75rem; font-weight:700; cursor:pointer; outline:none;"></select>
-                <button class="btn-act btn-alias" onclick="exportTerminalDataCSV()" title="Napi mérések letöltése CSV fájlban">📥 CSV</button>
-                <button class="dev-close-btn" onclick="closeCurrencyTerminal()">BEZÁRÁS [X]</button>
-            </div>
-        </div>
-        <div class="dev-tabs">
-            <button class="dev-tab-btn active" id="tab-curr-EUR" onclick="switchTerminalCurrency('EUR')">
-                <img src="https://flagcdn.com/w20/eu.png" style="height:12px; width:auto; border-radius:2px;" alt="EU"> EUR / HUF
-            </button>
-            <button class="dev-tab-btn" id="tab-curr-USD" onclick="switchTerminalCurrency('USD')">
-                <img src="https://flagcdn.com/w20/us.png" style="height:12px; width:auto; border-radius:2px;" alt="US"> USD / HUF
-            </button>
-            <button class="dev-tab-btn" id="tab-curr-CHF" onclick="switchTerminalCurrency('CHF')">
-                <img src="https://flagcdn.com/w20/ch.png" style="height:12px; width:auto; border-radius:2px;" alt="CH"> CHF / HUF
-            </button>
-        </div>
-        <div class="dev-body">
-            <div class="term-stats-grid" id="terminal-stats-grid"></div>
-            
-            <div class="term-chart-card">
-                <div style="font-family:'Space Mono',monospace; font-size:0.72rem; color:#38bdf8; margin-bottom:10px; font-weight:700;">📊 NAPI ÁRFOLYAM-ALAKULÁS 00:00-TÓL (ÉLŐ VONALGRAFIKON)</div>
-                <div id="terminal-chart-container" style="width:100%; height:190px;"></div>
-            </div>
-
-            <div style="font-family:'Space Mono',monospace; font-size:0.75rem; color:#38bdf8; margin-bottom:8px; font-weight:700;">📋 NAPON BELÜLI MÉRÉSEK TÖRTÉNETE</div>
-            <div class="dev-table-container">
-                <table class="dev-table">
-                    <thead>
-                        <tr>
-                            <th>IDŐPONT</th>
-                            <th>ÁRFOLYAM</th>
-                            <th>VÁLTOZÁS (ELŐZŐ)</th>
-                            <th>VÁLTOZÁS (NYITÓ)</th>
-                            <th>REKORD STÁTUSZ</th>
-                        </tr>
-                    </thead>
-                    <tbody id="terminal-history-tbody">
-                        <tr><td colspan="5" style="text-align:center;">Adatok betöltése...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="dev-modal-overlay" id="dev-menu-modal">
     <div class="dev-card">
         <div class="dev-header">
@@ -3147,261 +3097,31 @@
         const chfChange = getChangeBadge(ratesData.diff?.chf);
 
         const statusText = ratesData.statusText || (ratesData.isMarketOpen !== false ? 
-            "🟢 TŐZSDE NYITVA · 5 perces élő árfolyamok" : 
-            "🔴 TŐZSDE ZÁRVA (Nyitás: Hétfő 00:00)");
+            "🟢 TŐZSDE NYITVA · Élő árfolyamok" : 
+            "🔴 TŐZSDE ZÁRVA");
 
         container.innerHTML = `
             <div class="rates-group-left">
-                <div class="rate-clickable-item" style="${getItemBgStyle(ratesData.diff?.eur)}" onclick="openCurrencyTerminal('EUR')" title="Kattints az EUR részletes elemzéséért!">
+                <div class="rate-clickable-item" style="${getItemBgStyle(ratesData.diff?.eur)} cursor:default;">
                     <img src="https://flagcdn.com/w20/eu.png" style="height: 12px; width: auto; border-radius: 2px;" alt="EU" loading="lazy" decoding="async">
                     <span>EUR: <span class="rate-val-banner">${eurStr} Ft</span>${eurChange}</span>
                 </div>
                 <span style="opacity: 0.35;">|</span>
-                <div class="rate-clickable-item" style="${getItemBgStyle(ratesData.diff?.usd)}" onclick="openCurrencyTerminal('USD')" title="Kattints az USD részletes elemzéséért!">
+                <div class="rate-clickable-item" style="${getItemBgStyle(ratesData.diff?.usd)} cursor:default;">
                     <img src="https://flagcdn.com/w20/us.png" style="height: 12px; width: auto; border-radius: 2px;" alt="US" loading="lazy" decoding="async">
                     <span>USD: <span class="rate-val-banner">${usdStr} Ft</span>${usdChange}</span>
                 </div>
                 <span style="opacity: 0.35;">|</span>
-                <div class="rate-clickable-item" style="${getItemBgStyle(ratesData.diff?.chf)}" onclick="openCurrencyTerminal('CHF')" title="Kattints a CHF részletes elemzéséért!">
+                <div class="rate-clickable-item" style="${getItemBgStyle(ratesData.diff?.chf)} cursor:default;">
                     <img src="https://flagcdn.com/w20/ch.png" style="height: 12px; width: auto; border-radius: 2px;" alt="CH" loading="lazy" decoding="async">
                     <span>CHF: <span class="rate-val-banner">${chfStr} Ft</span>${chfChange}</span>
                 </div>
             </div>
-            <div class="rates-info-hint" onclick="openCurrencyTerminal(activeTerminalCurr || 'EUR')" title="Kattints ide a részletes elemzés, grafikon és archívum megnyitásához!">
-                <span>📈 ${statusText} · <u>Kattints a részletekért!</u> 📊</span>
+            <div style="font-size: 0.72rem; color: #1e40af; font-weight: 700; font-family: 'Space Mono', monospace;">
+                <span>${statusText}</span>
             </div>
         `;
         container.style.display = "flex";
-    }
-
-    async function openCurrencyTerminal(currency = "EUR") {
-        activeTerminalCurr = currency;
-        document.getElementById('currency-terminal-modal').classList.add('active');
-        await initTerminalDateSelector();
-        await loadCurrencyTerminalData();
-    }
-
-    function closeCurrencyTerminal() {
-        document.getElementById('currency-terminal-modal').classList.remove('active');
-    }
-
-    function switchTerminalCurrency(currency) {
-        activeTerminalCurr = currency;
-        document.querySelectorAll('#currency-terminal-modal .dev-tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.getElementById(`tab-curr-${currency}`).classList.add('active');
-        loadCurrencyTerminalData();
-    }
-
-    async function initTerminalDateSelector() {
-        try {
-            const t = Date.now();
-            const res = await fetch(`${FIREBASE_URL}/rates_history.json?shallow=true&t=${t}`, { cache: 'no-store' });
-            const datesObj = await res.json() || {};
-            let availableDates = Object.keys(datesObj).sort().reverse();
-            
-            const todayStr = new Date().toLocaleDateString('sv-SE');
-            if (!availableDates.includes(todayStr)) {
-                availableDates.unshift(todayStr);
-            }
-
-            const selectEl = document.getElementById('terminal-date-select');
-            if (selectEl) {
-                selectEl.innerHTML = availableDates.map(d => 
-                    `<option value="${d}" ${d === selectedTerminalDate ? 'selected' : ''}>📅 ${d}${d === todayStr ? ' (MA)' : ''}</option>`
-                ).join('');
-            }
-        } catch(e){}
-    }
-
-    function changeTerminalDate(dateStr) {
-        selectedTerminalDate = dateStr;
-        loadCurrencyTerminalData();
-    }
-
-    function exportTerminalDataCSV() {
-        if (!currentTerminalTicks || currentTerminalTicks.length === 0) {
-            alert("Nincs letölthető adat ehhez a naphoz.");
-            return;
-        }
-        let csv = "Idopont;Arfolyam_HUF\n";
-        currentTerminalTicks.forEach(t => {
-            csv += `${t.time};${t.val.toString().replace('.', ',')}\n`;
-        });
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `Deviza_${activeTerminalCurr}_${selectedTerminalDate}.csv`;
-        a.click();
-    }
-
-    async function loadCurrencyTerminalData() {
-        const flagIcon = activeTerminalCurr === 'EUR' ? '🇪🇺' : (activeTerminalCurr === 'USD' ? '🇺🇸' : '🇨🇭');
-        const titleEl = document.getElementById('terminal-modal-title');
-        if (titleEl) {
-            titleEl.innerHTML = `📈 DEVIZA TERMINÁL · ${flagIcon} ${activeTerminalCurr} / HUF (${selectedTerminalDate})`;
-        }
-
-        try {
-            const currKey = activeTerminalCurr.toLowerCase();
-            const mainRates = localRatesData || {};
-            const liveVal = mainRates.current ? Number(mainRates.current[currKey]) : 0;
-            const openVal = mainRates.open ? Number(mainRates.open[currKey]) : liveVal;
-
-            let ticks = currentTerminalTicks || [];
-            if (ticks.length === 0 && liveVal > 0) {
-                ticks = [
-                    { time: "00:00 (Nyitó)", val: openVal },
-                    { time: mainRates.time || "Élő", val: liveVal }
-                ];
-            } else if (liveVal > 0) {
-                const lastTick = ticks[ticks.length - 1];
-                if (!lastTick || lastTick.time !== (mainRates.time || "Élő")) {
-                    if (mainRates.isMarketOpen !== false) {
-                        ticks.push({ time: mainRates.time || "Élő", val: liveVal });
-                    }
-                }
-            }
-
-            currentTerminalTicks = ticks;
-
-            renderTerminalStats(ticks);
-            renderTerminalChart(ticks);
-            renderTerminalTable(ticks);
-        } catch(e) {
-            console.warn("Terminál adatbetöltési hiba:", e);
-        }
-    }
-
-    function renderTerminalStats(ticks) {
-        const grid = document.getElementById('terminal-stats-grid');
-        if (!grid) return;
-
-        if (ticks.length === 0) {
-            grid.innerHTML = '<div style="color:#94a3b8; font-size:0.8rem; padding:10px;">Ezen a napon még nem érkezett rögzített mérés.</div>';
-            return;
-        }
-
-        const values = ticks.map(t => t.val);
-        const liveVal = values[values.length - 1];
-        const openVal = values[0];
-        const highVal = Math.max(...values);
-        const lowVal = Math.min(...values);
-        const avgVal = values.reduce((a, b) => a + b, 0) / values.length;
-        const spreadFt = highVal - lowVal;
-        const spreadPct = lowVal ? ((spreadFt / lowVal) * 100) : 0;
-
-        grid.innerHTML = `
-            <div class="stat-card">
-                <div class="stat-card-title">Pillanatnyi Ár</div>
-                <div class="stat-card-val" style="color:#38bdf8;">${liveVal.toFixed(2)} Ft</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-card-title">Napi Nyitó (00:00)</div>
-                <div class="stat-card-val">${openVal.toFixed(2)} Ft</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-card-title">🔥 Napi Csúcs (Max)</div>
-                    <div class="stat-card-val" style="color:#ef4444;">${highVal.toFixed(2)} Ft</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-title">🧊 Napi Mélypont (Min)</div>
-                    <div class="stat-card-val" style="color:#22c55e;">${lowVal.toFixed(2)} Ft</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-title">⚡ Volatilitás / Sáv</div>
-                    <div class="stat-card-val" style="color:#f59e0b;">${spreadFt.toFixed(2)} Ft (${spreadPct.toFixed(2)}%)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-title">🎯 Napi Átlag</div>
-                    <div class="stat-card-val">${avgVal.toFixed(2)} Ft</div>
-                </div>
-            `;
-    }
-
-    function renderTerminalChart(ticks) {
-        const container = document.getElementById('terminal-chart-container');
-        if (!container) return;
-
-        if (ticks.length < 2) {
-            container.innerHTML = '<div style="color:#94a3b8; font-size:0.8rem; display:flex; align-items:center; justify-content:center; height:100%;">Több mérés szükséges a vonalgrafikon kirajzolásához...</div>';
-            return;
-        }
-
-        const width = container.clientWidth || 800;
-        const height = 180;
-        const pad = 25;
-
-        const values = ticks.map(t => t.val);
-        let min = Math.min(...values);
-        let max = Math.max(...values);
-        if (min === max) { min -= 0.5; max += 0.5; }
-
-        const points = ticks.map((t, i) => {
-            const x = pad + (i / (ticks.length - 1)) * (width - pad * 2);
-            const y = height - pad - ((t.val - min) / (max - min)) * (height - pad * 2);
-            return { x, y, val: t.val, time: t.time };
-        });
-
-        const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
-        const fillD = `${pathD} L ${points[points.length-1].x.toFixed(1)} ${height - pad} L ${points[0].x.toFixed(1)} ${height - pad} Z`;
-
-        const strokeColor = points[points.length-1].val >= points[0].val ? '#ef4444' : '#22c55e';
-
-        container.innerHTML = `
-            <svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
-                <defs>
-                    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="${strokeColor}" stop-opacity="0.3"/>
-                        <stop offset="100%" stop-color="${strokeColor}" stop-opacity="0.0"/>
-                    </linearGradient>
-                </defs>
-                <path d="${fillD}" fill="url(#chartGrad)"/>
-                <path d="${pathD}" fill="none" stroke="${strokeColor}" stroke-width="2.5" stroke-linecap="round"/>
-                ${points.map(p => `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.5" fill="${strokeColor}"><title>${p.time} - ${p.val.toFixed(2)} Ft</title></circle>`).join('')}
-            </svg>
-        `;
-    }
-
-    function renderTerminalTable(ticks) {
-        const tbody = document.getElementById('terminal-history-tbody');
-        if (!tbody) return;
-
-        if (ticks.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Nincs rögzített mérés ezen a napon.</td></tr>';
-            return;
-        }
-
-        const openVal = ticks[0].val;
-        const values = ticks.map(t => t.val);
-        const maxVal = Math.max(...values);
-        const minVal = Math.min(...values);
-
-        tbody.innerHTML = [...ticks].reverse().map((t, idx, arr) => {
-            const prevVal = idx < arr.length - 1 ? arr[idx + 1].val : t.val;
-            const diffPrev = t.val - prevVal;
-
-            const formatDiff = (d) => {
-                if (Math.abs(d) < 0.01) return '<span style="color:#94a3b8;">(=)</span>';
-                const color = d > 0 ? '#ef4444' : '#22c55e';
-                const sign = d > 0 ? '+' : '';
-                return `<span style="color:${color}; font-weight:700;">${sign}${d.toFixed(2)} Ft</span>`;
-            };
-
-            let tagHtml = '<span style="color:#64748b;">Normál</span>';
-            if (t.val === maxVal) tagHtml = '<span style="color:#ef4444; font-weight:800;">🔥 NAPI CSÚCS</span>';
-            else if (t.val === minVal) tagHtml = '<span style="color:#22c55e; font-weight:800;">🧊 NAPI MÉLYPONT</span>';
-
-            return `
-                <tr>
-                    <td><strong>${t.time}</strong></td>
-                    <td style="font-weight:800; color:#38bdf8;">${t.val.toFixed(2)} Ft</td>
-                    <td>${formatDiff(diffPrev)}</td>
-                    <td>${formatDiff(t.val - openVal)}</td>
-                    <td>${tagHtml}</td>
-                </tr>
-            `;
-        }).join('');
     }
 
     function openDevMenu() {
@@ -4402,8 +4122,7 @@
 
       const bgImgLayer = bgImageUrl ? `<img src="${bgImageUrl}" class="hero-bg-image-layer" alt="Élő Időkép Fotó" referrerpolicy="no-referrer">` : '';
       const bgOverlayLayer = bgImageUrl ? `<div class="hero-bg-overlay-layer"></div>` : '';
-      const photoCreditHtml = bgAuthor ? `<div class="idokep-photo-credit">📸 Fotó: ${bgAuthor} (Időkép)</div>` : '';
-      const skyHtml = (skyEmoji || skyText) ? `<div style="font-size:12px; font-weight:800; color:#0284c7; font-family:'Space Mono',monospace; margin-top:4px;">${skyEmoji} ${skyText}</div>` : '';
+      const photoCreditHtml = bgAuthor ? `<div class="idokep-photo-credit">📸 Fotó: ${bgAuthor} (Időkép)</div>` : ''; 
 
       const generatedLeftHtml = `
         <div class="hero-studio-weather">
@@ -4412,10 +4131,10 @@
           <div class="hero-studio-content">
             <div class="hero-split-container">
               <!-- AKTUÁLIS HŐMÉRSÉKLET ÉS HŐÉRZET -->
+              <!-- AKTUÁLIS HŐMÉRSÉKLET ÉS HŐÉRZET -->
               <div class="hero-temp-box">
                 <div style="font-size:10px; font-weight:700; color:${mainTempColor}; letter-spacing:1px; font-family:'Space Mono',monospace;">HŐMÉRSÉKLET</div>
                 <div class="main-temp-weather" style="color:${mainTempColor}; text-shadow: 0 2px 10px rgba(0,0,0,0.04);">${fmt(currentTemp)}°C</div>
-                ${skyHtml}
                 
                 <div style="font-size:11px; font-weight:700; color:#0f766e; font-family:'Space Mono',monospace; margin-top:6px; background:rgba(15,118,110,0.08); padding:3px 8px; border-radius:6px; border:1px solid rgba(15,118,110,0.2);">
                   🌡️ Hőérzet: <strong>${fmt(curr.chill || curr.heat || currentTemp)}°C</strong>
@@ -4502,11 +4221,15 @@
         return;
       }
 
+      // Ha ma esett, azonnal "Ma"-t ír ki az utolsó esőhöz
+      const todayRainAmount = parseFloat(staticPwsDataCurrent?.rain || 0);
+      const lastRainDisplay = todayRainAmount > 0 ? "Ma" : (whenLast.lastRain || '--');
+
       const generatedHtml = `
         <div class="stats-grid-weather">
           <div class="stat-card-box-weather">
             <div class="stat-card-title-weather">🌧️ Utolsó Eső</div>
-            <div class="stat-card-val-weather" style="color:#0284c7;">${whenLast.lastRain || '--'}</div>
+            <div class="stat-card-val-weather" style="color:#0284c7;">${lastRainDisplay}</div>
           </div>
           <div class="stat-card-box-weather">
             <div class="stat-card-title-weather">⚡ Felhőszakadás</div>
@@ -4582,6 +4305,16 @@
       const maxRainDayStr = allTime.maxRainDay ? `${allTime.maxRainDay}${allTime.maxRainDayDate ? ' (' + allTime.maxRainDayDate + ')' : ''}` : '--';
       const maxRainRateStr = allTime.maxRainRate ? `${allTime.maxRainRate}${allTime.maxRainRateDate ? ' (' + allTime.maxRainRateDate + ')' : ''}` : '--';
 
+      // 🌧️ Ha ma már volt mérhető csapadék (> 0 mm), azonnal nullázza az aszályt!
+      const todayRainAmount = parseFloat(staticPwsDataCurrent?.rain || 0);
+      let dryDaysDisplay = allTime.dryDays ? allTime.dryDays + ' nap' : '--';
+      let dryDaysColor = '#b45309';
+
+      if (todayRainAmount > 0) {
+        dryDaysDisplay = '0 nap (Ma esett!)';
+        dryDaysColor = '#15803d'; // Zöld szín, jelezve a friss csapadékot
+      }
+
       const generatedHtml = `
         <div style="font-size:11px; font-family:'Space Mono',monospace; font-weight:700; color:#0284c7; background:rgba(2,132,199,0.08); padding:6px 10px; border-radius:8px; margin-bottom:8px; border:1px solid rgba(2,132,199,0.2); text-align:center;">
           📜 MÉRÉSEK KEZDETE: <strong>${startDateStr}</strong>
@@ -4610,7 +4343,7 @@
           </div>
           <div class="stat-card-box-weather">
             <div class="stat-card-title-weather">🌵 Aszályos Napok</div>
-            <div class="stat-card-val-weather" style="color:#b45309;">${allTime.dryDays ? allTime.dryDays + ' nap' : '--'}</div>
+            <div class="stat-card-val-weather" style="color:${dryDaysColor};">${dryDaysDisplay}</div>
           </div>
           <div class="stat-card-box-weather">
             <div class="stat-card-title-weather">↕️ Napi Hőingás</div>
