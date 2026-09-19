@@ -2697,7 +2697,7 @@
                         })
                     });
                 } catch(e){}
-            }, 10000);
+            }, 15000);
 
             document.addEventListener('click', trackUserClicks);
         } catch (e){}
@@ -5734,7 +5734,7 @@ function formatSmartDecimal(val, maxDecimals = 1) {
         initVisitorTracking();
 
         updateRealtimeOnlineCount();
-        setInterval(updateRealtimeOnlineCount, 5000);
+        setInterval(updateRealtimeOnlineCount, 15000);
 
         connectLiveWindWs();
 
