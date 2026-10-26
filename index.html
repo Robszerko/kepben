@@ -1129,8 +1129,10 @@
     .gw-refresh-button:active { background:#dbeafe; }
     .gw-refresh-button[disabled] { opacity:.65; cursor:wait; }
     .gw-refresh-meta { margin-top:3px; color:#64748b; font-size:8px; line-height:1.3; text-align:right; }
-    .gw-hero { display:grid; grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr); gap:12px; padding:13px; border-radius:15px; border:1px solid #d8e7fa; background:linear-gradient(135deg,#ffffff 0%,#f2f7ff 58%,#e8f5ff 100%); box-shadow:inset 0 1px 0 rgba(255,255,255,.9); align-items:stretch; }
-    .gw-hero-main { min-width:0; }
+    .gw-hero { display:grid; grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr); grid-template-rows:auto auto; grid-template-areas:"main side" "astro side"; gap:12px; padding:13px; border-radius:15px; border:1px solid #d8e7fa; background:linear-gradient(135deg,#ffffff 0%,#f2f7ff 58%,#e8f5ff 100%); box-shadow:inset 0 1px 0 rgba(255,255,255,.9); align-items:stretch; }
+    .gw-hero-main { grid-area:main; min-width:0; }
+    .gw-astro-slot { grid-area:astro; min-width:0; align-self:start; }
+    .gw-hero > .gw-astro-slot > .gw-astro-panel { margin-top:0; }
     .gw-condition-line { display:flex; align-items:center; gap:6px; min-width:0; }
     .gw-weather-icon { display:block; width:42px; height:42px; flex-shrink:0; overflow:visible; }
     .gw-temp { font:800 42px/.98 'Space Mono',monospace; letter-spacing:-2px; color:#0f172a; white-space:nowrap; }
@@ -1154,6 +1156,26 @@
     .gw-today-precip[data-state="partial"] { border-color:#fde68a; background:#fffbeb; color:#92400e; }
     .gw-today-precip-icon { flex:0 0 auto; font-size:13px; line-height:1.2; }
     .gw-today-precip-meta { display:block; margin-top:2px; color:inherit; opacity:.82; font-size:9px; }
+    .gw-moon-live-strip { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:5px 10px; align-items:center; margin-top:6px; padding:7px 9px; min-width:0; border:1px solid #dbe4ff; border-radius:10px; background:linear-gradient(105deg,#f8faff 0%,#eef2ff 58%,#f5f3ff 100%); color:#312e81; box-shadow:0 2px 6px rgba(49,46,129,.035); }
+    .gw-moon-live-main { display:flex; align-items:center; gap:7px; min-width:0; }
+    .gw-moon-live-glyph { display:flex; flex:0 0 29px; width:29px; height:29px; align-items:center; justify-content:center; font-size:25px; line-height:1; }
+    .gw-moon-live-copy { display:flex; min-width:0; flex-direction:column; gap:2px; }
+    .gw-moon-live-copy strong { color:#312e81; font-size:10px; font-weight:800; line-height:1.2; }
+    .gw-moon-live-copy small { color:#6366a2; font-size:9px; line-height:1.2; }
+    .gw-moon-live-reading { display:flex; flex-direction:column; align-items:flex-end; gap:2px; white-space:nowrap; }
+    .gw-moon-live-reading strong { color:#3730a3; font:800 15px/1.1 'Space Mono',monospace; }
+    .gw-moon-live-reading small { color:#6366a2; font-size:8px; }
+    .gw-moon-live-meter { grid-column:1/-1; height:4px; overflow:hidden; border-radius:99px; background:#dfe4ff; }
+    .gw-moon-live-meter span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#a5b4fc,#6366f1,#4338ca); transition:width .25s ease-out; }
+    .gw-moon-live-position { grid-column:1/-1; display:flex; align-items:flex-start; justify-content:space-between; gap:7px; padding:4px 7px; border:1px solid rgba(165,180,252,.45); border-radius:7px; background:rgba(255,255,255,.64); min-width:0; }
+    .gw-moon-live-position span { color:#6366a2; font-size:8px; line-height:1.35; flex:0 0 auto; }
+    .gw-moon-live-position strong { min-width:0; color:#3730a3; font:700 8px/1.35 'Space Mono',monospace; text-align:right; overflow-wrap:anywhere; }
+    .gw-moon-live-events { grid-column:1/-1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px; min-width:0; }
+    .gw-moon-live-event { display:flex; align-items:center; justify-content:space-between; gap:6px; padding:5px 7px; min-width:0; border:1px solid rgba(165,180,252,.42); border-radius:7px; background:rgba(255,255,255,.68); }
+    .gw-moon-live-event span { color:#6366a2; font-size:8px; line-height:1.2; }
+    .gw-moon-live-event strong { color:#3730a3; font:800 10px/1.2 'Space Mono',monospace; white-space:nowrap; }
+    .gw-moon-live-meta { grid-column:1/-1; color:#6b7280; font-size:8px; line-height:1.2; }
+    @media (max-width:420px) { .gw-moon-live-strip { gap:5px 7px; padding:7px; } .gw-moon-live-event { padding:5px; } .gw-moon-live-event span { font-size:7.5px; } .gw-moon-live-event strong { font-size:9px; } }
     .gw-icon-frame { position:relative; display:inline-flex; flex:0 0 46px; width:46px; height:50px; align-items:center; justify-content:center; overflow:visible; filter: drop-shadow(0 2px 1px rgba(30,64,175,.06)); }
     .gw-icon-frame .gw-weather-icon { display:block; width:100%; height:100%; flex-shrink:0; }
     .gw-icon-frame[data-weather-icon="thunder"], .gw-icon-frame[data-weather-icon="heavyThunder"] { filter: drop-shadow(0 2px 2px rgba(180,83,9,.12)); }
@@ -1163,7 +1185,8 @@
     .gw-history-card .gw-icon-frame .gw-weather-icon { width:32px; height:32px; margin:0; }
     .gw-day-top .gw-icon-frame { flex:0 0 34px; width:34px; height:37px; }
     .gw-day-top .gw-icon-frame .gw-weather-icon { width:32px; height:32px; }
-    .gw-hi-lo { align-self:stretch; display:flex; min-width:0; flex-direction:column; justify-content:center; gap:6px; padding-left:12px; border-left:1px solid #cbd5e1; }
+    .gw-hi-lo { grid-area:side; grid-row:1 / span 2; align-self:stretch; display:flex; min-width:0; flex-direction:column; justify-content:flex-start; gap:8px; padding-left:12px; border-left:1px solid #cbd5e1; }
+    .gw-hi-lo > .gw-cloud-cover { margin:0 0 1px; }
     .gw-hi-lo-summary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px; }
     .gw-hi-lo-row { display:flex; min-width:0; flex-direction:column; align-items:flex-start; justify-content:center; gap:3px; padding:7px 8px; border:1px solid #e2eaf5; border-radius:8px; background:rgba(255,255,255,.86); color:#475569; font-size:9px; line-height:1.2; }
     .gw-hi-lo-row span { color:#64748b; }
@@ -1172,6 +1195,8 @@
     .gw-hi-lo-row:nth-child(2) strong { color:#0369a1; }
     .gw-hi-lo-row:nth-child(3) { grid-column:1/-1; flex-direction:row; align-items:center; justify-content:space-between; }
     .gw-hi-lo-row:nth-child(3) strong { color:#1d4ed8; }
+    .gw-hi-lo-context { margin-top:-2px; color:#64748b; font-size:8px; line-height:1.4; }
+    .gw-hi-lo > .gw-today-precip { margin-top:0; }
     .gw-live-wind-panel { display:grid; grid-template-columns:minmax(124px,.9fr) minmax(0,1.1fr); gap:12px 16px; align-items:center; padding:14px; margin-top:11px; margin-bottom:2px; border:1px solid #c4dcfb; border-radius:15px; background:linear-gradient(125deg,#ffffff 0%,#f3f8ff 47%,#eaf4ff 100%); box-shadow:0 4px 15px rgba(30,64,175,.065); overflow:hidden; }
     .gw-live-wind-panel-head { grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
     .gw-live-wind-title { color:#1e3a8a; font-size:11px; font-weight:800; letter-spacing:.2px; }
@@ -1205,8 +1230,19 @@
     .gw-wind-stat strong { min-width:0; color:#0f172a; text-align:right; font:700 11px/1.3 'Space Mono',monospace; overflow-wrap:anywhere; }
     .gw-wind-stat #gw-live-wind-speed { font-size:15px; }
     .gw-wind-note { grid-column:1/-1; margin-top:-1px; color:#64748b; font-size:8px; line-height:1.35; }
-    .gw-astro-panel { margin-top:3px; margin-bottom:0; padding:9px; border:1px solid #d4e5fc; border-radius:11px; background:linear-gradient(145deg,#fff 0%,#f5f9ff 58%,#eef6ff 100%); box-shadow:0 2px 7px rgba(30,64,175,.035); }
+    .gw-astro-panel { margin-top:9px; margin-bottom:0; padding:9px; border:1px solid #d4e5fc; border-radius:12px; background:linear-gradient(145deg,#fff 0%,#f5f9ff 58%,#eef6ff 100%); box-shadow:0 2px 7px rgba(30,64,175,.035); }
     .gw-astro-heading { display:flex; align-items:center; justify-content:space-between; gap:6px; margin-bottom:7px; color:#1e3a8a; font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.35px; }
+    .gw-solar-now { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:6px 10px; align-items:center; margin:7px 0; padding:8px 9px; border:1px solid #fed7aa; border-radius:10px; background:linear-gradient(110deg,#fffaf0 0%,#fff7ed 58%,#ffedd5 100%); }
+    .gw-solar-now-title { display:flex; align-items:center; gap:6px; min-width:0; color:#9a3412; font-size:9px; font-weight:800; line-height:1.25; }
+    .gw-solar-now-title span:first-child { font-size:18px; line-height:1; }
+    .gw-solar-now-status { color:#9a3412; font-size:8px; font-weight:700; text-align:right; line-height:1.3; }
+    .gw-solar-now-values { grid-column:1/-1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px; }
+    .gw-solar-now-value { padding:5px 7px; min-width:0; border:1px solid rgba(251,146,60,.22); border-radius:7px; background:rgba(255,255,255,.75); }
+    .gw-solar-now-value span { display:block; color:#9a3412; font-size:8px; line-height:1.25; }
+    .gw-solar-now-value strong { display:block; margin-top:2px; color:#7c2d12; font:800 11px/1.2 'Space Mono',monospace; overflow-wrap:anywhere; }
+    .gw-solar-now-foot { grid-column:1/-1; color:#9a3412; opacity:.8; font-size:7.5px; line-height:1.25; }
+    .gw-astro-panel .gw-moon-live-strip { margin-top:7px; box-shadow:none; }
+    .gw-astro-panel .gw-moon-live-meta { font-size:7.5px; }
     .gw-astro-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px; }
     .gw-astro-item { padding:6px 7px; min-width:0; border:1px solid #e2eaf5; border-radius:8px; background:rgba(255,255,255,.92); }
     .gw-astro-item span { display:block; color:#64748b; font-size:8px; line-height:1.2; }
@@ -1216,8 +1252,9 @@
     .gw-moon-phase-copy { min-width:0; flex:1; }
     .gw-moon-phase-copy strong { display:block; color:#312e81; font-size:9px; line-height:1.25; }
     .gw-moon-phase-copy small { display:block; margin-top:2px; color:#6366a2; font-size:8px; line-height:1.25; }
-    .gw-moon-source { display:block; margin-top:5px; color:#64748b; font-size:7px; text-align:right; text-decoration:none; }
-    .gw-moon-source:hover { color:#1d4ed8; text-decoration:underline; }
+    .gw-moon-source { display:block; margin-top:6px; color:#64748b; font-size:7px; line-height:1.45; text-align:right; text-decoration:none; overflow-wrap:anywhere; }
+    .gw-moon-source a { color:#64748b; text-decoration:none; }
+    .gw-moon-source a:hover { color:#1d4ed8; text-decoration:underline; }
     .gw-hi-lo-row { display:flex; align-items:center; justify-content:space-between; gap:5px; padding:3px 0; font-size:10px; color:#475569; }
     .gw-hi-lo-row strong { font:700 13px 'Space Mono',monospace; color:#0f172a; white-space:nowrap; }
     .gw-section { margin-top:12px; }
@@ -1300,11 +1337,11 @@
         .gw-wind-needle { transition:none; }
     }
     @media (max-width: 520px) {
-        .gw-hero { grid-template-columns:minmax(0,1fr); }
-        .gw-hi-lo { border-left:0; border-top:1px solid #dbe4ef; padding:11px 0 0; }
-        .gw-hi-lo-summary { grid-template-columns:repeat(3,minmax(0,1fr)); }
-        .gw-hi-lo-row:nth-child(3) { grid-column:auto; flex-direction:column; align-items:center; justify-content:center; }
-        .gw-hi-lo-row { align-items:center; text-align:center; padding:7px 5px; }
+        .gw-hero { grid-template-columns:minmax(0,1fr); grid-template-rows:auto auto auto; grid-template-areas:"main" "side" "astro"; }
+        .gw-hi-lo { grid-row:auto; border-left:0; border-top:1px solid #dbe4ef; padding:11px 0 0; }
+        .gw-hi-lo-summary { grid-template-columns:repeat(2,minmax(0,1fr)); }
+        .gw-hi-lo-row:nth-child(3) { grid-column:1/-1; flex-direction:row; align-items:center; justify-content:space-between; }
+        .gw-hi-lo-row { align-items:flex-start; text-align:left; padding:7px 8px; }
         .gw-live-wind-panel { grid-template-columns:minmax(110px,.88fr) minmax(0,1.12fr); gap:9px 11px; padding:10px; }
         .gw-wind-compass { flex-basis:90px; width:90px; height:90px; }
         .gw-wind-needle { width:22px; height:54px; }
@@ -1646,6 +1683,587 @@
         .channel-column { max-height: 700px; }
         .forecast-days-grid { grid-template-columns: repeat(2, 1fr); }
     }
+
+    /* KÉPBEN! Google Weather — eredeti híroldal-kártyaméret, rendezett belső felépítés */
+    .channels-multi-grid { align-items: start; }
+
+    /* A külső hírcsatorna marad az eredeti rács egyik oszlopa, nem terül szét a teljes oldalon. */
+    .channel-column.is-weather-column {
+        grid-column: auto !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-height: 840px !important;
+        height: auto !important;
+        overflow: hidden !important;
+    }
+    .channel-column.is-weather-column .channel-column-header { position: sticky; top: 0; }
+    .channel-column.is-weather-column .channel-column-body {
+        display: flex !important;
+        flex: 1 1 auto !important;
+        flex-direction: column !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        height: auto !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+        overflow-anchor: none;
+        padding: 10px !important;
+        gap: 10px !important;
+        box-sizing: border-box !important;
+    }
+    .channel-column.is-weather-column .nyir-weather-block,
+    .channel-column.is-weather-column .google-weather-column,
+    .channel-column.is-weather-column #google-weather-card-content,
+    .channel-column.is-weather-column .google-weather-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Egyetlen időjáráskártya; a belső tartalom függőlegesen, logikus sorrendben halad. */
+    .google-weather-card {
+        padding: 11px !important;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 15px rgba(15, 23, 42, .055) !important;
+        overflow: hidden !important;
+    }
+    .gw-topbar {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(92px, auto) !important;
+        align-items: start !important;
+        gap: 7px !important;
+        margin-bottom: 10px !important;
+    }
+    .gw-eyebrow { font-size: 9px !important; letter-spacing: .65px !important; }
+    .gw-city { font-size: 19px !important; overflow-wrap: anywhere; }
+    .gw-coordinates { font-size: 9px !important; line-height: 1.35 !important; }
+    .gw-topbar > div:last-child { min-width: 0; max-width: 142px; }
+    .gw-live-pill {
+        max-width: 100% !important;
+        white-space: normal !important;
+        justify-content: center !important;
+        text-align: center !important;
+        font-size: 8px !important;
+        line-height: 1.25 !important;
+        padding: 5px 6px !important;
+    }
+    .gw-refresh-button { padding: 5px 7px !important; font-size: 9px !important; }
+    .gw-refresh-meta { max-width: 138px; font-size: 7px !important; line-height: 1.35 !important; }
+
+    /* Nincs külön bal és jobb rész a fő áttekintésen belül: minden szekció teljes kártyaszélességű. */
+    .gw-hero {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: auto auto auto !important;
+        grid-template-areas: "main" "side" "astro" !important;
+        align-items: start !important;
+        gap: 10px !important;
+        padding: 10px !important;
+        border-radius: 13px !important;
+    }
+    .gw-hero-main {
+        grid-area: main !important;
+        min-width: 0 !important;
+        padding: 1px 0 10px !important;
+        border-bottom: 1px solid #dbeafe !important;
+    }
+    .gw-condition-line { display: flex !important; align-items: center !important; gap: 8px !important; min-width: 0; }
+    .gw-weather-icon { width: 44px !important; height: 44px !important; }
+    .gw-temp { font-size: 41px !important; letter-spacing: -1.8px !important; }
+    .gw-temp-unit { font-size: 19px !important; }
+    .gw-condition { margin-top: 5px !important; font-size: 12px !important; line-height: 1.4 !important; }
+    .gw-feels { margin-top: 4px !important; font-size: 10px !important; line-height: 1.4 !important; }
+
+    .gw-hi-lo {
+        grid-area: side !important;
+        grid-row: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-self: stretch !important;
+        min-width: 0 !important;
+        gap: 7px !important;
+        padding: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+    }
+    .gw-hi-lo > .gw-cloud-cover { margin: 0 !important; }
+    .gw-cloud-cover {
+        width: 100% !important;
+        min-width: 0 !important;
+        gap: 7px !important;
+        padding: 8px 9px !important;
+        border-radius: 9px !important;
+    }
+    .gw-cloud-cover-icon, .gw-cloud-cover-icon svg { width: 27px !important; height: 27px !important; }
+    .gw-cloud-cover-icon { flex-basis: 27px !important; }
+    .gw-cloud-cover-copy strong { font-size: 9px !important; line-height: 1.3 !important; }
+    .gw-cloud-cover-copy small { font-size: 8px !important; line-height: 1.3 !important; }
+    .gw-cloud-cover-meter { height: 4px !important; margin-top: 3px !important; }
+    .gw-cloud-cover-value { font-size: 17px !important; }
+    .gw-cloud-cover-value small { font-size: 9px !important; }
+    .gw-hi-lo-summary { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 6px !important; }
+    .gw-hi-lo-row {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        min-width: 0 !important;
+        min-height: 48px;
+        gap: 4px !important;
+        padding: 8px 9px !important;
+        border-radius: 8px !important;
+        font-size: 9px !important;
+        line-height: 1.3 !important;
+        text-align: left !important;
+        overflow-wrap: anywhere;
+    }
+    .gw-hi-lo-row span { font-size: 9px !important; line-height: 1.3 !important; }
+    .gw-hi-lo-row strong { font-size: 13px !important; line-height: 1.2 !important; white-space: normal !important; overflow-wrap: anywhere; }
+    .gw-hi-lo-row:nth-child(3) {
+        grid-column: 1 / -1 !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+    .gw-hi-lo-context { margin: 0 1px !important; font-size: 8px !important; line-height: 1.45 !important; }
+    .gw-today-precip { width: 100% !important; margin: 0 !important; padding: 8px 9px !important; gap: 7px !important; border-radius: 9px !important; font-size: 9px !important; line-height: 1.4 !important; }
+    .gw-today-precip-icon { font-size: 12px !important; }
+    .gw-today-precip-meta { font-size: 8px !important; line-height: 1.4 !important; }
+
+    .gw-astro-slot { grid-area: astro !important; width: 100% !important; min-width: 0 !important; align-self: stretch !important; }
+    .gw-hero > .gw-astro-slot > .gw-astro-panel { margin: 0 !important; }
+    .gw-astro-panel { width: 100% !important; margin: 0 !important; padding: 9px !important; border-radius: 10px !important; }
+    .gw-astro-heading { margin-bottom: 7px !important; font-size: 9px !important; line-height: 1.3 !important; }
+    .gw-astro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 5px !important; }
+    .gw-astro-item { min-width: 0; padding: 7px !important; border-radius: 8px !important; }
+    .gw-astro-item span { font-size: 8px !important; line-height: 1.3 !important; }
+    .gw-astro-item strong { font-size: 11px !important; line-height: 1.3 !important; overflow-wrap: anywhere; }
+    .gw-solar-now { gap: 5px 7px !important; margin: 7px 0 !important; padding: 8px !important; }
+    .gw-solar-now-title { font-size: 9px !important; }
+    .gw-solar-now-title span:first-child { font-size: 18px !important; }
+    .gw-solar-now-status { font-size: 8px !important; }
+    .gw-solar-now-values { gap: 5px !important; }
+    .gw-solar-now-value { padding: 6px 7px !important; }
+    .gw-solar-now-value span { font-size: 8px !important; }
+    .gw-solar-now-value strong { font-size: 10px !important; overflow-wrap: anywhere; }
+    .gw-solar-now-foot { font-size: 7px !important; line-height: 1.4 !important; }
+    .gw-moon-live-strip { grid-template-columns: minmax(0, 1fr) auto !important; gap: 6px !important; margin-top: 7px !important; padding: 8px !important; }
+    .gw-moon-live-main { gap: 6px !important; }
+    .gw-moon-live-glyph { width: 29px !important; height: 29px !important; flex-basis: 29px !important; font-size: 24px !important; }
+    .gw-moon-live-copy strong { font-size: 9px !important; line-height: 1.3 !important; }
+    .gw-moon-live-copy small { font-size: 8px !important; line-height: 1.3 !important; }
+    .gw-moon-live-reading strong { font-size: 15px !important; }
+    .gw-moon-live-reading small { font-size: 8px !important; }
+    .gw-moon-live-meter { height: 4px !important; }
+    .gw-moon-live-position { gap: 6px !important; padding: 7px !important; }
+    .gw-moon-live-position span, .gw-moon-live-position strong { font-size: 8px !important; line-height: 1.3 !important; }
+    .gw-moon-live-events { gap: 5px !important; }
+    .gw-moon-live-event { padding: 6px 7px !important; gap: 6px !important; }
+    .gw-moon-live-event span { font-size: 8px !important; }
+    .gw-moon-live-event strong { font-size: 10px !important; }
+    .gw-moon-live-meta { font-size: 8px !important; line-height: 1.4 !important; }
+    .gw-moon-source { margin-top: 6px !important; font-size: 7px !important; line-height: 1.4 !important; }
+
+    /* Szélmérő: egy közös kártya, a grafika és az adatok egymás mellett csak ebben a modulban. */
+    .gw-live-wind-panel {
+        grid-template-columns: minmax(88px, .78fr) minmax(0, 1.22fr) !important;
+        gap: 8px 9px !important;
+        padding: 9px !important;
+        margin-top: 9px !important;
+        border-radius: 11px !important;
+    }
+    .gw-live-wind-panel-head { gap: 5px !important; }
+    .gw-live-wind-title { font-size: 9px !important; line-height: 1.35 !important; }
+    .gw-wind-source { font-size: 7px !important; padding: 4px 5px !important; }
+    .gw-wind-compass { flex-basis: 88px !important; width: 88px !important; height: 88px !important; }
+    .gw-wind-needle { width: 22px !important; height: 53px !important; }
+    .gw-wind-compass-label { font-size: 8px !important; }
+    .gw-wind-beaufort { margin-top: 6px !important; padding: 4px 5px !important; font-size: 8px !important; line-height: 1.3 !important; }
+    .gw-beaufort-scale { max-width: 116px !important; margin-top: 7px !important; }
+    .gw-beaufort-scale-title { font-size: 7px !important; }
+    .gw-beaufort-track { height: 6px !important; }
+    .gw-beaufort-scale-labels { font-size: 6px !important; }
+    .gw-live-wind-stats { min-width: 0 !important; display: flex !important; flex-direction: column !important; }
+    .gw-wind-stat { min-height: 0 !important; padding: 7px 6px !important; gap: 5px !important; }
+    .gw-wind-stat span { min-width: 0; font-size: 8px !important; line-height: 1.25 !important; }
+    .gw-wind-stat strong { font-size: 9px !important; line-height: 1.3 !important; overflow-wrap: anywhere; }
+    .gw-wind-stat #gw-live-wind-speed { font-size: 12px !important; }
+    .gw-wind-note { margin-top: 0 !important; font-size: 7px !important; line-height: 1.4 !important; }
+
+    /* Az előrejelzések kompakt, de olvasható listák maradnak a kártya saját görgetésén belül. */
+    .gw-section { margin-top: 12px !important; }
+    .gw-section-heading { font-size: 10px !important; line-height: 1.35 !important; margin-bottom: 7px !important; }
+    .gw-section-note { font-size: 8px !important; }
+    .gw-metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 6px !important; }
+    .gw-metric { min-width: 0; padding: 8px !important; border-radius: 8px !important; }
+    .gw-metric-label { font-size: 8px !important; line-height: 1.35 !important; }
+    .gw-metric-value { font-size: 12px !important; line-height: 1.35 !important; overflow-wrap: anywhere; }
+    .gw-metric-sub { font-size: 8px !important; line-height: 1.35 !important; }
+    .gw-hour-scroll, .gw-history-scroll { gap: 5px !important; padding: 1px 1px 7px !important; }
+    .gw-hour-card { flex-basis: 75px !important; width: 75px !important; min-width: 75px !important; padding: 7px 5px !important; border-radius: 8px !important; }
+    .gw-hour-time { font-size: 9px !important; }
+    .gw-hour-card .gw-weather-icon { width: 29px !important; height: 29px !important; }
+    .gw-hour-temp { font-size: 13px !important; }
+    .gw-hour-desc { min-height: 22px !important; font-size: 8px !important; line-height: 1.3 !important; }
+    .gw-hour-meta { font-size: 8px !important; line-height: 1.4 !important; }
+    .gw-day-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 6px !important; }
+    .gw-day-card { min-width: 0; padding: 7px !important; border-radius: 8px !important; }
+    .gw-day-top { gap: 5px !important; }
+    .gw-day-top .gw-weather-icon { width: 28px !important; height: 28px !important; }
+    .gw-day-name { font-size: 9px !important; line-height: 1.3 !important; }
+    .gw-day-date { font-size: 8px !important; }
+    .gw-day-max { font-size: 12px !important; }
+    .gw-day-min { font-size: 11px !important; }
+    .gw-day-condition, .gw-day-extra { font-size: 8px !important; line-height: 1.35 !important; }
+    .gw-details { margin-top: 8px !important; border-radius: 9px !important; }
+    .gw-details summary { padding: 9px 10px !important; font-size: 10px !important; line-height: 1.35 !important; }
+    .gw-detail-grid, .gw-expanded-details .gw-detail-grid, .gw-current-details .gw-detail-grid { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)) !important; padding: 9px !important; gap: 6px !important; }
+    .gw-detail-item { min-width: 0; padding: 8px !important; border-radius: 8px !important; }
+    .gw-detail-label { font-size: 8px !important; line-height: 1.3 !important; }
+    .gw-detail-value { font-size: 10px !important; line-height: 1.35 !important; overflow-wrap: anywhere; }
+    .gw-source { font-size: 9px !important; }
+
+    @media (max-width: 1100px) {
+        .gw-topbar { grid-template-columns: minmax(0, 1fr) minmax(86px, auto) !important; }
+        .gw-city { font-size: 18px !important; }
+    }
+    @media (max-width: 768px) {
+        .channel-column.is-weather-column { max-height: 700px !important; }
+        .channel-column.is-weather-column .channel-column-body { padding: 9px !important; }
+        .google-weather-card { padding: 10px !important; }
+        .gw-temp { font-size: 40px !important; }
+    }
+    @media (max-width: 520px) {
+        .gw-live-wind-panel { grid-template-columns: minmax(0, 1fr) !important; gap: 8px !important; }
+        .gw-wind-visual { display: grid !important; grid-template-columns: auto minmax(0, 1fr) !important; gap: 8px 12px !important; align-items: center !important; }
+        .gw-live-wind-panel-body { grid-row: 1 / span 2; width: auto !important; }
+        .gw-wind-beaufort { margin: 0 !important; justify-self: start; }
+        .gw-beaufort-scale { max-width: none !important; margin-top: 0 !important; }
+        .gw-live-wind-stats { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        .gw-wind-stat { border-bottom: 1px solid #e5edf8 !important; }
+        .gw-wind-stat:nth-child(odd) { border-right: 1px solid #e5edf8; }
+        .gw-wind-stat:nth-last-child(-n+2) { border-bottom: 0 !important; }
+        .gw-moon-live-position { flex-direction: column; align-items: flex-start; }
+        .gw-moon-live-position strong { text-align: left !important; }
+    }
+    @media (max-width: 360px) {
+        .gw-topbar { grid-template-columns: minmax(0, 1fr) !important; }
+        .gw-topbar > div:last-child { max-width: none; text-align: left !important; }
+        .gw-refresh-meta { max-width: none; text-align: left !important; }
+        .gw-live-pill { justify-content: flex-start !important; }
+        .gw-hi-lo-summary { grid-template-columns: minmax(0, 1fr) !important; }
+        .gw-hi-lo-row:nth-child(3) { grid-column: auto !important; }
+        .gw-astro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        .gw-live-wind-stats { grid-template-columns: minmax(0, 1fr) !important; }
+        .gw-wind-stat { border-right: 0 !important; border-bottom: 1px solid #e5edf8 !important; }
+        .gw-wind-stat:last-child { border-bottom: 0 !important; }
+        .gw-detail-grid, .gw-expanded-details .gw-detail-grid, .gw-current-details .gw-detail-grid { grid-template-columns: minmax(0, 1fr) !important; }
+    }
+
+
+    /* KÉPBEN! – belső időjárás-elrendezés finomhangolása */
+    .google-weather-card .gw-hero {
+        grid-template-rows: auto auto !important;
+        grid-template-areas: "main" "side" !important;
+    }
+    .google-weather-card .gw-hero-main {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        min-width: 0 !important;
+    }
+    .google-weather-card .gw-condition-line {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+    .google-weather-card .gw-condition,
+    .google-weather-card .gw-feels {
+        width: 100% !important;
+        text-align: center !important;
+    }
+    .google-weather-card .gw-astro-slot {
+        display: block !important;
+        grid-area: auto !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        margin: 12px 0 0 !important;
+        align-self: stretch !important;
+    }
+    .google-weather-card .gw-astro-slot > .gw-astro-panel {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    .google-weather-card .gw-hi-lo-context { display: none !important; }
+
+
+
+    /* Számjegyek és fő hőmérséklet: jól olvasható, nem vágódik le keskeny kártyán sem. */
+    .google-weather-card,
+    .google-weather-card * {
+        box-sizing: border-box;
+    }
+    .google-weather-card {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+    .google-weather-card .gw-hero-main,
+    .google-weather-card .gw-condition-line {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+    .google-weather-card .gw-condition-line {
+        gap: 8px !important;
+        padding: 4px 3px 6px !important;
+        overflow: visible !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .google-weather-card .gw-weather-icon {
+        flex: 0 0 42px !important;
+        width: 42px !important;
+        height: 42px !important;
+        max-width: 42px !important;
+        overflow: visible !important;
+    }
+    .google-weather-card .gw-temp {
+        display: block !important;
+        flex: 0 1 auto !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 2px 3px 4px !important;
+        overflow: visible !important;
+        font-family: Inter, "Segoe UI", Arial, sans-serif !important;
+        font-size: 38px !important; /* régebbi Android-böngészők tartalékértéke */
+        font-size: clamp(30px, 10vw, 40px) !important;
+        font-weight: 800 !important;
+        line-height: 1.16 !important;
+        letter-spacing: -1.25px !important;
+        white-space: nowrap !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+        font-feature-settings: "tnum" 1, "lnum" 1 !important;
+        font-kerning: normal !important;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+    }
+    .google-weather-card .gw-temp-unit {
+        display: inline-block !important;
+        margin-left: 3px !important;
+        padding: 0 1px 1px 0 !important;
+        position: relative;
+        top: .06em;
+        vertical-align: top !important;
+        font-size: .47em !important;
+        font-weight: 800 !important;
+        line-height: 1.25 !important;
+        letter-spacing: 0 !important;
+        white-space: nowrap !important;
+        font-variant-numeric: lining-nums !important;
+    }
+    .google-weather-card .gw-cloud-cover-value,
+    .google-weather-card .gw-hi-lo-row strong,
+    .google-weather-card .gw-metric-value,
+    .google-weather-card .gw-detail-value,
+    .google-weather-card .gw-wind-stat strong,
+    .google-weather-card .gw-astro-item strong,
+    .google-weather-card .gw-moon-live-reading strong,
+    .google-weather-card .gw-hour-temp,
+    .google-weather-card .gw-day-max,
+    .google-weather-card .gw-day-min {
+        font-variant-numeric: tabular-nums lining-nums;
+        font-feature-settings: "tnum" 1, "lnum" 1;
+    }
+    @media (max-width: 360px) {
+        .google-weather-card .gw-condition-line {
+            gap: 6px !important;
+            padding-right: 1px !important;
+            padding-left: 1px !important;
+        }
+        .google-weather-card .gw-weather-icon {
+            flex-basis: 38px !important;
+            width: 38px !important;
+            height: 38px !important;
+            max-width: 38px !important;
+        }
+        .google-weather-card .gw-temp {
+            font-size: 32px !important; /* régebbi Android-böngészők tartalékértéke */
+            font-size: clamp(28px, 9.7vw, 34px) !important;
+            letter-spacing: -1px !important;
+        }
+    }
+
+
+    /* Aktuális hőmérséklet és napi maximum/minimum: egyetlen, jól olvasható sorban. */
+    .google-weather-card .gw-current-topline {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1.15fr) minmax(104px, .85fr) !important;
+        align-items: center !important;
+        gap: 9px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+    .google-weather-card .gw-current-reading {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+    .google-weather-card .gw-current-reading .gw-condition-line {
+        gap: 7px !important;
+        justify-content: center !important;
+        padding: 4px 1px 5px !important;
+    }
+    .google-weather-card .gw-current-reading .gw-weather-icon {
+        flex-basis: 45px !important;
+        width: 45px !important;
+        height: 45px !important;
+        max-width: 45px !important;
+    }
+    .google-weather-card .gw-current-reading .gw-temp {
+        font-size: 42px !important;
+        line-height: 1.13 !important;
+        letter-spacing: -1.35px !important;
+    }
+    .google-weather-card .gw-current-reading .gw-condition {
+        margin-top: 3px !important;
+        font-size: 11px !important;
+        line-height: 1.3 !important;
+        overflow-wrap: anywhere !important;
+    }
+    .google-weather-card .gw-current-reading .gw-feels {
+        margin-top: 5px !important;
+        font-size: 10px !important;
+        line-height: 1.35 !important;
+        overflow-wrap: anywhere !important;
+    }
+    .google-weather-card .gw-current-range {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        gap: 7px !important;
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    .google-weather-card .gw-current-range-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        gap: 5px !important;
+        min-width: 0 !important;
+        padding: 9px 9px !important;
+        border-radius: 10px !important;
+        border: 1px solid #e2eaf5 !important;
+        background: rgba(255,255,255,.9) !important;
+        box-shadow: 0 2px 5px rgba(15,23,42,.025) !important;
+    }
+    .google-weather-card .gw-current-range-high { border-color: #fed7aa !important; background: linear-gradient(140deg,#fffaf0,#fff7ed) !important; }
+    .google-weather-card .gw-current-range-low { border-color: #bfdbfe !important; background: linear-gradient(140deg,#f8fbff,#eff6ff) !important; }
+    .google-weather-card .gw-current-range-label {
+        display: flex !important;
+        align-items: center !important;
+        gap: 5px !important;
+        min-width: 0 !important;
+        color: #64748b !important;
+        font-size: 9px !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+        white-space: normal !important;
+    }
+    .google-weather-card .gw-current-range-icon {
+        display: inline-flex !important;
+        flex: 0 0 15px !important;
+        width: 15px !important;
+        height: 15px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 14px !important;
+        line-height: 1 !important;
+    }
+    .google-weather-card .gw-current-range-high .gw-current-range-icon { color: #ea580c !important; }
+    .google-weather-card .gw-current-range-low .gw-current-range-icon { color: #0284c7 !important; }
+    .google-weather-card .gw-current-range-item > strong {
+        display: block !important;
+        max-width: 100% !important;
+        color: #9a3412 !important;
+        font: 800 16px/1.15 Inter, 'Segoe UI', Arial, sans-serif !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+        white-space: nowrap !important;
+    }
+    .google-weather-card .gw-current-range-low > strong { color: #075985 !important; }
+    .google-weather-card .gw-hi-lo-summary {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+    .google-weather-card .gw-hi-lo-summary .gw-precip-chance-row {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+        min-width: 0 !important;
+        grid-column: auto !important;
+        min-height: 39px !important;
+        padding: 8px 9px !important;
+    }
+    .google-weather-card .gw-precip-chance-row > span {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        min-width: 0 !important;
+        color: #64748b !important;
+        font-size: 10px !important;
+        line-height: 1.25 !important;
+    }
+    .google-weather-card .gw-hi-lo-row-icon {
+        flex: 0 0 auto !important;
+        font-size: 15px !important;
+        line-height: 1 !important;
+    }
+    .google-weather-card .gw-hi-lo-summary .gw-precip-chance-row strong {
+        color: #1d4ed8 !important;
+        font: 800 14px/1.2 Inter, 'Segoe UI', Arial, sans-serif !important;
+        white-space: nowrap !important;
+    }
+    @media (max-width: 380px) {
+        .google-weather-card .gw-current-topline {
+            grid-template-columns: minmax(0, 1fr) minmax(96px, .8fr) !important;
+            gap: 6px !important;
+        }
+        .google-weather-card .gw-current-reading .gw-weather-icon {
+            flex-basis: 38px !important;
+            width: 38px !important;
+            height: 38px !important;
+        }
+        .google-weather-card .gw-current-reading .gw-temp {
+            font-size: 35px !important;
+            font-size: clamp(31px, 10vw, 35px) !important;
+            letter-spacing: -1px !important;
+        }
+        .google-weather-card .gw-current-range-item { padding: 8px 7px !important; }
+        .google-weather-card .gw-current-range-label { font-size: 8.5px !important; }
+        .google-weather-card .gw-current-range-item > strong { font-size: 15px !important; }
+    }
+    @media (max-width: 300px) {
+        .google-weather-card .gw-current-topline { grid-template-columns: minmax(0, 1fr) minmax(90px, .82fr) !important; gap: 4px !important; }
+        .google-weather-card .gw-current-reading .gw-weather-icon { flex-basis: 34px !important; width: 34px !important; height: 34px !important; }
+        .google-weather-card .gw-current-reading .gw-temp { font-size: 29px !important; letter-spacing: -.8px !important; }
+        .google-weather-card .gw-current-range-item { padding: 7px 5px !important; }
+        .google-weather-card .gw-current-range-item > strong { font-size: 13px !important; }
+    }
+
 </style>
 </head>
 <body>
@@ -2915,13 +3533,14 @@
         const language = String((condition.description && condition.description.languageCode) || '').toLowerCase();
         const type = String(condition.type || '').toUpperCase();
         const canonicalHu = gwHungarianTypeLabel(type);
-        if (!description) return canonicalHu || 'Változó időjárási körülmény';
+        const hasCloudCover = gwHas(item && item.cloudCover);
+        const cloudLabel = hasCloudCover ? gwCloudCoverLabel(item.cloudCover) : '';
         const englishWeatherWords = /\b(sunny|mostly clear|partly cloudy|mostly cloudy|cloudy|overcast|rain|showers|snow|thunderstorm|fog|windy|clear|hail|sleet|drizzle)\b/i.test(description);
-        if ((language && !language.startsWith('hu')) || englishWeatherWords) return canonicalHu || 'Változó időjárási körülmény';
-        // A lokalizált leírást megtartjuk, de ha a kód és a szöveg nyilvánvalóan ellentmond,
-        // a Google állapotkódja alapján készült magyar megnevezést részesítjük előnyben.
+
+        // A számszerű felhőborítottság legyen az egységes forrás a felhőzet megnevezéséhez.
+        // Így például 63%-nál a fő égképleírás és a felhőborítottsági kártya is „Erősen felhős”.
         const category = gwTypeCategory(type);
-        const desc = description.toLocaleLowerCase('hu-HU');
+        const desc = String(description || '').toLocaleLowerCase('hu-HU');
         const labelCategory = /hó|havaz|hózápor|hóvihar/.test(desc) ? 'snow'
             : /jég|jégeső/.test(desc) ? 'hail'
             : /zivatar|villám/.test(desc) ? 'thunder'
@@ -2929,8 +3548,39 @@
             : /felh|borult/.test(desc) ? 'cloud'
             : /derült|napos/.test(desc) ? 'clear'
             : /szél/.test(desc) ? 'wind' : 'unknown';
-        if (category !== 'unknown' && labelCategory !== 'unknown' && category !== labelCategory) return canonicalHu || 'Változó időjárási körülmény';
-        return description;
+        const resolvedCategory = category !== 'unknown' ? category : labelCategory;
+
+        // Ha az állapot egyszerűen a felhőzetet/derültséget írja le, a százalék alapján
+        // képzett megnevezés élvez elsőbbséget a Google külön szöveges állapotával szemben.
+        if (hasCloudCover && (resolvedCategory === 'cloud' || resolvedCategory === 'clear')) {
+            return cloudLabel;
+        }
+
+        let base = '';
+        if (!description) {
+            base = canonicalHu || 'Változó időjárási körülmény';
+        } else if ((language && !language.startsWith('hu')) || englishWeatherWords) {
+            base = canonicalHu || 'Változó időjárási körülmény';
+        } else {
+            // Ha a Google állapotkódja és a lokalizált szöveg eltérő jelenséget jelez,
+            // a dokumentált állapotkód magyar megfelelőjét használjuk.
+            if (category !== 'unknown' && labelCategory !== 'unknown' && category !== labelCategory) {
+                base = canonicalHu || 'Változó időjárási körülmény';
+            } else {
+                base = description;
+            }
+        }
+
+        // Csapadékot, ködöt, zivatart vagy szelet továbbra is külön jelenségként írunk ki,
+        // de mellétesszük az azonos százalékból származó felhőképet is. A felhőborítottság
+        // saját kártyája ettől függetlenül soha nem „esőt” vagy „havazást” jelenít meg.
+        if (hasCloudCover && cloudLabel && resolvedCategory !== 'cloud' && resolvedCategory !== 'clear') {
+            const alreadyMentionsCloud = /felh|borult|derült|felhőzet/i.test(base);
+            if (!alreadyMentionsCloud) {
+                return `${base} · ${cloudLabel.toLocaleLowerCase('hu-HU')}`;
+            }
+        }
+        return base || canonicalHu || 'Változó időjárási körülmény';
     }
 
     function gwWeatherEnumLabel(value) {
@@ -2974,9 +3624,9 @@
         const percent = Math.max(0, Math.min(100, Number(value)));
         if (percent <= 10) return 'Szinte derült ég';
         if (percent <= 30) return 'Kevés felhő';
-        if (percent <= 60) return 'Változó felhőzet';
+        if (percent <= 60) return 'Részben felhős';
         if (percent <= 85) return 'Erősen felhős';
-        return 'Borult ég';
+        return 'Borult';
     }
 
     function gwCloudCoverIcon() {
@@ -3209,19 +3859,19 @@
         const metaText = historyTime ? `Órás előzmény frissítve: ${historyTime}` : 'Google Weather órás előzmény';
         const amountText = `${gwNumber(totalMm, 1)} mm`;
         if (!expectedHours) {
-            return `<div class="gw-today-precip" data-state="partial"><span class="gw-today-precip-icon">ℹ️</span><span><strong>A mai csapadékadat még gyűlik.</strong><span class="gw-today-precip-meta">Éjfél után az első lezárt órás adat megérkezéséig nincs teljes napi összesítés. ${gwEsc(metaText)}</span></span></div>`;
+            return `<div class="gw-today-precip" data-state="partial"><span class="gw-today-precip-icon">ℹ️</span><span><strong>Ma ennyi esett: még nincs lezárt órás adat.</strong><span class="gw-today-precip-meta">Éjfél után az első lezárt órás adat megérkezéséig nincs teljes napi összesítés. ${gwEsc(metaText)}</span></span></div>`;
         }
         if (totalMm > 0 || wetTypes.size > 0) {
             const typeText = Array.from(wetTypes).join(' és ') || 'csapadék';
             const exactAmountText = totalMm > 0 ? amountText : '0,0 mm mérhető összeg';
-            const title = totalMm > 0 ? `Ma eddig esett: ${typeText} · ${exactAmountText}` : `Ma csapadékos órát jelzett: ${typeText} · ${exactAmountText}`;
+            const title = `Ma ennyi esett: ${typeText} · ${exactAmountText}`;
             const partialText = coverageComplete ? '' : 'Napi összesítés részleges a hiányzó órás adatok miatt.';
             return `<div class="gw-today-precip" data-state="wet"><span class="gw-today-precip-icon">${/hó/.test(typeText) ? '❄️' : '🌧️'}</span><span><strong>${gwEsc(title)}</strong><span class="gw-today-precip-meta">${gwEsc(partialText ? partialText + ' ' + metaText : metaText)}</span></span></div>`;
         }
         if (!coverageComplete) {
-            return `<div class="gw-today-precip" data-state="partial"><span class="gw-today-precip-icon">ℹ️</span><span><strong>Mai csapadékadat még nem teljes.</strong><span class="gw-today-precip-meta">A rendelkezésre álló órákban ${gwEsc(amountText)} összeg szerepel; a hiányzó órák miatt nem állítható biztosan, hogy ma eddig egyáltalán nem esett. ${gwEsc(metaText)}</span></span></div>`;
+            return `<div class="gw-today-precip" data-state="partial"><span class="gw-today-precip-icon">ℹ️</span><span><strong>Ma ennyi esett a rendelkezésre álló adatok alapján: ${gwEsc(amountText)}.</strong><span class="gw-today-precip-meta">A rendelkezésre álló lezárt órákban ${gwEsc(amountText)} szerepel; a hiányzó órák miatt a napi összeg még nem végleges. ${gwEsc(metaText)}</span></span></div>`;
         }
-        return `<div class="gw-today-precip" data-state="dry"><span class="gw-today-precip-icon">✓</span><span><strong>Ma eddig nem jelzett csapadékot · ${gwEsc(amountText)}</strong><span class="gw-today-precip-meta">A mai lezárt órák előzménye nem mutatott mérhető esőt vagy havat. ${gwEsc(metaText)}</span></span></div>`;
+        return `<div class="gw-today-precip" data-state="dry"><span class="gw-today-precip-icon">✓</span><span><strong>Ma ennyi esett: ${gwEsc(amountText)}</strong><span class="gw-today-precip-meta">A mai lezárt órák előzménye nem mutatott mérhető esőt vagy havat. ${gwEsc(metaText)}</span></span></div>`;
     }
 
     function gwWind(wind) {
@@ -3251,30 +3901,169 @@
 
     function gwEventTime(value) {
         if (!value) return '—';
-        const raw = String(value);
-        if (/^\d{1,2}:\d{2}(?::\d{2})?$/.test(raw)) return raw.slice(0, 5).padStart(5, '0');
+        const raw = String(value).trim();
+        // ISO időbélyegnél előbb a helyi időzónára alakítunk, különben a Z végű
+        // UTC-időt tévesen helyi óraként lehetne kiírni.
+        if (/^\d{4}-\d{2}-\d{2}[T ]/.test(raw)) return gwDateTime(raw);
+        const clockText = raw.replace(/A\.M\./ig, 'AM').replace(/P\.M\./ig, 'PM');
+        const clock = clockText.match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?$/i);
+        if (clock) {
+            let hour = Number(clock[1]);
+            const minute = Number(clock[2]);
+            const suffix = String(clock[3] || '').toUpperCase();
+            if (minute <= 59 && hour <= 23 && (!suffix || hour <= 12)) {
+                if (suffix === 'AM') hour = hour % 12;
+                else if (suffix === 'PM') hour = (hour % 12) + 12;
+                return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+            }
+        }
         return gwDateTime(raw);
     }
 
-    function gwRenderAstronomy(today, moon) {
+    function gwRenderMoonLiveStrip(moon, googleMoonEvents) {
+        const fallbackEvents = googleMoonEvents || {};
+        const info = gwMoonPhaseInfo(moon || {}, fallbackEvents);
+        const available = gwHas(moon && moon.illuminationPercent);
+        const percent = available ? Math.max(0, Math.min(100, Number(moon.illuminationPercent))) : null;
+        const phaseSourceText = moon && moon.phaseLive ? 'USNO · pillanatnyi' : (moon && moon.phaseSource ? moon.phaseSource : 'közelítő számítás');
+        const illumSourceText = moon && moon.illuminationLive ? 'USNO · pillanatnyi' : (moon && moon.illuminationSource ? moon.illuminationSource : (available ? 'közelítő számítás' : 'adat nem érhető el'));
+        const sourceTime = moon && moon.currentAt ? gwDateTime(moon.currentAt) : '—';
+        // A napi csillagászati API a preferált forrás. Ha abból hiányzik az időpont,
+        // a Google Weather napi előrejelzésének holdesemény-mezője a tartalék.
+        const apiMoonrise = moon && moon.moonriseKnown && moon.moonrise ? moon.moonrise : '';
+        const apiMoonset = moon && moon.moonsetKnown && moon.moonset ? moon.moonset : '';
+        const googleMoonrise = fallbackEvents.moonriseTime || '';
+        const googleMoonset = fallbackEvents.moonsetTime || '';
+        const selectedMoonrise = apiMoonrise || googleMoonrise;
+        const selectedMoonset = apiMoonset || googleMoonset;
+        const moonriseKnown = !!selectedMoonrise || !!(moon && moon.moonriseKnown);
+        const moonsetKnown = !!selectedMoonset || !!(moon && moon.moonsetKnown);
+        const moonriseText = selectedMoonrise ? gwEventTime(selectedMoonrise) : (moonriseKnown ? (moon && moon.moonAlwaysUp ? 'Egész nap fent' : 'Ma nincs holdkelte') : 'Adat nem érhető el');
+        const moonsetText = selectedMoonset ? gwEventTime(selectedMoonset) : (moonsetKnown ? (moon && moon.moonAlwaysDown ? 'Egész nap lent' : 'Ma nincs holdnyugta') : 'Adat nem érhető el');
+        const positionAvailable = !!(moon && moon.positionAvailable && gwHas(moon.altitudeDegrees) && gwHas(moon.azimuthDegrees));
+        const azimuth = positionAvailable ? ((Number(moon.azimuthDegrees) % 360) + 360) % 360 : null;
+        const compassLabels = ['É', 'ÉK', 'K', 'DK', 'D', 'DNy', 'Ny', 'ÉNy'];
+        const compassLabel = positionAvailable ? compassLabels[Math.round(azimuth / 45) % 8] : '';
+        const horizonLabel = positionAvailable ? (moon.aboveHorizon === true ? 'Horizont felett' : (moon.aboveHorizon === false ? 'Horizont alatt' : '')) : '';
+        const positionText = positionAvailable
+            ? `${horizonLabel ? horizonLabel + ' · ' : ''}${gwNumber(Number(moon.altitudeDegrees), 1)}° magasság · azimut ${gwNumber(azimuth, 1)}° (${compassLabel})`
+            : 'A pillanatnyi égi pozíció most nem érhető el';
+        return `<div class="gw-moon-live-strip" data-gw-key="moon-live-strip" aria-label="Nyíregyházi aktuális holdállás">
+            <div class="gw-moon-live-main"><span class="gw-moon-live-glyph" aria-hidden="true">${gwEsc(info.glyph)}</span><span class="gw-moon-live-copy"><strong>Holdállás most</strong><small>${gwEsc(info.label)}</small></span></div>
+            <div class="gw-moon-live-reading"><strong>${available ? `${gwEsc(gwNumber(percent, 1))}%` : '—'}</strong><small>${gwEsc(moon && moon.illuminationLive ? 'PILLANATNYI' : (moon && moon.illuminationSource && /napi/i.test(moon.illuminationSource) ? 'NAPI ADAT' : (available ? 'BECSLÉS' : 'NEM ÉRHETŐ EL')))}</small></div>
+            <div class="gw-moon-live-meter" role="img" aria-label="A Hold megvilágítottsága ${available ? `${gwEsc(gwNumber(percent, 1))} százalék` : 'nem érhető el'}"><span style="width:${available ? percent : 0}%"></span></div>
+            <div class="gw-moon-live-position" data-gw-key="moon-live-position"><span>Aktuális égi helyzet</span><strong>${gwEsc(positionText)}</strong></div>
+            <div class="gw-moon-live-meta">Fázis: ${gwEsc(phaseSourceText)} · Megvilágítás: ${gwEsc(illumSourceText)} · Frissítve: ${gwEsc(sourceTime)} · <a href="https://sunrisesunset.io/" target="_blank" rel="noopener noreferrer" style="color:#6366a2;text-decoration:underline">Holdadatok forrása</a></div>
+        </div>`;
+    }
+
+    function gwCalculateSolarPosition(date = new Date()) {
+        // NOAA fractional-year approximations; coordinates are fixed for Nyíregyháza.
+        // Azimuth is measured clockwise from true north, altitude above the geometric horizon.
+        const latitude = 47.9554 * Math.PI / 180;
+        const longitude = 21.7167;
+        const year = date.getUTCFullYear();
+        const yearLength = (new Date(Date.UTC(year + 1, 0, 1)) - new Date(Date.UTC(year, 0, 1))) / 86400000;
+        const dayOfYear = Math.floor((Date.UTC(year, date.getUTCMonth(), date.getUTCDate()) - Date.UTC(year, 0, 1)) / 86400000) + 1;
+        const utcHour = date.getUTCHours() + date.getUTCMinutes() / 60 + date.getUTCSeconds() / 3600;
+        const gamma = 2 * Math.PI / yearLength * (dayOfYear - 1 + (utcHour - 12) / 24);
+        const eqTime = 229.18 * (0.000075 + 0.001868 * Math.cos(gamma) - 0.032077 * Math.sin(gamma)
+            - 0.014615 * Math.cos(2 * gamma) - 0.040849 * Math.sin(2 * gamma));
+        const decl = 0.006918 - 0.399912 * Math.cos(gamma) + 0.070257 * Math.sin(gamma)
+            - 0.006758 * Math.cos(2 * gamma) + 0.000907 * Math.sin(2 * gamma)
+            - 0.002697 * Math.cos(3 * gamma) + 0.00148 * Math.sin(3 * gamma);
+        const utcMinutes = date.getUTCHours() * 60 + date.getUTCMinutes() + date.getUTCSeconds() / 60;
+        const trueSolarMinutes = ((utcMinutes + eqTime + 4 * longitude) % 1440 + 1440) % 1440;
+        let hourAngle = trueSolarMinutes / 4 - 180;
+        if (hourAngle < -180) hourAngle += 360;
+        const ha = hourAngle * Math.PI / 180;
+        const cosZenith = Math.max(-1, Math.min(1, Math.sin(latitude) * Math.sin(decl) + Math.cos(latitude) * Math.cos(decl) * Math.cos(ha)));
+        const altitude = 90 - Math.acos(cosZenith) * 180 / Math.PI;
+        let azimuth = (Math.atan2(Math.sin(ha), Math.cos(ha) * Math.sin(latitude) - Math.tan(decl) * Math.cos(latitude)) * 180 / Math.PI + 180) % 360;
+        azimuth = (azimuth + 360) % 360;
+        const compass = ['É', 'ÉK', 'K', 'DK', 'D', 'DNy', 'Ny', 'ÉNy'][Math.round(azimuth / 45) % 8];
+        let state;
+        if (altitude > -0.833) state = 'A Nap a látszó horizont felett';
+        else if (altitude > -6) state = 'Polgári szürkület';
+        else if (altitude > -12) state = 'Hajózási szürkület';
+        else if (altitude > -18) state = 'Csillagászati szürkület';
+        else state = 'Éjszaka · a Nap a horizont alatt';
+        let localTime = '';
+        try {
+            localTime = new Intl.DateTimeFormat('hu-HU', { timeZone: 'Europe/Budapest', hour: '2-digit', minute: '2-digit' }).format(date);
+        } catch (_) {
+            // Régebbi böngésző tartalék: a készülék helyi órája.
+            localTime = date.toLocaleTimeString('hu-HU', { hour: '2-digit', minute: '2-digit' });
+        }
+        return { altitude, azimuth, compass, state, localTime };
+    }
+
+    function gwSolarPositionMarkup() {
+        const solar = gwCalculateSolarPosition(new Date());
+        return `<div class="gw-solar-now" data-gw-key="solar-now" aria-label="Nyíregyháza pillanatnyi csillagászati napállása">
+            <div class="gw-solar-now-title"><span aria-hidden="true">☀️</span><span>Nap pillanatnyi helyzete</span></div>
+            <div class="gw-solar-now-status" id="gw-solar-status">${gwEsc(solar.state)}</div>
+            <div class="gw-solar-now-values">
+                <div class="gw-solar-now-value"><span>Magasság · horizont</span><strong id="gw-solar-altitude">${gwEsc(gwNumber(solar.altitude, 1))}°</strong></div>
+                <div class="gw-solar-now-value"><span>Azimut · égtáj</span><strong><span id="gw-solar-azimuth" style="display:inline;color:inherit;font:inherit">${gwEsc(gwNumber(solar.azimuth, 1))}°</span> · <span id="gw-solar-compass" style="display:inline;color:inherit;font:inherit">${gwEsc(solar.compass)}</span></strong></div>
+            </div>
+            <div class="gw-solar-now-foot">Nyíregyháza · élő időből számított csillagászati helyzet · percenként frissül · <span id="gw-solar-local-time">${gwEsc(solar.localTime)}</span></div>
+        </div>`;
+    }
+
+    function gwUpdateSolarPositionReadout() {
+        if (document.visibilityState && document.visibilityState !== 'visible') return;
+        const status = document.getElementById('gw-solar-status');
+        if (!status) return;
+        const solar = gwCalculateSolarPosition(new Date());
+        status.textContent = solar.state;
+        const altitude = document.getElementById('gw-solar-altitude');
+        const azimuth = document.getElementById('gw-solar-azimuth');
+        const compass = document.getElementById('gw-solar-compass');
+        const time = document.getElementById('gw-solar-local-time');
+        if (altitude) altitude.textContent = `${gwNumber(solar.altitude, 1)}°`;
+        if (azimuth) azimuth.textContent = `${gwNumber(solar.azimuth, 1)}°`;
+        if (compass) compass.textContent = solar.compass;
+        if (time) time.textContent = solar.localTime;
+    }
+
+    // A Nap számított égi helyzete csak a helyi időtől függ; perces frissítés nem indít API-kérést.
+    if (!window.__gwSolarPositionTickerStarted) {
+        window.__gwSolarPositionTickerStarted = true;
+        window.setInterval(gwUpdateSolarPositionReadout, 60 * 1000);
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') gwUpdateSolarPositionReadout();
+        });
+    }
+
+    function gwRenderAstronomy(today, moon, current) {
         const sun = today && today.sunEvents || {};
         const googleMoon = today && today.moonEvents || {};
-        const moonInfo = gwMoonPhaseInfo(moon, googleMoon);
-        const moonrise = moon && moon.moonrise || googleMoon.moonriseTime || '';
-        const moonset = moon && moon.moonset || googleMoon.moonsetTime || '';
-        const moonSource = moon && moon.available
-            ? 'Holdadatok: hold.5deg.com'
-            : 'Tartalék holdadat · Google Weather';
-        return `<div class=\"gw-astro-panel\" data-gw-key=\"astro-panel\">
-            <div class=\"gw-astro-heading\"><span>☀︎ Nap és hold</span><span>Nyíregyháza</span></div>
-            <div class=\"gw-astro-grid\">
-                <div class=\"gw-astro-item\"><span>Napkelte</span><strong>${gwEsc(gwEventTime(sun.sunriseTime))}</strong></div>
-                <div class=\"gw-astro-item\"><span>Napnyugta</span><strong>${gwEsc(gwEventTime(sun.sunsetTime))}</strong></div>
-                <div class=\"gw-astro-item\"><span>Holdkelte</span><strong>${gwEsc(gwEventTime(moonrise))}</strong></div>
-                <div class=\"gw-astro-item\"><span>Holdnyugta</span><strong>${gwEsc(gwEventTime(moonset))}</strong></div>
+        const sunrise = sun.sunriseTime || (moon && moon.sunrise) || '';
+        const sunset = sun.sunsetTime || (moon && moon.sunset) || '';
+        const moonriseKnown = !!(moon && moon.moonriseKnown);
+        const moonsetKnown = !!(moon && moon.moonsetKnown);
+        const googleMoonrise = googleMoon.moonriseTime || '';
+        const googleMoonset = googleMoon.moonsetTime || '';
+        const moonrise = (moonriseKnown && moon.moonrise) ? moon.moonrise : googleMoonrise;
+        const moonset = (moonsetKnown && moon.moonset) ? moon.moonset : googleMoonset;
+        const moonriseText = moonrise
+            ? gwEventTime(moonrise)
+            : (moonriseKnown ? (moon && moon.moonAlwaysUp ? 'Egész nap fent' : 'Ma nincs holdkelte') : 'Adat nem érhető el');
+        const moonsetText = moonset
+            ? gwEventTime(moonset)
+            : (moonsetKnown ? (moon && moon.moonAlwaysDown ? 'Egész nap lent' : 'Ma nincs holdnyugta') : 'Adat nem érhető el');
+        return `<div class="gw-astro-panel" data-gw-key="astro-panel">
+            <div class="gw-astro-heading"><span>☀︎ Nap és Hold</span><span>Nyíregyháza</span></div>
+            <div class="gw-astro-grid">
+                <div class="gw-astro-item"><span>Napkelte</span><strong>${gwEsc(gwEventTime(sunrise))}</strong></div>
+                <div class="gw-astro-item"><span>Napnyugta</span><strong>${gwEsc(gwEventTime(sunset))}</strong></div>
+                <div class="gw-astro-item"><span>Holdkelte</span><strong>${gwEsc(moonriseText)}</strong></div>
+                <div class="gw-astro-item"><span>Holdnyugta</span><strong>${gwEsc(moonsetText)}</strong></div>
             </div>
-            <div class=\"gw-moon-phase\"><span class=\"gw-moon-glyph\" aria-hidden=\"true\">${gwEsc(moonInfo.glyph)}</span><span class=\"gw-moon-phase-copy\"><strong>${gwEsc(moonInfo.label)}</strong><small>${gwEsc(moonInfo.illumination)}</small></span></div>
-            <a class=\"gw-moon-source\" href=\"https://hold.5deg.com/hu/nyiregyhaza/\" target=\"_blank\" rel=\"noopener noreferrer\">${gwEsc(moonSource)} ↗</a>
+            ${gwSolarPositionMarkup()}
+            ${gwRenderMoonLiveStrip(moon, googleMoon)}
+            <div class="gw-moon-source"><a href="https://sunrisesunset.io/api/" target="_blank" rel="noopener noreferrer">Napi Nap- és Holdadatok · SunriseSunset.io ↗</a><span> · </span><a href="https://gml.noaa.gov/grad/solcalc/solareqns.PDF" target="_blank" rel="noopener noreferrer">A pillanatnyi napállás számítási módszere · NOAA ↗</a></div>
         </div>`;
     }
 
@@ -3593,7 +4382,8 @@
         const weatherCondition = current.weatherCondition || {};
         const temperature = gwTemperature(current.temperature);
         const feels = gwTemperature(current.feelsLikeTemperature);
-        const today = daily[0] || {};
+        const localTodayKey = gwLocalDateParts(new Date())?.key || '';
+        const today = daily.find(day => localTodayKey && gwDailySolarKey(day) === localTodayKey) || daily[0] || {};
         const high = today.maxTemperature ? gwTemperature(today.maxTemperature) : '—';
         const low = today.minTemperature ? gwTemperature(today.minTemperature) : '—';
         const wind = gwWindDetails(current.wind);
@@ -3603,7 +4393,7 @@
         const qpf = current.precipitation && current.precipitation.qpf ? gwNumber(current.precipitation.qpf.quantity, 1) : '—';
         const currentMeta = payload.meta && payload.meta.current;
         const updatedTime = currentMeta ? gwDateTime(currentMeta.updatedAtIso, true) : gwDateTime(new Date().toISOString(), true);
-
+        const cloudCoverMarkup = `<div class="gw-cloud-cover" data-gw-key="cloud-cover"><span class="gw-cloud-cover-icon">${gwCloudCoverIcon()}</span><span class="gw-cloud-cover-copy"><strong>Pillanatnyi felhőborítottság</strong><small>${gwEsc(gwCloudCoverLabel(current.cloudCover))}</small><span class="gw-cloud-cover-meter"><span style="width:${gwHas(current.cloudCover) ? Math.max(0, Math.min(100, Number(current.cloudCover) || 0)) : 0}%"></span></span></span><span class="gw-cloud-cover-value">${gwEsc(gwHas(current.cloudCover) ? gwNumber(current.cloudCover) : '—')}<small>%</small></span></div>`;
 
         const weatherCardMarkup = `<div class="google-weather-card" data-gw-key="weather-card">
             <div class="gw-topbar" data-gw-key="topbar">
@@ -3612,14 +4402,23 @@
             </div>
             ${googleWeatherLastError ? `<div class="gw-note" style="margin-bottom:8px;border-color:#fecaca;background:#fef2f2;color:#991b1b;">Az időjárás frissítése most nem sikerült; az utolsó sikeres adatok láthatók. ${gwEsc(googleWeatherLastError)}</div>` : ''}
             <div class="gw-hero" data-gw-key="hero">
-                <div class="gw-hero-main"><div class="gw-condition-line">${gwIcon(weatherCondition, gwIsDaytimeAt(current.currentTime || new Date().toISOString(), current.isDaytime, daily), current.cloudCover)}<div class="gw-temp">${gwEsc(temperature.replace('°', ''))}<span class="gw-temp-unit">°C</span></div></div><div class="gw-condition">${gwEsc(gwCondition(current))}</div><div class="gw-feels">Hőérzet: <strong>${gwEsc(feels)}</strong></div><div class="gw-cloud-cover"><span class="gw-cloud-cover-icon">${gwCloudCoverIcon()}</span><span class="gw-cloud-cover-copy"><strong>Pillanatnyi felhőborítottság</strong><small>${gwEsc(gwCloudCoverLabel(current.cloudCover))}</small><span class="gw-cloud-cover-meter"><span style="width:${gwHas(current.cloudCover) ? Math.max(0, Math.min(100, Number(current.cloudCover) || 0)) : 0}%"></span></span></span><span class="gw-cloud-cover-value">${gwEsc(gwHas(current.cloudCover) ? gwNumber(current.cloudCover) : '—')}<small>%</small></span></div>${gwRenderTodayPrecipStatus(history, payload.meta && payload.meta.history)}</div>
-                <div class="gw-hi-lo" data-gw-key="hero-side">
-                    <div class="gw-hi-lo-summary" data-gw-key="daily-range-summary">
-                        <div class="gw-hi-lo-row"><span>Mai maximum</span><strong>↑ ${gwEsc(high)}</strong></div>
-                        <div class="gw-hi-lo-row"><span>Mai minimum</span><strong>↓ ${gwEsc(low)}</strong></div>
-                        <div class="gw-hi-lo-row"><span>Csapadék esélye</span><strong>${gwEsc(precip)}%</strong></div>
+                <div class="gw-hero-main"><div class="gw-current-topline" data-gw-key="current-topline">
+                    <div class="gw-current-reading">
+                        <div class="gw-condition-line">${gwIcon(weatherCondition, gwIsDaytimeAt(current.currentTime || new Date().toISOString(), current.isDaytime, daily), current.cloudCover)}<div class="gw-temp">${gwEsc(temperature.replace('°', ''))}<span class="gw-temp-unit">°C</span></div></div>
+                        <div class="gw-condition">${gwEsc(gwCondition(current))}</div>
+                        <div class="gw-feels"><span aria-hidden="true">🌡️</span> Hőérzet: <strong>${gwEsc(feels)}</strong></div>
                     </div>
-                    ${gwRenderAstronomy(today, moon)}
+                    <div class="gw-current-range" aria-label="Mai hőmérsékleti értékek">
+                        <div class="gw-current-range-item gw-current-range-high"><span class="gw-current-range-label"><span class="gw-current-range-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V5a3 3 0 0 0-6 0v9.76a5 5 0 1 0 6 0Z"/><path d="M11 11V5"/><path d="M11 18v-4"/></svg></span><span>Mai maximum</span></span><strong>${gwEsc(high)}</strong></div>
+                        <div class="gw-current-range-item gw-current-range-low"><span class="gw-current-range-label"><span class="gw-current-range-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V5a3 3 0 0 0-6 0v9.76a5 5 0 1 0 6 0Z"/><path d="M11 11V5"/><path d="M11 18v-4"/></svg></span><span>Mai minimum</span></span><strong>${gwEsc(low)}</strong></div>
+                    </div>
+                </div></div>
+                <div class="gw-hi-lo" data-gw-key="hero-side">
+                    ${cloudCoverMarkup}
+                    <div class="gw-hi-lo-summary" data-gw-key="daily-range-summary">
+                        <div class="gw-hi-lo-row gw-precip-chance-row"><span><span class="gw-hi-lo-row-icon" aria-hidden="true">☔</span> Csapadék esélye</span><strong>${gwEsc(precip)}%</strong></div>
+                    </div>
+                    ${gwRenderTodayPrecipStatus(history, payload.meta && payload.meta.history)}
                 </div>
             </div>
             <div class="gw-live-wind-panel" data-gw-key="live-wind-panel">
@@ -3656,6 +4455,7 @@
                 ${gwMetric('Zivatar esélye', gwNumber(current.thunderstormProbability), '%')}
                 ${gwMetric('Látástávolság', current.visibility ? gwNumber(current.visibility.distance, 1) : '—', current.visibility ? (gwVisibilityUnit(current.visibility.unit)) : '')}
             </div></div>
+            <div class="gw-astro-slot gw-astro-section" data-gw-key="astro-slot">${gwRenderAstronomy(today, moon, current)}</div>
             <div class="gw-section" data-gw-key="minute-section"><div class="gw-section-heading"><span>Perces csapadék-előrejelzés</span><span class="gw-section-note">Következő 6 óra</span></div>${gwRenderMinuteForecast(minutes)}</div>
             <div class="gw-section" data-gw-key="hourly-section"><div class="gw-section-heading"><span>Óránkénti előrejelzés · következő 24 óra</span><span class="gw-section-note">Lapozható</span></div><div class="gw-hour-scroll" data-gw-key="hourly-cards">${gwRenderHourly(hourly)}</div>${gwRenderHourlyDetailsPanel(hourly)}</div>
             <div class="gw-section" data-gw-key="daily-section"><div class="gw-section-heading"><span>10 napos előrejelzés</span><span class="gw-section-note">Maximum / minimum</span></div><div class="gw-day-grid" data-gw-key="daily-cards">${gwRenderDayCards(daily)}</div>${gwRenderDailyDetailsPanel(daily, 'main')}</div>
