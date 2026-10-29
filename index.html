@@ -2264,6 +2264,771 @@
         .google-weather-card .gw-current-range-item > strong { font-size: 13px !important; }
     }
 
+
+    /* ================================================================
+       KÉPBEN! — tűéles, nagy felbontásra optimalizált arculatfrissítés
+       Csak megjelenés: a DOM, az adatforrások és a JavaScript változatlan.
+       Könnyű CSS + SVG; nincs elmosás, raszteres nagyítás vagy extra animáció.
+       ================================================================ */
+    :root {
+        --bg-main: #eaf0f7;
+        --bg-card: #ffffff;
+        --bg-card-hover: #ffffff;
+        --border-color: rgba(148, 163, 184, 0.48);
+        --text-primary: #10213a;
+        --text-secondary: #334a65;
+        --text-muted: #5b6d84;
+        --card-bg: #ffffff;
+        --card-border: rgba(190, 205, 222, 0.9);
+        --text-bright: #10213a;
+        --text-sub: #475d78;
+    }
+
+    html, body {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+    body {
+        background-color: #eaf0f7 !important;
+        color: #10213a;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        font-kerning: normal;
+        text-rendering: geometricPrecision;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    #app-background-canvas {
+        background:
+            radial-gradient(ellipse at 10% 7%, rgba(59, 130, 246, .075) 0%, transparent 38%),
+            radial-gradient(ellipse at 92% 89%, rgba(14, 165, 233, .06) 0%, transparent 36%),
+            linear-gradient(135deg, #edf3fa 0%, #e5edf6 48%, #eaf1f8 100%) !important;
+    }
+
+    .control-header {
+        background: rgba(255, 255, 255, .98) !important;
+        border: 1px solid #cbd8e7 !important;
+        border-radius: 19px !important;
+        box-shadow: 0 8px 24px rgba(20, 43, 76, .075), inset 0 1px 0 #ffffff !important;
+    }
+    .ticker-block,
+    .weather-widget-box,
+    .radio-player-bar,
+    .rates-strip-bar {
+        background: #ffffff !important;
+        border-color: #cbd8e7 !important;
+        box-shadow: 0 5px 16px rgba(20, 43, 76, .055) !important;
+    }
+    .ticker-block {
+        border-radius: 14px !important;
+    }
+    .ticker-time {
+        color: #9a3412 !important;
+        border-color: #f1d3c3 !important;
+        background: #fff7ed !important;
+        font-variant-numeric: tabular-nums lining-nums;
+    }
+    .ticker-source-name { color: #1747a6 !important; }
+    .ticker-title-link {
+        color: #10213a !important;
+        font-weight: 750;
+        letter-spacing: -.12px;
+        text-rendering: geometricPrecision;
+    }
+    .ticker-title-link:hover { color: #1d4ed8 !important; }
+    .ticker-desc { color: #465c76 !important; }
+    .weather-widget-box {
+        border-radius: 14px !important;
+    }
+    .weather-box-city {
+        color: #1747a6 !important;
+        font-size: .7rem !important;
+        letter-spacing: .55px !important;
+    }
+    .weather-box-temp {
+        color: #10213a !important;
+        font-size: 1.22rem !important;
+        font-variant-numeric: tabular-nums lining-nums;
+    }
+
+    .sections-container { gap: 26px !important; }
+    .channel-column {
+        background: #ffffff !important;
+        border: 1px solid #cbd8e7 !important;
+        border-radius: 18px !important;
+        box-shadow: 0 8px 24px rgba(20, 43, 76, .065) !important;
+    }
+    .channel-column.is-weather-column {
+        border-color: #b9d5ef !important;
+    }
+    .channel-column-header {
+        box-shadow: inset 0 -1px 0 rgba(255, 255, 255, .2) !important;
+    }
+    .channel-header-title {
+        text-rendering: geometricPrecision;
+        letter-spacing: .45px !important;
+    }
+    .channel-header-date,
+    .channel-header-badge {
+        border-radius: 7px !important;
+        font-variant-numeric: tabular-nums lining-nums;
+    }
+    .channel-column-body {
+        background: #ffffff;
+        scrollbar-color: #aabbd0 #f1f5f9;
+        scrollbar-width: thin;
+    }
+    .news-item {
+        background: #ffffff !important;
+        border: 1px solid #d9e2ed !important;
+        border-left: 4px solid #3568c8 !important;
+        border-radius: 13px !important;
+        box-shadow: 0 2px 0 rgba(16, 33, 58, .025), 0 4px 12px rgba(16, 33, 58, .035) !important;
+        transition: border-color .14s ease, box-shadow .14s ease, background-color .14s ease !important;
+    }
+    .news-item:hover {
+        border-color: #b5c9e5 !important;
+        border-left-color: #1d4ed8 !important;
+        background: #ffffff !important;
+        box-shadow: 0 4px 15px rgba(16, 33, 58, .065) !important;
+    }
+    .news-item.is-breaking-card {
+        border: 1px solid #f3c8c8 !important;
+        border-left: 4px solid #dc2626 !important;
+        background: #fffafa !important;
+    }
+    .news-title a {
+        color: #10213a !important;
+        font-weight: 750 !important;
+        letter-spacing: -.16px !important;
+        line-height: 1.48 !important;
+        text-rendering: geometricPrecision;
+    }
+    .news-title a:hover { color: #1747a6 !important; }
+    .news-description {
+        color: #435771 !important;
+        line-height: 1.62 !important;
+    }
+    .source-name { color: #304763 !important; }
+    .news-time {
+        font-variant-numeric: tabular-nums lining-nums;
+    }
+    .yesterday-divider-card {
+        background: #ffffff !important;
+        border: 1px solid #a9c4e9 !important;
+        border-radius: 17px !important;
+        box-shadow: 0 7px 20px rgba(30, 64, 138, .07) !important;
+    }
+    .radio-player-bar { border-radius: 15px !important; }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible,
+    [role="button"]:focus-visible {
+        outline: 3px solid rgba(37, 99, 235, .75) !important;
+        outline-offset: 2px !important;
+    }
+
+    /* Weather: világos, prémium időjárási felület, éles határok és olvasható tipográfia. */
+    .google-weather-card {
+        position: relative;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        padding: 15px !important;
+        color: #10213a !important;
+        background: linear-gradient(155deg, #ffffff 0%, #fbfdff 72%, #f4f9ff 100%) !important;
+        border: 1px solid #bfd0e4 !important;
+        border-radius: 20px !important;
+        box-shadow: 0 8px 24px rgba(22, 48, 83, .075), inset 0 1px 0 rgba(255, 255, 255, .98) !important;
+        overflow: hidden !important;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif !important;
+        text-rendering: geometricPrecision;
+        font-kerning: normal;
+    }
+    .google-weather-card::before {
+        content: "";
+        display: block;
+        height: 4px;
+        margin: -15px -15px 14px;
+        background: linear-gradient(90deg, #1d4ed8 0%, #0284c7 48%, #67c7ec 100%);
+    }
+    .google-weather-card svg {
+        shape-rendering: geometricPrecision;
+        text-rendering: geometricPrecision;
+    }
+    .google-weather-card .gw-topbar {
+        gap: 9px !important;
+        margin-bottom: 13px !important;
+        padding-bottom: 12px !important;
+        border-bottom: 1px solid #dfe8f3 !important;
+        align-items: center !important;
+    }
+    .google-weather-card .gw-eyebrow {
+        color: #1e4fae !important;
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        letter-spacing: 1.05px !important;
+        line-height: 1.45 !important;
+    }
+    .google-weather-card .gw-city {
+        color: #10213a !important;
+        font-size: 21px !important;
+        font-weight: 800 !important;
+        line-height: 1.16 !important;
+        letter-spacing: -.45px !important;
+    }
+    .google-weather-card .gw-coordinates {
+        color: #5a6e87 !important;
+        font-size: 9.5px !important;
+        line-height: 1.45 !important;
+    }
+    .google-weather-card .gw-live-pill {
+        color: #056047 !important;
+        background: #ecfdf5 !important;
+        border: 1px solid #98dfc4 !important;
+        font-size: 8.5px !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+    }
+    .google-weather-card .gw-live-dot {
+        background: #0da879 !important;
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, .12);
+    }
+    .google-weather-card .gw-refresh-button {
+        min-height: 29px;
+        padding: 6px 9px !important;
+        color: #1647a7 !important;
+        background: #f0f6ff !important;
+        border: 1px solid #b9d0f2 !important;
+        border-radius: 8px !important;
+        font-size: 10px !important;
+        font-weight: 700 !important;
+        box-shadow: 0 1px 0 rgba(255,255,255,.9) inset;
+    }
+    .google-weather-card .gw-refresh-button:hover {
+        background: #e4efff !important;
+        border-color: #8cb2eb !important;
+    }
+    .google-weather-card .gw-refresh-meta {
+        color: #657991 !important;
+        font-size: 8px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-hero {
+        padding: 12px !important;
+        gap: 12px !important;
+        border: 1px solid #cbdcf0 !important;
+        border-radius: 16px !important;
+        background: linear-gradient(145deg, #ffffff 0%, #f4f8ff 55%, #edf7ff 100%) !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.96), 0 2px 5px rgba(37, 99, 235, .025) !important;
+    }
+    .google-weather-card .gw-hero-main {
+        padding-bottom: 12px !important;
+        border-bottom-color: #cfdef0 !important;
+    }
+    .google-weather-card .gw-weather-icon {
+        flex-shrink: 0;
+        overflow: visible;
+    }
+    .google-weather-card .gw-temp {
+        color: #10213a !important;
+        font-family: "Space Mono", "Segoe UI", monospace !important;
+        font-size: 42px !important;
+        font-weight: 700 !important;
+        line-height: 1.13 !important;
+        letter-spacing: -1.2px !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+        font-feature-settings: "tnum" 1, "lnum" 1 !important;
+        text-rendering: geometricPrecision;
+    }
+    .google-weather-card .gw-temp-unit {
+        color: #1d4ed8 !important;
+        font-weight: 700 !important;
+        letter-spacing: 0 !important;
+    }
+    .google-weather-card .gw-condition {
+        color: #203650 !important;
+        font-size: 12px !important;
+        font-weight: 750 !important;
+        line-height: 1.45 !important;
+    }
+    .google-weather-card .gw-feels {
+        color: #4c6079 !important;
+        font-size: 10.5px !important;
+        line-height: 1.45 !important;
+    }
+    .google-weather-card .gw-cloud-cover {
+        border: 1px solid #bed5f1 !important;
+        border-radius: 12px !important;
+        background: #ffffff !important;
+        box-shadow: 0 2px 0 rgba(24, 65, 120, .025);
+    }
+    .google-weather-card .gw-cloud-cover-copy strong {
+        color: #1c3f79 !important;
+        font-size: 10.5px !important;
+        font-weight: 800 !important;
+    }
+    .google-weather-card .gw-cloud-cover-copy small {
+        color: #60748c !important;
+        font-size: 9.5px !important;
+    }
+    .google-weather-card .gw-cloud-cover-meter {
+        height: 5px !important;
+        background: #e5edf7 !important;
+    }
+    .google-weather-card .gw-cloud-cover-meter span {
+        background: linear-gradient(90deg, #60a5fa 0%, #2563eb 100%) !important;
+    }
+    .google-weather-card .gw-cloud-cover-value {
+        color: #10213a !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+    }
+    .google-weather-card .gw-today-precip {
+        border-radius: 10px !important;
+        font-size: 10.5px !important;
+        line-height: 1.5 !important;
+    }
+    .google-weather-card .gw-moon-live-strip {
+        border-color: #d2d9fa !important;
+        background: linear-gradient(110deg, #f8faff 0%, #eef2ff 60%, #f5f3ff 100%) !important;
+        box-shadow: inset 0 1px 0 #ffffff !important;
+    }
+    .google-weather-card .gw-hi-lo {
+        gap: 9px !important;
+    }
+    .google-weather-card .gw-current-range-item,
+    .google-weather-card .gw-hi-lo-row {
+        border-color: #d2dfed !important;
+        border-radius: 11px !important;
+        background: #ffffff !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.98), 0 2px 5px rgba(20,43,76,.025) !important;
+    }
+    .google-weather-card .gw-current-range-high {
+        border-color: #f2d3b4 !important;
+        background: linear-gradient(145deg, #fffdfa 0%, #fff7ed 100%) !important;
+    }
+    .google-weather-card .gw-current-range-low {
+        border-color: #bfd8f2 !important;
+        background: linear-gradient(145deg, #ffffff 0%, #f0f7ff 100%) !important;
+    }
+    .google-weather-card .gw-current-range-label,
+    .google-weather-card .gw-hi-lo-row,
+    .google-weather-card .gw-hi-lo-row span {
+        color: #5a6e87 !important;
+        font-size: 10px !important;
+        line-height: 1.35 !important;
+    }
+    .google-weather-card .gw-current-range-item > strong {
+        font-size: 16px !important;
+        line-height: 1.2 !important;
+        font-weight: 750 !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+    }
+    .google-weather-card .gw-hi-lo-row strong {
+        font-weight: 700 !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+    }
+
+    /* A részletek paneljei egységes, finoman tagolt kártyák. */
+    .google-weather-card .gw-section {
+        margin-top: 13px !important;
+        padding: 12px !important;
+        background: #ffffff !important;
+        border: 1px solid #d6e1ee !important;
+        border-radius: 15px !important;
+        box-shadow: 0 2px 5px rgba(19, 46, 79, .025), inset 0 1px 0 #ffffff !important;
+    }
+    .google-weather-card .gw-section-heading {
+        margin-bottom: 9px !important;
+        color: #193f7e !important;
+        font-size: 12px !important;
+        font-weight: 800 !important;
+        line-height: 1.35 !important;
+        letter-spacing: .05px !important;
+    }
+    .google-weather-card .gw-section-note {
+        color: #657991 !important;
+        font-size: 9.5px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-metric-grid { gap: 8px !important; }
+    .google-weather-card .gw-metric {
+        padding: 9px !important;
+        border-color: #d9e3ef !important;
+        border-radius: 11px !important;
+        background: #f8fbff !important;
+    }
+    .google-weather-card .gw-metric-label {
+        color: #5d718a !important;
+        font-size: 9.5px !important;
+        line-height: 1.4 !important;
+        letter-spacing: .25px !important;
+    }
+    .google-weather-card .gw-metric-value {
+        color: #10213a !important;
+        font-size: 13.5px !important;
+        line-height: 1.35 !important;
+        font-weight: 700 !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+    }
+    .google-weather-card .gw-metric-sub {
+        color: #657991 !important;
+        font-size: 9.5px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-hour-scroll,
+    .google-weather-card .gw-history-scroll {
+        gap: 7px !important;
+        padding: 2px 2px 8px !important;
+        scrollbar-color: #b6c8dc #f1f5f9;
+        scrollbar-width: thin;
+    }
+    .google-weather-card .gw-hour-card,
+    .google-weather-card .gw-history-card {
+        border-color: #d4e0ed !important;
+        border-radius: 11px !important;
+        background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%) !important;
+        box-shadow: 0 2px 5px rgba(20,43,76,.025) !important;
+    }
+    .google-weather-card .gw-hour-time {
+        color: #475e79 !important;
+        font-size: 10.5px !important;
+        font-weight: 700 !important;
+    }
+    .google-weather-card .gw-hour-temp {
+        color: #10213a !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+    }
+    .google-weather-card .gw-hour-desc,
+    .google-weather-card .gw-hour-meta,
+    .google-weather-card .gw-history-card span {
+        font-size: 9.5px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-hour-meta { color: #1d4ed8 !important; }
+    .google-weather-card .gw-day-grid { gap: 8px !important; }
+    .google-weather-card .gw-day-card {
+        padding: 9px !important;
+        border-color: #d5e0ed !important;
+        border-radius: 12px !important;
+        background: linear-gradient(145deg, #ffffff 0%, #f7faff 100%) !important;
+        box-shadow: 0 2px 5px rgba(20,43,76,.025) !important;
+    }
+    .google-weather-card .gw-day-name {
+        color: #1c3f79 !important;
+        font-size: 10.5px !important;
+        font-weight: 800 !important;
+    }
+    .google-weather-card .gw-day-date,
+    .google-weather-card .gw-day-extra {
+        color: #657991 !important;
+        font-size: 9.5px !important;
+        line-height: 1.45 !important;
+    }
+    .google-weather-card .gw-day-condition {
+        color: #334b66 !important;
+        font-size: 10px !important;
+        line-height: 1.45 !important;
+    }
+    .google-weather-card .gw-day-max,
+    .google-weather-card .gw-day-min {
+        font-variant-numeric: tabular-nums lining-nums !important;
+        font-feature-settings: "tnum" 1, "lnum" 1 !important;
+    }
+    .google-weather-card .gw-details {
+        border-color: #d2dfed !important;
+        border-radius: 11px !important;
+        background: #f8fbff !important;
+    }
+    .google-weather-card .gw-details summary {
+        padding: 10px 11px !important;
+        color: #193f7e !important;
+        font-size: 11px !important;
+        font-weight: 800 !important;
+    }
+    .google-weather-card .gw-details[open] summary {
+        border-bottom-color: #d7e3f0 !important;
+    }
+    .google-weather-card .gw-detail-grid { gap: 7px !important; }
+    .google-weather-card .gw-detail-value,
+    .google-weather-card .gw-wind-stat strong,
+    .google-weather-card .gw-astro-item strong,
+    .google-weather-card .gw-moon-live-reading strong {
+        font-variant-numeric: tabular-nums lining-nums !important;
+        font-feature-settings: "tnum" 1, "lnum" 1 !important;
+    }
+    .google-weather-card .gw-live-wind-panel {
+        border-color: #bcd5f1 !important;
+        border-radius: 16px !important;
+        background: linear-gradient(140deg, #ffffff 0%, #f3f8ff 55%, #eaf5ff 100%) !important;
+        box-shadow: 0 3px 10px rgba(30,64,175,.045), inset 0 1px 0 #ffffff !important;
+    }
+    .google-weather-card .gw-live-wind-title {
+        color: #193f7e !important;
+        font-size: 12px !important;
+        font-weight: 800 !important;
+    }
+    .google-weather-card .gw-wind-compass {
+        border-color: #b8cfe9 !important;
+        background: radial-gradient(circle at 45% 35%, #ffffff 0%, #f5f9ff 69%, #eaf2fc 100%) !important;
+        box-shadow: inset 0 0 0 5px #ffffff, 0 3px 8px rgba(15,23,42,.065) !important;
+    }
+    .google-weather-card .gw-wind-compass::before {
+        border-color: #bdccdd !important;
+    }
+    .google-weather-card .gw-wind-compass-label {
+        color: #526984 !important;
+        font-weight: 700 !important;
+    }
+    .google-weather-card .gw-wind-source,
+    .google-weather-card .gw-live-wind-source {
+        border-color: #d0e0f2 !important;
+        background: #f8fbff !important;
+        color: #365575 !important;
+    }
+    .google-weather-card .gw-wind-note,
+    .google-weather-card .gw-live-wind-note {
+        color: #5c7088 !important;
+        line-height: 1.45 !important;
+    }
+    .google-weather-card .gw-note {
+        border-color: #c7d9ef !important;
+        border-radius: 10px !important;
+        background: #f2f7ff !important;
+        color: #234777 !important;
+        font-size: 10.5px !important;
+        line-height: 1.5 !important;
+    }
+    .google-weather-card .gw-error {
+        border-color: #efcaca !important;
+        border-radius: 13px !important;
+        background: #fff8f8 !important;
+        color: #912d2d !important;
+        line-height: 1.6 !important;
+    }
+    .google-weather-card .gw-source {
+        border-top-color: #d7e2ef !important;
+        color: #596e87 !important;
+        font-size: 11px !important;
+    }
+
+    @media (max-width: 480px) {
+        .google-weather-card {
+            padding: 12px !important;
+            border-radius: 17px !important;
+        }
+        .google-weather-card::before {
+            margin: -12px -12px 12px;
+        }
+        .google-weather-card .gw-topbar {
+            gap: 7px !important;
+            padding-bottom: 10px !important;
+        }
+        .google-weather-card .gw-city { font-size: 19px !important; }
+        .google-weather-card .gw-hero {
+            padding: 10px !important;
+            border-radius: 14px !important;
+        }
+        .google-weather-card .gw-section {
+            padding: 10px !important;
+            border-radius: 13px !important;
+        }
+    }
+    @media (max-width: 360px) {
+        .google-weather-card .gw-temp {
+            font-size: clamp(29px, 9.5vw, 35px) !important;
+            letter-spacing: -.8px !important;
+        }
+        .google-weather-card .gw-section-heading { font-size: 11px !important; }
+        .google-weather-card .gw-metric { padding: 7px !important; }
+        .google-weather-card .gw-day-card { padding: 7px !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .news-item { transition: none !important; }
+    }
+
+
+
+    /* Nap-/holdadatok és élő szél: a kis feliratok is kényelmesen olvashatók. */
+    .google-weather-card .gw-astro-panel {
+        margin-top: 0 !important;
+        padding: 11px !important;
+        border: 1px solid #cbdcf0 !important;
+        border-radius: 14px !important;
+        background: linear-gradient(145deg, #ffffff 0%, #f6f9ff 60%, #eff7ff 100%) !important;
+        box-shadow: inset 0 1px 0 #ffffff, 0 2px 6px rgba(30,64,175,.03) !important;
+    }
+    .google-weather-card .gw-astro-heading {
+        margin-bottom: 9px !important;
+        color: #1d427d !important;
+        font-size: 10px !important;
+        line-height: 1.4 !important;
+        letter-spacing: .4px !important;
+    }
+    .google-weather-card .gw-astro-grid { gap: 7px !important; }
+    .google-weather-card .gw-astro-item {
+        padding: 8px !important;
+        border: 1px solid #d3e0ef !important;
+        border-radius: 10px !important;
+        background: #ffffff !important;
+    }
+    .google-weather-card .gw-astro-item span {
+        color: #5c718a !important;
+        font-size: 9px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-astro-item strong {
+        color: #142b49 !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        line-height: 1.35 !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+    }
+    .google-weather-card .gw-solar-now {
+        gap: 7px 9px !important;
+        padding: 9px !important;
+        border-color: #f0d0ae !important;
+        border-radius: 11px !important;
+        background: linear-gradient(120deg, #fffdfa 0%, #fff7ed 100%) !important;
+    }
+    .google-weather-card .gw-solar-now-title {
+        color: #8f3a16 !important;
+        font-size: 10px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-solar-now-status {
+        color: #92502b !important;
+        font-size: 9px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-solar-now-values { gap: 6px !important; }
+    .google-weather-card .gw-solar-now-value {
+        padding: 7px 8px !important;
+        border-color: #f1d9c1 !important;
+        border-radius: 9px !important;
+        background: rgba(255,255,255,.9) !important;
+    }
+    .google-weather-card .gw-solar-now-value span {
+        color: #8c512e !important;
+        font-size: 9px !important;
+        line-height: 1.35 !important;
+    }
+    .google-weather-card .gw-solar-now-value strong {
+        color: #773815 !important;
+        font-size: 12px !important;
+        line-height: 1.35 !important;
+        font-weight: 700 !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+    }
+    .google-weather-card .gw-solar-now-foot {
+        color: #87573a !important;
+        font-size: 8.5px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-moon-phase {
+        padding: 8px 9px !important;
+        border-color: #d4dcf7 !important;
+        border-radius: 11px !important;
+        background: linear-gradient(110deg, #f8faff 0%, #eef2ff 70%, #f5f3ff 100%) !important;
+    }
+    .google-weather-card .gw-moon-phase-copy strong {
+        color: #30377d !important;
+        font-size: 10px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-moon-phase-copy small,
+    .google-weather-card .gw-moon-source {
+        color: #626c9b !important;
+        font-size: 8.5px !important;
+        line-height: 1.45 !important;
+    }
+    .google-weather-card .gw-moon-live-position {
+        padding: 6px 8px !important;
+        border-color: #d5def7 !important;
+        border-radius: 9px !important;
+        background: #ffffff !important;
+    }
+    .google-weather-card .gw-moon-live-position span {
+        color: #5e6897 !important;
+        font-size: 9px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-moon-live-position strong {
+        color: #343b83 !important;
+        font-size: 9px !important;
+        line-height: 1.4 !important;
+        font-weight: 700 !important;
+    }
+    .google-weather-card .gw-moon-live-reading strong {
+        font-size: 14px !important;
+        font-weight: 700 !important;
+    }
+    .google-weather-card .gw-moon-live-reading small,
+    .google-weather-card .gw-moon-live-events,
+    .google-weather-card .gw-moon-live-events span {
+        font-size: 9px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-wind-stat span {
+        color: #5d7189 !important;
+        font-size: 9.5px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-wind-stat strong {
+        color: #142b49 !important;
+        font-size: 10.5px !important;
+        line-height: 1.4 !important;
+        font-weight: 700 !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+    }
+    .google-weather-card .gw-wind-stat #gw-live-wind-speed {
+        color: #1747a6 !important;
+        font-size: 14px !important;
+    }
+    .google-weather-card .gw-wind-note,
+    .google-weather-card .gw-live-wind-note {
+        color: #5b7089 !important;
+        font-size: 8.5px !important;
+        line-height: 1.45 !important;
+    }
+    .google-weather-card .gw-live-wind-source-label,
+    .google-weather-card .gw-live-wind-source {
+        font-size: 9px !important;
+        line-height: 1.35 !important;
+    }
+    .google-weather-card .gw-beaufort-scale-title,
+    .google-weather-card .gw-beaufort-scale-labels {
+        font-size: 8.5px !important;
+        line-height: 1.4 !important;
+    }
+    .google-weather-card .gw-astro-panel .gw-moon-live-strip {
+        margin-top: 8px !important;
+        padding: 8px 9px !important;
+    }
+    @media (max-width: 360px) {
+        .google-weather-card .gw-astro-item span { font-size: 8.5px !important; }
+        .google-weather-card .gw-astro-item strong { font-size: 11px !important; }
+        .google-weather-card .gw-wind-stat span { font-size: 8.5px !important; }
+        .google-weather-card .gw-wind-stat strong { font-size: 9px !important; }
+        .google-weather-card .gw-wind-stat #gw-live-wind-speed { font-size: 12px !important; }
+    }
+
+
+    .google-weather-card .gw-current-reading .gw-temp {
+        font-family: "Space Mono", "Segoe UI", monospace !important;
+        font-weight: 700 !important;
+        letter-spacing: -.75px !important;
+        font-variant-numeric: tabular-nums lining-nums !important;
+        font-feature-settings: "tnum" 1, "lnum" 1 !important;
+        text-rendering: geometricPrecision;
+        padding-right: 2px !important;
+    }
+
 </style>
 </head>
 <body>
@@ -4244,14 +5009,35 @@
         }).join('');
     }
 
-    function gwRenderMinuteForecast(minutesData) {
-        const segments = minutesData && Array.isArray(minutesData.segments) ? minutesData.segments : [];
-        if (!segments.length) return '<div class="gw-note">A kísérleti perces csapadék-előrejelzés jelenleg nem érhető el.</div>';
-        const wet = segments.filter(s => s && s.type && s.type !== 'NONE' && s.type !== 'DOMINANT_PRECIPITATION_TYPE_UNSPECIFIED' && (Number(s.probability) > 0 || (s.qpf && Number(s.qpf.quantity) > 0)));
-        if (!wet.length) return `<div class="gw-note gw-note-ok">A Google perces modellje jelenleg nem jelez számottevő csapadékot a következő órákra. <span class="gw-section-note">${segments.length} szegmens alapján</span></div>`;
-        const next = wet.slice(0, 4).map(s => `${gwDateTime(s.timeFrame && s.timeFrame.startTime)}: ${gwWeatherEnumLabel(s.type)}${gwHas(s.probability) ? ` (${gwNumber(s.probability)}%)` : ''}${s.intensity && s.intensity !== 'NO_INTENSITY' ? ` · ${gwWeatherEnumLabel(s.intensity).toLocaleLowerCase('hu-HU')}` : ''}`).join(' · ');
-        const first = wet[0];
-        return `<div class="gw-note">🌧️ <strong>Csapadékjelzés a következő 6 órában</strong><br>${gwEsc(next)}<br><span class="gw-section-note">A perces előrejelzés kísérleti Google Weather-funkció.</span><details class="gw-details gw-small-details"><summary>Előrejelzési részletek (${segments.length} szegmens)</summary><div class="gw-detail-grid">${gwDetail('Első jelzett időpont', gwDateTime(first.timeFrame && first.timeFrame.startTime, true))}${gwDetail('Csapadék típusa', gwWeatherEnumLabel(first.type))}${gwDetail('Valószínűség', gwNumber(first.probability), '%')}${gwDetail('Intenzitás', first.intensity ? gwWeatherEnumLabel(first.intensity) : '—')}${gwDetail('Várható csapadék', first.qpf ? gwNumber(first.qpf.quantity, 2) : '—', 'mm')}${gwDetail('Várható hó (vízegyenérték)', first.snowfallAmount ? gwNumber(first.snowfallAmount.quantity, 2) : '—', 'mm')}</div></details></div>`;
+    function gwRenderUpcomingPrecipitation(hours) {
+        // A Google Weather API nem biztosít támogatott, percről percre frissülő nowcastot.
+        // A következő hat órát ezért a már lekért órás előrejelzésből jelenítjük meg,
+        // extra Google API-hívás nélkül.
+        const nextHours = Array.isArray(hours) ? hours.slice(0, 6) : [];
+        if (!nextHours.length) return '<div class="gw-note">Az órás előrejelzés jelenleg nem érhető el, ezért a közelgő csapadék sem állapítható meg.</div>';
+        const getPrecip = item => item && item.precipitation || {};
+        const events = nextHours.map((item, index) => {
+            const precip = getPrecip(item);
+            const chanceRaw = precip.probability && precip.probability.percent;
+            const amountRaw = precip.qpf && precip.qpf.quantity;
+            const chance = chanceRaw === undefined || chanceRaw === null || chanceRaw === '' ? null : Number(chanceRaw);
+            const amount = amountRaw === undefined || amountRaw === null || amountRaw === '' ? null : Number(amountRaw);
+            const type = precip.type || precip.precipitationType || '';
+            const conditionType = item && item.weatherCondition && item.weatherCondition.type || '';
+            const typeText = type ? gwWeatherEnumLabel(type) : ((Number.isFinite(amount) && amount > 0) ? 'Csapadék' : 'Csapadék esélye');
+            return { item, index, precip, chance: Number.isFinite(chance) ? chance : null, amount: Number.isFinite(amount) ? amount : null, typeText, conditionType };
+        }).filter(entry => {
+            const type = String(entry.precip.type || entry.precip.precipitationType || '').toUpperCase();
+            return (entry.chance !== null && entry.chance >= 20) || (entry.amount !== null && entry.amount > 0.01) || /RAIN|SNOW|SLEET|ICE|DRIZZLE|PRECIPITATION|HAIL|ESŐ|HÓ|ZÁPOR/.test(type);
+        });
+        if (!events.length) return `<div class="gw-note gw-note-ok">Az órás előrejelzés alapján a következő 6 órára nem látható számottevő csapadékjelzés. <span class="gw-section-note">${nextHours.length} órás előrejelzési érték alapján</span></div>`;
+        const cards = events.slice(0, 4).map(entry => {
+            const time = gwDateTime(entry.item.interval && entry.item.interval.startTime, true);
+            const chance = entry.chance === null ? '—' : `${gwEsc(gwNumber(entry.chance))}%`;
+            const amount = entry.amount === null ? '—' : `${gwEsc(gwNumber(entry.amount, 1))} mm`;
+            return `<div style="min-width:0;padding:8px 10px;border:1px solid rgba(14,165,233,.22);border-radius:9px;background:rgba(224,242,254,.48);display:flex;flex-direction:column;gap:3px"><strong style="font-size:.82rem;color:#0f3b64">${gwEsc(time)}</strong><span style="font-size:.76rem;font-weight:700;color:#0369a1;overflow-wrap:anywhere">${gwEsc(entry.typeText)}</span><span style="font-size:.73rem;color:#334155">Esély: <b>${chance}</b></span><span style="font-size:.73rem;color:#334155">Várható mennyiség: <b>${amount}</b></span></div>`;
+        }).join('');
+        return `<div class="gw-note">🌧️ <strong>Csapadék a következő órákban</strong><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,135px),1fr));gap:7px;margin-top:8px">${cards}</div><span class="gw-section-note">Az órás előrejelzésből számítva; ez nem perces nowcast.</span></div>`;
     }
 
     function gwNodesCompatible(a, b) {
@@ -4370,7 +5156,6 @@
         const hourly = data.hourly && data.hourly.forecastHours || [];
         const daily = data.daily && data.daily.forecastDays || [];
         const history = data.history && data.history.historyHours || [];
-        const minutes = data.minutes || {};
         const moon = payload && payload.moon || {};
         const currentAvailable = !!(data.current && (data.current.temperature || data.current.weatherCondition));
 
@@ -4393,14 +5178,21 @@
         const qpf = current.precipitation && current.precipitation.qpf ? gwNumber(current.precipitation.qpf.quantity, 1) : '—';
         const currentMeta = payload.meta && payload.meta.current;
         const updatedTime = currentMeta ? gwDateTime(currentMeta.updatedAtIso, true) : gwDateTime(new Date().toISOString(), true);
+        const staleMetaEntries = Object.entries(payload.meta || {}).filter(entry => entry[1] && entry[1].stale);
+        const missingResourceEntries = Object.entries(payload.errors || {}).filter(entry => !(payload.meta && payload.meta[entry[0]] && payload.meta[entry[0]].stale));
+        const weatherResourceNames = {current:'aktuális állapot',hourly:'órás előrejelzés',daily:'10 napos előrejelzés',history:'időjárási előzmény'};
+        const staleNotice = staleMetaEntries.length || missingResourceEntries.length
+            ? `<div class="gw-note" style="margin-bottom:8px;border-color:#fcd34d;background:#fffbeb;color:#92400e;">⚠️ ${staleMetaEntries.length ? `Korábbi, még megjeleníthető adatok: ${gwEsc(staleMetaEntries.map(entry => weatherResourceNames[entry[0]] || entry[0]).join(', '))}.` : ''} ${missingResourceEntries.length ? `Átmenetileg nem érhető el: ${gwEsc(missingResourceEntries.map(entry => weatherResourceNames[entry[0]] || entry[0]).join(', '))}.` : ''} Az időpontok az utolsó sikeres lekérés idejét mutatják.</div>`
+            : '';
         const cloudCoverMarkup = `<div class="gw-cloud-cover" data-gw-key="cloud-cover"><span class="gw-cloud-cover-icon">${gwCloudCoverIcon()}</span><span class="gw-cloud-cover-copy"><strong>Pillanatnyi felhőborítottság</strong><small>${gwEsc(gwCloudCoverLabel(current.cloudCover))}</small><span class="gw-cloud-cover-meter"><span style="width:${gwHas(current.cloudCover) ? Math.max(0, Math.min(100, Number(current.cloudCover) || 0)) : 0}%"></span></span></span><span class="gw-cloud-cover-value">${gwEsc(gwHas(current.cloudCover) ? gwNumber(current.cloudCover) : '—')}<small>%</small></span></div>`;
 
         const weatherCardMarkup = `<div class="google-weather-card" data-gw-key="weather-card">
             <div class="gw-topbar" data-gw-key="topbar">
                 <div><div class="gw-eyebrow">KÉPBEN! · IDŐJÁRÁS</div><div class="gw-city">Nyíregyháza</div><div class="gw-coordinates">47.9554° É · 21.7167° K · Magyarország</div></div>
-                <div style="text-align:right"><span class="gw-live-pill"><span class="gw-live-dot"></span> GOOGLE · AKTUÁLIS ADAT</span><br><button class="gw-refresh-button" onclick="loadGoogleWeatherCard(true)" title="Minden időjárási adat újbóli lekérése" aria-label="Minden időjárási adat frissítése">↻ Frissítés</button><div class="gw-refresh-meta">Nyitott oldalnál minden adat frissül: :00, :10, :20, :30, :40, :50</div></div>
+                <div style="text-align:right"><span class="gw-live-pill"><span class="gw-live-dot"></span> GOOGLE · AKTUÁLIS ADAT</span><br><button class="gw-refresh-button" onclick="loadGoogleWeatherCard(true)" title="Időjárásadatok ellenőrzése a frissítési szabályok szerint" aria-label="Időjárásadatok ellenőrzése a frissítési szabályok szerint">↻ Frissítés</button><div class="gw-refresh-meta">Nyitott oldalnál 10 percenként ellenőrzés · előrejelzések ritkábban frissülnek</div></div>
             </div>
             ${googleWeatherLastError ? `<div class="gw-note" style="margin-bottom:8px;border-color:#fecaca;background:#fef2f2;color:#991b1b;">Az időjárás frissítése most nem sikerült; az utolsó sikeres adatok láthatók. ${gwEsc(googleWeatherLastError)}</div>` : ''}
+            ${staleNotice}
             <div class="gw-hero" data-gw-key="hero">
                 <div class="gw-hero-main"><div class="gw-current-topline" data-gw-key="current-topline">
                     <div class="gw-current-reading">
@@ -4456,7 +5248,7 @@
                 ${gwMetric('Látástávolság', current.visibility ? gwNumber(current.visibility.distance, 1) : '—', current.visibility ? (gwVisibilityUnit(current.visibility.unit)) : '')}
             </div></div>
             <div class="gw-astro-slot gw-astro-section" data-gw-key="astro-slot">${gwRenderAstronomy(today, moon, current)}</div>
-            <div class="gw-section" data-gw-key="minute-section"><div class="gw-section-heading"><span>Perces csapadék-előrejelzés</span><span class="gw-section-note">Következő 6 óra</span></div>${gwRenderMinuteForecast(minutes)}</div>
+            <div class="gw-section" data-gw-key="minute-section"><div class="gw-section-heading"><span>Közelgő csapadék</span><span class="gw-section-note">Következő 6 óra · órás előrejelzés</span></div>${gwRenderUpcomingPrecipitation(hourly)}</div>
             <div class="gw-section" data-gw-key="hourly-section"><div class="gw-section-heading"><span>Óránkénti előrejelzés · következő 24 óra</span><span class="gw-section-note">Lapozható</span></div><div class="gw-hour-scroll" data-gw-key="hourly-cards">${gwRenderHourly(hourly)}</div>${gwRenderHourlyDetailsPanel(hourly)}</div>
             <div class="gw-section" data-gw-key="daily-section"><div class="gw-section-heading"><span>10 napos előrejelzés</span><span class="gw-section-note">Maximum / minimum</span></div><div class="gw-day-grid" data-gw-key="daily-cards">${gwRenderDayCards(daily)}</div>${gwRenderDailyDetailsPanel(daily, 'main')}</div>
             <div class="gw-section" data-gw-key="history-section"><div class="gw-section-heading"><span>Elmúlt 24 óra időjárása</span><span class="gw-section-note">Mért / modelladatok</span></div><div class="gw-history-scroll" data-gw-key="history-cards">${gwRenderHistory(history, daily)}</div></div>
@@ -4500,11 +5292,10 @@
             clearGoogleWeatherRefreshTimer();
             return;
         }
-        if (getGoogleWeatherClientSlot() !== googleWeatherLastClientSlot || !googleWeatherFullData) {
-            Promise.resolve(loadGoogleWeatherCard(false)).finally(scheduleNextGoogleWeatherRefresh);
-        } else {
-            scheduleNextGoogleWeatherRefresh();
-        }
+        // Oldal-/fülvisszatéréskor azonnal ellenőrizzük a Workert. A Worker saját,
+        // erőforrásonkénti TTL-je dönti el, kell-e valódi Google API-kérést indítani.
+        googleWeatherLastClientSlot = null;
+        Promise.resolve(loadGoogleWeatherCard(false)).finally(scheduleNextGoogleWeatherRefresh);
     }
 
     function ensureGoogleWeatherRefreshScheduler() {
@@ -4531,16 +5322,21 @@
             renderForecastStripCard();
             return;
         }
-        if (cardRoot && !googleWeatherFullData) cardRoot.innerHTML = '<div class="gw-loading">Időjárási adatok betöltése…<small>Nyíregyháza · az összes időjárási adat együtt frissül a következő tízperces időpontban</small></div>';
+        if (cardRoot && !googleWeatherFullData) cardRoot.innerHTML = '<div class="gw-loading">Időjárási adatok betöltése…<small>Nyíregyháza · az aktuális adatot 10 percenként ellenőrizzük, az előrejelzéseket a saját frissítési ütemük szerint</small></div>';
         googleWeatherFetchPromise = (async function() {
             try {
-                const requestUrl = forceUiRefresh
-                    ? `${GOOGLE_WEATHER_CARD_API_URL}?refresh=1&ts=${Date.now()}`
-                    : `${GOOGLE_WEATHER_CARD_API_URL}?slot=${requestSlot}`;
+                // A gomb és az automatikus tick is a cache-aware Worker-végpontot használja.
+                // A kliensoldali forceUiRefresh csak a helyi azonos időablakos rövidzárat kerüli meg;
+                // soha nem kényszeríti mind az öt Google-adattípus új lekérését.
+                const requestUrl = `${GOOGLE_WEATHER_CARD_API_URL}?slot=${requestSlot}`;
                 const response = await fetch(requestUrl, { method: 'GET', cache: 'no-store', headers: { 'Accept': 'application/json' } });
                 const payload = await response.json().catch(() => null);
                 if (!response.ok || !payload || !payload.count || !payload.data || !payload.data.current) {
-                    throw new Error((payload && payload.error) || `Google Weather HTTP ${response.status}: nem érkezett aktuális állapot`);
+                    const apiDiagnostics = payload && payload.errors
+                        ? Object.entries(payload.errors).slice(0, 2).map(([name, message]) => `${name}: ${message}`).join(' | ')
+                        : '';
+                    const baseMessage = (payload && payload.error) || `Google Weather HTTP ${response.status}: nem érkezett aktuális állapot`;
+                    throw new Error(apiDiagnostics ? `${baseMessage} Részletek: ${apiDiagnostics}` : baseMessage);
                 }
                 googleWeatherFullData = payload;
                 googleWeatherLastClientFetchAt = Date.now();
