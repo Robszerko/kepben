@@ -204,8 +204,22 @@
     .gw-astro-slot { margin-top:12px; }
     .gw-astro-panel { padding:11px; border:1px solid #cbdcf0; border-radius:14px; background:linear-gradient(145deg,#ffffff,#eff7ff); }
     .gw-astro-heading { display:flex; justify-content:space-between; margin-bottom:8px; color:#1d427d; font-size:10px; font-weight:800; text-transform:uppercase; }
-    .gw-astro-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; }
-    .gw-astro-item { padding:8px; border:1px solid #d3e0ef; border-radius:10px; background:#fff; } .gw-astro-item span { display:block; color:#5c718a; font-size:9px; } .gw-astro-item strong { display:block; margin-top:2px; color:#142b49; font:700 12px 'Space Mono',monospace; }
+    .gw-astro-grid { display:grid;grid-template-columns:minmax(0,1fr);gap:7px; }
+    .gw-astro-item { padding:9px;border:1px solid #d3e0ef;border-radius:11px;background:#fff; }
+    .gw-astro-sun-times,.gw-astro-moon-times { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px; }
+    .gw-astro-time { padding:7px 8px;border:1px solid #e2eaf5;border-radius:9px;background:linear-gradient(145deg,#fff,#f8fbff); }
+    .gw-astro-time span { display:block;color:#5c718a;font-size:9px;font-weight:700; }
+    .gw-astro-time strong { display:block;margin-top:2px;color:#142b49;font:800 14px 'Space Mono',monospace; }
+    .gw-astro-moon-wrap { margin-top:8px;padding-top:8px;border-top:1px solid #e5edf7; }
+    .gw-astro-moon-kicker { margin-bottom:6px;color:#4338a5;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.04em; }
+    .gw-astro-phase-row { display:flex;align-items:center;gap:9px;margin-top:8px;padding:7px 8px;border:1px solid #dbe2fb;border-radius:10px;background:linear-gradient(110deg,#f8faff,#eef2ff); }
+    .gw-astro-phase-icon { width:42px;height:42px;flex:0 0 42px;filter:drop-shadow(0 2px 4px rgba(49,46,129,.18)); }
+    .pws-sky-moon-svg { display:block;width:25px;height:25px; }
+    .gw-astro-phase-copy { min-width:0; }
+    .gw-astro-phase-copy span { display:block;color:#6366a2;font-size:9px;font-weight:700; }
+    .gw-astro-phase-copy strong { display:block;margin-top:2px;color:#312e81;font-size:12px;font-weight:800; }
+    .gw-astro-phase-copy small { display:block;margin-top:2px;color:#6366a2;font-size:9px; }
+    .gw-astro-now { margin-left:auto;align-self:flex-start;padding:4px 6px;border-radius:99px;background:#e0e7ff;color:#3730a3;font-size:8px;font-weight:800;white-space:nowrap; }
     .gw-solar-now { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:6px 8px; margin:7px 0; padding:9px; border:1px solid #f0d0ae; border-radius:11px; background:linear-gradient(120deg,#fffdfa,#fff7ed); }
     .gw-solar-now-title { color:#8f3a16; font-size:10px; font-weight:800; display:flex; align-items:center; gap:5px; } .gw-solar-now-status { color:#92502b; font-size:9px; font-weight:700; text-align:right; }
     .gw-solar-now-values { grid-column:1/-1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; } .gw-solar-now-value { padding:7px; border:1px solid #f1d9c1; border-radius:9px; background:#fff; }
@@ -321,6 +335,84 @@
         box-shadow: 0 2px 7px rgba(15, 23, 42, 0.045), inset 0 1px 0 rgba(255, 255, 255, 0.85);
         transition: background 0.5s ease, border-color 0.5s ease;
     }
+
+    /* Dinamikus, de statikus (animációmentes) meteorológiai csempearculatok. */
+    .pws-wg-card[data-gw-key="pws-card-temp" data-sky-time="${skyDayNight}"] { background:linear-gradient(145deg,#f1faff 0%,#dceeff 100%); border-color:#b6d7f2; }
+    .pws-wg-card[data-gw-key="pws-card-hum" data-sky-time="${skyDayNight}"] { background:linear-gradient(145deg,#f0fbff 0%,#d6f1fb 100%); border-color:#b8e2f1; }
+    .pws-wg-card[data-gw-key="pws-card-dew" data-sky-time="${skyDayNight}"] { background:linear-gradient(145deg,#f1fcf8 0%,#d9f5e8 100%); border-color:#b9e6d2; }
+    .pws-wg-card[data-gw-key="pws-card-gust" data-sky-time="${skyDayNight}"] { background:linear-gradient(145deg,#f6f7ff 0%,#e4e9ff 100%); border-color:#ccd3f7; }
+    .pws-wg-card[data-gw-key="pws-card-precip" data-sky-time="${skyDayNight}"] { background:linear-gradient(145deg,#f1f8ff 0%,#d8eaff 100%); border-color:#b9d3f1; }
+    .pws-wg-card[data-gw-key="pws-card-pres" data-sky-time="${skyDayNight}"] { background:linear-gradient(145deg,#f5f6ff 0%,#e5e8fa 100%); border-color:#cdd3ee; }
+    .pws-wg-card[data-gw-key="pws-card-uv" data-sky-time="${skyDayNight}"] { background:linear-gradient(145deg,#fff9ee 0%,#ffedca 100%); border-color:#f2d6a8; }
+    .pws-wg-card[data-gw-key="pws-card-rad" data-sky-time="${skyDayNight}"] { background:linear-gradient(145deg,#fffcef 0%,#ffefbd 100%); border-color:#efdfa5; }
+    .pws-wg-card.pws-sky-scene-card {
+        position:relative; isolation:isolate; overflow:hidden; min-height:210px; padding:9px 7px;
+        border:1px solid rgba(255,255,255,.28); color:#f8fafc;
+        background:linear-gradient(160deg,#4fa8e7 0%,#1d5e96 48%,#17365d 100%);
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 4px 12px rgba(15,23,42,.16);
+    }
+    .pws-sky-scene-card::after { content:""; position:absolute; inset:0; z-index:0; pointer-events:none; background:linear-gradient(180deg,rgba(5,18,34,.16) 0%,rgba(5,18,34,.30) 44%,rgba(5,18,34,.78) 100%); }
+    .pws-sky-scene-card[data-sky-scene^="night"] { background:linear-gradient(160deg,#0c1837 0%,#172d51 54%,#253e62 100%); border-color:#405677; }
+    .pws-sky-scene-card[data-sky-scene$="overcast"],.pws-sky-scene-card[data-sky-scene$="fog"] { background:linear-gradient(160deg,#7b8b9a 0%,#536779 55%,#33485a 100%); }
+    .pws-sky-scene-card[data-sky-scene$="rain"],.pws-sky-scene-card[data-sky-scene$="rain_heavy"],.pws-sky-scene-card[data-sky-scene$="thunder"],.pws-sky-scene-card[data-sky-scene$="mix"] { background:linear-gradient(160deg,#354c66 0%,#243c55 56%,#182d44 100%); }
+    .pws-sky-scene-card[data-sky-scene$="snow"] { background:linear-gradient(160deg,#9fc8e3 0%,#5d89a8 56%,#355b7b 100%); }
+    .pws-sky-art { position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+    .pws-sky-starfield { position:absolute; inset:0; opacity:0; background-image:radial-gradient(circle at 12% 19%,rgba(255,255,255,.95) 0 1px,transparent 1.6px),radial-gradient(circle at 34% 11%,rgba(255,255,255,.8) 0 1px,transparent 1.7px),radial-gradient(circle at 76% 18%,rgba(255,255,255,.8) 0 1px,transparent 1.7px),radial-gradient(circle at 88% 38%,rgba(255,255,255,.75) 0 1px,transparent 1.7px),radial-gradient(circle at 58% 29%,rgba(255,255,255,.7) 0 1px,transparent 1.7px); }
+    .pws-sky-scene-card[data-sky-scene^="night"] .pws-sky-starfield { opacity:.9; }
+    .pws-sky-orb { position:absolute; display:block; border-radius:50%; }
+    .pws-sky-sun-orb { width:22px;height:22px;left:72%;top:20%;background:radial-gradient(circle at 35% 30%,#fff9c2 0%,#ffe36b 48%,#f6a623 100%);box-shadow:0 0 0 5px rgba(255,220,100,.11),0 0 14px rgba(255,218,100,.28); }
+    .pws-sky-moon-orb { width:25px;height:25px;overflow:visible;transform:translate(-50%,-50%);filter:drop-shadow(0 0 5px rgba(226,238,255,.30)); }
+    .pws-sky-moon-orb svg { display:block;width:100%;height:100%; }
+    .pws-sky-cloud { position:absolute; height:17px; width:53px; border-radius:18px; background:rgba(246,250,255,.88); box-shadow:-12px 5px 0 -2px rgba(246,250,255,.88),13px 5px 0 -3px rgba(246,250,255,.88),0 5px 9px rgba(12,26,44,.12); }
+    .pws-sky-cloud.is-dark { background:rgba(67,84,103,.92); box-shadow:-12px 5px 0 -2px rgba(67,84,103,.92),13px 5px 0 -3px rgba(67,84,103,.92),0 5px 9px rgba(12,26,44,.18); }
+    .pws-sky-rain-streaks { position:absolute; inset:0; opacity:.48; background:repeating-linear-gradient(105deg,transparent 0 13px,rgba(199,229,255,.62) 14px 15px,transparent 16px 27px); }
+    .pws-sky-snow-dots { position:absolute; inset:0; opacity:.74; background-image:radial-gradient(circle at 16% 62%,#fff 0 1.5px,transparent 2px),radial-gradient(circle at 38% 76%,#fff 0 1.2px,transparent 2px),radial-gradient(circle at 62% 65%,#fff 0 1.7px,transparent 2.2px),radial-gradient(circle at 83% 80%,#fff 0 1.3px,transparent 2px),radial-gradient(circle at 91% 56%,#fff 0 1px,transparent 1.8px); }
+    .pws-sky-fog-bands { position:absolute;left:-8%;right:-8%;top:48%;height:30%;opacity:.45;background:repeating-linear-gradient(180deg,rgba(242,248,255,.6) 0 5px,transparent 7px 14px); }
+    .pws-sky-lightning { position:absolute;right:20%;top:38%;font-size:24px;color:#fff2a6;text-shadow:0 0 9px rgba(255,245,174,.45); }
+    .pws-sky-scene-card > :not(.pws-sky-art) { position:relative; z-index:1; }
+    .pws-sky-scene-card .pws-wg-card-head,.pws-sky-scene-card .pws-wg-val,.pws-sky-scene-card .pws-wg-unit,.pws-sky-scene-card .pws-wg-sub2 { color:#f8fafc; }
+    .pws-sky-scene-card .pws-wg-sky-layers-mini { color:#f8fafc; }
+    .pws-sky-scene-card .pws-wg-sky-layers-mini span { background:rgba(12,28,49,.44);border-color:rgba(255,255,255,.22); }
+    .pws-sky-art-wrap { width:100%;height:58px;position:relative;overflow:hidden;margin:1px 0 3px; }
+    .pws-sky-astro-line { margin-top:3px;color:rgba(239,246,255,.92);font-size:9.5px;font-weight:700;line-height:1.25;letter-spacing:.05px; }
+    .pws-wg-card[data-gw-key="pws-card-temp"] .pws-wg-card-head,.pws-wg-card[data-gw-key="pws-card-hum"] .pws-wg-card-head,.pws-wg-card[data-gw-key="pws-card-dew"] .pws-wg-card-head,.pws-wg-card[data-gw-key="pws-card-gust"] .pws-wg-card-head,.pws-wg-card[data-gw-key="pws-card-precip"] .pws-wg-card-head,.pws-wg-card[data-gw-key="pws-card-pres"] .pws-wg-card-head,.pws-wg-card[data-gw-key="pws-card-uv"] .pws-wg-card-head,.pws-wg-card[data-gw-key="pws-card-rad"] .pws-wg-card-head { color:#20354d; }
+    .pws-wg-card[data-sky-time="night"]:not(.pws-sky-scene-card) { color:#e8f1ff; border-color:rgba(153,180,220,.34); box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 4px 11px rgba(5,18,38,.12); }
+    .pws-wg-card[data-sky-time="night"][data-gw-key="pws-card-temp"] { background:linear-gradient(145deg,#253b5b 0%,#152a47 100%); }
+    .pws-wg-card[data-sky-time="night"][data-gw-key="pws-card-hum"] { background:linear-gradient(145deg,#1e465b 0%,#123247 100%); }
+    .pws-wg-card[data-sky-time="night"][data-gw-key="pws-card-dew"] { background:linear-gradient(145deg,#244b48 0%,#173a39 100%); }
+    .pws-wg-card[data-sky-time="night"][data-gw-key="pws-card-gust"] { background:linear-gradient(145deg,#39385f 0%,#242a4b 100%); }
+    .pws-wg-card[data-sky-time="night"][data-gw-key="pws-card-precip"] { background:linear-gradient(145deg,#244966 0%,#18354e 100%); }
+    .pws-wg-card[data-sky-time="night"][data-gw-key="pws-card-pres"] { background:linear-gradient(145deg,#333d65 0%,#202b4a 100%); }
+    .pws-wg-card[data-sky-time="night"][data-gw-key="pws-card-uv"] { background:linear-gradient(145deg,#5a432e 0%,#3d3028 100%); }
+    .pws-wg-card[data-sky-time="night"][data-gw-key="pws-card-rad"] { background:linear-gradient(145deg,#51432b 0%,#352f27 100%); }
+    .pws-wg-card[data-sky-time="night"]:not(.pws-sky-scene-card) .pws-wg-card-head,.pws-wg-card[data-sky-time="night"]:not(.pws-sky-scene-card) .pws-wg-sub,.pws-wg-card[data-sky-time="night"]:not(.pws-sky-scene-card) .pws-wg-sub2,.pws-wg-card[data-sky-time="night"]:not(.pws-sky-scene-card) .pws-wg-unit { color:#e6efff; }
+    .pws-wg-card[data-sky-time="night"]:not(.pws-sky-scene-card) .pws-wg-val { color:#ffffff !important; }
+    .pws-wg-card[data-sky-time="night"]:not(.pws-sky-scene-card) .pws-wg-temp-feels { background:rgba(10,25,43,.52);border-color:rgba(255,255,255,.18);color:#eaf3ff; }
+    /* A hőmérséklet-kártya teljes felülete a mért PWS-hőfokhoz igazodik; minden effekt statikus, GPU-kímélő. */
+    .pws-wg-card[data-gw-key="pws-card-temp"] { position:relative; isolation:isolate; overflow:hidden; }
+    .pws-wg-card[data-gw-key="pws-card-temp"]::before { content:""; position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.68; }
+    .pws-wg-card[data-gw-key="pws-card-temp"] > * { position:relative; z-index:1; }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="deep-freeze"] { background:linear-gradient(145deg,#e7f7ff 0%,#c2e4f5 48%,#9bcce7 100%) !important; border-color:#70b4dc !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 3px 11px rgba(14,116,144,.13); }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="deep-freeze"]::before { background:radial-gradient(ellipse at 12% 8%,rgba(255,255,255,.96),transparent 38%),radial-gradient(ellipse at 94% 92%,rgba(125,211,252,.42),transparent 46%),repeating-linear-gradient(132deg,transparent 0 26px,rgba(255,255,255,.18) 27px 28px,transparent 29px 48px); }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="frost"] { background:linear-gradient(145deg,#f1faff 0%,#d9edf8 52%,#c3e0f0 100%) !important; border-color:#9bcbe5 !important; }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="frost"]::before { background:radial-gradient(ellipse at 10% 6%,rgba(255,255,255,.92),transparent 43%),radial-gradient(ellipse at 92% 90%,rgba(186,230,253,.48),transparent 48%); }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="cold"] { background:linear-gradient(145deg,#eff9fc 0%,#dceff4 55%,#cce6ee 100%) !important; border-color:#a8d5e2 !important; }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="cold"]::before { background:radial-gradient(ellipse at 14% 4%,rgba(255,255,255,.82),transparent 42%),radial-gradient(ellipse at 90% 95%,rgba(165,243,252,.25),transparent 46%); }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="cool"] { background:linear-gradient(145deg,#f0faf8 0%,#dff2ed 100%) !important; border-color:#a8d9cd !important; }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="mild"] { background:linear-gradient(145deg,#f3faef 0%,#e1efd9 100%) !important; border-color:#b8d6a8 !important; }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="warm"] { background:linear-gradient(145deg,#fff9e9 0%,#faedc9 48%,#f7e0ae 100%) !important; border-color:#e8cf91 !important; }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="warm"]::before { background:radial-gradient(ellipse at 88% 8%,rgba(255,255,255,.9),transparent 36%),radial-gradient(ellipse at 8% 100%,rgba(251,191,36,.18),transparent 52%); }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="hot"] { background:linear-gradient(145deg,#fff4e8 0%,#f9dfc4 52%,#f5c9a5 100%) !important; border-color:#eab98d !important; }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="hot"]::before { background:radial-gradient(ellipse at 88% 8%,rgba(255,255,255,.85),transparent 34%),radial-gradient(ellipse at 12% 100%,rgba(249,115,22,.22),transparent 54%); }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="extreme-heat"] { background:linear-gradient(145deg,#ffefe5 0%,#f8d0bd 52%,#f2b49d 100%) !important; border-color:#e6a08b !important; }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="extreme-heat"]::before { background:radial-gradient(ellipse at 88% 8%,rgba(255,255,255,.82),transparent 34%),radial-gradient(ellipse at 10% 100%,rgba(225,29,72,.20),transparent 54%); }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="deep-freeze"] .pws-wg-card-head,
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="frost"] .pws-wg-card-head,
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="cold"] .pws-wg-card-head { color:#164e63 !important; }
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="deep-freeze"] .pws-wg-temp-feels,
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="frost"] .pws-wg-temp-feels,
+    .pws-wg-card[data-gw-key="pws-card-temp"][data-temp-band="cold"] .pws-wg-temp-feels { background:rgba(255,255,255,.58);border-color:rgba(71,133,166,.24);color:#164e63; }
+
     .pws-wg-card-head { display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-size: 11.5px; font-weight: 800; color: #1e293b; margin-bottom: 3px; line-height: 1.2; width: 100%; }
     .pws-wg-ico { width: 15px; height: 15px; flex-shrink: 0; display: inline-block; }
     .pws-wg-ico-lg { width: 17px; height: 17px; flex-shrink: 0; display: inline-block; }
@@ -337,9 +429,10 @@
 
     /* HŐÉRZET ÉS ÉGKÉP PILL */
     .pws-wg-temp-feels { margin-top: 4px; padding: 3px 7px; border-radius: 7px; background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(15, 23, 42, 0.10); font-size: 11px; font-weight: 700; color: #1e293b; line-height: 1.25; max-width: 100%; font-variant-numeric: tabular-nums; }
-    .pws-wg-sky-layers-mini { margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 3px; flex-wrap: wrap; font-size: 10.5px; font-weight: 700; color: #334155; font-variant-numeric: tabular-nums; }
-    .pws-wg-sky-layers-mini span { background: rgba(255, 255, 255, 0.82); border: 1px solid rgba(15, 23, 42, 0.08); border-radius: 5px; padding: 1px 5px; }
-    .pws-wg-sky-src-tag { margin-top: 3px; font-size: 10px; font-weight: 700; color: #1d4ed8; }
+    .pws-wg-sky-layers-mini { margin-top:6px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;font-size:9px;font-weight:700;color:#f8fafc;font-variant-numeric:tabular-nums; }
+    .pws-wg-sky-layers-mini span { display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0;padding:4px 2px;border:1px solid rgba(255,255,255,.22);border-radius:7px;background:rgba(12,28,49,.48); }
+    .pws-wg-sky-layers-mini small { font-size:8px;line-height:1.1;color:rgba(239,246,255,.82);font-weight:700; }
+    .pws-wg-sky-layers-mini strong { font-size:11px;line-height:1.1;color:#fff;font-weight:800; }
 
     /* KREATÍV GRAFIKUS TELEMETRIA SÁVOK (NAGYOBB, OLVASHATÓ BETŰK) */
     .pws-wg-extra-section { margin-top: 9px; background: rgba(255, 255, 255, 0.94); border: 1px solid #c9d7e6; border-radius: 14px; padding: 11px; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03); }
@@ -649,7 +742,7 @@
     </div>
 
     <div class="ticker-block">
-        <div class="header-live-badge" id="ticker-live-badge" title="Pillanatnyi aktív olvasók az oldalon"><svg class="header-live-person-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span id="header-online-count">0</span></div>
+        <div class="header-live-badge" id="ticker-live-badge" title="Pillanatnyi aktív olvasók az oldalon"><svg class="header-live-person-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span id="header-online-count">0</span></div>
         <div class="ticker-content" id="news-ticker-content">
             <div class="ticker-news-wrapper" id="ticker-news-wrapper">
                 <div class="ticker-top-row"><span class="ticker-time" id="ticker-time">--:--</span><img class="ticker-source-logo" id="ticker-source-logo" src="" alt="" style="display:none;" loading="lazy" decoding="async"><span class="ticker-source-name" id="ticker-source-name">FORRÁS</span><a href="#" target="_blank" class="ticker-title-link" id="ticker-title">Hírszalag inicializálása...</a></div>
@@ -686,11 +779,13 @@
     const PWS_INYREG42_API_KEY = "f6d2efe5720d47ea92efe5720df7eaa8";
     const PWS_DEFAULT_BACKUP_STATIONS = ['INYREG59', 'INYREG56'];
     const GOOGLE_WEATHER_CARD_API_URL = "https://kepbenoszlop.androjid21.workers.dev/api/tv/google-weather-nyiregyhaza";
-    const KEPBEN_WEATHER_PROXY_URL = "https://kepben-weather-live.tkpflix.workers.dev";
+    const KEPBEN_WEATHER_PROXY_URL = "https://kepben-live.androjid23-1b8.workers.dev";
     const NYIREGYHAZA_LAT = 47.9554;
     const NYIREGYHAZA_LON = 21.7167;
 
     let localGyujtoData = null, localAdasData = null, localRatesData = null;
+    // A Worker 5 perces cronjának követése: csak a híreket ellenőrizzük, a Firebase/PWS modulokat nem indítjuk újra.
+    let newsLastSyncTimestamp = 0, newsLastProbeAt = 0, newsRefreshInFlight = false, newsRefreshTimerId = null;
     let blacklistKeywords = [], breakingKeywords = [], breakingExcludedMap = {};
     let pwsStationsList = [], pwsFetchIntervalId = null, pwsCachedResults = [], pwsCurrentIndex = 0, pwsStripCycleIntervalId = null;
 
@@ -722,6 +817,8 @@
 
     let googleWeatherFullData = null, googleWeatherExpandedHourKey = '', googleWeatherExpandedDayKey = '', googleWeatherExpandedStripDayKey = '', googleWeatherFetchPromise = null, googleWeatherLastClientFetchAt = 0, googleWeatherLastClientSlot = null, googleWeatherLastError = '', googleWeatherRefreshTimerId = null, googleWeatherRefreshListenersReady = false;
     const GOOGLE_WEATHER_REFRESH_SLOT_MS = 10 * 60 * 1000;
+    const NYIR_ASTRONOMY_CACHE_KEY = 'kb_nyir_astronomy_v1';
+    let nyirAstronomyState = { data: null, dateKey: '', savedAt: 0, lastAttemptAt: 0, loading: false, promise: null, lastError: '' };
     let idokepMapUrls = { now: "https://androidapi.idokep.hu/kistersegi/riaszt_1-3_transp.png", today: "https://androidapi.idokep.hu/kistersegi/riaszt_24_transp.png", tomorrow: "https://androidapi.idokep.hu/kistersegi/riaszt_48_transp.png" };
 
     const HEADER_THEMES = [
@@ -1041,6 +1138,170 @@
         else root.innerHTML = markup;
     }
 
+    function nyirLocalDateKey(dateObj = new Date()) {
+        const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Budapest', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(dateObj);
+        const o = Object.fromEntries(p.filter(x => x.type !== 'literal').map(x => [x.type, x.value]));
+        return `${o.year}-${o.month}-${o.day}`;
+    }
+    function getNyirAstronomyData() {
+        const key = nyirLocalDateKey();
+        if (nyirAstronomyState.dateKey === key && nyirAstronomyState.data) return nyirAstronomyState.data;
+        try {
+            const saved = JSON.parse(localStorage.getItem(NYIR_ASTRONOMY_CACHE_KEY) || 'null');
+            if (saved && saved.date === key && saved.data && saved.savedAt && (Date.now() - saved.savedAt) < 36 * 60 * 60 * 1000) {
+                nyirAstronomyState = { ...nyirAstronomyState, data: saved.data, dateKey: key, savedAt: saved.savedAt };
+                return saved.data;
+            }
+        } catch (e) {}
+        return null;
+    }
+    async function ensureNyirAstronomy(force = false) {
+        const key = nyirLocalDateKey();
+        const cached = getNyirAstronomyData();
+        if (nyirAstronomyState.promise) return nyirAstronomyState.promise;
+        if (!force && cached && nyirAstronomyState.savedAt && (Date.now() - nyirAstronomyState.savedAt) < 12 * 60 * 60 * 1000) return cached;
+        if (!force && nyirAstronomyState.lastAttemptAt && (Date.now() - nyirAstronomyState.lastAttemptAt) < 30 * 60 * 1000) return cached || null;
+        nyirAstronomyState.lastAttemptAt = Date.now();
+        nyirAstronomyState.loading = true;
+        nyirAstronomyState.promise = (async () => {
+            try {
+                const url = `${KEPBEN_WEATHER_PROXY_URL}/api/astronomy?date=${encodeURIComponent(key)}`;
+                const response = await fetch(url, { cache: 'no-store' });
+                const packet = await response.json().catch(() => null);
+                if (!response.ok || !packet || !packet.success || packet.date !== key) throw new Error(packet?.error || `Csillagászati adatforrás HTTP ${response.status}`);
+                const savedAt = Date.now();
+                nyirAstronomyState.data = packet; nyirAstronomyState.dateKey = key; nyirAstronomyState.savedAt = savedAt; nyirAstronomyState.lastError = '';
+                try { localStorage.setItem(NYIR_ASTRONOMY_CACHE_KEY, JSON.stringify({ date: key, savedAt, data: packet })); } catch (e) {}
+                const pwsRoot = document.getElementById('pws-inyreg42-widget-root');
+                if (pwsRoot && pwsInyreg42State.current) renderPwsInyreg42Widget();
+                const weatherRoot = document.getElementById('google-weather-card-content');
+                if (weatherRoot && googleWeatherFullData) renderGoogleWeatherCard();
+                return packet;
+            } catch (error) {
+                nyirAstronomyState.lastError = error?.message || 'Csillagászati adat nem érhető el';
+                if (!cached) console.warn('[KÉPBEN] Nyíregyházi nap- és holdadat nem érhető el:', nyirAstronomyState.lastError);
+                return cached || null;
+            } finally {
+                nyirAstronomyState.loading = false; nyirAstronomyState.promise = null;
+            }
+        })();
+        return nyirAstronomyState.promise;
+    }
+    function pwsWgCalcMoonPosition(dateObj = new Date(), latDeg = NYIREGYHAZA_LAT, lonDeg = NYIREGYHAZA_LON) {
+        // SunCalc-féle rövid topocentrikus közelítés: valós idejű horizont feletti pozíció, külön kérés nélkül.
+        const rad = Math.PI / 180, dayMs = 86400000, j1970 = 2440588, j2000 = 2451545;
+        const d = dateObj.getTime() / dayMs - 0.5 + j1970 - j2000;
+        const obliquity = rad * 23.4397;
+        const L = rad * (218.316 + 13.176396 * d), M = rad * (134.963 + 13.064993 * d), F = rad * (93.272 + 13.229350 * d);
+        const lambda = L + rad * 6.289 * Math.sin(M), beta = rad * 5.128 * Math.sin(F);
+        const ra = Math.atan2(Math.sin(lambda) * Math.cos(obliquity) - Math.tan(beta) * Math.sin(obliquity), Math.cos(lambda));
+        const dec = Math.asin(Math.sin(beta) * Math.cos(obliquity) + Math.cos(beta) * Math.sin(obliquity) * Math.sin(lambda));
+        const lw = -lonDeg * rad, phi = latDeg * rad;
+        const sidereal = rad * (280.16 + 360.9856235 * d) - lw, H = sidereal - ra;
+        const altitude = Math.asin(Math.sin(phi) * Math.sin(dec) + Math.cos(phi) * Math.cos(dec) * Math.cos(H));
+        const azimuth = Math.atan2(Math.sin(H), Math.cos(H) * Math.sin(phi) - Math.tan(dec) * Math.cos(phi)) + Math.PI;
+        return { altitude: altitude / rad, azimuth: ((azimuth / rad) + 360) % 360 };
+    }
+    function pwsWgAstroClockToday(value, now = new Date()) {
+        if (value === null || value === undefined || value === '') return null;
+        const raw = String(value).trim().toLowerCase().replace(/\./g, '').replace(/\s+/g, ' ');
+        const match = raw.match(/(\d{1,2}):(\d{2})(?:\s*(am|pm))?/i);
+        if (!match) return null;
+        let hour = Number(match[1]), minute = Number(match[2]);
+        if (!Number.isFinite(hour) || !Number.isFinite(minute) || hour > 23 || minute > 59) return null;
+        const meridiem = match[3];
+        if (meridiem) { if (hour < 1 || hour > 12) return null; if (meridiem === 'am') hour = hour === 12 ? 0 : hour; else hour = hour === 12 ? 12 : hour + 12; }
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute, 0, 0);
+    }
+    function pwsWgIsAboveHorizonByEvents(now, events, altitudeFallback) {
+        const rise = pwsWgAstroClockToday(events?.rise, now), set = pwsWgAstroClockToday(events?.set, now);
+        const current = now.getTime();
+        if (rise && set && rise.getTime() !== set.getTime()) {
+            if (rise < set) return current >= rise.getTime() && current < set.getTime();
+            return current >= rise.getTime() || current < set.getTime();
+        }
+        return !!altitudeFallback;
+    }
+    function pwsWgMoonIllumination(astroMoon, fallbackPhase) {
+        const raw = astroMoon?.illumination;
+        const parsed = raw !== undefined && raw !== null ? Number.parseFloat(String(raw).replace(',', '.')) : NaN;
+        if (Number.isFinite(parsed)) return Math.max(0, Math.min(100, String(raw).includes('%') ? parsed : (parsed <= 1 ? parsed * 100 : parsed)));
+        return Math.max(0, Math.min(100, Number(fallbackPhase?.illumPct) || 0));
+    }
+    function pwsWgMoonPhaseFraction(astroMoon, fallbackPhase) {
+        const fallback = Number(fallbackPhase?.phaseFrac);
+        const rawPhase = String(astroMoon?.phase || '').toLowerCase();
+        if (!rawPhase) return Number.isFinite(fallback) ? fallback : 0;
+        const illum = pwsWgMoonIllumination(astroMoon, fallbackPhase) / 100;
+        const quarter = Math.acos(Math.max(-1, Math.min(1, 1 - 2 * illum))) / (Math.PI * 2);
+        if (/new moon|new/.test(rawPhase)) return 0;
+        if (/first quarter|waxing/.test(rawPhase)) return quarter;
+        if (/last quarter|third quarter|waning/.test(rawPhase)) return 1 - quarter;
+        if (/full moon|full/.test(rawPhase)) return 0.5;
+        return Number.isFinite(fallback) ? fallback : quarter;
+    }
+    function pwsWgMoonPhaseSvg(size = 32, phaseDetails = {}) {
+        const fracRaw = Number(phaseDetails.phaseFrac), frac = Number.isFinite(fracRaw) ? ((fracRaw % 1) + 1) % 1 : 0;
+        const waxing = frac < 0.5;
+        const terminator = waxing ? Math.cos(frac * Math.PI * 2) : -Math.cos(frac * Math.PI * 2);
+        const controlX = (16 + 20 * terminator).toFixed(2);
+        const sweep = waxing ? 1 : 0;
+        const title = gwEsc(phaseDetails.title || 'Holdfázis');
+        const svgClass = size <= 28 ? 'pws-sky-moon-svg' : 'gw-astro-phase-icon';
+        return `<svg class="${svgClass}" width="${size}" height="${size}" viewBox="0 0 32 32" role="img" aria-label="${title}"><circle cx="16" cy="16" r="14" fill="#1e2b4b" stroke="#a5b4fc" stroke-width=".8"/><path d="M16 2 A14 14 0 0 ${sweep} 16 30 Q${controlX} 16 16 2Z" fill="#fff4c7"/><circle cx="11" cy="10" r="1.1" fill="#c9bd91" opacity=".42"/><circle cx="21" cy="19" r="1.4" fill="#c9bd91" opacity=".34"/><circle cx="13" cy="22" r=".8" fill="#c9bd91" opacity=".34"/></svg>`;
+    }
+    function pwsWgMoonPhaseHungarian(sourcePhase, fallbackName) {
+        const phase = String(sourcePhase || '').toLowerCase();
+        if (/new moon|new/.test(phase)) return 'Újhold';
+        if (/first quarter/.test(phase)) return 'Első negyed';
+        if (/last quarter|third quarter/.test(phase)) return 'Utolsó negyed';
+        if (/full moon|full/.test(phase)) return 'Telihold';
+        if (/waxing crescent/.test(phase)) return 'Növekvő sarló';
+        if (/waxing gibbous/.test(phase)) return 'Növekvő domború hold';
+        if (/waning gibbous/.test(phase)) return 'Fogyó domború hold';
+        if (/waning crescent/.test(phase)) return 'Fogyó sarló';
+        return fallbackName || 'Holdfázis';
+    }
+    function pwsWgSkyTileScene(sky, layers, astro) {
+        const now = new Date(), sun = omCalcSolarElevation(NYIREGYHAZA_LAT, NYIREGYHAZA_LON, now);
+        const isDay = sky && typeof sky.isDay === 'boolean' ? sky.isDay : sun.elev > -0.8;
+        const rawKind = sky?.kind || 'partly';
+        const allowed = new Set(['clear','mostly_clear','partly','overcast','rain','rain_heavy','drizzle','snow','mix','fog','thunder']);
+        const kind = allowed.has(rawKind) ? rawKind : 'partly';
+        const scene = `${isDay ? 'day' : 'night'}-${kind}`;
+        const cloud = sky && sky.cloudCover !== null && sky.cloudCover !== undefined && Number.isFinite(Number(sky.cloudCover)) ? Math.max(0, Math.min(100, Number(sky.cloudCover))) : null;
+        const cloudOpacity = cloud === null ? 0.25 : Math.min(0.96, 0.18 + cloud / 100 * 0.8);
+        const layersCloud = layers && [layers.low,layers.mid,layers.high].some(v => v !== null && v !== undefined && Number(v) > 10);
+        const moon = pwsWgCalcMoonPosition(now), phase = omCalcMoonPhase(now);
+        const moonVisible = pwsWgIsAboveHorizonByEvents(now, astro?.moon, moon.altitude > -0.83);
+        const moonX = Math.max(7, Math.min(93, moon.azimuth < 90 ? 7 : moon.azimuth > 270 ? 93 : ((moon.azimuth - 90) / 180) * 100));
+        const moonY = Math.max(18, Math.min(84, 82 - Math.max(0, moon.altitude) * 0.68));
+        const moonIllum = pwsWgMoonIllumination(astro?.moon, phase);
+        const phaseTitle = pwsWgMoonPhaseHungarian(astro?.moon?.phase, phase.name);
+        const sunVisible = pwsWgIsAboveHorizonByEvents(now, astro?.sun, sun.elev > -0.83);
+        const showSun = sunVisible && (cloud === null || cloud < 94);
+        const sunOrb = showSun ? '<span class="pws-sky-orb pws-sky-sun-orb" title="Nap a horizont felett"></span>' : '';
+        const moonOrb = moonVisible ? `<span class="pws-sky-orb pws-sky-moon-orb" style="left:${moonX.toFixed(1)}%;top:${moonY.toFixed(1)}%" title="Hold · ${gwEsc(phaseTitle)}, ${moonIllum.toFixed(0)}% megvilágítás">${pwsWgMoonPhaseSvg(25,{phaseFrac,illumPct:moonIllum,title:phaseTitle})}</span>` : '';
+        const cloudMarkup = (cloud === null || cloud > 12 || layersCloud) ? `<span class="pws-sky-cloud ${['rain','rain_heavy','drizzle','thunder','mix'].includes(kind) ? 'is-dark' : ''}" style="left:14%;top:44%;opacity:${cloudOpacity.toFixed(2)}"></span><span class="pws-sky-cloud ${['rain','rain_heavy','drizzle','thunder','mix'].includes(kind) ? 'is-dark' : ''}" style="left:53%;top:56%;transform:scale(.82);opacity:${Math.max(.18, cloudOpacity * .82).toFixed(2)}"></span>` : '';
+        const precipMarkup = ['rain','rain_heavy','drizzle'].includes(kind) ? '<span class="pws-sky-rain-streaks"></span>' : (kind === 'snow' ? '<span class="pws-sky-snow-dots"></span>' : (kind === 'fog' ? '<span class="pws-sky-fog-bands"></span>' : (kind === 'thunder' ? '<span class="pws-sky-rain-streaks"></span><span class="pws-sky-lightning">⚡</span>' : (kind === 'mix' ? '<span class="pws-sky-rain-streaks"></span><span class="pws-sky-snow-dots"></span>' : ''))));
+        return { scene, art: `<div class="pws-sky-art" aria-hidden="true"><span class="pws-sky-starfield"></span>${sunOrb}${moonOrb}${cloudMarkup}${precipMarkup}</div>` };
+    }
+    function gwRenderAstronomy(today, moon) {
+        const astro = getNyirAstronomyData();
+        const now = new Date(), pos = pwsWgCalcMoonPosition(now), fallbackPhase = omCalcMoonPhase(now);
+        const phase = pwsWgMoonPhaseHungarian(astro?.moon?.phase, fallbackPhase.name);
+        const illumPct = pwsWgMoonIllumination(astro?.moon, fallbackPhase);
+        const illumText = `${Math.round(illumPct)}% megvilágítás`;
+        const solar = today?.sunEvents || {};
+        const sr = astro?.sun?.rise || solar.sunriseTime || solar.sunrise || '—';
+        const ss = astro?.sun?.set || solar.sunsetTime || solar.sunset || '—';
+        const mr = astro?.moon?.rise || '—', ms = astro?.moon?.set || '—';
+        const moonAbove = pwsWgIsAboveHorizonByEvents(now, astro?.moon, pos.altitude > -0.83);
+        const moonStatus = moonAbove ? 'Most a horizont felett' : 'Most a horizont alatt';
+        const phaseSvg = pwsWgMoonPhaseSvg(42, { phaseFrac:pwsWgMoonPhaseFraction(astro?.moon, fallbackPhase), illumPct, title:phase });
+        return `<div class="gw-astro-panel" data-gw-key="astronomy-panel"><div class="gw-astro-heading"><span>Nap és Hold · Nyíregyháza</span><span>Helyi idő</span></div><div class="gw-astro-grid"><div class="gw-astro-item"><div class="gw-astro-sun-times"><div class="gw-astro-time"><span>☀️ Napkelte</span><strong>${gwEsc(sr)}</strong></div><div class="gw-astro-time"><span>🌇 Napnyugta</span><strong>${gwEsc(ss)}</strong></div></div><div class="gw-astro-moon-wrap"><div class="gw-astro-moon-kicker">🌙 Hold · napi horizontátlépés</div><div class="gw-astro-moon-times"><div class="gw-astro-time"><span>Holdkelte</span><strong>${gwEsc(mr)}</strong></div><div class="gw-astro-time"><span>Holdnyugta</span><strong>${gwEsc(ms)}</strong></div></div><div class="gw-astro-phase-row">${phaseSvg}<div class="gw-astro-phase-copy"><span>Holdfázis</span><strong>${gwEsc(phase)}</strong><small>${gwEsc(illumText)}</small></div><span class="gw-astro-now">${gwEsc(moonStatus)}</span></div></div></div></div></div>`;
+    }
+
     function renderGoogleWeatherCard() {
         const root = document.getElementById('google-weather-card-content'); if (!root) return;
         const payload = googleWeatherFullData, data = payload && payload.data ? payload.data : {}, current = data.current || {}, hourly = data.hourly?.forecastHours || [], daily = data.daily?.forecastDays || [], history = data.history?.historyHours || [], moon = payload?.moon || {};
@@ -1048,8 +1309,9 @@
         const wc = current.weatherCondition || {}, temp = gwTemperature(current.temperature), feels = gwTemperature(current.feelsLikeTemperature), ltk = gwLocalDateParts(new Date())?.key || '', today = daily.find(d => ltk && gwDailySolarKey(d) === ltk) || daily[0] || {};
         const hi = gwHas(today.maxTemperature) ? gwTemperature(today.maxTemperature) : '—', lo = gwHas(today.minTemperature) ? gwTemperature(today.minTemperature) : '—', wd = gwGetWindDisplayState(current), wb = wd.beaufort, prec = current.precipitation?.probability ? gwNumber(current.precipitation.probability.percent) : '—', qpf = current.precipitation?.qpf ? gwNumber(current.precipitation.qpf.quantity, 1) : '—', ut = payload.meta?.current?.updatedAtIso ? gwDateTime(payload.meta.current.updatedAtIso, true) : 'Forrás-időbélyeg nem érhető el';
         const cc = `<div class="gw-cloud-cover" data-gw-key="cloud-cover"><span class="gw-cloud-cover-icon">${gwCloudCoverIcon()}</span><span class="gw-cloud-cover-copy"><strong>Pillanatnyi felhőborítottság</strong><small>${gwEsc(gwCloudCoverLabel(current.cloudCover))}</small><span class="gw-cloud-cover-meter"><span style="width:${gwHas(current.cloudCover)?Math.max(0,Math.min(100,Number(current.cloudCover))):0}%"></span></span></span><span class="gw-cloud-cover-value">${gwEsc(gwHas(current.cloudCover)?gwNumber(current.cloudCover):'—')}<small>%</small></span></div>`;
-        gwRenderSmoothly(root, `<div class="google-weather-card" data-gw-key="weather-card"><div class="gw-topbar" data-gw-key="topbar"><div><div class="gw-eyebrow">KÉPBEN! · IDŐJÁRÁS</div><div class="gw-city">Nyíregyháza</div><div class="gw-coordinates">47.9554° É · 21.7167° K</div></div><div style="text-align:right"><span class="gw-live-pill"><span class="gw-live-dot"></span> WORKER · 10 PERCES LEKÉRÉS</span><br><button class="gw-refresh-button" onclick="loadGoogleWeatherCard(true)">↻ Frissítés</button></div></div><div class="gw-hero" data-gw-key="hero"><div class="gw-hero-main"><div class="gw-current-topline"><div class="gw-current-reading"><div class="gw-condition-line">${gwIcon(wc,gwIsDaytimeAt(current.currentTime||new Date().toISOString(),current.isDaytime,daily),current.cloudCover)}<div class="gw-temp">${gwEsc(temp.replace('°',''))}<span class="gw-temp-unit">°C</span></div></div><div class="gw-condition">${gwEsc(gwCondition(current))}</div><div class="gw-feels">🌡️ Hőérzet: <strong>${gwEsc(feels)}</strong></div></div><div class="gw-current-range"><div class="gw-current-range-item gw-current-range-high"><span class="gw-current-range-label">🌡️ Mai max</span><strong>${gwEsc(hi)}</strong></div><div class="gw-current-range-item gw-current-range-low"><span class="gw-current-range-label">❄️ Mai min</span><strong>${gwEsc(lo)}</strong></div></div></div></div><div class="gw-hi-lo">${cc}<div class="gw-hi-lo-summary"><div class="gw-hi-lo-row"><span>☔ Csapadék esélye (modell)</span><strong>${gwEsc(prec)}%</strong></div></div>${gwRenderTodayPrecipStatus(history,payload.meta?.history)}</div></div><div class="gw-live-wind-panel" data-gw-key="live-wind-panel"><div class="gw-live-wind-panel-head"><span class="gw-live-wind-title">Pillanatnyi szél</span><span class="gw-wind-source is-${wd.live?'live':(wd.hasWind?'google':'unavailable')}" id="gw-live-wind-source"><span class="gw-wind-source-dot ${wd.live?'is-live':(wd.hasWind?'is-google':'')}" id="gw-live-wind-dot"></span><span id="gw-live-wind-source-label">${gwEsc(wd.sourceLabel)}</span></span></div><div class="gw-wind-visual"><div class="gw-wind-compass" id="gw-live-wind-compass"><span class="gw-wind-compass-label gw-wind-n">É</span><span class="gw-wind-compass-label gw-wind-e">K</span><span class="gw-wind-compass-label gw-wind-s">D</span><span class="gw-wind-compass-label gw-wind-w">NY</span><svg class="gw-wind-needle" id="gw-live-wind-needle" viewBox="0 0 24 58" style="transform:translate(-50%,-50%) rotate(${wd.degrees}deg)"><path id="gw-live-wind-needle-head" d="M12 2L20 30L12 23L4 30L12 2Z" fill="${wd.hasWind?getWindSpeedColor(wd.speedValue):'#94a3b8'}"/><path id="gw-live-wind-needle-tail" d="M12 56L20 30L12 37L4 30L12 56Z" fill="#94a3b8" opacity=".82"/><circle id="gw-live-wind-needle-hub" cx="12" cy="30" r="3.7" fill="#fff"/></svg></div><div class="gw-wind-beaufort" id="gw-live-wind-beaufort" style="color:${gwEsc(wb.color)};background:${gwEsc(wb.bg)};border:1px solid ${gwEsc(wb.border)}">${gwEsc(wb.label)}</div></div><div class="gw-live-wind-stats"><div class="gw-wind-stat"><span>Szélerősség</span><strong id="gw-live-wind-speed">${gwEsc(wd.speedText)}</strong></div><div class="gw-wind-stat"><span>Szélirány</span><strong id="gw-live-wind-direction">${wd.hasDirection?`${gwEsc(gwNumber(wd.degrees))}° · ${gwEsc(wd.directionText)}`:gwEsc(wd.directionText)}</strong></div><div class="gw-wind-stat"><span>Széllökés</span><strong id="gw-live-wind-gust">${gwEsc(wd.gustVal!==null?`${gwNumber(wd.gustVal,1)} km/h`:'—')}</strong></div><div class="gw-wind-stat"><span>Szélhűtés</span><strong id="gw-live-wind-chill">${gwEsc(gwTemperature(current.windChill))}</strong></div></div></div><div class="gw-section"><div class="gw-section-heading"><span>Jelenlegi áttekintés</span><span class="gw-section-note">${gwEsc(ut)}</span></div><div class="gw-metric-grid">${gwMetric('Pára',gwNumber(current.relativeHumidity),'%')}${gwMetric('Harmatpont',gwTemperature(current.dewPoint))}${gwMetric('UV',gwNumber(current.uvIndex,1))}${gwMetric('Nyomás',current.airPressure?gwNumber(current.airPressure.meanSeaLevelMillibars,1):'—','hPa')}${gwMetric('Csapadék (becsült)',qpf,'mm')}${gwMetric('Látástávolság',current.visibility?gwNumber(current.visibility.distance,1):'—',current.visibility?gwVisibilityUnit(current.visibility.unit):'')}</div></div><div class="gw-astro-slot">${gwRenderAstronomy(today,moon)}</div><div class="gw-section"><div class="gw-section-heading"><span>Óránkénti előrejelzés</span></div><div class="gw-hour-scroll">${gwRenderHourly(hourly)}</div>${gwRenderHourlyDetailsPanel(hourly)}</div><div class="gw-section"><div class="gw-section-heading"><span>10 napos előrejelzés</span></div><div class="gw-day-grid">${gwRenderDayCards(daily)}</div>${gwRenderDailyDetailsPanel(daily,'main')}</div><div class="gw-section"><div class="gw-section-heading"><span>Elmúlt 24 óra · Worker-előzmény (nem PWS-mérés)</span></div><div class="gw-history-scroll">${gwRenderHistory(history,daily)}</div></div><div class="gw-source" translate="no">Böngészőforrás: KÉPBEN! Worker API. A Google upstream és a szerveroldali cache a Worker-kód ellenőrzéséig nem igazolt.</div></div>`);
+        gwRenderSmoothly(root, `<div class="google-weather-card" data-gw-key="weather-card"><div class="gw-topbar" data-gw-key="topbar"><div><div class="gw-eyebrow">KÉPBEN! · IDŐJÁRÁS</div><div class="gw-city">Nyíregyháza</div><div class="gw-coordinates">47.9554° É · 21.7167° K</div></div><div style="text-align:right"><span class="gw-live-pill"><span class="gw-live-dot"></span> WORKER · 10 PERCES LEKÉRÉS</span><br><button class="gw-refresh-button" onclick="loadGoogleWeatherCard(true)">↻ Frissítés</button></div></div><div class="gw-hero" data-gw-key="hero"><div class="gw-hero-main"><div class="gw-current-topline"><div class="gw-current-reading"><div class="gw-condition-line">${gwIcon(wc,gwIsDaytimeAt(current.currentTime||new Date().toISOString(),current.isDaytime,daily),current.cloudCover)}<div class="gw-temp">${gwEsc(temp.replace('°',''))}<span class="gw-temp-unit">°C</span></div></div><div class="gw-condition">${gwEsc(gwCondition(current))}</div><div class="gw-feels">🌡️ Hőérzet: <strong>${gwEsc(feels)}</strong></div></div><div class="gw-current-range"><div class="gw-current-range-item gw-current-range-high"><span class="gw-current-range-label">🌡️ Mai max</span><strong>${gwEsc(hi)}</strong></div><div class="gw-current-range-item gw-current-range-low"><span class="gw-current-range-label">❄️ Mai min</span><strong>${gwEsc(lo)}</strong></div></div></div></div><div class="gw-hi-lo">${cc}<div class="gw-hi-lo-summary"><div class="gw-hi-lo-row"><span>☔ Csapadék esélye (modell)</span><strong>${gwEsc(prec)}%</strong></div></div>${gwRenderTodayPrecipStatus(history,payload.meta?.history)}</div></div><div class="gw-live-wind-panel" data-gw-key="live-wind-panel"><div class="gw-live-wind-panel-head"><span class="gw-live-wind-title">Pillanatnyi szél</span><span class="gw-wind-source is-${wd.live?'live':(wd.hasWind?'google':'unavailable')}" id="gw-live-wind-source"><span class="gw-wind-source-dot ${wd.live?'is-live':(wd.hasWind?'is-google':'')}" id="gw-live-wind-dot"></span><span id="gw-live-wind-source-label">${gwEsc(wd.sourceLabel)}</span></span></div><div class="gw-wind-visual"><div class="gw-wind-compass" id="gw-live-wind-compass"><span class="gw-wind-compass-label gw-wind-n">É</span><span class="gw-wind-compass-label gw-wind-e">K</span><span class="gw-wind-compass-label gw-wind-s">D</span><span class="gw-wind-compass-label gw-wind-w">NY</span><svg class="gw-wind-needle" id="gw-live-wind-needle" viewBox="0 0 24 58" style="transform:translate(-50%,-50%) rotate(${wd.degrees}deg)"><path id="gw-live-wind-needle-head" d="M12 2L20 30L12 23L4 30L12 2Z" fill="${wd.hasWind?getWindSpeedColor(wd.speedValue):'#94a3b8'}"/><path id="gw-live-wind-needle-tail" d="M12 56L20 30L12 37L4 30L12 56Z" fill="#94a3b8" opacity=".82"/><circle id="gw-live-wind-needle-hub" cx="12" cy="30" r="3.7" fill="#fff"/></svg></div><div class="gw-wind-beaufort" id="gw-live-wind-beaufort" style="color:${gwEsc(wb.color)};background:${gwEsc(wb.bg)};border:1px solid ${gwEsc(wb.border)}">${gwEsc(wb.label)}</div></div><div class="gw-live-wind-stats"><div class="gw-wind-stat"><span>Szélerősség</span><strong id="gw-live-wind-speed">${gwEsc(wd.speedText)}</strong></div><div class="gw-wind-stat"><span>Szélirány</span><strong id="gw-live-wind-direction">${wd.hasDirection?`${gwEsc(gwNumber(wd.degrees))}° · ${gwEsc(wd.directionText)}`:gwEsc(wd.directionText)}</strong></div><div class="gw-wind-stat"><span>Széllökés</span><strong id="gw-live-wind-gust">${gwEsc(wd.gustVal!==null?`${gwNumber(wd.gustVal,1)} km/h`:'—')}</strong></div><div class="gw-wind-stat"><span>Szélhűtés</span><strong id="gw-live-wind-chill">${gwEsc(gwTemperature(current.windChill))}</strong></div></div></div><div class="gw-section"><div class="gw-section-heading"><span>Jelenlegi áttekintés</span><span class="gw-section-note">${gwEsc(ut)}</span></div><div class="gw-metric-grid">${gwMetric('Pára',gwNumber(current.relativeHumidity),'%')}${gwMetric('Harmatpont',gwTemperature(current.dewPoint))}${gwMetric('UV',gwNumber(current.uvIndex,1))}${gwMetric('Nyomás',current.airPressure?gwNumber(current.airPressure.meanSeaLevelMillibars,1):'—','hPa')}${gwMetric('Csapadék (becsült)',qpf,'mm')}${gwMetric('Látástávolság',current.visibility?gwNumber(current.visibility.distance,1):'—',current.visibility?gwVisibilityUnit(current.visibility.unit):'')}</div></div><div class="gw-astro-slot">${gwRenderAstronomy(today,moon)}</div><div class="gw-section"><div class="gw-section-heading"><span>Óránkénti előrejelzés</span></div><div class="gw-hour-scroll">${gwRenderHourly(hourly)}</div>${gwRenderHourlyDetailsPanel(hourly)}</div><div class="gw-section"><div class="gw-section-heading"><span>10 napos előrejelzés</span></div><div class="gw-day-grid">${gwRenderDayCards(daily)}</div>${gwRenderDailyDetailsPanel(daily,'main')}</div><div class="gw-section"><div class="gw-section-heading"><span>Elmúlt 24 óra · Worker-előzmény (nem PWS-mérés)</span></div><div class="gw-history-scroll">${gwRenderHistory(history,daily)}</div></div></div>`);
         updateGoogleWeatherWindDisplay();
+        void ensureNyirAstronomy(false);
     }
     function getGoogleWeatherClientSlot(now = Date.now()) { return Math.floor(now / GOOGLE_WEATHER_REFRESH_SLOT_MS); }
     function clearGoogleWeatherRefreshTimer() { if (googleWeatherRefreshTimerId !== null) { clearTimeout(googleWeatherRefreshTimerId); googleWeatherRefreshTimerId = null; } }
@@ -1095,7 +1357,7 @@
         else if (pos === 'below_rates') { const r = document.getElementById('standalone-rates-container'); if (r && r.parentNode && c.parentNode !== r.parentNode) r.parentNode.insertBefore(c, r.nextSibling); }
         else if (pos === 'bottom') { const s = document.getElementById('sections-container'); if (s && s.parentNode && c.parentNode !== s.parentNode) s.parentNode.insertBefore(c, s.nextSibling); }
         else { const s = document.getElementById('sections-container'); if (s && s.parentNode && c.parentNode !== s) s.parentNode.insertBefore(c, s); }
-        gwRenderSmoothly(c, `<div class="forecast-strip-card gw-forecast-strip" data-gw-key="forecast-strip"><div class="forecast-strip-header"><span>☁️ NYÍREGYHÁZA · 10 NAPOS ELŐREJELZÉS</span><span style="font-size:10px;color:#64748b;">WORKER · ELŐREJELZÉS</span></div><div class="gw-day-grid">${gwRenderDayCards(days,true,'strip')}</div>${gwRenderDailyDetailsPanel(days,'strip')}<div class="gw-source" translate="no">Böngészőforrás: KÉPBEN! Worker API. A Google upstream és a szerveroldali cache a Worker-kód ellenőrzéséig nem igazolt.</div></div>`);
+        gwRenderSmoothly(c, `<div class="forecast-strip-card gw-forecast-strip" data-gw-key="forecast-strip"><div class="forecast-strip-header"><span>☁️ NYÍREGYHÁZA · 10 NAPOS ELŐREJELZÉS</span><span style="font-size:10px;color:#64748b;">WORKER · ELŐREJELZÉS</span></div><div class="gw-day-grid">${gwRenderDayCards(days,true,'strip')}</div>${gwRenderDailyDetailsPanel(days,'strip')}</div>`);
         c.style.display = 'block';
     }
 
@@ -1250,7 +1512,7 @@
         else if (phaseFrac < 0.72) name = "Fogyó hold";
         else if (phaseFrac < 0.78) name = "Utolsó negyed";
         else name = "Fogyó sarló";
-        return { name, illumPct };
+        return { name, illumPct, phaseFrac };
     }
     function omCalcSolarElevation(latDeg = NYIREGYHAZA_LAT, lonDeg = NYIREGYHAZA_LON, now = new Date()) {
         const rad = Math.PI / 180, lat = latDeg * rad, dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
@@ -1294,19 +1556,16 @@
 
             sky = {
                 isDay, cloudCover: cc, short: rawShort, kind,
-                sourceLabel: 'Worker-adat · upstream nincs ellenőrizve'
             };
         } else if (omSky) {
             sky = {
                 isDay: omSky.isDay, cloudCover: omSky.cloudCover, short: omSky.short, kind: omSky.kind,
-                sourceLabel: nyirOmState.modelLabel
             };
         }
 
         if (sky && pwsObsIsFresh(obs) && rate >= 0.2) {
             sky.kind = rate >= 6 ? 'rain_heavy' : 'rain';
             sky.short = rate >= 6 ? 'Erős eső' : (rate >= 1.5 ? 'Eső' : 'Gyenge eső');
-            sky.sourceLabel = `PWS csapadékmérés (${pwsInyreg42State.activeStationId || 'INYREG42'})`;
         }
         return sky;
     }
@@ -1428,12 +1687,14 @@
 
     function pwsWgSoothingThemes(obs, m, sky, omCur) {
         const tempTheme = v => !Number.isFinite(v) ? { bg: 'linear-gradient(160deg,#ffffff,#f1f5f9)', border: '#cbd5e1', val: '#0f172a', accent: '#64748b' }
-            : v < 0 ? { bg: 'linear-gradient(160deg,#f5faff,#e4f1fd)', border: '#a8d0f0', val: '#0369a1', accent: '#0284c7' }
-            : v < 10 ? { bg: 'linear-gradient(160deg,#f2fbf9,#dff3ef)', border: '#9fd8ce', val: '#0f766e', accent: '#0d9488' }
-            : v < 20 ? { bg: 'linear-gradient(160deg,#f4fbf6,#e3f4e8)', border: '#a3dbb4', val: '#15803d', accent: '#16a34a' }
-            : v < 27 ? { bg: 'linear-gradient(160deg,#fffcf2,#faefd6)', border: '#e9cc8f', val: '#b45309', accent: '#d97706' }
-            : v < 33 ? { bg: 'linear-gradient(160deg,#fff8f3,#fce6d7)', border: '#edb895', val: '#c2410c', accent: '#ea580c' }
-            : { bg: 'linear-gradient(160deg,#fff5f5,#fae0e0)', border: '#e8a9a9', val: '#b91c1c', accent: '#dc2626' };
+            : v <= -10 ? { bg: 'linear-gradient(160deg,#e7f6ff,#b7dff2)', border: '#77b9df', val: '#075985', accent: '#0284c7' }
+            : v < 0 ? { bg: 'linear-gradient(160deg,#f1faff,#d3eaf8)', border: '#9bcbe5', val: '#075985', accent: '#0ea5e9' }
+            : v < 5 ? { bg: 'linear-gradient(160deg,#eff9fc,#d8edf3)', border: '#a8d5e2', val: '#155e75', accent: '#0891b2' }
+            : v < 12 ? { bg: 'linear-gradient(160deg,#f0faf8,#d9f0eb)', border: '#a8d9cd', val: '#0f766e', accent: '#0d9488' }
+            : v < 20 ? { bg: 'linear-gradient(160deg,#f3faef,#e1efd9)', border: '#b8d6a8', val: '#3f6212', accent: '#65a30d' }
+            : v < 27 ? { bg: 'linear-gradient(160deg,#fff9e9,#f9e9bf)', border: '#e8cf91', val: '#92400e', accent: '#d97706' }
+            : v < 33 ? { bg: 'linear-gradient(160deg,#fff3e4,#f8d7b7)', border: '#eab98d', val: '#9a3412', accent: '#ea580c' }
+            : { bg: 'linear-gradient(160deg,#ffede5,#f5c0ae)', border: '#e6a08b', val: '#9f1239', accent: '#e11d48' };
 
         const tTheme = tempTheme(Number(m.temp));
         let skyTheme = { bg: 'linear-gradient(160deg,#f5faff,#e4f1fd)', border: '#a8d0f0', val: '#0369a1', accent: '#0284c7' };
@@ -1916,6 +2177,7 @@
         }
 
         const themes = pwsWgSoothingThemes(obs, m, sky, omCur), dewSpread = (Number.isFinite(temp) && Number.isFinite(Number(m.dewpt))) ? (temp - Number(m.dewpt)) : NaN;
+        const tempBand = !Number.isFinite(temp) ? 'unknown' : (temp <= -10 ? 'deep-freeze' : temp < 0 ? 'frost' : temp < 5 ? 'cold' : temp < 12 ? 'cool' : temp < 20 ? 'mild' : temp < 27 ? 'warm' : temp < 33 ? 'hot' : 'extreme-heat');
         const tempArrow = stats.tempTrend > 0 ? '<span class="pws-wg-trend up" title="Emelkedő">↗</span>' : (stats.tempTrend < 0 ? '<span class="pws-wg-trend down" title="Csökkenő">↘</span>' : '');
         const presArrow = stats.pressureTrend > 0 ? '<span class="pws-wg-trend up" title="Emelkedő">↗</span>' : (stats.pressureTrend < 0 ? '<span class="pws-wg-trend down" title="Csökkenő">↘</span>' : '');
         const obsAgeSec = pwsObsAgeSec(obs), isOnline = pwsObsIsFresh(obs), obsAgeLabel = pwsObsAgeLabel(obs);
@@ -2009,8 +2271,10 @@
             </div>`;
         }
 
-        const skyPctStr = (sky && sky.cloudCover !== null) ? String(sky.cloudCover) : '—', skyTitleStr = sky ? sky.short : 'Betöltés…', skySrcStr = sky ? `Modell / külső adat: ${sky.sourceLabel}` : 'Nincs igazolt égkép-adat';
-        const cLowStr = (layers && layers.low !== null) ? `${Math.round(layers.low)}%` : '—', cMidStr = (layers && layers.mid !== null) ? `${Math.round(layers.mid)}%` : '—', cHighStr = (layers && layers.high !== null) ? `${Math.round(layers.high)}%` : '—';
+        const skyPctStr = (sky && sky.cloudCover !== null && sky.cloudCover !== undefined) ? `${Math.round(Number(sky.cloudCover))}%` : '—', skyTitleStr = sky ? sky.short : 'Adat betöltése…';
+        const layerPct = value => value !== null && value !== undefined && Number.isFinite(Number(value)) ? `${Math.round(Number(value))}%` : '—';
+        const cLowStr = layerPct(layers?.low), cMidStr = layerPct(layers?.mid), cHighStr = layerPct(layers?.high);
+        const skyAstro = getNyirAstronomyData(), skyVisual = pwsWgSkyTileScene(sky, layers, skyAstro), skyDayNight = skyVisual.scene.startsWith('day-') ? 'day' : 'night';
 
         const html = `
             <div class="pws-wg-shell" data-gw-key="pws-wg-shell">
@@ -2046,7 +2310,7 @@
                 </div>
 
                 <div class="pws-wg-grid" data-gw-key="pws-wg-grid">
-                    <div class="pws-wg-card" data-gw-key="pws-card-temp" style="--pws-card-bg:${themes.tTheme.bg};--pws-card-border:${themes.tTheme.border};--pws-val-color:${themes.tTheme.val}">
+                    <div class="pws-wg-card" data-gw-key="pws-card-temp" data-temp-band="${tempBand}" style="--pws-card-bg:${themes.tTheme.bg};--pws-card-border:${themes.tTheme.border};--pws-val-color:${themes.tTheme.val}">
                         <div class="pws-wg-card-head">${pwsSvgIcon('temp')} Hőmérséklet</div>
                         <div class="pws-wg-gauge-wrap">${pwsWgSvgTemp(temp, stats.tempAvg, themes.tTheme.accent)}</div>
                         <div class="pws-wg-val-row"><span class="pws-wg-val">${gwEsc(pwsWgNum(temp, 1))}</span><span class="pws-wg-unit">°C</span>${tempArrow}</div>
@@ -2054,13 +2318,13 @@
                         <div class="pws-wg-sub">${stats.tempAvg !== null ? `Átlag: ${gwEsc(pwsWgNum(stats.tempAvg, 1))}°C` : 'PWS élő mérés'}</div>
                     </div>
 
-                    <div class="pws-wg-card" data-gw-key="pws-card-sky" style="--pws-card-bg:${themes.skyTheme.bg};--pws-card-border:${themes.skyTheme.border};--pws-val-color:${themes.skyTheme.val}">
-                        <div class="pws-wg-card-head">${pwsSvgIcon('sky')} Égkép</div>
-                        <div class="pws-wg-gauge-wrap">${pwsWgSvgSky(sky, layers)}</div>
-                        <div class="pws-wg-val-row"><span class="pws-wg-val">${gwEsc(skyPctStr)}</span><span class="pws-wg-unit">%</span></div>
+                    <div class="pws-wg-card pws-sky-scene-card" data-gw-key="pws-card-sky" data-sky-scene="${skyVisual.scene}">
+                        ${skyVisual.art}
+                        <div class="pws-wg-card-head">${pwsSvgIcon('sky')} Égkép · Nyíregyháza</div>
+                        <div class="pws-sky-art-wrap" aria-hidden="true"></div>
+                        <div class="pws-wg-val-row"><span class="pws-wg-unit">Felhő:</span><span class="pws-wg-val">${gwEsc(skyPctStr)}</span></div>
                         <div class="pws-wg-sub2">${gwEsc(skyTitleStr)}</div>
-                        <div class="pws-wg-sky-layers-mini"><span title="Alacsony">A:${gwEsc(cLowStr)}</span><span title="Közepes">K:${gwEsc(cMidStr)}</span><span title="Magas">M:${gwEsc(cHighStr)}</span></div>
-                        <div class="pws-wg-sky-src-tag">${gwEsc(skySrcStr)}</div>
+                        <div class="pws-wg-sky-layers-mini"><span><small>Alacsony</small><strong>${gwEsc(cLowStr)}</strong></span><span><small>Közép</small><strong>${gwEsc(cMidStr)}</strong></span><span><small>Magas</small><strong>${gwEsc(cHighStr)}</strong></span></div>
                     </div>
 
                     <div class="pws-wg-card" data-gw-key="pws-card-hum" style="--pws-card-bg:${themes.hTheme.bg};--pws-card-border:${themes.hTheme.border};--pws-val-color:${themes.hTheme.val}">
@@ -2140,6 +2404,7 @@
             </div>
         `;
         gwRenderSmoothly(root, html);
+        void ensureNyirAstronomy(false);
         if (pwsInyreg42State.windPulsePending) {
             const windHero = root.querySelector('.pws-wg-wind-hero');
             if (windHero) { windHero.classList.remove('is-new-reading'); void windHero.offsetWidth; windHero.classList.add('is-new-reading'); }
@@ -2653,49 +2918,204 @@
         }
     }
 
-    async function fetchDatabases() {
+    async function safeJsonResponse(response, fallback, label) {
+        if (!response) return fallback;
         try {
-            const t = Date.now();
-            const [workerRes, filterRes, breakingRes, excludedRes, pwsRes, kockaRes, radarRes, radioRes, nyirRes, radioListRes, themeRes, pwsInyregRes] = await Promise.all([
-                fetch(`https://kepbenoszlop.androjid21.workers.dev/?t=${t}`, { cache: 'no-store' }),
-                fetch(`${FIREBASE_URL}/analytics/blacklist.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-                fetch(`${FIREBASE_URL}/analytics/breaking_keywords.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-                fetch(`${FIREBASE_URL}/analytics/breaking_excluded.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-                fetch(`${FIREBASE_URL}/analytics/pws_stations.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-                fetch(`${FIREBASE_URL}/analytics/pws_kocka.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-                fetch(`${FIREBASE_URL}/analytics/radar_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-                fetch(`${FIREBASE_URL}/analytics/radio_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-                fetch(`${FIREBASE_URL}/analytics/nyir_weather_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-                fetch(`${FIREBASE_URL}/analytics/radio_stations.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-                fetch(`${FIREBASE_URL}/analytics/theme_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-                fetch(`${FIREBASE_URL}/analytics/pws_inyreg42_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null)
-            ]);
-            const workerData = await workerRes.json();
-            if (filterRes) blacklistKeywords = await filterRes.json() || [];
-            if (breakingRes) breakingKeywords = await breakingRes.json() || [];
-            if (excludedRes) breakingExcludedMap = await excludedRes.json() || {};
-            if (pwsRes) { const p = await pwsRes.json(); pwsStationsList = Array.isArray(p) ? p : []; }
-            if (kockaRes) kockaPwsConfig = await kockaRes.json() || { mode: 'radio', stationId: '', customName: '', intervalMin: 1 };
-            if (radarRes) radarConfig = await radarRes.json() || { enabled: true, autoHide: false, cityName: 'Nyíregyháza', lat: 47.9554, lon: 21.7167, intervalMin: 2 };
-            if (radioRes) radioConfig = await radioRes.json() || { name: '', streamUrl: '', metaUrl: '', nowPlaying: '' };
-            if (nyirRes) nyirWeatherConfig = await nyirRes.json() || { enabled: false, forecastStripEnabled: false, forecastPosition: 'under_top3', forecastIntervalMin: 10, primarySource: 'worker', position: 2, url: '' };
-            if (pwsInyregRes) {
-                const lpi = await pwsInyregRes.json();
-                if (lpi) {
-                    pwsInyreg42Config = Object.assign({ enabled: false, stationId: 'INYREG42', backupStations: PWS_DEFAULT_BACKUP_STATIONS.slice(), title: 'Nyíregyháza MOST', placementMode: 'column', position: 3 }, lpi);
-                    if (!Array.isArray(pwsInyreg42Config.backupStations) || !pwsInyreg42Config.backupStations.length) pwsInyreg42Config.backupStations = PWS_DEFAULT_BACKUP_STATIONS.slice();
-                }
-            }
-            if (radioListRes) { const rList = await radioListRes.json(); radioStationsList = Array.isArray(rList) ? rList : []; }
-            if (themeRes) { const thConfig = await themeRes.json(); if (thConfig) applyThemeConfig(thConfig); }
-            if (workerData && workerData.news) { localGyujtoData = workerData.news; localAdasData = workerData.news; renderNewsroomDayNightCycle(workerData.news); }
-            if (workerData && workerData.rates) { localRatesData = workerData.rates; renderExchangeRates(workerData.rates); }
-
-            updateTickerList(); updateRealtimeOnlineCount();
-            if (nyirWeatherConfig && nyirWeatherConfig.forecastStripEnabled && !nyirWeatherConfig.enabled) loadGoogleWeatherCard(false);
-            startPwsEngine(); startPwsInyreg42Engine(); startKockaPwsEngine(); startRadarEngine(); initRadioEngine();
-        } catch(e) {}
+            if (!response.ok) throw new Error(`${label || 'Adatforrás'} HTTP ${response.status}`);
+            const data = await response.json();
+            return data == null ? fallback : data;
+        } catch (error) {
+            console.warn(`[KÉPBEN] ${label || 'Adatforrás'} nem tölthető be:`, error && error.message || error);
+            return fallback;
+        }
     }
+
+    async function fetchNewsWorkerData(cacheBust) {
+        const endpoints = [
+            'https://kepben-live.androjid23-1b8.workers.dev/',
+            // Tartalék útvonal, csak akkor kérjük le, ha az új Worker valóban hibázik.
+            'https://kepbenoszlop.androjid21.workers.dev/'
+        ];
+        let lastError = null;
+        for (let index = 0; index < endpoints.length; index++) {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 10000);
+            try {
+                const response = await fetch(`${endpoints[index]}?t=${cacheBust}`, {
+                    cache: 'no-store',
+                    signal: controller.signal,
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+                if (!data || !data.news || typeof data.news !== 'object' || Array.isArray(data.news)) {
+                    throw new Error(data && data.error ? data.error : 'A Worker válaszában nincs használható news objektum.');
+                }
+                const count = Object.keys(data.news).length;
+                if (count === 0 && index === 0 && data.status !== 'success') {
+                    throw new Error('Az új híradat-tár még üres vagy éppen indul.');
+                }
+                if (index > 0) console.warn('[KÉPBEN] A híroldal tartalék Workerből töltötte be a híreket.');
+                return data;
+            } catch (error) {
+                lastError = error;
+                console.warn(`[KÉPBEN] Hírek Worker ${index + 1}. végpont hibázott:`, error && error.message || error);
+            } finally {
+                clearTimeout(timeout);
+            }
+        }
+        throw lastError || new Error('A hírek Worker egyik végpontja sem válaszolt.');
+    }
+
+    async function fetchDatabases() {
+        const t = Date.now();
+        const results = await Promise.all([
+            fetchNewsWorkerData(t).catch(error => ({ __loadError: error && error.message || String(error) })),
+            fetch(`${FIREBASE_URL}/analytics/blacklist.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/breaking_keywords.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/breaking_excluded.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/pws_stations.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/pws_kocka.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/radar_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/radio_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/nyir_weather_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/radio_stations.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/theme_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/pws_inyreg42_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null)
+        ]);
+
+        const [workerData, filterRes, breakingRes, excludedRes, pwsRes, kockaRes, radarRes, radioRes, nyirRes, radioListRes, themeRes, pwsInyregRes] = results;
+
+        // Az adatokat most csak eltesszük; a híroszlopok és az időjárásoszlop kirajzolása
+        // a Firebase-konfigurációk beolvasása UTÁN történik (különben az enabled=false alapérték győz).
+        let newsDataForRender = null;
+        let newsLoadError = '';
+        if (workerData && workerData.news && !workerData.__loadError) {
+            localGyujtoData = workerData.news;
+            localAdasData = workerData.news;
+            newsLastSyncTimestamp = Number(workerData._syncTimestamp) || Date.parse(workerData.lastUpdated || '') || newsLastSyncTimestamp;
+            newsDataForRender = workerData.news;
+        } else {
+            newsLoadError = workerData && workerData.__loadError || 'A hírszolgáltatás nem adott használható adatot.';
+            newsDataForRender = localGyujtoData || null;
+        }
+
+        const [filterData, breakingData, excludedData, pwsData, kockaData, radarData, radioData, nyirData, radioListData, themeData, pwsInyregData] = await Promise.all([
+            safeJsonResponse(filterRes, [], 'Tiltólista'),
+            safeJsonResponse(breakingRes, [], 'Rendkívüli kulcsszavak'),
+            safeJsonResponse(excludedRes, {}, 'Kizárt hírek'),
+            safeJsonResponse(pwsRes, [], 'PWS állomások'),
+            safeJsonResponse(kockaRes, { mode: 'radio', stationId: '', customName: '', intervalMin: 1 }, 'Kocka PWS'),
+            safeJsonResponse(radarRes, { enabled: true, autoHide: false, cityName: 'Nyíregyháza', lat: 47.9554, lon: 21.7167, intervalMin: 2 }, 'Radar konfiguráció'),
+            safeJsonResponse(radioRes, { name: '', streamUrl: '', metaUrl: '', nowPlaying: '' }, 'Rádió konfiguráció'),
+            safeJsonResponse(nyirRes, { enabled: false, forecastStripEnabled: false, primarySource: 'worker', position: 2, url: '' }, 'Nyíregyházi időjárás konfiguráció'),
+            safeJsonResponse(radioListRes, [], 'Rádióállomások'),
+            safeJsonResponse(themeRes, null, 'Téma konfiguráció'),
+            safeJsonResponse(pwsInyregRes, null, 'PWS INYREG42 konfiguráció')
+        ]);
+
+        blacklistKeywords = Array.isArray(filterData) ? filterData : [];
+        breakingKeywords = Array.isArray(breakingData) ? breakingData : [];
+        breakingExcludedMap = excludedData && typeof excludedData === 'object' ? excludedData : {};
+        pwsStationsList = Array.isArray(pwsData) ? pwsData : [];
+        kockaPwsConfig = kockaData || { mode: 'radio', stationId: '', customName: '', intervalMin: 1 };
+        radarConfig = radarData || { enabled: true, autoHide: false, cityName: 'Nyíregyháza', lat: 47.9554, lon: 21.7167, intervalMin: 2 };
+        radioConfig = radioData || { name: '', streamUrl: '', metaUrl: '', nowPlaying: '' };
+        nyirWeatherConfig = nyirData || { enabled: false, forecastStripEnabled: false, forecastIntervalMin: 10, primarySource: 'worker', position: 2, url: '' };
+        radioStationsList = Array.isArray(radioListData) ? radioListData : [];
+        if (themeData) applyThemeConfig(themeData);
+        if (pwsInyregData) {
+            pwsInyreg42Config = Object.assign({ enabled: false, stationId: 'INYREG42', backupStations: PWS_DEFAULT_BACKUP_STATIONS.slice(), title: 'Nyíregyháza MOST', placementMode: 'column', position: 3 }, pwsInyregData);
+            if (!Array.isArray(pwsInyreg42Config.backupStations) || !pwsInyreg42Config.backupStations.length) pwsInyreg42Config.backupStations = PWS_DEFAULT_BACKUP_STATIONS.slice();
+        }
+
+        if (newsDataForRender) {
+            try {
+                renderNewsroomDayNightCycle(newsDataForRender);
+                const notice = document.getElementById('news-load-debug-status');
+                if (notice) notice.remove();
+            } catch (renderError) {
+                console.error('[KÉPBEN] A híroszlopok megjelenítési hibája:', renderError);
+            }
+        } else {
+            console.error('[KÉPBEN] A hírek betöltése sikertelen:', newsLoadError);
+            const host = document.getElementById('today-wrapper');
+            if (host) {
+                let notice = document.getElementById('news-load-debug-status');
+                if (!notice) {
+                    notice = document.createElement('div');
+                    notice.id = 'news-load-debug-status';
+                    notice.style.cssText = 'margin:10px;padding:12px 16px;border:1px solid #f59e0b;border-radius:10px;background:#fffbeb;color:#92400e;font:600 13px/1.5 system-ui,sans-serif;';
+                    host.insertBefore(notice, host.firstChild);
+                }
+                notice.textContent = `A hírek átmenetileg nem érhetők el. A többi panel ettől még betöltődik. Részlet: ${newsLoadError}`;
+            }
+        }
+
+        updateTickerList();
+        updateRealtimeOnlineCount();
+        if (nyirWeatherConfig && nyirWeatherConfig.forecastStripEnabled && !nyirWeatherConfig.enabled) loadGoogleWeatherCard(false);
+        startPwsEngine();
+        startPwsInyreg42Engine();
+        startKockaPwsEngine();
+        startRadarEngine();
+        initRadioEngine();
+    }
+
+    function getNewsWorkerSyncTimestamp(data) {
+        return Number(data && data._syncTimestamp) || Date.parse(data && data.lastUpdated || '') || 0;
+    }
+
+    async function refreshNewsOnly(reason = 'ütemezett frissítés') {
+        if (newsRefreshInFlight || document.visibilityState !== 'visible') return false;
+        const now = Date.now();
+        // Visszatéréskor/fókuszváltáskor ne indítsunk egymás után több lekérést.
+        if (now - newsLastProbeAt < 45000) return false;
+        newsLastProbeAt = now;
+        newsRefreshInFlight = true;
+        try {
+            const data = await fetchNewsWorkerData(now);
+            if (!data || !data.news || typeof data.news !== 'object') return false;
+            const revision = getNewsWorkerSyncTimestamp(data);
+            if (revision > newsLastSyncTimestamp || !newsLastSyncTimestamp) {
+                localGyujtoData = data.news;
+                localAdasData = data.news;
+                newsLastSyncTimestamp = revision || now;
+                renderNewsroomDayNightCycle(data.news);
+                updateTickerList();
+                const notice = document.getElementById('news-load-debug-status');
+                if (notice) notice.remove();
+                console.info(`[KÉPBEN] A híroszlopok frissültek (${reason}); Worker-szinkron: ${data.lastUpdated || 'ismeretlen időpont'}, ${Object.keys(data.news).length} hír.`);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.warn('[KÉPBEN] A hírek időzített ellenőrzése sikertelen:', error && error.message || error);
+            return false;
+        } finally {
+            newsRefreshInFlight = false;
+        }
+    }
+
+    function scheduleNewsRefresh() {
+        if (newsRefreshTimerId) clearTimeout(newsRefreshTimerId);
+        const cronSlotMs = 5 * 60 * 1000;
+        const nextCron = (Math.floor(Date.now() / cronSlotMs) + 1) * cronSlotMs;
+        // A Workernek a RSS-lekérések és a KV-mentés befejezésére 25 másodperc tartalékot hagyunk.
+        const waitMs = Math.max(5000, nextCron + 25000 - Date.now());
+        newsRefreshTimerId = setTimeout(async () => {
+            await refreshNewsOnly('Cloudflare 5 perces trigger utáni ellenőrzés');
+            scheduleNewsRefresh();
+        }, waitMs);
+    }
+
+    function handleNewsPageVisible() {
+        if (document.visibilityState === 'visible') refreshNewsOnly('az oldal ismét látható');
+    }
+
+    document.addEventListener('visibilitychange', handleNewsPageVisible);
+    window.addEventListener('pageshow', () => refreshNewsOnly('oldal újbóli megnyitása'));
+    window.addEventListener('online', () => refreshNewsOnly('hálózati kapcsolat visszatért'));
 
     async function initNewsroomApp() {
         updateLiveClock(); setInterval(updateLiveClock, 1000);
@@ -2703,7 +3123,7 @@
         updateRealtimeOnlineCount(); setInterval(updateRealtimeOnlineCount, 15000);
         try { await fetchDatabases(); } catch (e) {}
         if (isGoogleWeatherFeatureEnabled()) { ensureGoogleWeatherRefreshScheduler(); loadGoogleWeatherCard(false); }
-        setInterval(async () => { await fetchDatabases(); }, 2 * 60 * 1000);
+        scheduleNewsRefresh();
         setInterval(cycleTicker, 12000);
         setInterval(updateTickerList, 3 * 60 * 1000);
         scheduleNextWatermarkFlip();
