@@ -529,16 +529,37 @@
     .pws-pro-metar-main { padding:12px; background:linear-gradient(145deg,#102f50,#1a5880); border-radius:11px; color:#fff; min-width:0; }
     .pws-pro-metar-main strong { display:block; font-size:17px; font-weight:850; line-height:1.2; }
     .pws-pro-metar-main span { display:block; color:#b9d9f2; font:700 11px 'Space Mono',monospace; margin-top:5px; }
-    .pws-pro-metar-meta { display:flex; flex-direction:column; justify-content:center; padding:9px; border:1px solid #dce7f1; border-radius:10px; background:#f6faff; gap:3px; }
+    .pws-pro-metar-main small { display:block; color:#c8dced; font-size:9px; line-height:1.4; margin-top:5px; }
+    .pws-pro-metar-meta { display:flex; flex-direction:column; justify-content:center; padding:9px; border:1px solid #dce7f1; border-radius:10px; background:#f6faff; gap:3px; min-width:0; }
     .pws-pro-metar-meta span { color:#75879a; font-size:8.5px; }
-    .pws-pro-metar-meta strong { color:#183c5e; font-size:12px; }
+    .pws-pro-metar-meta strong { color:#183c5e; font-size:11px; line-height:1.35; overflow-wrap:anywhere; }
+    .pws-pro-metar-scene-wrap { display:grid; grid-template-columns:minmax(0,1.28fr) minmax(130px,.9fr); align-items:center; gap:10px; padding:8px; border:1px solid #dce7f1; border-radius:12px; background:linear-gradient(135deg,#f1f7fc,#fff); }
+    .pws-pro-metar-sky { width:100%; height:auto; display:block; border-radius:9px; box-shadow:inset 0 0 0 1px rgba(15,40,65,.08); }
+    .pws-pro-metar-scene-copy { min-width:0; }
+    .pws-pro-metar-scene-copy span { display:block; color:#6b8299; font:800 8px 'Space Mono',monospace; letter-spacing:.45px; }
+    .pws-pro-metar-scene-copy strong { display:block; color:#123b5e; font-size:16px; line-height:1.2; margin-top:5px; }
+    .pws-pro-metar-scene-copy p { color:#526c84; font-size:10px; line-height:1.45; margin-top:5px; }
+    .pws-pro-metar-cover { padding:9px 10px; margin-top:8px; border:1px solid #dce7f1; background:#f8fbff; border-radius:10px; }
+    .pws-pro-metar-cover>div:first-child { display:flex; justify-content:space-between; align-items:center; gap:8px; color:#627a91; font-size:9px; }
+    .pws-pro-metar-cover strong { color:#163d61; font:800 12px 'Space Mono',monospace; }
+    .pws-pro-metar-cover-track { height:8px; overflow:hidden; border-radius:99px; background:#dce7f0; margin-top:7px; box-shadow:inset 0 1px 2px rgba(16,42,67,.08); }
+    .pws-pro-metar-cover-track i { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#93c5fd,#527a9e); }
+    .pws-pro-metar-cover small { display:block; margin-top:5px; color:#7b8fa2; font-size:8px; line-height:1.35; }
+    .pws-pro-metar-grid-clear { margin-top:8px; }
     .pws-pro-cloud-layers { display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; }
-    .pws-pro-cloud-layers span { padding:4px 7px; border-radius:6px; background:#eff6fd; border:1px solid #dce9f5; color:#3b5c79; font:700 8px 'Space Mono',monospace; }
+    .pws-pro-cloud-layers b { flex-basis:100%; color:#607890; font-size:9px; }
+    .pws-pro-cloud-layers span { padding:5px 7px; border-radius:7px; background:#eff6fd; border:1px solid #dce9f5; color:#3b5c79; font:700 8px/1.35 'Space Mono',monospace; }
     .pws-pro-raw { margin-top:8px; padding:8px 9px; border-radius:8px; background:#10243b; color:#d8e8f7; font:700 9px/1.5 'Space Mono',monospace; overflow-wrap:anywhere; }
+    .pws-pro-metar-raw { margin-top:8px; }
+    .pws-pro-metar-raw summary { cursor:pointer; color:#42637f; font-size:9px; font-weight:750; padding:5px 0; }
     .pws-pro-sat-tabs { margin-bottom:8px; }
-    .pws-pro-sat-image-wrap { position:relative; width:100%; min-height:140px; padding:6px; display:flex; align-items:center; justify-content:center; border-radius:11px; overflow:hidden; border:1px solid #d7e3ef; background:radial-gradient(ellipse at center,#eef5fb,#dce7f1); }
-    .pws-pro-sat-image-wrap img { display:block; width:100%; max-height:290px; object-fit:contain; border-radius:7px; }
-    .pws-pro-sat-time { position:absolute; right:10px; bottom:10px; border-radius:6px; padding:4px 7px; background:rgba(8,27,46,.82); color:#fff; font:700 8px 'Space Mono',monospace; }
+    .pws-pro-sat-zoom { display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin:-1px 0 8px; }
+    .pws-pro-sat-zoom>span { color:#70849a; font:800 8px 'Space Mono',monospace; margin-right:3px; }
+    .pws-pro-sat-image-wrap { position:relative; width:100%; height:clamp(190px,38vw,320px); min-height:190px; display:block; border-radius:11px; overflow:hidden; border:1px solid #cbd9e7; background:radial-gradient(ellipse at center,#eef5fb,#dce7f1); isolation:isolate; }
+    .pws-pro-sat-image-wrap img { position:absolute; inset:0; display:block; width:100%; height:100%; max-height:none; object-fit:contain; object-position:center; border-radius:0; opacity:1; transition:opacity .28s ease,transform .35s ease; }
+    .pws-pro-sat-image-wrap.is-hungary-zoom img { transform:scale(1.62); transform-origin:50% 58%; }
+    .pws-pro-sat-region-tag { position:absolute; left:9px; top:9px; z-index:2; padding:5px 8px; border:1px solid rgba(255,255,255,.32); border-radius:7px; background:rgba(8,27,46,.76); color:#fff; font:800 8px 'Space Mono',monospace; letter-spacing:.3px; box-shadow:0 2px 8px rgba(3,18,32,.18); }
+    .pws-pro-sat-time { position:absolute; right:10px; bottom:10px; z-index:2; border-radius:6px; padding:4px 7px; background:rgba(8,27,46,.84); color:#fff; font:700 8px 'Space Mono',monospace; }
     .pws-pro-sat-freshness { display:flex; align-items:center; gap:6px; margin-top:6px; padding:5px 8px; border-radius:7px; font:750 8px 'Space Mono',monospace; letter-spacing:.1px; }
     .pws-pro-sat-freshness span { width:6px; height:6px; border-radius:50%; background:currentColor; }
     .pws-pro-sat-freshness.fresh { color:#08785d; background:#edfbf5; border:1px solid #b4ead5; }
@@ -547,6 +568,14 @@
     .pws-pro-sat-freshness.unknown { color:#64748b; background:#f3f6fa; border:1px solid #d9e2ec; }
     .pws-pro-sat-controls { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:7px; margin-top:7px; }
     .pws-pro-sat-controls span { color:#70849a; font:700 9px 'Space Mono',monospace; }
+    @media (max-width:560px) {
+      .pws-pro-metar-scene-wrap { grid-template-columns:minmax(0,1fr); gap:7px; }
+      .pws-pro-metar-sky { max-height:150px; }
+      .pws-pro-metar-scene-copy strong { font-size:14px; }
+      .pws-pro-sat-image-wrap { height:clamp(190px,62vw,260px); }
+      .pws-pro-sat-image-wrap.is-hungary-zoom img { transform:scale(1.52); transform-origin:50% 58%; }
+      .pws-pro-sat-zoom { align-items:flex-start; }
+    }
     @media (max-width:420px) {
       .pws-pro-panel { padding:9px; }
       .pws-pro-panel-head { align-items:flex-start; }
@@ -558,6 +587,7 @@
       .pws-wg-wind-hero-compass { width:106px; height:106px; }
     }
     @media (prefers-reduced-motion: reduce) {
+      .pws-pro-sat-image-wrap img { transition:none!important; }
       .pws-wg-wind-hero.is-new-reading,.pws-wg-wind-hero.is-new-reading .pws-wg-wind-hero-compass { animation:none!important; }
       #pws-hero-wind-needle { transition:none!important; }
     }
@@ -774,6 +804,28 @@
 <footer style="text-align: right; font-size: 0.62rem; font-weight: 600; color: #334155; padding-top: 12px; font-family:'Space Mono',monospace;">© Robi 2026 · Minden jog fenntartva</footer>
 
 <script>
+    // Backward-compatibility guard: older cached page fragments referenced phaseFrac
+    // as a free identifier. Expose a safe, calculated global fallback without replacing
+    // correctly scoped local phase variables in the current code.
+    if (typeof window.phaseFrac === 'undefined') {
+        try {
+            Object.defineProperty(window, 'phaseFrac', {
+                configurable: true,
+                get() {
+                    try {
+                        const now = new Date();
+                        const fallback = (typeof omCalcMoonPhase === 'function') ? omCalcMoonPhase(now) : null;
+                        const astro = (typeof getNyirAstronomyData === 'function') ? getNyirAstronomyData() : null;
+                        const value = (typeof pwsWgMoonPhaseFraction === 'function')
+                            ? Number(pwsWgMoonPhaseFraction(astro?.moon, fallback))
+                            : Number(fallback?.phaseFrac);
+                        return Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : 0;
+                    } catch (_) { return 0; }
+                }
+            });
+        } catch (_) { window.phaseFrac = 0; }
+    }
+    const KEPBEN_PWS_PHASEFIX_BUILD = "2026-11-16-phasefrac-guard-v2";
     const FIREBASE_URL = "https://robi-oldala-default-rtdb.europe-west1.firebasedatabase.app";
     const WEATHER_API_KEY = "e1f10a1e78da46f5b10a1e78da96f525";
     const PWS_INYREG42_API_KEY = "f6d2efe5720d47ea92efe5720df7eaa8";
@@ -797,7 +849,7 @@
         windPulsePending: false, lastWindObservationEpoch: null
     };
     let pwsMetarState = { data: null, loading: false, error: '', lastFetchAt: 0 };
-    let pwsSatelliteState = { product: 'CloudType', data: null, loading: false, error: '', frameIndex: 0, playing: false, playTimer: null, lastFetchAt: 0 };
+    let pwsSatelliteState = { product: 'CloudType', data: null, loading: false, error: '', frameIndex: 0, playing: false, playTimer: null, lastFetchAt: 0, zoomMode: 'hungary' };
 
     const OM_SYNC_SLOT_MS = 10 * 60 * 1000;
     let nyirOmState = {
@@ -1277,11 +1329,26 @@
         const moonX = Math.max(7, Math.min(93, moon.azimuth < 90 ? 7 : moon.azimuth > 270 ? 93 : ((moon.azimuth - 90) / 180) * 100));
         const moonY = Math.max(18, Math.min(84, 82 - Math.max(0, moon.altitude) * 0.68));
         const moonIllum = pwsWgMoonIllumination(astro?.moon, phase);
+        // A holdfázist lokális, saját nevű változóba számítjuk. Így egy régi, gyorsítótárazott
+        // vagy másik scriptből származó, szabad phaseFrac hivatkozás nem tudja megakasztani a PWS-t.
+        let moonPhaseFraction = 0;
+        try {
+            const calculatedMoonPhase = Number(pwsWgMoonPhaseFraction(astro?.moon, phase));
+            moonPhaseFraction = Number.isFinite(calculatedMoonPhase)
+                ? Math.max(0, Math.min(1, calculatedMoonPhase))
+                : Math.max(0, Math.min(1, Number(phase?.phaseFrac) || 0));
+        } catch (moonPhaseError) {
+            moonPhaseFraction = Math.max(0, Math.min(1, Number(phase?.phaseFrac) || 0));
+            if (!window.__kepbenMoonPhaseFallbackLogged) {
+                window.__kepbenMoonPhaseFallbackLogged = true;
+                console.warn('[KÉPBEN PWS] Holdfázis-tartalékérték használatban:', moonPhaseError);
+            }
+        }
         const phaseTitle = pwsWgMoonPhaseHungarian(astro?.moon?.phase, phase.name);
         const sunVisible = pwsWgIsAboveHorizonByEvents(now, astro?.sun, sun.elev > -0.83);
         const showSun = sunVisible && (cloud === null || cloud < 94);
         const sunOrb = showSun ? '<span class="pws-sky-orb pws-sky-sun-orb" title="Nap a horizont felett"></span>' : '';
-        const moonOrb = moonVisible ? `<span class="pws-sky-orb pws-sky-moon-orb" style="left:${moonX.toFixed(1)}%;top:${moonY.toFixed(1)}%" title="Hold · ${gwEsc(phaseTitle)}, ${moonIllum.toFixed(0)}% megvilágítás">${pwsWgMoonPhaseSvg(25,{phaseFrac,illumPct:moonIllum,title:phaseTitle})}</span>` : '';
+        const moonOrb = moonVisible ? `<span class="pws-sky-orb pws-sky-moon-orb" style="left:${moonX.toFixed(1)}%;top:${moonY.toFixed(1)}%" title="Hold · ${gwEsc(phaseTitle)}, ${moonIllum.toFixed(0)}% megvilágítás">${pwsWgMoonPhaseSvg(25,{phaseFrac:moonPhaseFraction,illumPct:moonIllum,title:phaseTitle})}</span>` : '';
         const cloudMarkup = (cloud === null || cloud > 12 || layersCloud) ? `<span class="pws-sky-cloud ${['rain','rain_heavy','drizzle','thunder','mix'].includes(kind) ? 'is-dark' : ''}" style="left:14%;top:44%;opacity:${cloudOpacity.toFixed(2)}"></span><span class="pws-sky-cloud ${['rain','rain_heavy','drizzle','thunder','mix'].includes(kind) ? 'is-dark' : ''}" style="left:53%;top:56%;transform:scale(.82);opacity:${Math.max(.18, cloudOpacity * .82).toFixed(2)}"></span>` : '';
         const precipMarkup = ['rain','rain_heavy','drizzle'].includes(kind) ? '<span class="pws-sky-rain-streaks"></span>' : (kind === 'snow' ? '<span class="pws-sky-snow-dots"></span>' : (kind === 'fog' ? '<span class="pws-sky-fog-bands"></span>' : (kind === 'thunder' ? '<span class="pws-sky-rain-streaks"></span><span class="pws-sky-lightning">⚡</span>' : (kind === 'mix' ? '<span class="pws-sky-rain-streaks"></span><span class="pws-sky-snow-dots"></span>' : ''))));
         return { scene, art: `<div class="pws-sky-art" aria-hidden="true"><span class="pws-sky-starfield"></span>${sunOrb}${moonOrb}${cloudMarkup}${precipMarkup}</div>` };
@@ -2077,22 +2144,65 @@
         if(!ob)return null;
         const raw=String(ob.rawOb||ob.raw||'').toUpperCase();
         const clouds=Array.isArray(ob.clouds)?ob.clouds:[];
-        const names={FEW:'Kevés felhő',SCT:'Szórványos felhő',BKN:'Erősen felhős',OVC:'Borult',VV:'Függőleges látás'};
+        const names={FEW:'Kevés felhő',SCT:'Szórványos felhő',BKN:'Szakadozott, nagy kiterjedésű felhőzet',OVC:'Teljesen borult',VV:'Függőleges látás korlátozott'};
         const rank={FEW:1,SCT:2,BKN:3,OVC:4,VV:5};
-        let items=clouds.filter(c=>c && (names[c.cover]||['SKC','CLR','NSC','NCD','CAVOK'].includes(c.cover)));
+        const coverInfo={
+            FEW:{oktas:'1–2/8',range:'kb. 13–25%',percent:19,plain:'Kevés felhő: az ég nagy része szabadon látszik.'},
+            SCT:{oktas:'3–4/8',range:'kb. 38–50%',percent:44,plain:'Szórványos felhőzet: az ég egy része felhős, nagyobb nyitott területekkel.'},
+            BKN:{oktas:'5–7/8',range:'kb. 63–88%',percent:75,plain:'Szakadozott, de meghatározó felhőzet: az ég nagyobb részét felhők fedik.'},
+            OVC:{oktas:'8/8',range:'100%',percent:100,plain:'Teljes felhőborítás: a megfigyelt égboltot összefüggő felhőtakaró fedi.'},
+            VV:{oktas:'—',range:'nem százalékos adat',percent:100,plain:'A felhőzet vagy más jelenség miatt a függőleges látás is korlátozott.'}
+        };
+        let items=clouds.filter(c=>c && names[c.cover]);
         if(!items.length){
             const re=/(FEW|SCT|BKN|OVC|VV)(\d{3}|\/{3})?(?:CB|TCU)?/g; let m;
             while((m=re.exec(raw))!==null)items.push({cover:m[1],base:m[2]&&m[2]!=='///'?Number(m[2])*100:null});
         }
         if(items.length){
-            items.sort((a,b)=>(rank[b.cover]||0)-(rank[a.cover]||0));
-            const c=items[0], oktas={FEW:'1–2/8',SCT:'3–4/8',BKN:'5–7/8',OVC:'8/8',VV:'—'}[c.cover]||'—';
-            const base=pwsSafeNumber(c.base);
-            return {label:names[c.cover]||c.cover,cover:c.cover,oktas,base,detail:items.map(x=>`${x.cover}${x.base!==undefined&&x.base!==null?' '+Math.round(x.base)+' ft':''}`).join(' · '),raw};
+            const layers=items.map(c=>({cover:c.cover,base:pwsSafeNumber(c.base),type:c.cloudType||c.type||''}));
+            const dominant=[...layers].sort((a,b)=>(rank[b.cover]||0)-(rank[a.cover]||0))[0];
+            // Aviation ceiling is the lowest BKN/OVC layer, or vertical visibility if that is reported.
+            const ceilingLayers=layers.filter(x=>['BKN','OVC'].includes(x.cover)&&x.base!==null).sort((a,b)=>a.base-b.base);
+            const vvLayer=layers.find(x=>x.cover==='VV');
+            const ceiling=ceilingLayers[0]||vvLayer||null;
+            const info=coverInfo[dominant.cover]||{};
+            const layerText=layers.map(x=>`${x.cover}${x.base!==null?' '+Math.round(x.base).toLocaleString('hu-HU')+' ft':''}${x.type?' '+x.type:''}`).join(' · ');
+            return {
+                label:names[dominant.cover]||dominant.cover,cover:dominant.cover,
+                oktas:info.oktas||'—',range:info.range||'—',percent:info.percent??null,
+                plain:info.plain||'A felhőzetet a repülőtéri jelentés kódja írja le.',
+                base:ceiling?ceiling.base:layers.filter(x=>x.base!==null).sort((a,b)=>a.base-b.base)[0]?.base??null,
+                ceilingType:ceiling?.cover||null,layers,detail:layerText,raw
+            };
         }
-        if(/\bCAVOK\b/.test(raw))return {label:'CAVOK · jelentős felhő/veszélyes idő nincs jelentve',cover:'CAVOK',oktas:'nem 0%-os mérés',base:null,detail:'CAVOK',raw};
-        if(/\b(NSC|NCD|SKC|CLR)\b/.test(raw))return {label:'Jelentős felhő nem jelentett',cover:'NSC',oktas:'nem számszerűsíthető',base:null,detail:(raw.match(/\b(NSC|NCD|SKC|CLR)\b/)||[])[0],raw};
-        return {label:'Nincs dekódolható felhőcsoport',cover:'—',oktas:'—',base:null,detail:'A jelentés felhőmezője üres vagy nem értelmezhető.',raw};
+        if(/\bCAVOK\b/.test(raw))return {label:'Jó repülési látási viszonyok',cover:'CAVOK',oktas:'CAVOK',range:'nincs számszerű felhőfedettség',percent:null,plain:'Legalább 10 km-es látás; 5 000 ft vagy a legmagasabb szektormagasság alatt nincs jelentős felhő, és nincs jelentős időjárási jelenség.',base:null,ceilingType:null,layers:[],detail:'CAVOK',raw};
+        if(/\b(NSC|NCD|SKC|CLR)\b/.test(raw)){
+            const code=(raw.match(/\b(NSC|NCD|SKC|CLR)\b/)||[])[0];
+            const nsc=code==='NSC';
+            const labels={NSC:'Nincs jelentős alacsony felhő',NCD:'Az automata mérés nem észlelt felhőt',SKC:'Felhőtlen égbolt jelentve',CLR:'12 000 ft alatt nem jelentett felhő'};
+            const plainByCode={NSC:'5 000 ft alatt (vagy a szektormagasságig) nem jelentettek jelentős felhőzetet. Ez nem feltétlenül jelent teljesen felhőtlen eget.',NCD:'Az automata megfigyelőrendszer a méréskor nem észlelt felhőt.',SKC:'A megfigyelés felhőtlen égboltot jelent.',CLR:'Az automata állomás 12 000 ft alatt nem jelentett felhőt; magasabban ettől még lehet felhő.'};
+            return {label:labels[code]||'Felhő nem jelentett',cover:code,oktas:'nem oktásban megadott adat',range:'nem számszerűsíthető',percent:nsc?null:0,plain:plainByCode[code]||'A jelentés nem jelez felhőt az adott megfigyelési szabály szerint.',base:null,ceilingType:null,layers:[],detail:code,raw};
+        }
+        return {label:'A felhőzet nem dekódolható',cover:'—',oktas:'—',range:'—',percent:null,plain:'A jelentés felhőmezője üres vagy nem értelmezhető.',base:null,ceilingType:null,layers:[],detail:'A felhőadat nem áll rendelkezésre.',raw};
+    }
+    function pwsMetarSkyIllustration(cloud){
+        const cover=cloud?.cover||'—';
+        const groups={
+            FEW:`<g fill="#fff" stroke="#dbe8f4" stroke-width="2"><path d="M335 99c-2-17 12-30 29-30 8-19 38-22 52-5 20-4 36 11 33 30 15 2 22 12 18 24H339c-13-1-18-10-4-19Z"/><path d="M70 119c-2-12 9-22 21-22 7-14 30-17 40-3 15-3 27 8 24 21 12 2 16 10 13 18H74c-10 0-13-7-4-14Z"/></g>`,
+            SCT:`<g fill="#fff" stroke="#dbe8f4" stroke-width="2"><path d="M42 104c-3-15 10-27 25-27 8-17 34-20 46-4 18-4 32 10 30 26 13 2 19 10 15 21H48c-12 0-17-7-6-16Z"/><path d="M245 84c-2-15 10-27 25-27 7-17 33-19 45-4 17-3 32 10 29 26 13 2 19 10 15 21H251c-12-1-17-8-6-16Z"/><path d="M438 115c-2-13 9-23 21-23 7-15 29-17 40-4 15-3 27 8 25 22 11 1 16 8 13 17H444c-10 0-14-7-6-12Z"/></g>`,
+            BKN:`<g fill="#eaf1f8" stroke="#d2dfeb" stroke-width="2"><path d="M-25 100c-3-19 12-34 32-34 9-21 44-25 59-6 21-4 39 12 35 31 15 3 22 13 18 26H-15c-16-1-23-10-10-17Z"/><path d="M150 90c-3-19 12-34 32-34 9-21 44-25 59-6 21-4 39 12 35 31 15 3 22 13 18 26H160c-16-1-23-10-10-17Z"/><path d="M340 100c-3-19 12-34 32-34 9-21 44-25 59-6 21-4 39 12 35 31 15 3 22 13 18 26H350c-16-1-23-10-10-17Z"/><path d="M515 91c-3-19 12-34 32-34 9-21 44-25 59-6 21-4 39 12 35 31 15 3 22 13 18 26H525c-16-1-23-10-10-17Z"/></g>`,
+            OVC:`<g fill="#d9e3ed" stroke="#c5d3e1" stroke-width="2"><path d="M-30 79c-4-23 15-41 39-41 11-26 53-30 71-7 25-5 47 15 42 37 19 3 27 16 22 31H-17c-19-1-28-12-13-20Z"/><path d="M120 75c-4-23 15-41 39-41 11-26 53-30 71-7 25-5 47 15 42 37 19 3 27 16 22 31H133c-19-1-28-12-13-20Z"/><path d="M310 75c-4-23 15-41 39-41 11-26 53-30 71-7 25-5 47 15 42 37 19 3 27 16 22 31H323c-19-1-28-12-13-20Z"/><path d="M490 79c-4-23 15-41 39-41 11-26 53-30 71-7 25-5 47 15 42 37 19 3 27 16 22 31H503c-19-1-28-12-13-20Z"/></g><path d="M0 120 Q130 104 260 122 T600 116 V180 H0Z" fill="#b8c8d8" opacity=".78"/>`,
+            VV:`<g fill="#e3e9ef" opacity=".95"><path d="M0 63 Q100 35 200 61 T400 52 T600 64 V180 H0Z"/><path d="M0 96 Q110 70 220 93 T430 85 T600 96 V180 H0Z"/></g>`
+        };
+        const showSun=['FEW','SCT','NSC','NCD','SKC','CLR','CAVOK'].includes(cover);
+        const skyTop=cover==='OVC'||cover==='VV'?'#aab8c7':'#7dc2e8';
+        const overcastLayer=cover==='OVC'?'<rect width="600" height="180" fill="#aab8c7" opacity=".34"/>':'';
+        return `<svg class="pws-pro-metar-sky" viewBox="0 0 600 180" role="img" aria-label="METAR alapján szemléltetett égbolt: ${gwEsc(cloud?.label||'ismeretlen felhőzet')}"><defs><linearGradient id="pwsMetarSkyGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${skyTop}"/><stop offset="1" stop-color="#d8e8f2"/></linearGradient><linearGradient id="pwsMetarCloudGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#b7c6d5"/></linearGradient></defs><rect width="600" height="180" rx="13" fill="url(#pwsMetarSkyGradient)"/>${overcastLayer}${showSun?'<circle cx="500" cy="38" r="19" fill="#ffe7a3" opacity=".95"/><circle cx="500" cy="38" r="28" fill="#ffe7a3" opacity=".2"/>':''}${groups[cover]||''}<path d="M0 155 Q110 143 220 154 T440 151 T600 150 V180 H0Z" fill="#7897a8" opacity=".23"/></svg>`;
+    }
+    function pwsMetarHeightText(baseFt){
+        if(baseFt===null||baseFt===undefined||!Number.isFinite(Number(baseFt)))return 'nincs megadva';
+        const ft=Math.round(Number(baseFt)), metres=Math.round(ft*0.3048/10)*10;
+        return `${ft.toLocaleString('hu-HU')} ft AGL · kb. ${metres.toLocaleString('hu-HU')} m`;
     }
     function pwsMetarEpoch(ob) {
         if (!ob) return null;
@@ -2122,8 +2232,14 @@
         const data=pwsMetarState.data, ob=data&&data.observation, cloud=pwsMetarCloudSummary(ob);
         if(!ob)return `<section class="pws-pro-panel" data-gw-key="pws-pro-metar"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">FÜGGETLEN HELYI MEGFIGYELÉS</div><div class="pws-pro-title">Repülőtéri égbolt · LHNY</div></div><span class="pws-pro-source">METAR / SPECI</span></div><div class="pws-pro-chart-empty">${pwsMetarState.loading?'METAR-jelentés lekérése…':gwEsc(pwsMetarState.error||'Jelentés még nem érkezett.')}<button class="pws-pro-inline-btn" type="button" onclick="pwsLoadMetar(true)">↻ Újrapróbálás</button></div></section>`;
         const age=pwsMetarAgeLabel(ob),epoch=pwsMetarEpoch(ob),ts=epoch!==null?new Date(epoch*1000).toLocaleString('hu-HU',{timeZone:'Europe/Budapest'}):'';
-        const base=cloud&&cloud.base!==null?`${Math.round(cloud.base).toLocaleString('hu-HU')} ft AGL`:'Felhőalap nincs jelentve';
-        return `<section class="pws-pro-panel" data-gw-key="pws-pro-metar"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">FÜGGETLEN HELYI MEGFIGYELÉS</div><div class="pws-pro-title">Repülőtéri égbolt · LHNY</div></div><span class="pws-pro-source pws-pro-source-live">METAR / SPECI</span></div><div class="pws-pro-metar-grid"><div class="pws-pro-metar-main"><strong>${gwEsc(cloud.label)}</strong><span>${gwEsc(cloud.oktas)}</span></div><div class="pws-pro-metar-meta"><span>Felhőalap</span><strong>${gwEsc(base)}</strong><span>${gwEsc(age)}</span></div></div><div class="pws-pro-cloud-layers">${(cloud.detail||'—').split(' · ').map(x=>`<span>${gwEsc(x)}</span>`).join('')}</div><div class="pws-pro-raw">${gwEsc(ob.rawOb||ob.raw||'Nyers METAR nem érkezett')}</div><div class="pws-pro-foot">Forrás: NOAA Aviation Weather Center · LHNY repülőtéri jelentés · ${gwEsc(ts?new Date(ts).toLocaleString('hu-HU'):'időpont nélkül')} · ez repülőtéri észlelés, nem városi felhőmérő.</div><button class="pws-pro-inline-btn" type="button" onclick="pwsLoadMetar(true)">↻ Frissítés</button></section>`;
+        const height=cloud&&cloud.base!==null?pwsMetarHeightText(cloud.base):'Nincs megadott felhőalap';
+        const ceilingLabel=cloud?.ceilingType?'Repülési felhőplafon':'Legalacsonyabb jelentett felhőalap';
+        const visual=pwsMetarSkyIllustration(cloud);
+        const coverage=cloud?.range||'nem számszerűsíthető';
+        const layerChips=(cloud?.layers||[]).map(x=>`<span>${gwEsc(x.cover)}${x.base!==null?' · '+gwEsc(pwsMetarHeightText(x.base)):''}${x.type?' · '+gwEsc(x.type):''}</span>`).join('');
+        const percent=cloud?.percent!==null&&cloud?.percent!==undefined?`<div class="pws-pro-metar-cover"><div><span>A kiemelt felhőréteg fedettsége</span><strong>${gwEsc(coverage)}</strong></div><div class="pws-pro-metar-cover-track"><i style="width:${Math.max(0,Math.min(100,cloud.percent))}%"></i></div><small>${gwEsc(cloud.oktas||'')} · kódolt METAR-becslés, nem műholdas pixelmérés</small></div>`:'';
+        const explanatory=cloud?.plain||'A felhőzetet a repülőtéri jelentés kódja írja le.';
+        return `<section class="pws-pro-panel pws-pro-metar-panel" data-gw-key="pws-pro-metar"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">FÜGGETLEN HELYI MEGFIGYELÉS</div><div class="pws-pro-title">Repülőtéri égbolt · LHNY</div></div><span class="pws-pro-source pws-pro-source-live">METAR / SPECI</span></div><div class="pws-pro-metar-scene-wrap">${visual}<div class="pws-pro-metar-scene-copy"><span>MIT LÁTNA EGY MEGFIGYELŐ?</span><strong>${gwEsc(cloud?.label||'Felhőzet nem ismert')}</strong><p>${gwEsc(explanatory)}</p></div></div>${percent}<div class="pws-pro-metar-grid pws-pro-metar-grid-clear"><div class="pws-pro-metar-main"><span>${gwEsc(ceilingLabel)}</span><strong>${gwEsc(height)}</strong><small>${cloud?.ceilingType==='VV'?'Függőleges látás a felhőbe vagy homályba':'A repülőtér felszíne fölött (AGL), nem tengerszint feletti magasság'}</small></div><div class="pws-pro-metar-meta"><span>Megfigyelés kora</span><strong>${gwEsc(age)}</strong><span>Megfigyelési idő</span><strong>${gwEsc(ts||'időpont nélkül')}</strong></div></div>${layerChips?`<div class="pws-pro-cloud-layers pws-pro-cloud-layers-detail"><b>Jelentett felhőrétegek</b>${layerChips}</div>`:''}<details class="pws-pro-metar-raw"><summary>Részletes METAR-kód megtekintése</summary><div class="pws-pro-raw">${gwEsc(ob.rawOb||ob.raw||'Nyers METAR nem érkezett')}</div></details><div class="pws-pro-foot">Forrás: NOAA Aviation Weather Center · LHNY repülőtéri jelentés. A METAR a repülőtér környezetének hivatalos észlelési jelentése, nem Nyíregyháza teljes városára kiterjedő felhőmérés. Az FEW/SCT/BKN/OVC kódok oktás-tartományt jelentenek; a százalék a kiemelt réteg közelítő tartománya. A különböző magasságú rétegek fedettségét nem adjuk össze.</div><button class="pws-pro-inline-btn" type="button" onclick="pwsLoadMetar(true)">↻ Frissítés</button></section>`;
     }
     async function pwsLoadSatellite(product,force=false) {
         if(!['CloudType','InfraCloud','NaturalRGB','NightRGB','FogRGB','HRVCloudRGB','AirmassRGB','24hCloudRGB'].includes(product))return;
@@ -2137,19 +2253,56 @@
         }catch(e){pwsSatelliteState.error=e?.message||'Műholdkép nem érhető el.';}
         finally{pwsSatelliteState.loading=false;renderPwsInyreg42Widget();}
     }
+    function pwsSatelliteFrameMeta(frame){
+        const frameMs=frame&&frame.timestamp?Date.parse(frame.timestamp):NaN;
+        const ageMin=Number.isFinite(frameMs)?Math.max(0,Math.round((Date.now()-frameMs)/60000)):null;
+        const freshness=ageMin===null?{label:'IDŐPONT NÉLKÜL',cls:'unknown'}:ageMin<=45?{label:'FRISS MŰHOLDKÉP',cls:'fresh'}:ageMin<=90?{label:'KÉSLELTETETT',cls:'delayed'}:{label:'RÉGI KÉP',cls:'stale'};
+        const ageText=ageMin===null?'az adatkor nem számítható':ageMin<60?`${ageMin} perce készült`:ageMin<1440?`${Math.floor(ageMin/60)} óra ${ageMin%60} perce készült`:`${Math.floor(ageMin/1440)} napja készült`;
+        return {freshness,ageText,stamp:frame?.timestamp?new Date(frame.timestamp).toLocaleString('hu-HU',{timeZone:'UTC'}):'—'};
+    }
+    function pwsUpdateSatelliteFrameDom(){
+        const panel=document.querySelector('[data-gw-key="pws-pro-satellite"]');
+        const imgs=pwsSatelliteState.data?.images||[];
+        if(!panel||!imgs.length)return;
+        const idx=Math.min(pwsSatelliteState.frameIndex,imgs.length-1),frame=imgs[idx],meta=pwsSatelliteFrameMeta(frame);
+        const img=panel.querySelector('#pws-pro-sat-image');
+        if(img&&frame?.imageUrl&&img.dataset.frameUrl!==frame.imageUrl){
+            img.style.opacity='.55';
+            img.onload=()=>{img.style.opacity='1';};
+            img.onerror=()=>{img.style.opacity='1';};
+            img.src=frame.imageUrl;img.dataset.frameUrl=frame.imageUrl;
+        }
+        const time=panel.querySelector('#pws-pro-sat-time');if(time)time.textContent=`${meta.stamp} UTC`;
+        const fresh=panel.querySelector('#pws-pro-sat-freshness');
+        if(fresh){fresh.className=`pws-pro-sat-freshness ${meta.freshness.cls}`;fresh.innerHTML=`<span></span>${meta.freshness.label} · ${meta.ageText}`;}
+        const counter=panel.querySelector('#pws-pro-sat-counter');if(counter)counter.textContent=`${idx+1} / ${imgs.length}`;
+        const play=panel.querySelector('#pws-pro-sat-play-btn');if(play)play.textContent=pwsSatelliteState.playing?'Ⅱ Szünet':'▶ Finom lejátszás';
+    }
     function pwsSetSatelliteProduct(product){pwsStopSatelliteAnimation();pwsLoadSatellite(product,true);}
-    function pwsMoveSatelliteFrame(delta){const imgs=pwsSatelliteState.data?.images||[];if(!imgs.length)return;pwsSatelliteState.frameIndex=(pwsSatelliteState.frameIndex+delta+imgs.length)%imgs.length;renderPwsInyreg42Widget();}
-    function pwsStopSatelliteAnimation(){if(pwsSatelliteState.playTimer)clearInterval(pwsSatelliteState.playTimer);pwsSatelliteState.playTimer=null;pwsSatelliteState.playing=false;}
-    function pwsToggleSatelliteAnimation(){const imgs=pwsSatelliteState.data?.images||[];if(imgs.length<2)return;if(pwsSatelliteState.playing){pwsStopSatelliteAnimation();renderPwsInyreg42Widget();return;}pwsSatelliteState.playing=true;pwsSatelliteState.playTimer=setInterval(()=>{const list=pwsSatelliteState.data?.images||[];if(!list.length){pwsStopSatelliteAnimation();return;}pwsSatelliteState.frameIndex=(pwsSatelliteState.frameIndex+1)%list.length;renderPwsInyreg42Widget();},1000);renderPwsInyreg42Widget();}
+    function pwsSetSatelliteZoom(mode){pwsSatelliteState.zoomMode=mode==='europe'?'europe':'hungary';const panel=document.querySelector('[data-gw-key="pws-pro-satellite"]');const wrap=panel?.querySelector('.pws-pro-sat-image-wrap');if(wrap)wrap.classList.toggle('is-hungary-zoom',pwsSatelliteState.zoomMode==='hungary');panel?.querySelectorAll('[data-sat-zoom]').forEach(b=>b.classList.toggle('active',b.dataset.satZoom===pwsSatelliteState.zoomMode));}
+    function pwsMoveSatelliteFrame(delta){const imgs=pwsSatelliteState.data?.images||[];if(!imgs.length)return;pwsSatelliteState.frameIndex=(pwsSatelliteState.frameIndex+delta+imgs.length)%imgs.length;pwsUpdateSatelliteFrameDom();}
+    function pwsStopSatelliteAnimation(){if(pwsSatelliteState.playTimer)clearInterval(pwsSatelliteState.playTimer);pwsSatelliteState.playTimer=null;pwsSatelliteState.playing=false;pwsUpdateSatelliteFrameDom();}
+    function pwsToggleSatelliteAnimation(){
+        const imgs=pwsSatelliteState.data?.images||[];if(imgs.length<2)return;
+        if(pwsSatelliteState.playing){pwsStopSatelliteAnimation();return;}
+        if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){pwsUpdateSatelliteFrameDom();return;}
+        pwsSatelliteState.playing=true;
+        pwsSatelliteState.playTimer=setInterval(()=>{
+            if(document.visibilityState!=='visible'){pwsStopSatelliteAnimation();return;}
+            const list=pwsSatelliteState.data?.images||[];if(!list.length){pwsStopSatelliteAnimation();return;}
+            pwsSatelliteState.frameIndex=(pwsSatelliteState.frameIndex+1)%list.length;
+            pwsUpdateSatelliteFrameDom();
+        },1800);
+        pwsUpdateSatelliteFrameDom();
+    }
     function pwsRenderSatellitePanel(){
         const data=pwsSatelliteState.data,imgs=data?.images||[],idx=Math.min(pwsSatelliteState.frameIndex,Math.max(0,imgs.length-1)),frame=imgs[idx],products=[['CloudType','Felhőtípus'],['InfraCloud','Infravörös'],['NaturalRGB','Természetes szín'],['NightRGB','Éjszakai'],['FogRGB','Köd / alacsony felhő']];
         const tabs=products.map(([v,l])=>`<button type="button" class="pws-pro-toggle ${pwsSatelliteState.product===v?'active':''}" onclick="pwsSetSatelliteProduct('${v}')">${l}</button>`).join('');
-        const frameMs=frame&&frame.timestamp?Date.parse(frame.timestamp):NaN,ageMin=Number.isFinite(frameMs)?Math.max(0,Math.round((Date.now()-frameMs)/60000)):null;
-        const freshness=ageMin===null?{label:'IDŐPONT NÉLKÜL',cls:'unknown'}:ageMin<=45?{label:'FRISS MŰHOLDKÉP',cls:'fresh'}:ageMin<=90?{label:'KÉSLELTETETT',cls:'delayed'}:{label:'RÉGI KÉP',cls:'stale'};
-        const ageText=ageMin===null?'az adatkor nem számítható':ageMin<60?`${ageMin} perce készült`:ageMin<1440?`${Math.floor(ageMin/60)} óra ${ageMin%60} perce készült`:`${Math.floor(ageMin/1440)} napja készült`;
-        const image=frame?`<div class="pws-pro-sat-image-wrap"><img src="${gwEsc(frame.imageUrl)}" alt="HungaroMet Meteosat ${gwEsc(data.product)} műholdkép" loading="lazy" decoding="async"><span class="pws-pro-sat-time">${gwEsc(frame.timestamp?new Date(frame.timestamp).toLocaleString('hu-HU',{timeZone:'UTC'}):'—')} UTC</span></div><div class="pws-pro-sat-freshness ${freshness.cls}"><span></span>${freshness.label} · ${ageText}</div>`:`<div class="pws-pro-chart-empty">${pwsSatelliteState.loading?'HungaroMet műholdképek keresése…':gwEsc(pwsSatelliteState.error||'Ehhez a termékhez most nincs elérhető kép.')}<button type="button" class="pws-pro-inline-btn" onclick="pwsLoadSatellite(pwsSatelliteState.product,true)">↻ Újrapróbálás</button></div>`;
-        const transport=imgs.length?`<div class="pws-pro-sat-controls"><button type="button" class="pws-pro-inline-btn" onclick="pwsMoveSatelliteFrame(-1)">‹ Előző</button><button type="button" class="pws-pro-inline-btn" onclick="pwsToggleSatelliteAnimation()">${pwsSatelliteState.playing?'Ⅱ Szünet':'▶ Lejátszás'}</button><button type="button" class="pws-pro-inline-btn" onclick="pwsMoveSatelliteFrame(1)">Következő ›</button><span>${idx+1} / ${imgs.length}</span></div>`:'';
-        return `<section class="pws-pro-panel" data-gw-key="pws-pro-satellite"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">VALÓDI MŰHOLDAS MEGFIGYELÉS</div><div class="pws-pro-title">Meteosat · Európa</div></div><span class="pws-pro-source">HungaroMet · MSG/SEVIRI</span></div><div class="pws-pro-controls pws-pro-sat-tabs">${tabs}</div>${image}${transport}<div class="pws-pro-foot">A műholdkép regionális felhőmegfigyelés, nem helyi PWS-szenzormérés. A termék névleges időbeli felbontása 15 perc; az aktuálisan elérhető képet az adatkor-jelző külön minősíti.</div></section>`;
+        const meta=pwsSatelliteFrameMeta(frame);
+        const zoomButtons=`<div class="pws-pro-sat-zoom"><span>TERÜLET</span><button type="button" data-sat-zoom="hungary" class="pws-pro-toggle ${pwsSatelliteState.zoomMode==='hungary'?'active':''}" onclick="pwsSetSatelliteZoom('hungary')">Magyarország</button><button type="button" data-sat-zoom="europe" class="pws-pro-toggle ${pwsSatelliteState.zoomMode==='europe'?'active':''}" onclick="pwsSetSatelliteZoom('europe')">Teljes Európa</button></div>`;
+        const image=frame?`<div class="pws-pro-sat-image-wrap ${pwsSatelliteState.zoomMode==='hungary'?'is-hungary-zoom':''}"><img id="pws-pro-sat-image" data-frame-url="${gwEsc(frame.imageUrl)}" src="${gwEsc(frame.imageUrl)}" alt="HungaroMet Meteosat ${gwEsc(data.product)} műholdkép, ${pwsSatelliteState.zoomMode==='hungary'?'Magyarországra nagyítva':'európai áttekintés'}" loading="lazy" decoding="async"><span class="pws-pro-sat-region-tag">${pwsSatelliteState.zoomMode==='hungary'?'MAGYARORSZÁG · KÁRPÁT-MEDENCE':'EURÓPAI ÁTTEKINTÉS'}</span><span id="pws-pro-sat-time" class="pws-pro-sat-time">${gwEsc(meta.stamp)} UTC</span></div><div id="pws-pro-sat-freshness" class="pws-pro-sat-freshness ${meta.freshness.cls}"><span></span>${meta.freshness.label} · ${meta.ageText}</div>`:`<div class="pws-pro-chart-empty">${pwsSatelliteState.loading?'HungaroMet műholdképek keresése…':gwEsc(pwsSatelliteState.error||'Ehhez a termékhez most nincs elérhető kép.')}<button type="button" class="pws-pro-inline-btn" onclick="pwsLoadSatellite(pwsSatelliteState.product,true)">↻ Újrapróbálás</button></div>`;
+        const transport=imgs.length?`<div class="pws-pro-sat-controls"><button type="button" class="pws-pro-inline-btn" onclick="pwsMoveSatelliteFrame(-1)">‹ Előző</button><button id="pws-pro-sat-play-btn" type="button" class="pws-pro-inline-btn" onclick="pwsToggleSatelliteAnimation()">${pwsSatelliteState.playing?'Ⅱ Szünet':'▶ Finom lejátszás'}</button><button type="button" class="pws-pro-inline-btn" onclick="pwsMoveSatelliteFrame(1)">Következő ›</button><span id="pws-pro-sat-counter">${idx+1} / ${imgs.length}</span></div>`:'';
+        return `<section class="pws-pro-panel" data-gw-key="pws-pro-satellite"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">VALÓDI MŰHOLDAS MEGFIGYELÉS</div><div class="pws-pro-title">Meteosat · Magyarország és Európa</div></div><span class="pws-pro-source">HungaroMet · MSG/SEVIRI</span></div><div class="pws-pro-controls pws-pro-sat-tabs">${tabs}</div>${zoomButtons}${image}${transport}<div class="pws-pro-foot">HungaroMet Meteosat SEVIRI műholdkép, 15 perces képkockákkal. A Magyarország nézet a regionális kép digitális nagyítása: a kivágás közelebb hozza a térséget, de nem növeli az eredeti felvétel mérési részletességét. A műholdas kép a felhőzet térbeli alakulását mutatja, nem helyi felszíni szenzormérést.</div></section>`;
     }
 
     function renderPwsInyreg42Widget() {
@@ -2274,7 +2427,24 @@
         const skyPctStr = (sky && sky.cloudCover !== null && sky.cloudCover !== undefined) ? `${Math.round(Number(sky.cloudCover))}%` : '—', skyTitleStr = sky ? sky.short : 'Adat betöltése…';
         const layerPct = value => value !== null && value !== undefined && Number.isFinite(Number(value)) ? `${Math.round(Number(value))}%` : '—';
         const cLowStr = layerPct(layers?.low), cMidStr = layerPct(layers?.mid), cHighStr = layerPct(layers?.high);
-        const skyAstro = getNyirAstronomyData(), skyVisual = pwsWgSkyTileScene(sky, layers, skyAstro), skyDayNight = skyVisual.scene.startsWith('day-') ? 'day' : 'night';
+        // Az égkép grafika hibája soha ne akadályozhassa a teljes élő PWS-kártya kirajzolását.
+        let skyVisual;
+        try {
+            const skyAstro = getNyirAstronomyData();
+            skyVisual = pwsWgSkyTileScene(sky, layers, skyAstro);
+        } catch (skySceneError) {
+            if (!window.__kepbenPwsSkySceneFallbackLogged) {
+                window.__kepbenPwsSkySceneFallbackLogged = true;
+                console.error('[KÉPBEN PWS] Az égkép grafika tartalék megjelenítésre váltott:', skySceneError);
+            }
+            let fallbackIsDay = typeof sky?.isDay === 'boolean' ? sky.isDay : (new Date().getHours() >= 6 && new Date().getHours() < 19);
+            try { fallbackIsDay = omCalcSolarElevation(NYIREGYHAZA_LAT, NYIREGYHAZA_LON, new Date()).elev > -0.8; } catch (_) {}
+            skyVisual = {
+                scene: `${fallbackIsDay ? 'day' : 'night'}-partly`,
+                art: '<div class="pws-sky-art" aria-hidden="true"><span class="pws-sky-starfield"></span></div>'
+            };
+        }
+        const skyDayNight = skyVisual.scene.startsWith('day-') ? 'day' : 'night';
 
         const html = `
             <div class="pws-wg-shell" data-gw-key="pws-wg-shell">
