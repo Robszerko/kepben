@@ -308,6 +308,9 @@
     }
     .pws-wg-wind-hero-compass { width: clamp(82px, 21cqw, 108px); height: clamp(82px, 21cqw, 108px); flex-shrink: 0; }
     .pws-wg-wind-hero-svg { width: 100%; height: 100%; display: block; overflow: visible; }
+    #pws-hero-wind-vane { transform-box:view-box; transform-origin:60px 60px; transition:transform 1.05s cubic-bezier(.2,.82,.25,1); }
+    @media (prefers-reduced-motion: reduce) { #pws-hero-wind-vane { transition:none !important; } }
+
     .pws-wg-wind-hero-info { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
     .pws-wg-wind-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
     .pws-wg-wind-hero-title { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 800; color: #1e3a8a; letter-spacing: 0.2px; }
@@ -496,7 +499,7 @@
     .pws-wg-wind-hero-compass { width: clamp(110px, 25cqw, 132px); height: clamp(110px, 25cqw, 132px); }
     .pws-wg-wind-hero { position:relative; overflow:hidden; transition:box-shadow .35s ease,border-color .35s ease; }
     .pws-wg-wind-hero.is-new-reading { animation:pwsWindFlash 1.35s ease-out; }
-    .pws-wg-wind-hero.is-new-reading .pws-wg-wind-hero-compass { animation:pwsWindInstrumentPulse 1.25s ease-out; }
+    .pws-wg-wind-hero.is-new-reading .pws-wg-wind-hero-compass { animation:none; }
     @keyframes pwsWindFlash { 0% { box-shadow:0 0 0 0 rgba(14,165,233,.48), inset 0 0 0 1px rgba(255,255,255,.9); border-color:#38bdf8; } 100% { box-shadow:0 0 0 14px rgba(14,165,233,0), inset 0 0 0 1px rgba(255,255,255,.9); } }
     @keyframes pwsWindInstrumentPulse { 0% { filter:drop-shadow(0 0 0 rgba(56,189,248,0)); } 35% { filter:drop-shadow(0 0 8px rgba(56,189,248,.75)); } 100% { filter:drop-shadow(0 0 0 rgba(56,189,248,0)); } }
     .pws-pro-panel { margin-top:10px; padding:12px; border:1px solid #cbdbea; border-radius:15px; background:linear-gradient(155deg,#fff 0%,#f7fbff 100%); box-shadow:0 4px 13px rgba(20,43,76,.045),inset 0 1px 0 #fff; min-width:0; }
@@ -592,7 +595,254 @@
       #pws-hero-wind-needle { transition:none!important; }
     }
 
+
+/* KÉPBEN! élő helyi megfigyelések – könnyű CSS/SVG, animáció csak kifejezett indításra */
+.pws-live-insights{display:grid;grid-template-columns:1fr;gap:13px;margin:16px 0 18px;min-width:0}
+.pws-live-insights-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:0 2px}
+.pws-live-insights-title{font:800 .86rem/1.3 'Inter',system-ui,sans-serif;color:#0f2742;letter-spacing:.06em}
+.pws-live-insights-sub{font:600 .64rem/1.4 'Inter',system-ui,sans-serif;color:#64748b}
+.pws-live-radar{overflow:hidden;border:1px solid #c6d9e9;border-radius:18px;background:linear-gradient(145deg,#0c2440 0%,#103b5d 55%,#14566d 100%);box-shadow:0 8px 22px rgba(15,55,88,.12);color:#f8fbff;min-width:0}
+.pws-live-radar-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:14px 15px 10px;flex-wrap:wrap}
+.pws-live-radar-kicker{font:800 .61rem/1.2 'Inter',system-ui,sans-serif;letter-spacing:.14em;color:#8ed8f7;text-transform:uppercase}
+.pws-live-radar-title{font:800 1rem/1.25 'Inter',system-ui,sans-serif;color:#fff;margin-top:4px}
+.pws-live-radar-status{border:1px solid rgba(147,220,245,.35);background:rgba(8,30,52,.42);border-radius:999px;padding:5px 9px;font:700 .62rem/1.2 'Inter',system-ui,sans-serif;color:#c5efff;white-space:nowrap}
+.pws-live-radar-visual{height:clamp(180px,27vw,270px);position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 48%,#234d66 0%,#183a55 58%,#102b45 100%);isolation:isolate}
+.pws-live-radar-visual:before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background-image:linear-gradient(rgba(173,220,239,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(173,220,239,.13) 1px,transparent 1px);background-size:10% 14%;opacity:.48}
+.pws-live-radar-visual:after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(4,19,35,.23),transparent 25%,transparent 75%,rgba(4,19,35,.25)),linear-gradient(0deg,rgba(4,19,35,.3),transparent 27%,transparent 77%,rgba(4,19,35,.18))}
+.pws-live-radar-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.94;filter:saturate(1.08);}
+.pws-live-radar-marker{position:absolute;z-index:3;left:50%;top:50%;width:15px;height:15px;border:2px solid #fff;border-radius:50%;background:#fbbf24;box-shadow:0 0 0 6px rgba(251,191,36,.22),0 2px 12px #061b2a;transform:translate(-50%,-50%)}
+.pws-live-radar-marker:after{content:'NYÍREGYHÁZA';position:absolute;left:17px;top:-7px;white-space:nowrap;border-radius:5px;padding:4px 6px;background:rgba(3,22,40,.8);color:#fff;font:800 .56rem/1 'Inter',sans-serif;letter-spacing:.06em}.pws-live-radar-region-chip{position:absolute;z-index:4;right:10px;bottom:10px;padding:5px 7px;border:1px solid rgba(255,255,255,.24);border-radius:7px;background:rgba(3,22,40,.82);color:#eaf7ff;font:800 8px/1.15 system-ui,sans-serif;letter-spacing:.06em;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.pws-live-radar-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:9px 14px 11px;color:#c6dbea;font:600 .65rem/1.4 'Inter',sans-serif}
+.pws-live-radar-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:0 14px 12px}
+.pws-live-radar-controls button{border:1px solid rgba(191,226,242,.3);background:rgba(255,255,255,.1);color:#fff;border-radius:9px;padding:7px 10px;font:700 .67rem/1.2 'Inter',sans-serif;cursor:pointer}
+.pws-live-radar-controls button:disabled{opacity:.38;cursor:not-allowed}
+.pws-live-radar-controls button.primary{background:#e3f4fb;color:#0b3a58;border-color:#d3edf8}
+.pws-live-radar-empty{position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;color:#d4e7f3;font:700 .78rem/1.5 'Inter',sans-serif}
+.pws-live-env-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0}
+.pws-live-env-card{min-width:0;border:1px solid #d9e4ee;border-radius:16px;padding:13px;background:linear-gradient(150deg,#fff 0%,#f4f8fc 100%);box-shadow:0 5px 16px rgba(31,65,96,.055);color:#18334d}
+.pws-live-env-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.pws-live-station-fresh{font:700 .61rem/1.3 'Inter',system-ui,sans-serif;color:#0f766e;margin:-2px 0 8px}
+.pws-live-station-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.pws-pro-metar-live-grid{margin:10px 0}
+.pws-live-station-metric{background:#eef5fa;border:1px solid #e0eaf2;border-radius:10px;padding:8px;min-width:0}
+.pws-live-station-metric span{display:block;font:700 .56rem/1.3 'Inter',sans-serif;color:#64748b}
+.pws-live-station-metric strong{display:block;margin-top:3px;font:850 .93rem/1.1 'Inter',sans-serif;color:#17324c;overflow-wrap:anywhere}
+.pws-live-station-empty{grid-column:1/-1;padding:14px;text-align:center;color:#64748b;font-size:.65rem}
+
+.pws-live-env-title{font:800 .78rem/1.3 'Inter',system-ui,sans-serif;color:#17324c}
+.pws-live-env-chip{font:800 .55rem/1.15 'Inter',sans-serif;letter-spacing:.04em;color:#0c7090;background:#e2f4fa;border:1px solid #c3e9f4;padding:5px 7px;border-radius:999px;white-space:nowrap}
+.pws-live-aqi-main{display:flex;align-items:center;gap:11px;margin:4px 0 11px}
+.pws-live-aqi-number{font:850 2rem/.95 'Inter',sans-serif;letter-spacing:-.05em;color:#075985}
+.pws-live-aqi-label{font:800 .72rem/1.3 'Inter',sans-serif;color:#164e63}
+.pws-live-aqi-note{font:600 .61rem/1.45 'Inter',sans-serif;color:#64748b;margin-top:3px}
+.pws-live-aqi-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.pws-live-aqi-metric{background:#eef5fa;border:1px solid #e0eaf2;border-radius:10px;padding:8px;min-width:0}
+.pws-live-aqi-metric span{display:block;font:700 .57rem/1.3 'Inter',sans-serif;color:#64748b}
+.pws-live-aqi-metric strong{display:block;margin-top:3px;font:800 .91rem/1.1 'Inter',sans-serif;color:#18334d;overflow-wrap:anywhere}
+.pws-live-olm{margin-top:10px;padding:9px 10px;background:#f8fafc;border:1px dashed #b8c9d8;border-radius:10px;font:600 .61rem/1.5 'Inter',sans-serif;color:#5b6f82}
+.pws-live-olm a{color:#0369a1;font-weight:800;text-decoration:none}
+.pws-live-network-line{font:650 .67rem/1.5 'Inter',sans-serif;color:#405a70;margin:5px 0}
+.pws-live-network-line strong{color:#123d5b}
+.pws-live-data-note{margin-top:8px;color:#64748b;font:600 .59rem/1.45 'Inter',sans-serif}
+.channel-column.is-space-weather-column .channel-column-body{background:linear-gradient(180deg,#f3f6fb,#eaf0f7);padding:11px}
+.kb-space-card{overflow:hidden;border:1px solid #263d61;border-radius:18px;background:radial-gradient(ellipse at 15% 0%,rgba(71,104,183,.36),transparent 45%),linear-gradient(155deg,#08172d 0%,#101f3c 52%,#172951 100%);color:#edf5ff;box-shadow:0 10px 25px rgba(14,28,56,.16);font-family:'Inter',system-ui,sans-serif}
+.kb-space-hero{padding:16px 15px 13px;border-bottom:1px solid rgba(173,198,244,.14)}
+.kb-space-kicker{color:#9bb9f3;font-size:.59rem;font-weight:850;letter-spacing:.16em}
+.kb-space-heading{font-size:1.07rem;font-weight:850;line-height:1.2;margin-top:5px;color:#fff}
+.kb-space-intro{display:none}
+.kb-space-status{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:5px 8px;border-radius:999px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.23);font-size:.58rem;font-weight:800;color:#a7f3d0}
+.kb-space-status:before{content:'';width:6px;height:6px;background:#34d399;border-radius:50%;box-shadow:0 0 0 3px rgba(52,211,153,.12)}
+.kb-space-status.is-stale{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.25);color:#fde68a}
+.kb-space-status.is-stale:before{background:#fbbf24;box-shadow:0 0 0 3px rgba(251,191,36,.12)}
+.kb-space-section{padding:13px 14px;border-bottom:1px solid rgba(173,198,244,.13)}
+.kb-space-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.kb-space-section-title{font-size:.74rem;font-weight:850;color:#eff6ff}
+.kb-space-section-tag{font-size:.54rem;font-weight:800;color:#a8c4ee;letter-spacing:.08em}
+.kb-space-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.kb-space-metric{padding:10px;background:rgba(178,205,255,.075);border:1px solid rgba(178,205,255,.12);border-radius:11px;min-width:0}
+.kb-space-metric span{display:block;font-size:.57rem;font-weight:700;color:#9eb3d2;line-height:1.3}
+.kb-space-metric strong{display:block;margin-top:4px;font-size:1.06rem;font-weight:850;color:#f4f8ff;line-height:1.1;overflow-wrap:anywhere}
+.kb-space-metric small{display:block;margin-top:3px;font-size:.53rem;color:#9db0ca}
+.kb-space-explain{display:none}
+.kb-space-activity{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:8px}
+.kb-space-activity .kb-space-metric strong{font-size:.9rem}
+.kb-space-subtitle{font-size:.57rem;color:#9eb3d2;margin-top:3px}
+.kb-space-time{color:#99afd0;font-size:.55rem;margin-top:8px}
+.kb-aurora-strip{margin-top:9px;padding:10px;border:1px solid rgba(147,197,253,.2);border-radius:12px;background:linear-gradient(120deg,rgba(30,64,112,.5),rgba(91,55,125,.25));display:flex;align-items:center;justify-content:space-between;gap:10px}
+.kb-aurora-strip strong{font-size:1.15rem;color:#d9f99d}
+.kb-space-warning{font-size:.62rem;font-weight:800;color:#fde68a}
+.kb-space-section-title{font-size:.75rem}
+@media(max-width:420px){.kb-space-activity{grid-template-columns:repeat(2,minmax(0,1fr))}.kb-space-metric{padding:8px}.kb-space-metric strong{font-size:.98rem}}
+.kb-iss-map{height:132px;position:relative;overflow:hidden;border-radius:13px;border:1px solid rgba(163,191,242,.22);background:radial-gradient(ellipse at 35% 40%,#2a6380 0%,#1b4669 42%,#102947 76%,#0a1a31 100%);margin-bottom:10px}
+.kb-iss-map:before,.kb-iss-map:after{content:'';position:absolute;inset:-30% 0;border:1px solid rgba(192,220,255,.18);border-radius:50%;pointer-events:none}
+.kb-iss-map:after{inset:0 20%;border-radius:50%;border-left:1px solid rgba(192,220,255,.18);border-right:1px solid rgba(192,220,255,.18);border-top:0;border-bottom:0}
+.kb-iss-latline{position:absolute;left:0;right:0;top:50%;border-top:1px dashed rgba(192,220,255,.2)}
+.kb-iss-dot{position:absolute;width:11px;height:11px;border-radius:50%;background:#fbbf24;border:2px solid #fff;box-shadow:0 0 0 5px rgba(251,191,36,.18),0 0 16px rgba(251,191,36,.75);transform:translate(-50%,-50%);z-index:2}
+.kb-iss-map-label{position:absolute;left:9px;bottom:7px;color:#d7e8fa;font-size:.53rem;font-weight:750;letter-spacing:.06em;text-shadow:0 1px 4px #05172a}
+.kb-iss-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.kb-iss-val{padding:8px;background:rgba(178,205,255,.075);border:1px solid rgba(178,205,255,.12);border-radius:10px;min-width:0}
+.kb-iss-val span{display:block;color:#9eb3d2;font-size:.55rem;font-weight:700}
+.kb-iss-val strong{display:block;color:#f4f8ff;font-size:.82rem;font-weight:850;margin-top:3px;overflow-wrap:anywhere}
+.kb-space-foot{padding:11px 14px;color:#91a7c6;font-size:.55rem;line-height:1.5}
+
+.kb-space-spark{margin-top:10px;padding:10px 11px;border-radius:12px;background:rgba(178,205,255,.055);border:1px solid rgba(178,205,255,.10)}
+.kb-space-spark-head{display:flex;justify-content:space-between;gap:8px;align-items:center;color:#c8d8f2;font-size:.6rem;font-weight:800;margin-bottom:5px}
+.kb-space-spark svg{display:block;width:100%;height:54px;overflow:visible}
+.kb-space-spark-foot{display:flex;justify-content:space-between;gap:8px;color:#91a8ca;font-size:.52rem;margin-top:3px}
+.kb-space-section-time{font-size:.56rem;color:#a9bddb;margin-top:7px;line-height:1.45}
+.kb-space-alert-section{margin-top:12px;padding-top:11px;border-top:1px solid rgba(173,198,244,.13)}
+.kb-space-alert-list{display:grid;gap:7px}
+.kb-space-alert{padding:9px 10px;border:1px solid rgba(248,191,90,.2);border-radius:10px;background:rgba(120,82,28,.13)}
+.kb-space-alert-top{display:flex;align-items:flex-start;justify-content:space-between;gap:7px}
+.kb-space-alert-top strong{font-size:.63rem;line-height:1.35;color:#fff2c7}
+.kb-space-alert-top span{font-size:.48rem;font-weight:850;color:#fcd78e;white-space:nowrap}
+.kb-space-alert p{margin:4px 0 3px;font-size:.57rem;line-height:1.4;color:#d6e2f3}
+.kb-space-alert small{font-size:.5rem;color:#9eb3d2}
+.kb-space-no-alert{padding:9px 10px;border-radius:10px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.16);font-size:.59rem;color:#b8f2d7}
+
+.kb-space-activity{grid-template-columns:repeat(2,minmax(0,1fr))}
+.kb-space-metric small{line-height:1.35}
+.kb-space-section-tag{white-space:nowrap}
+.kb-iss-orbit-note{color:#a9bddb;font-size:.56rem;line-height:1.4;margin:7px 1px 0}
+@media(max-width:420px){.kb-space-activity{grid-template-columns:repeat(2,minmax(0,1fr))}.kb-space-spark{padding:8px}.kb-space-spark svg{height:46px}}
+
+.kb-space-foot a{color:#a9d9ff;font-weight:800;text-decoration:none}
+.kb-space-loading{padding:24px 14px;text-align:center;color:#b8cae3;font-size:.7rem;line-height:1.5}
+.kb-space-error{padding:13px;border:1px solid rgba(251,191,36,.24);border-radius:11px;color:#fde68a;background:rgba(120,80,20,.12);font-size:.65rem;line-height:1.5}
+.kb-space-refresh{display:inline-flex;margin-top:8px;padding:6px 9px;border:1px solid rgba(185,211,248,.24);border-radius:8px;background:rgba(255,255,255,.08);color:#e8f2ff;font-size:.61rem;font-weight:800;cursor:pointer}
+.channel-column.is-space-weather-column{border-top-color:#6d5db9!important}
+.channel-column.is-space-weather-column .channel-column-header{background:linear-gradient(130deg,#182444,#43347b)!important;border-bottom-color:#9586df!important}
+@media(max-width:680px){.pws-live-env-grid{grid-template-columns:1fr}.pws-live-radar-visual{height:205px}.pws-live-radar-head{padding:12px}.pws-live-env-card{padding:12px}.kb-space-card{border-radius:15px}.kb-iss-map{height:120px}}
+@media(prefers-reduced-motion:reduce){.pws-live-radar-img,.kb-space-card *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+
+/* 2026-11-16: county context + ISS subpoint / pass forecast */
+.pws-live-env-grid{grid-template-columns:minmax(0,1fr)}
+.pws-live-aqi-wide{width:100%}.pws-live-radar-county-city{font-size:7px;padding:3px 4px}.pws-live-radar-county-dot{width:10px;height:10px}
+.pws-live-radar-county-dot{position:absolute;left:48%;top:54%;width:8px;height:8px;border-radius:50%;background:#fbbf24;border:2px solid #fff;box-shadow:0 0 0 3px rgba(8,33,55,.28);transform:translate(-50%,-50%);z-index:2}
+.pws-live-radar-county-city{position:absolute;left:calc(48% + 7px);top:calc(54% - 9px);z-index:2;padding:2px 3px;border-radius:4px;background:rgba(5,26,45,.88);color:#fff;font:850 6px/1 'Inter',sans-serif;white-space:nowrap}
+@media(max-width:420px){.pws-live-radar-title{max-width:230px}}
+
+.kb-iss-subpoint-status{display:inline-flex;gap:5px;align-items:center;margin-top:7px;padding:4px 7px;border-radius:999px;background:rgba(125,211,252,.1);border:1px solid rgba(125,211,252,.18);color:#c5ecff;font-size:.52rem;font-weight:800}.kb-iss-subpoint-status:before{content:'';width:5px;height:5px;border-radius:50%;background:#67e8f9}.kb-iss-pass-empty a{color:#a5dbff}
+.kb-iss-map{height:156px;background:linear-gradient(140deg,#07182e,#0c3150 55%,#133d54)}
+.kb-iss-map-label{z-index:3;background:rgba(4,17,34,.52);padding:4px 6px;border-radius:6px;left:8px;bottom:7px}
+.kb-iss-dot{z-index:4}
+.kb-iss-subpoint{margin-top:9px;padding:11px;border:1px solid rgba(145,190,245,.18);border-radius:12px;background:linear-gradient(125deg,rgba(29,63,103,.45),rgba(16,40,71,.54))}
+.kb-iss-subpoint-title{font-size:.64rem;color:#c6d9f6;font-weight:850;letter-spacing:.04em}
+.kb-iss-subpoint-place{font-size:.83rem;font-weight:850;color:#fff;margin-top:4px;line-height:1.3}
+.kb-iss-subpoint-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
+.kb-iss-subpoint-grid .kb-iss-val{padding:7px}
+.kb-iss-subpoint-grid .kb-iss-val strong{font-size:.78rem}
+.kb-iss-subpoint-foot{font-size:.5rem;color:#91a8ca;margin-top:7px;line-height:1.4}
+.kb-iss-passes{margin-top:11px;padding:11px;border:1px solid rgba(139,167,228,.18);border-radius:13px;background:rgba(18,35,66,.68)}
+.kb-iss-passes-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.kb-iss-passes-title{font-size:.66rem;font-weight:850;color:#e4edff}
+.kb-iss-pass{padding:9px 9px 8px;border-radius:10px;background:rgba(157,185,240,.075);border:1px solid rgba(157,185,240,.12);margin-top:7px}
+.kb-iss-pass-date{font-size:.62rem;font-weight:850;color:#fff}
+.kb-iss-pass-main{display:flex;align-items:center;justify-content:space-between;gap:7px;margin-top:5px}
+.kb-iss-pass-main strong{font-size:.87rem;color:#b9e9ff}
+.kb-iss-pass-main span{font-size:.56rem;color:#c3d3ed;text-align:right}
+.kb-iss-pass-track{height:5px;background:rgba(174,195,231,.16);border-radius:99px;overflow:hidden;margin-top:7px}
+.kb-iss-pass-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#58c4e9,#a78bfa)}
+.kb-iss-pass-times{font-size:.53rem;color:#a9bddb;margin-top:6px;display:flex;justify-content:space-between;gap:6px}
+.kb-iss-pass-empty{padding:9px;border-radius:9px;background:rgba(148,163,184,.08);color:#b9c9e0;font-size:.58rem;line-height:1.4}
+@media(max-width:420px){.kb-iss-map{height:140px}.kb-iss-subpoint-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kb-iss-pass-times{flex-wrap:wrap}}
+
+
+/* KÉPBEN! 2026-11-17 – térképes radar, napi visszatekintés, magyarázó űridőjárás */
+.pws-live-env-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.pws-live-aqi-wide{width:auto}
+.pws-daily-review{background:linear-gradient(145deg,#fff 0%,#f4f8fd 100%);border:1px solid #d6e3ef;border-radius:16px;padding:13px;box-shadow:0 5px 16px rgba(31,65,96,.055);min-width:0;color:#17324c}
+.pws-daily-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px}
+.pws-daily-title{font:850 .8rem/1.25 'Inter',system-ui,sans-serif;color:#17324c}
+.pws-daily-date{font:700 .56rem/1.35 'Inter',system-ui,sans-serif;color:#647d94;text-align:right}
+.pws-daily-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:10px}
+.pws-daily-stat{padding:8px;border:1px solid #e0eaf3;border-radius:10px;background:#f7fbff;min-width:0}
+.pws-daily-stat span{display:block;font:700 .55rem/1.3 'Inter',sans-serif;color:#688096}
+.pws-daily-stat strong{display:block;margin-top:3px;font:850 .98rem/1.1 'Inter',sans-serif;color:#173d5c;overflow-wrap:anywhere}
+.pws-daily-stat small{display:block;margin-top:4px;color:#8194a7;font:650 .49rem/1.3 'Inter',sans-serif}
+.pws-daily-date{font:700 .56rem/1.35 'Inter',system-ui,sans-serif;color:#647d94;text-align:left;margin-top:3px}
+.pws-live-radar{overflow:hidden;border-radius:15px}
+
+
+.pws-pro-sat-exit-row{display:flex;justify-content:flex-end;margin-top:9px;padding-top:8px;border-top:1px solid #e3ebf2}
+.pws-pro-sat-exit-row .pws-pro-inline-btn{background:#eff6fb;border-color:#c7d8e6;color:#31536e}
+.pws-daily-chart-wrap{padding:8px 8px 5px;border:1px solid #e2eaf2;background:#fff;border-radius:11px;min-width:0}
+.pws-daily-chart-title{font:800 .58rem/1.3 'Inter',sans-serif;color:#45627c;margin-bottom:5px}
+.pws-daily-temp-chart{display:block;width:100%;height:auto;overflow:visible}
+.pws-daily-rain-chart{display:block;width:100%;height:auto;margin-top:8px}
+.pws-daily-rain-label{font:700 .55rem/1.3 'Inter',sans-serif;color:#45627c;margin:9px 0 4px}
+.pws-daily-rain-events{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.pws-daily-rain-event{padding:5px 7px;border-radius:8px;border:1px solid #bfdeef;background:#edf8fe;color:#145273;font:750 .54rem/1.35 'Inter',sans-serif}
+.pws-daily-foot{margin-top:8px;color:#74899c;font:600 .53rem/1.4 'Inter',sans-serif}
+.pws-daily-empty{padding:15px 9px;text-align:center;border:1px dashed #ccdae7;border-radius:10px;color:#6b8195;font:650 .62rem/1.45 'Inter',sans-serif;background:#f8fbfe}
+.pws-radar-region-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+.pws-radar-region-tabs button{border:1px solid rgba(191,226,242,.28);background:rgba(255,255,255,.09);color:#d9edf8;border-radius:999px;padding:6px 10px;font:750 .61rem/1.1 'Inter',sans-serif;cursor:pointer}
+.pws-radar-region-tabs button.active{background:#e3f4fb;color:#0b3a58;border-color:#e3f4fb;box-shadow:0 2px 8px rgba(0,0,0,.13)}
+
+
+
+
+
+
+
+
+
+
+.pws-live-radar-foot a{white-space:nowrap}
+
+/* RainViewer Universal Blue · compact dBZ legend */
+.pws-live-radar-legend{display:grid;grid-template-columns:auto minmax(90px,1fr) auto;align-items:center;gap:8px;padding:7px 14px 8px;background:rgba(5,24,42,.48);border-top:1px solid rgba(180,220,240,.12);color:#cfe3f1;font:650 .58rem/1.2 'Inter',sans-serif}
+.pws-live-radar-legend-title{white-space:nowrap;color:#d8edf8;font-weight:800}
+.pws-live-radar-legend-bar{height:7px;min-width:80px;border-radius:99px;border:1px solid rgba(255,255,255,.22);background:linear-gradient(90deg,#88ddeeff 0%,#00a3e0 23%,#005588 43%,#ffee00 61%,#ffaa00 75%,#ff4400 87%,#c10000 94%,#ffaaff 100%);box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.pws-live-radar-legend-end{white-space:nowrap;color:#aac5d9;font:700 .53rem/1 'Space Mono',monospace}
+.pws-live-radar-legend-labels{grid-column:2/3;display:flex;justify-content:space-between;gap:3px;color:#a9c6d9;font-size:.49rem;line-height:1.1;margin-top:-4px}
+@media(max-width:420px){.pws-live-radar-legend{grid-template-columns:1fr auto;gap:5px 8px}.pws-live-radar-legend-title{grid-column:1/-1}.pws-live-radar-legend-bar{grid-column:1/2}.pws-live-radar-legend-end{grid-column:2/3}.pws-live-radar-legend-labels{grid-column:1/-1;margin-top:0}}
+.pws-radar-timeline{padding:10px 14px 11px;background:rgba(5,24,42,.32);border-top:1px solid rgba(180,220,240,.12)}.pws-radar-timeline-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#cfe3f1;font:700 .62rem/1.3 'Inter',sans-serif}.pws-radar-timeline-time{color:#fff;font:800 .73rem/1.2 'Space Mono',monospace}.pws-radar-slider{display:block;width:100%;margin:10px 0 5px;accent-color:#65c9f3;cursor:pointer;touch-action:pan-y}.pws-radar-slider:focus-visible{outline:2px solid #8ed8f7;outline-offset:4px;border-radius:6px}.pws-radar-timeline-ends{display:flex;justify-content:space-between;gap:8px;color:#9fbcd0;font:600 .54rem/1.2 'Inter',sans-serif}.pws-radar-timeline-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.pws-radar-timeline-actions button{border:1px solid rgba(191,226,242,.3);background:rgba(255,255,255,.1);color:#fff;border-radius:8px;padding:6px 9px;font:700 .62rem/1.2 'Inter',sans-serif;cursor:pointer}.pws-radar-timeline-actions button:disabled{opacity:.4;cursor:not-allowed}.pws-radar-timeline-actions button.primary{background:#e3f4fb;color:#0b3a58;border-color:#d3edf8}.pws-radar-analysis{padding:11px 14px 13px;background:linear-gradient(135deg,rgba(6,28,48,.9),rgba(12,55,75,.82));border-top:1px solid rgba(180,220,240,.14);color:#f2f8fc}.pws-radar-analysis-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.pws-radar-analysis-title{font:800 .68rem/1.25 'Inter',sans-serif;letter-spacing:.04em;color:#d8f3ff}.pws-radar-analysis-tag{font:700 .52rem/1.2 'Inter',sans-serif;color:#9fdcf5;white-space:nowrap}.pws-radar-analysis-main{font:750 .83rem/1.45 'Inter',sans-serif;color:#fff}.pws-radar-analysis-detail{font:550 .65rem/1.5 'Inter',sans-serif;color:#c5dce9;margin-top:4px}.pws-radar-analysis-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:9px}.pws-radar-analysis-stat{min-width:0;border:1px solid rgba(191,226,242,.13);background:rgba(255,255,255,.055);border-radius:9px;padding:7px}.pws-radar-analysis-stat span{display:block;color:#9dbed0;font:650 .54rem/1.3 'Inter',sans-serif}.pws-radar-analysis-stat strong{display:block;margin-top:3px;color:#fff;font:800 .72rem/1.25 'Space Mono',monospace;overflow-wrap:anywhere}.pws-radar-analysis-note{margin-top:8px;color:#9fb9c9;font:550 .55rem/1.45 'Inter',sans-serif}@media(max-width:420px){.pws-radar-analysis-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pws-radar-timeline{padding:9px 10px}.pws-radar-timeline-actions button{flex:1}}
+
+.pws-pro-sat-panel{position:relative}
+.pws-pro-sat-subtitle{font:650 .55rem/1.35 'Inter',sans-serif;color:#71869a;margin-top:3px}
+.pws-pro-sat-head-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pws-pro-sat-collapse-btn{border:1px solid #cbd9e7;background:#f7fbff;color:#31536e;border-radius:8px;padding:6px 9px;font:800 8px/1.2 'Inter',sans-serif;cursor:pointer;white-space:nowrap}
+.pws-pro-sat-collapse-btn:hover{background:#e9f4fc;border-color:#98b9d2}
+.pws-pro-sat-collapsed{margin-top:7px;padding:10px 11px;border:1px dashed #c8d8e6;border-radius:10px;background:#f7fbff;color:#5e758b;font:650 9px/1.45 'Inter',sans-serif;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pws-pro-sat-controls .pws-pro-inline-btn{min-width:82px}
+.pws-pro-sat-tabs,.pws-pro-sat-zoom{padding:3px 0}
+.kb-space-metric.kb-space-flip{position:relative;display:block;width:100%;height:var(--kb-space-flip-height,166px);min-height:var(--kb-space-flip-height,166px);padding:0;text-align:left;appearance:none;-webkit-appearance:none;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;perspective:760px;overflow:visible}
+.kb-space-flip-inner{position:relative;display:block;height:var(--kb-space-flip-height,166px);min-height:var(--kb-space-flip-height,166px);width:100%;transform-style:preserve-3d;transition:transform .38s cubic-bezier(.2,.7,.2,1)}
+.kb-space-flip.is-flipped .kb-space-flip-inner{transform:rotateY(180deg)}
+@media(hover:hover) and (pointer:fine){.kb-space-flip:not(.is-flipped):hover .kb-space-flip-inner{transform:rotateY(180deg)}}
+.kb-space-flip:focus-visible{outline:2px solid #9bdcff;outline-offset:3px;border-radius:12px}
+.kb-space-flip:focus-visible .kb-space-flip-inner{transform:rotateY(180deg)}
+.kb-space-flip-face{position:absolute;inset:0;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:10px;border:1px solid rgba(178,205,255,.16);border-radius:11px;background:linear-gradient(145deg,rgba(178,205,255,.1),rgba(178,205,255,.045));backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+.kb-space-flip-front{padding-right:36px;padding-top:28px;min-width:0}.kb-space-flip-front>*:not(.kb-space-flip-cue){max-width:100%;overflow-wrap:anywhere}
+.kb-space-flip-back{transform:rotateY(180deg);background:linear-gradient(145deg,#1e3155,#202749);border-color:rgba(156,190,255,.28);overflow:hidden;justify-content:flex-start;padding:10px 11px;gap:2px}
+.kb-space-flip-back strong{font-size:.64rem;line-height:1.18;color:#d9e9ff;margin:0 0 6px;max-width:100%;overflow-wrap:anywhere;flex:0 0 auto}
+.kb-space-flip-back span{display:block;max-width:100%;color:#c1d0e8;font-size:.57rem;line-height:1.28;font-weight:550;overflow-wrap:anywhere;word-break:normal;flex:1 1 auto}
+.kb-space-flip-back small{display:none}
+.kb-space-flip-cue{position:absolute;right:8px;top:7px;width:18px;height:18px;display:grid;place-items:center;border:1px solid rgba(156,190,255,.28);border-radius:50%;background:rgba(103,143,196,.14);color:#c5dcf7;font-size:.72rem;line-height:1;font-weight:900;opacity:.9;pointer-events:none}
+.kb-space-flip:hover .kb-space-flip-cue,.kb-space-flip:focus-visible .kb-space-flip-cue{opacity:1;background:rgba(103,143,196,.28)}
+.kb-space-flip .kb-space-flip-face>span:first-child{font-size:.57rem;font-weight:700;color:#9eb3d2;line-height:1.3}
+.kb-space-flip .kb-space-flip-face>strong{display:block;margin-top:4px;font-size:1.02rem;font-weight:850;color:#f4f8ff;line-height:1.1;overflow-wrap:anywhere}
+.kb-space-flip .kb-space-flip-face>small{display:block;margin-top:3px;font-size:.52rem;color:#9db0ca;line-height:1.32}
+.kb-space-activity .kb-space-flip{min-height:164px}
+.kb-space-activity .kb-space-flip-inner{min-height:164px}
+@media(max-width:680px){.pws-live-env-grid{grid-template-columns:1fr}.pws-live-radar-visual{height:285px}.pws-daily-review{padding:11px}.pws-pro-sat-head-actions{width:100%;justify-content:flex-end}}
+@media(max-width:420px){.pws-radar-region-tabs button{padding:6px 8px;font-size:.57rem}.pws-live-radar-visual{height:250px}.pws-daily-stats{gap:6px}.kb-space-flip,.kb-space-flip-inner{min-height:174px}.kb-space-activity .kb-space-flip,.kb-space-activity .kb-space-flip-inner{min-height:178px}.kb-space-flip-back span{font-size:.555rem;line-height:1.25}}
+@media(prefers-reduced-motion:reduce){.kb-space-flip-inner,.pws-pro-sat-image-wrap img{transition:none!important}}
+
+
+/* Local comfort tile · derived from already polled live PWS values, no extra requests. */
+.pws-live-comfort-card{min-width:0;border:1px solid #d5e6f1;border-radius:13px;padding:12px 13px;background:linear-gradient(145deg,#f7fbff,#eaf5fb);box-shadow:0 5px 16px rgba(21,71,103,.055);color:#173c58;display:flex;flex-direction:column;gap:8px}
+.pws-live-comfort-card.tint-cold{background:linear-gradient(145deg,#f5fbff,#dceefa);border-color:#c4e1f1}
+.pws-live-comfort-card.tint-cool{background:linear-gradient(145deg,#f5fbfc,#e2f3f2);border-color:#c8e7e4}
+.pws-live-comfort-card.tint-mild{background:linear-gradient(145deg,#fbfdf7,#edf6e7);border-color:#d8e8c8}
+.pws-live-comfort-card.tint-warm{background:linear-gradient(145deg,#fffaf1,#fff0d8);border-color:#f1dfbb}
+.pws-live-comfort-card.tint-hot{background:linear-gradient(145deg,#fff8f2,#ffe5d8);border-color:#f0d0bd}
+.pws-comfort-main{display:flex;align-items:center;gap:10px;min-width:0}.pws-comfort-icon{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.72);box-shadow:inset 0 0 0 1px rgba(72,119,150,.12);font-size:24px;color:#287ba4}.pws-comfort-main>div{min-width:0}.pws-comfort-main strong{display:block;color:#164768;font:850 1.45rem/1.05 'Space Mono',monospace;letter-spacing:-.04em}.pws-comfort-main span:not(.pws-comfort-icon){display:block;margin-top:3px;color:#607b90;font:650 .57rem/1.25 'Inter',sans-serif}.pws-comfort-state{align-self:flex-start;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.68);border:1px solid rgba(85,131,160,.18);color:#245b78;font:800 .62rem/1.1 'Inter',sans-serif}.pws-comfort-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.pws-comfort-metrics>div{min-width:0;padding:7px 8px;border-radius:9px;background:rgba(255,255,255,.62);border:1px solid rgba(111,153,178,.13)}.pws-comfort-metrics span{display:block;color:#6a8295;font:650 .51rem/1.25 'Inter',sans-serif}.pws-comfort-metrics strong{display:block;margin-top:3px;color:#254d67;font:800 .68rem/1.2 'Space Mono',monospace;overflow-wrap:anywhere}.pws-comfort-foot{margin-top:auto;color:#7890a2;font:650 .49rem/1.2 'Inter',sans-serif}
+
 </style>
+<meta name="kepben-realtime-build" content="2026-11-17-iss-subpoint-comfort-drap-radar-live-v10">
 </head>
 <body>
 
@@ -669,7 +919,6 @@
                             <div style="font-family:'Space Mono',monospace; font-size:0.82rem; color:#38bdf8; font-weight:700;">🌡️ NYÍREGYHÁZA MOST · PWS-MÉRÉS + OPEN-METEO-MODELL + WORKER-ADAT</div>
                             <span id="pws-inyreg42-active-status" style="font-family:'Space Mono',monospace; font-size:0.68rem; color:#22c55e; font-weight:700;">Aktív adó: —</span>
                         </div>
-                        <p style="font-size:0.72rem; color:#94a3b8; margin-bottom:10px;">30 mp-enkénti PWS-lekérdezés (az állomási mérési idő külön látszik) + Worker-alapú időjárási adat és Open-Meteo best_match modell-előrejelzés, csapadék-fókusz, talaj/légkör &amp; CAMS levegőminőség automatikus átkapcsolással (<code>INYREG42</code> → <code>INYREG59</code> → <code>INYREG56</code>).</p>
                         <label style="font-family:'Space Mono',monospace; font-size:0.78rem; color:#f8fafc; cursor:pointer; display:flex; align-items:center; gap:8px; margin-bottom:10px;">
                             <input type="checkbox" id="pws-inyreg42-enabled-checkbox" style="width:17px; height:17px; cursor:pointer;">
                             <span>🟢 <strong>NYÍREGYHÁZA MOST (PWS) PANEL BEKAPCSOLÁSA AZ OLDALON</strong></span>
@@ -685,6 +934,13 @@
                         </div>
                         <div id="pws-inyreg42-columns-hint" style="font-family:'Space Mono',monospace; font-size:0.66rem; color:#94a3b8; background:#1e293b; border:1px solid #334155; border-radius:6px; padding:7px 9px; margin-bottom:10px; line-height:1.45;">Jelenlegi oszlopok betöltése...</div>
                         <button class="btn-act btn-unban" style="padding:7px 15px;" onclick="savePwsInyreg42Config()">💾 BEÁLLÍTÁSOK MENTÉSE ÉS ALKALMAZÁSA</button>
+                    </div>
+
+                    <div style="background:linear-gradient(145deg,#101b37,#1b2c54); border:1px solid #6877bd; border-radius:12px; padding:14px; margin-bottom:16px; color:#f8fafc;">
+                        <div style="font-family:'Space Mono',monospace; font-size:0.82rem; color:#c4b5fd; font-weight:800; margin-bottom:7px;">🌌 ŰRIDŐJÁRÁS + ISS · KÜLÖN OSZLOP</div>
+                        <p style="font-size:0.71rem; color:#b8c6e4; line-height:1.5; margin-bottom:11px;">NOAA/SWPC napiszél-, mágneses tér- és Kp-adatok, valamint a Nemzetközi Űrállomás aktuális pályapozíciója. Kikapcsolt állapotban nem történik hozzá külső adatlekérés. Látható böngészőfülnél frissít; háttérben szünetel.</p>
+                        <label style="font-family:'Space Mono',monospace; font-size:0.76rem; color:#f8fafc; cursor:pointer; display:flex; align-items:center; gap:9px; margin-bottom:11px;"><input type="checkbox" id="spacewx-enabled-checkbox" style="width:18px;height:18px;"><span>🟣 <strong>ŰRIDŐJÁRÁS + ISS KÁRTYA BEKAPCSOLÁSA</strong></span></label>
+                        <button class="btn-act btn-unban" style="padding:7px 15px;" onclick="saveSpaceWeatherConfig()">💾 ŰRFIGYELŐ BEÁLLÍTÁS MENTÉSE</button>
                     </div>
 
                     <div style="background:#0f172a; border:1px solid #334155; border-radius:10px; padding:12px; margin-bottom:16px;">
@@ -825,7 +1081,7 @@
             });
         } catch (_) { window.phaseFrac = 0; }
     }
-    const KEPBEN_PWS_PHASEFIX_BUILD = "2026-11-16-phasefrac-guard-v2";
+    const KEPBEN_PWS_PHASEFIX_BUILD = "2026-11-16-spaceweather-alerts-v3";
     const FIREBASE_URL = "https://robi-oldala-default-rtdb.europe-west1.firebasedatabase.app";
     const WEATHER_API_KEY = "e1f10a1e78da46f5b10a1e78da96f525";
     const PWS_INYREG42_API_KEY = "f6d2efe5720d47ea92efe5720df7eaa8";
@@ -844,13 +1100,17 @@
     let pwsInyreg42Config = { enabled: false, stationId: 'INYREG42', backupStations: ['INYREG59', 'INYREG56'], title: 'Nyíregyháza MOST', placementMode: 'column', position: 3 };
     let pwsInyreg42State = {
         current: null, activeStationId: '', activeApiKey: '', dayObs: [], lastCurrentFetch: 0, lastDayFetch: 0,
-        error: '', fetching: false, timerId: null, auxTimerId: null, smoothWindAngle: null,
+        error: '', fetching: false, timerId: null, auxTimerId: null, mapTimerId: null, lastMapsReturnRefreshAt: 0, smoothWindAngle: null,
         archiveCache: {}, chartPeriod: '24h', chartMetric: 'temp', archiveLoading: false, archiveError: '',
         windPulsePending: false, lastWindObservationEpoch: null
     };
     let pwsMetarState = { data: null, loading: false, error: '', lastFetchAt: 0 };
-    let pwsSatelliteState = { product: 'CloudType', data: null, loading: false, error: '', frameIndex: 0, playing: false, playTimer: null, lastFetchAt: 0, zoomMode: 'hungary' };
+    let pwsSatelliteState = { product: 'CloudType', data: null, loading: false, error: '', frameIndex: 0, playing: false, playTimer: null, lastFetchAt: 0, zoomMode: 'hungary', collapsed: false };
+    let pwsRadarState = { data: null, loading: false, error: '', lastFetchAt: 0, frameIndex: 0, playing: false, playTimer: null, mapObserver: null, mapObservedTarget: null, inViewport: false, userPaused: false, analysis: null, analysisLoading: false, analysisError: '', lastAnalysisAt: 0 };
+    let spaceWeatherConfig = { enabled: false };
+    let spaceWeatherState = { solar: null, iss: null, passes: null, groundWeather: null, groundLocation: null, solarLoading: false, issLoading: false, passesLoading: false, groundLoading: false, solarError: '', issError: '', passesError: '', groundError: '', lastSolarFetchAt: 0, lastIssFetchAt: 0, lastPassesFetchAt: 0, lastGroundFetchAt: 0, timerId: null };
 
+    const KEPBEN_LIVE_OBSERVATIONS_BUILD = "2026-11-17-iss-groundpoint-radar-timeline-analysis-v9";
     const OM_SYNC_SLOT_MS = 10 * 60 * 1000;
     let nyirOmState = {
         raw: null, isMultiModel: false, modelLabel: 'Open-Meteo · best_match',
@@ -897,19 +1157,25 @@
 
     document.addEventListener('visibilitychange', () => {
         isTabActive = !document.hidden;
+        if (document.hidden) { stopSpaceWeatherEngine(); pwsStopRadarPlayback(); }
         if (!document.hidden) {
+            if (spaceWeatherConfig && spaceWeatherConfig.enabled) startSpaceWeatherEngine();
             if (nyirWeatherConfig && nyirWeatherConfig.enabled) loadWeather();
             if (pwsInyreg42Config && pwsInyreg42Config.enabled) {
                 const slotNow = Math.floor(Date.now() / OM_SYNC_SLOT_MS);
                 if (Date.now() - pwsInyreg42State.lastCurrentFetch >= 28000 || nyirOmState.lastForecastSlot !== slotNow || googleWeatherLastClientSlot !== slotNow) fetchPwsInyreg42Data(false);
+                refreshPwsMapsIfDue(true);
+                if (pwsRadarState.inViewport && !pwsRadarState.userPaused) pwsRadarStartPlayback(true);
             }
         }
     });
+    window.addEventListener("pageshow", () => { refreshPwsMapsIfDue(true); });
     window.addEventListener("focus", () => {
         if (nyirWeatherConfig && nyirWeatherConfig.enabled) loadWeather();
         if (pwsInyreg42Config && pwsInyreg42Config.enabled) {
             const slotNow = Math.floor(Date.now() / OM_SYNC_SLOT_MS);
             if (Date.now() - pwsInyreg42State.lastCurrentFetch >= 28000 || nyirOmState.lastForecastSlot !== slotNow || googleWeatherLastClientSlot !== slotNow) fetchPwsInyreg42Data(false);
+            refreshPwsMapsIfDue();
         }
     });
     setInterval(() => { if (isTabActive) { activeSeconds++; sessionStorage.setItem('kb_active_seconds', activeSeconds.toString()); } }, 1000);
@@ -1052,17 +1318,20 @@
         if (beaufortEl) { beaufortEl.textContent = state.beaufort.label || state.beaufort.text; beaufortEl.style.color = state.beaufort.color; beaufortEl.style.background = state.beaufort.bg; beaufortEl.style.border = `1px solid ${state.beaufort.border}`; }
         if (needle) { needle.style.transform = `translate(-50%, -50%) rotate(${state.degrees}deg)`; const h = document.getElementById('gw-live-wind-needle-head'), t = document.getElementById('gw-live-wind-needle-tail'), hb = document.getElementById('gw-live-wind-needle-hub'); if (h) { h.setAttribute('fill', sc); h.setAttribute('stroke', sc); } if (t) t.setAttribute('fill', state.hasWind ? '#94a3b8' : '#cbd5e1'); if (hb) hb.setAttribute('stroke', sc); }
         if (marker) { marker.style.left = `${state.hasWind && state.beaufort.number !== null ? Math.min(100, Math.max(0, state.beaufort.number / 12 * 100)) : 0}%`; marker.style.backgroundColor = sc; }
-        if (note) note.textContent = state.live ? `PWS-állomásmérés (${pwsInyreg42State.activeStationId}) · ${pwsObsAgeLabel(pwsInyreg42State.current)}.` : (state.hasWind ? 'Modellalapú széladat; nem helyi szenzormérés.' : 'Széladat nem érhető el.');
+        if (note) note.textContent = state.live ? `PWS ${pwsInyreg42State.activeStationId} · ${pwsObsAgeLabel(pwsInyreg42State.current)}` : (state.hasWind ? 'Open-Meteo' : '');
     }
     function updatePwsHeroWindRealtime() {
-        const needle = document.getElementById('pws-hero-wind-needle'), speedEl = document.getElementById('pws-hero-wind-speed'), dirEl = document.getElementById('pws-hero-wind-dir-text'), tagEl = document.getElementById('pws-hero-wind-live-tag'), bfBadge = document.getElementById('pws-hero-wind-bf-badge'), bfMarker = document.getElementById('pws-hero-wind-bf-marker');
-        if (!needle && !speedEl) return;
+        const vane = document.getElementById('pws-hero-wind-vane');
+        const speedEl = document.getElementById('pws-hero-wind-speed'), dirEl = document.getElementById('pws-hero-wind-dir-text');
+        const tagEl = document.getElementById('pws-hero-wind-live-tag'), bfBadge = document.getElementById('pws-hero-wind-bf-badge'), bfMarker = document.getElementById('pws-hero-wind-bf-marker');
+        if (!vane && !speedEl) return;
         const obs = pwsInyreg42State.current, m = obs?.metric || {}, omCur = nyirOmState.raw?.current || null, wState = getRealNyirWindState(obs, m, omCur);
         if (wState.dirDeg !== null) updateSmoothWindAngle(wState.dirDeg);
-        const smoothAng = pwsInyreg42State.smoothWindAngle !== null ? pwsInyreg42State.smoothWindAngle : (wState.dirDeg || 0), sc = wState.speed !== null && Number.isFinite(wState.speed) ? getWindSpeedColor(wState.speed) : '#64748b';
-        if (needle) needle.style.transform = `rotate(${smoothAng.toFixed(1)}deg)`;
+        const smoothAng = pwsInyreg42State.smoothWindAngle !== null ? pwsInyreg42State.smoothWindAngle : (wState.dirDeg || 0);
+        const sc = wState.speed !== null && Number.isFinite(wState.speed) ? getWindSpeedColor(wState.speed) : '#64748b';
+        if (vane) vane.style.transform = `rotate(${smoothAng.toFixed(1)}deg)`;
         if (speedEl) { speedEl.innerHTML = `${gwEsc(pwsWgNum(wState.speed, 1))}<small>km/h</small>`; speedEl.style.color = sc; }
-        if (dirEl) dirEl.textContent = wState.dirText;
+        if (dirEl) dirEl.textContent = wState.dirDeg !== null ? `${wState.dirText} · ${Math.round(wState.dirDeg)}°` : wState.dirText;
         if (tagEl) { tagEl.textContent = wState.sourceTag; tagEl.classList.toggle('is-om', wState.sourceIsOm); }
         if (bfBadge) { bfBadge.textContent = wState.beaufort.label; bfBadge.style.color = wState.beaufort.color; bfBadge.style.background = wState.beaufort.bg; bfBadge.style.borderColor = wState.beaufort.border; }
         if (bfMarker) { bfMarker.style.left = `${wState.beaufort.number !== null ? Math.min(100, Math.max(0, (wState.beaufort.number / 12) * 100)) : 0}%`; bfMarker.style.background = wState.beaufort.color; }
@@ -1167,9 +1436,11 @@
     function gwPatchNode(current, desired) {
         if (!gwNodesCompatible(current, desired)) return desired.cloneNode(true);
         if (current.nodeType === 3 || current.nodeType === 8) { if (current.nodeValue !== desired.nodeValue) current.nodeValue = desired.nodeValue; return current; }
+        // The observation panel may preserve explicitly marked child nodes during live PWS refreshes.
+        if (current.nodeType === 1 && (current.hasAttribute('data-preserve-children') || desired.hasAttribute('data-preserve-children'))) return current;
         const isD = current.tagName === 'DETAILS';
         Array.from(current.attributes).forEach(a => { if (!(isD && a.name === 'open') && !desired.hasAttribute(a.name)) current.removeAttribute(a.name); });
-        Array.from(desired.attributes).forEach(a => { if (!(isD && a.name === 'open') && current.getAttribute(a.name) !== a.value) current.setAttribute(a.name, a.value); });
+        Array.from(desired.attributes).forEach(a => { if (current.getAttribute(a.name) !== a.value) current.setAttribute(a.name, a.value); });
         const oc = Array.from(current.childNodes), dc = Array.from(desired.childNodes), keyed = new Map(), used = new Set();
         oc.forEach(c => { if (c.nodeType === 1 && c.hasAttribute('data-gw-key')) keyed.set(c.getAttribute('data-gw-key'), c); });
         let cur = current.firstChild;
@@ -1824,34 +2095,35 @@
         return res;
     }
 
-    function pwsWgSvgWindHero(smoothAngle, accent) {
-        const angle = Number.isFinite(Number(smoothAngle)) ? Number(smoothAngle) : 0;
-        const labels = [{a:0,t:'É',c:'#fca5a5'},{a:45,t:'ÉK'},{a:90,t:'K'},{a:135,t:'DK'},{a:180,t:'D'},{a:225,t:'DNy'},{a:270,t:'Ny'},{a:315,t:'ÉNy'}];
-        let ticks = '', dots = '';
-        for (let a=0; a<360; a+=5) {
-            const r=a*Math.PI/180, major=a%45===0, cardinal=a%90===0;
-            const r1=major?39:43, r2=cardinal?48:(major?46:45);
-            ticks += `<line x1="${(50+r1*Math.sin(r)).toFixed(2)}" y1="${(50-r1*Math.cos(r)).toFixed(2)}" x2="${(50+r2*Math.sin(r)).toFixed(2)}" y2="${(50-r2*Math.cos(r)).toFixed(2)}" stroke="${cardinal?'#dbeafe':(major?'#93c5fd':'#47627f')}" stroke-width="${cardinal?1.45:(major?1:0.55)}" opacity="${major?1:.78}"/>`;
-            if (a%22.5===0) dots += `<circle cx="${(50+34*Math.sin(r)).toFixed(2)}" cy="${(50-34*Math.cos(r)).toFixed(2)}" r="${major?1.05:.65}" fill="${major?'#dbeafe':'#7894b2'}"/>`;
-        }
-        const cardinalText=labels.map(l=>{const r=l.a*Math.PI/180;return `<text x="${(50+27.5*Math.sin(r)).toFixed(1)}" y="${(50-27.5*Math.cos(r)+2.7).toFixed(1)}" text-anchor="middle" fill="${l.c||'#dbeafe'}" font-size="${l.t.length>2?4.7:6.4}" font-weight="800" letter-spacing="-.2">${l.t}</text>`;}).join('');
-        return `<svg class="pws-wg-wind-hero-svg pws-wg-wind-premium-svg" viewBox="0 0 100 100" role="img" aria-label="Forgatható szélirány-műszer">
+    function pwsWgSvgWindHero(smoothAngle, accent, windSpeed, hasDirection = true) {
+        const angle = Number.isFinite(Number(smoothAngle)) ? ((Number(smoothAngle) % 360) + 360) % 360 : 0;
+        const pointerColor = hasDirection ? (accent || '#38bdf8') : '#94a3b8';
+        const ticks = Array.from({length:36}, (_,i) => {
+            const major = i % 9 === 0, medium = i % 3 === 0;
+            return `<line x1="60" y1="9" x2="60" y2="${major?17:(medium?14:12)}" transform="rotate(${i*10} 60 60)" stroke="${major?'#d7e8f8':'#8aa9c7'}" stroke-width="${major?1.8:(medium?1.2:.8)}" stroke-linecap="round" opacity="${major?'.95':'.58'}"/>`;
+        }).join('');
+        return `<svg class="pws-wg-wind-hero-svg pws-wg-wind-premium-svg" viewBox="0 0 120 120" role="img" aria-label="Szélirány-iránytű. A nyíl a szél érkezési irányára mutat, a fokérték a PWS méréséből származik.">
           <defs>
-            <radialGradient id="pwsWindFace" cx="35%" cy="28%"><stop offset="0" stop-color="#263f60"/><stop offset=".62" stop-color="#11243b"/><stop offset="1" stop-color="#071426"/></radialGradient>
-            <linearGradient id="pwsWindRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8fafc"/><stop offset=".32" stop-color="#89a7c8"/><stop offset=".68" stop-color="#304c6d"/><stop offset="1" stop-color="#e2e8f0"/></linearGradient>
-            <linearGradient id="pwsWindNeedle" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1f2"/><stop offset=".46" stop-color="#fb7185"/><stop offset=".5" stop-color="#f8fafc"/><stop offset="1" stop-color="#64748b"/></linearGradient>
-            <filter id="pwsWindGlow"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <radialGradient id="pwsWindCompassFace" cx="42%" cy="34%" r="72%"><stop offset="0" stop-color="#ffffff"/><stop offset=".72" stop-color="#edf5fd"/><stop offset="1" stop-color="#dce9f6"/></radialGradient>
+            <linearGradient id="pwsWindNeedle" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f87171"/><stop offset=".48" stop-color="${pointerColor}"/><stop offset="1" stop-color="#24527c"/></linearGradient>
           </defs>
-          <circle cx="50" cy="50" r="49" fill="#dbeafe" opacity=".3"/><circle cx="50" cy="50" r="47.5" fill="url(#pwsWindFace)" stroke="url(#pwsWindRing)" stroke-width="2.2"/>
-          <circle cx="50" cy="50" r="43.2" fill="none" stroke="#47627f" stroke-width=".45"/><circle cx="50" cy="50" r="36" fill="none" stroke="#7894b2" stroke-width=".55" stroke-dasharray="1 2"/><circle cx="50" cy="50" r="29.5" fill="none" stroke="#3e5a78" stroke-width=".6"/>
-          ${ticks}${dots}${cardinalText}
-          <g id="pws-hero-wind-needle" style="transform:rotate(${angle.toFixed(1)}deg);transform-origin:50px 50px;transition:transform 1.25s cubic-bezier(.18,.86,.24,1.12)" filter="url(#pwsWindGlow)">
-            <path d="M50 9 L55.2 49 L50 43 L44.8 49 Z" fill="url(#pwsWindNeedle)" stroke="#fff1f2" stroke-width=".75"/>
-            <path d="M50 91 L54.3 51 L50 57 L45.7 51 Z" fill="#7894b2" stroke="#dbeafe" stroke-width=".55"/>
-            <path d="M50 11 L50 43" stroke="#fff" stroke-width=".6" opacity=".85"/>
+          <circle cx="60" cy="60" r="56" fill="#173b5c" opacity=".10"/>
+          <circle cx="60" cy="60" r="53" fill="url(#pwsWindCompassFace)" stroke="#8faecb" stroke-width="1.6"/>
+          <circle cx="60" cy="60" r="44" fill="none" stroke="#c6d8e9" stroke-width="1"/>
+          ${ticks}
+          <path d="M60 21V99M21 60H99" stroke="#b7cadd" stroke-width=".8" opacity=".55"/>
+          <text x="60" y="27" text-anchor="middle" fill="#b91c1c" font-size="10" font-weight="900">É</text>
+          <text x="94" y="63.5" text-anchor="middle" fill="#36516d" font-size="9" font-weight="900">K</text>
+          <text x="60" y="103" text-anchor="middle" fill="#36516d" font-size="9" font-weight="900">D</text>
+          <text x="26" y="63.5" text-anchor="middle" fill="#36516d" font-size="9" font-weight="900">Ny</text>
+          <g id="pws-hero-wind-vane" style="transform:rotate(${angle.toFixed(1)}deg);transform-origin:60px 60px;transform-box:view-box;transition:transform 1.05s cubic-bezier(.2,.82,.25,1)">
+            <path d="M60 20L68 62L60 55L52 62Z" fill="${pointerColor}" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M60 100L53 61L60 67L67 61Z" fill="#6785a2" stroke="#ffffff" stroke-width="1.1" stroke-linejoin="round"/>
+            <path d="M60 29V51" stroke="#ffffff" stroke-width="1" opacity=".55" stroke-linecap="round"/>
           </g>
-          <circle cx="50" cy="50" r="5.2" fill="#dbeafe" stroke="#eff6ff" stroke-width="1.2"/><circle cx="50" cy="50" r="2.4" fill="${accent||'#38bdf8'}"/>
-          <text x="50" y="68.5" text-anchor="middle" fill="#93c5fd" font-size="4.5" font-weight="700" letter-spacing=".5">SZÉLIRÁNY</text>
+          <circle cx="60" cy="60" r="5.8" fill="#183b5b" stroke="#ffffff" stroke-width="1.8"/>
+          <circle cx="60" cy="60" r="2" fill="${pointerColor}"/>
+          <text x="60" y="116" text-anchor="middle" fill="#647d96" font-size="5.5" font-weight="800" letter-spacing=".55">SZÉLIRÁNY</text>
         </svg>`;
     }
     function pwsWgSvgTemp(temp, avgTemp, accent) {
@@ -2112,7 +2384,7 @@
             const avg=vals.reduce((a,b)=>a+b,0)/vals.length;
             chart+=`<div class="pws-pro-chart-stats"><span>Minimum <strong>${min.toFixed(1)} ${unit}</strong></span><span>Átlag <strong>${avg.toFixed(1)} ${unit}</strong></span><span>Maximum <strong>${max.toFixed(1)} ${unit}</strong></span></div>`;
         }
-        return `<section class="pws-pro-panel" data-gw-key="pws-pro-telemetry"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">MÉRT IDŐSOROK</div><div class="pws-pro-title">PWS grafikonok</div></div><span class="pws-pro-source">${period==='24h'?'5 perces archívum':period==='7d'?'órás archívum':'napi archívum'}</span></div><div class="pws-pro-controls">${pLabels}</div><div class="pws-pro-metric-tabs">${mLabels}</div><div class="pws-pro-chart-wrap">${chart}</div><div class="pws-pro-foot">${valid.length} érvényes adatpont · csak archív PWS-adatok · hiányzó értékek nem kerülnek nullával helyettesítésre</div></section>`;
+        return `<section class="pws-pro-panel" data-gw-key="pws-pro-telemetry"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">MÉRT IDŐSOROK</div><div class="pws-pro-title">PWS grafikonok</div></div><span class="pws-pro-source">${period==='24h'?'5 perces archívum':period==='7d'?'órás archívum':'napi archívum'}</span></div><div class="pws-pro-controls">${pLabels}</div><div class="pws-pro-metric-tabs">${mLabels}</div><div class="pws-pro-chart-wrap">${chart}</div><div class="pws-pro-foot">${valid.length} mérés</div></section>`;
     }
     function pwsWedgePath(cx,cy,r0,r1,startDeg,endDeg) {
         const p=(r,a)=>({x:cx+r*Math.cos(a*Math.PI/180),y:cy+r*Math.sin(a*Math.PI/180)});
@@ -2135,7 +2407,7 @@
         });
         const calmPct=valid?Math.round(calm/valid*100):0;
         const legend=bands.map((b,i)=>`<span><i style="background:${b.color}"></i>${['0–5','5–10','10–20','20–30','30+'][i]}</span>`).join('');
-        return `<section class="pws-pro-panel" data-gw-key="pws-pro-windrose"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">VALÓDI SZÉLMÉRŐ-ARCHÍVUM</div><div class="pws-pro-title">16 irányú szélrózsa</div></div><span class="pws-pro-source">24 óra · PWS</span></div><div class="pws-pro-rose-layout"><div class="pws-pro-rose-wrap"><svg class="pws-pro-rose-svg" viewBox="0 0 300 300" role="img" aria-label="Szélrózsa: a mérési gyakoriság és szélsebesség irányonként"><circle cx="150" cy="150" r="105" fill="none" stroke="#dbe7f3" stroke-dasharray="2 4"/><circle cx="150" cy="150" r="78.5" fill="none" stroke="#e5edf6"/><circle cx="150" cy="150" r="52" fill="none" stroke="#e5edf6"/><circle cx="150" cy="150" r="25.5" fill="none" stroke="#e5edf6"/>${wedges}${labels}<circle cx="150" cy="150" r="21" fill="#10243b" stroke="#d8e5f2" stroke-width="2"/><text x="150" y="147" text-anchor="middle" fill="#fff" font-size="15" font-weight="800">${calmPct}%</text><text x="150" y="159" text-anchor="middle" fill="#a9c5e2" font-size="6.5" font-weight="700">SZÉLCSEND</text></svg></div><div class="pws-pro-rose-aside"><div class="pws-pro-rose-stat"><strong>${valid}</strong><span>irány- és sebességmérés</span></div><div class="pws-pro-rose-stat"><strong>${calmPct}%</strong><span>szélcsend (&lt;1 km/h)</span></div><div class="pws-pro-legend">${legend}</div></div></div><div class="pws-pro-foot">A sugár hossza a leggyakoribb szélirányhoz viszonyított gyakoriságot mutatja; a szín a szélsebesség-tartományt. Az irány azt jelenti, ahonnan a szél fúj.</div></section>`;
+        return `<section class="pws-pro-panel" data-gw-key="pws-pro-windrose"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">VALÓDI SZÉLMÉRŐ-ARCHÍVUM</div><div class="pws-pro-title">16 irányú szélrózsa</div></div><span class="pws-pro-source">24 óra · PWS</span></div><div class="pws-pro-rose-layout"><div class="pws-pro-rose-wrap"><svg class="pws-pro-rose-svg" viewBox="0 0 300 300" role="img" aria-label="Szélrózsa: a mérési gyakoriság és szélsebesség irányonként"><circle cx="150" cy="150" r="105" fill="none" stroke="#dbe7f3" stroke-dasharray="2 4"/><circle cx="150" cy="150" r="78.5" fill="none" stroke="#e5edf6"/><circle cx="150" cy="150" r="52" fill="none" stroke="#e5edf6"/><circle cx="150" cy="150" r="25.5" fill="none" stroke="#e5edf6"/>${wedges}${labels}<circle cx="150" cy="150" r="21" fill="#10243b" stroke="#d8e5f2" stroke-width="2"/><text x="150" y="147" text-anchor="middle" fill="#fff" font-size="15" font-weight="800">${calmPct}%</text><text x="150" y="159" text-anchor="middle" fill="#a9c5e2" font-size="6.5" font-weight="700">SZÉLCSEND</text></svg></div><div class="pws-pro-rose-aside"><div class="pws-pro-rose-stat"><strong>${valid}</strong><span>irány- és sebességmérés</span></div><div class="pws-pro-rose-stat"><strong>${calmPct}%</strong><span>szélcsend (&lt;1 km/h)</span></div><div class="pws-pro-legend">${legend}</div></div></div></section>`;
     }
     function pwsNormalizeRoseRows() {
         return (pwsInyreg42State.dayObs||[]).map(x=>pwsNormalizeArchiveRecord(x,'24h')).filter(r=>r && r.direction!==null && r.wind!==null && (Date.now()/1000-r.epoch)<=26*3600 && (Date.now()/1000-r.epoch)>=0);
@@ -2218,11 +2490,381 @@
         const mins=Math.max(0,Math.round(Date.now()/60000-epoch/60));
         return mins<60?`${mins} perce mérve`:`${Math.floor(mins/60)} óra ${mins%60} perce mérve`;
     }
+    function pwsRadarFrameTime(frame) {
+        const ms = Number(frame?.time) * 1000;
+        return Number.isFinite(ms) && ms > 0 ? new Date(ms).toLocaleTimeString('hu-HU', {hour:'2-digit', minute:'2-digit', timeZone:'Europe/Budapest'}) : '—';
+    }
+    async function pwsLoadRadar(force=false) {
+        if (!pwsInyreg42Config?.enabled || pwsRadarState.loading || document.visibilityState !== 'visible') return;
+        if (!force && pwsRadarState.data && Date.now() - pwsRadarState.lastFetchAt < 10 * 60000) return;
+        pwsRadarState.loading = true; pwsRadarState.error = '';
+        try {
+            const response = await fetch(`${KEPBEN_WEATHER_PROXY_URL}/api/radar`, {cache:'no-store'});
+            const data = await response.json();
+            if (!response.ok || !data?.success || !Array.isArray(data.frames) || !data.frames.length) throw new Error(data?.error || `Radar HTTP ${response.status}`);
+            pwsRadarState.data = data;
+            // Mindig a legfrissebb, ténylegesen mért képkockán nyíljon meg; automatikus lejátszás nincs.
+            pwsRadarState.frameIndex = Math.max(0, data.frames.length - 1);
+            pwsRadarState.playing = false;
+            pwsRadarState.analysis = null;
+            pwsRadarState.analysisError = '';
+            pwsRadarState.lastAnalysisAt = 0;
+            pwsRadarState.lastFetchAt = Date.now();
+            pwsRadarState.error = '';
+        } catch (error) { pwsRadarState.error = error?.message || 'A radarkép most nem érhető el.'; }
+        finally {
+            pwsRadarState.loading = false;
+            renderPwsInyreg42Widget();
+            if (pwsRadarState.inViewport) void pwsAnalyzeRadarFrames(false);
+        }
+    }
+    function pwsRadarImageUrl(frame) {
+        if (!frame?.path) return '';
+        const host = pwsRadarState.data?.host || 'https://tilecache.rainviewer.com';
+        // RainViewer 512 px-es, 7-es nagyítású, Universal Blue visszhangkép.
+        return `${host}${frame.path}/512/7/${NYIREGYHAZA_LAT}/${NYIREGYHAZA_LON}/2/1_0.png`;
+    }
+    function pwsRadarUpdateTimeline() {
+        const frames=pwsRadarState.data?.frames||[],idx=Math.max(0,Math.min(frames.length-1,pwsRadarState.frameIndex));
+        const slider=document.querySelector('[data-gw-key="pws-radar-slider"]');
+        if(slider){slider.max=String(Math.max(0,frames.length-1));slider.value=String(idx);slider.disabled=frames.length<2;}
+        const timeEl=document.querySelector('[data-gw-key="pws-radar-slider-time"]');
+        if(timeEl)timeEl.textContent=frames[idx]?pwsRadarFrameTime(frames[idx])+' · Budapest':'—';
+        const startEl=document.querySelector('[data-gw-key="pws-radar-slider-start"]');
+        const endEl=document.querySelector('[data-gw-key="pws-radar-slider-end"]');
+        if(startEl)startEl.textContent=frames.length?pwsRadarFrameTime(frames[0]):'—';
+        if(endEl)endEl.textContent=frames.length?pwsRadarFrameTime(frames[frames.length-1]):'—';
+        const latest=document.querySelector('[data-gw-key="pws-radar-latest"]');
+        if(latest)latest.disabled=!frames.length||idx===frames.length-1;
+    }
+    function pwsUpdateRadarVisual() {
+        const frames = pwsRadarState.data?.frames || [];
+        if (!frames.length) return;
+        const idx = Math.max(0, Math.min(frames.length - 1, pwsRadarState.frameIndex));
+        pwsRadarState.frameIndex = idx;
+        const frame = frames[idx];
+        const image = document.querySelector('[data-gw-key="pws-live-radar-image"]');
+        const nextUrl = pwsRadarImageUrl(frame);
+        if (image && nextUrl && image.dataset.frameUrl !== nextUrl) {
+            image.dataset.frameUrl = nextUrl;
+            image.src = nextUrl;
+        }
+        const timeEl = document.querySelector('[data-gw-key="pws-radar-frame-label"]');
+        if (timeEl) timeEl.textContent = `Radarkép időpontja: ${pwsRadarFrameTime(frame)} · Budapest`;
+        const prev = document.querySelector('[data-gw-key="pws-radar-prev"]');
+        const next = document.querySelector('[data-gw-key="pws-radar-next"]');
+        const count = document.querySelector('[data-gw-key="pws-radar-count"]');
+        if (prev) prev.disabled = idx <= 0;
+        if (next) next.disabled = idx >= frames.length - 1;
+        if (count) count.textContent = `${frames.length} mért képkocka`;
+        pwsRadarUpdateTimeline();
+    }
+    function pwsRadarStep(delta) {
+        const frames=pwsRadarState.data?.frames||[];if(!frames.length)return;
+        pwsRadarState.frameIndex=Math.max(0,Math.min(frames.length-1,pwsRadarState.frameIndex+Number(delta||0)));
+        pwsUpdateRadarVisual();
+    }
+    let pwsRadarSliderRaf = 0;
+    let pwsRadarSliderPendingIndex = null;
+    function pwsRadarSliderPreview(value) {
+        const frames=pwsRadarState.data?.frames||[];if(!frames.length)return;
+        const idx=Math.max(0,Math.min(frames.length-1,Math.round(Number(value)||0)));
+        pwsRadarSliderPendingIndex=idx;
+        const timeEl=document.querySelector('[data-gw-key="pws-radar-slider-time"]');
+        if(timeEl)timeEl.textContent=pwsRadarFrameTime(frames[idx])+' · Budapest';
+        // A képkocka már húzás közben vált; RAF legfeljebb egy képkérést indít képernyőfrissítésenként.
+        if(!pwsRadarSliderRaf) pwsRadarSliderRaf=requestAnimationFrame(()=>{
+            pwsRadarSliderRaf=0;
+            if(pwsRadarSliderPendingIndex===null)return;
+            pwsRadarState.frameIndex=pwsRadarSliderPendingIndex;
+            pwsRadarSliderPendingIndex=null;
+            pwsUpdateRadarVisual();
+        });
+    }
+    function pwsRadarSliderChange(value) {
+        const frames=pwsRadarState.data?.frames||[];if(!frames.length)return;
+        if(pwsRadarSliderRaf){cancelAnimationFrame(pwsRadarSliderRaf);pwsRadarSliderRaf=0;}
+        pwsRadarSliderPendingIndex=null;
+        pwsRadarState.frameIndex=Math.max(0,Math.min(frames.length-1,Math.round(Number(value)||0)));
+        pwsUpdateRadarVisual();
+    }
+    function pwsRadarShowLatest() {
+        const frames=pwsRadarState.data?.frames||[];if(!frames.length)return;
+        pwsRadarState.frameIndex=frames.length-1;pwsUpdateRadarVisual();
+    }
+    function pwsStopRadarPlayback(userAction=false) {
+        if(userAction)pwsRadarState.userPaused=true;
+        pwsRadarState.playing=false;
+        if(pwsRadarState.playTimer)clearInterval(pwsRadarState.playTimer);
+        pwsRadarState.playTimer=null;
+    }
+    function pwsRadarStartPlayback() { /* Szándékosan nincs automatikus vagy folyamatos radaranimáció. */ }
+    function pwsRadarTogglePlayback() { /* A képkockák kézzel, a csúszkával választhatók. */ }
+
+    const PWS_RADAR_PALETTE = [
+        [136,221,238,15],[0,163,224,20],[0,119,170,25],[0,85,136,30],
+        [255,238,0,35],[255,170,0,40],[255,68,0,45],[193,0,0,50],
+        [255,170,255,55],[255,119,255,60],[255,255,255,65]
+    ];
+    function pwsRadarDbzFromPixel(r,g,b,a) {
+        if(a<185)return -1;
+        let best=-1,bestD=Infinity;
+        for(const c of PWS_RADAR_PALETTE){const d=(r-c[0])**2+(g-c[1])**2+(b-c[2])**2;if(d<bestD){bestD=d;best=c[3];}}
+        return bestD<52000?best:-1;
+    }
+    function pwsRadarLoadPixels(frame) {
+        return new Promise((resolve,reject)=>{
+            const url=pwsRadarImageUrl(frame);if(!url){reject(new Error('A radarkép URL-je hiányzik.'));return;}
+            const img=new Image();img.crossOrigin='anonymous';img.decoding='async';
+            img.onload=()=>{
+                try{
+                    const size=96,canvas=document.createElement('canvas');canvas.width=size;canvas.height=size;
+                    const ctx=canvas.getContext('2d',{willReadFrequently:true});if(!ctx)throw new Error('A képelemző nem indítható.');
+                    ctx.imageSmoothingEnabled=false;ctx.drawImage(img,0,0,size,size);
+                    const data=ctx.getImageData(0,0,size,size).data,dbz=new Int8Array(size*size);dbz.fill(-1);
+                    for(let i=0,j=0;i<dbz.length;i++,j+=4)dbz[i]=pwsRadarDbzFromPixel(data[j],data[j+1],data[j+2],data[j+3]);
+                    resolve({size,dbz,time:Number(frame.time)||0});
+                }catch(e){reject(e);}
+            };
+            img.onerror=()=>reject(new Error('A radar képelemzése nem érhető el.'));
+            img.src=url;
+        });
+    }
+    function pwsRadarEchoLabel(dbz) {
+        if(dbz<15)return 'Nincs mérhető csapadékjel';
+        if(dbz<25)return 'Nagyon gyenge csapadékjel';
+        if(dbz<35)return 'Gyenge csapadékjel';
+        if(dbz<40)return 'Mérsékelt csapadékjel';
+        if(dbz<45)return 'Erős csapadékjel';
+        if(dbz<50)return 'Nagyon erős csapadékjel';
+        return 'Intenzív radar-visszhang';
+    }
+    function pwsRadarCompass8(deg) {
+        const names=['É','ÉK','K','DK','D','DNy','Ny','ÉNy'];
+        return names[Math.round((((deg%360)+360)%360)/45)%8];
+    }
+    function pwsRadarAnalyzePixels(previous,current,frameMinutes) {
+        const size=current.size,center=(size-1)/2,now=current.dbz,old=previous?.dbz||null;
+        let cityDbz=-1,nearest=null,echoCount=0,nowCount=0;
+        for(let y=0;y<size;y++)for(let x=0;x<size;x++){
+            const i=y*size+x,v=now[i];if(v<15)continue;
+            echoCount++;
+            const dx=x-center,dy=y-center,dist=Math.hypot(dx,dy);
+            if(dist<=2.5)cityDbz=Math.max(cityDbz,v);
+            if(v>=20&&dist<=42){
+                let neighbours=0;for(let oy=-1;oy<=1;oy++)for(let ox=-1;ox<=1;ox++){const xx=x+ox,yy=y+oy;if(xx>=0&&yy>=0&&xx<size&&yy<size&&now[yy*size+xx]>=20)neighbours++;}
+                if(neighbours>=2&&(!nearest||dist<nearest.dist))nearest={x,y,dist,dbz:v};
+            }
+            if(v>=20)nowCount++;
+        }
+        const kmPerPixel=40075.017*Math.cos(NYIREGYHAZA_LAT*Math.PI/180)/(128*size);
+        let motion=null;
+        if(old&&previous&&frameMinutes>0){
+            let oldCount=0,newCount=0;for(let i=0;i<old.length;i++){if(old[i]>=20)oldCount++;if(now[i]>=20)newCount++;}
+            if(oldCount>=8&&newCount>=8){
+                let best={dx:0,dy:0,score:0};
+                for(let dy=-6;dy<=6;dy++)for(let dx=-6;dx<=6;dx++){
+                    if(dx===0&&dy===0)continue;let inter=0;
+                    for(let y=7;y<size-7;y++)for(let x=7;x<size-7;x++){
+                        if(old[y*size+x]<20)continue;
+                        const xx=x+dx,yy=y+dy;if(now[yy*size+xx]>=20)inter++;
+                    }
+                    const score=inter/Math.max(1,oldCount+newCount-inter);
+                    if(score>best.score)best={dx,dy,score};
+                }
+                const shift=Math.hypot(best.dx,best.dy);
+                if(shift>=1&&best.score>=0.10){motion={dx:best.dx,dy:best.dy,score:best.score,shift,speedKmh:shift*kmPerPixel/(frameMinutes/60)};}
+            }
+        }
+        let arrival=null;
+        if(nearest&&motion){
+            const rx=center-nearest.x,ry=center-nearest.y,along=(rx*motion.dx+ry*motion.dy)/motion.shift,cross=Math.abs(rx*motion.dy-ry*motion.dx)/motion.shift;
+            const eta=along>0?along/motion.shift*frameMinutes:null;
+            if(eta!==null&&eta>=5&&eta<=150&&cross*kmPerPixel<=18&&motion.speedKmh>=3){
+                const bearing=(Math.atan2(nearest.x-center,center-nearest.y)*180/Math.PI+360)%360;
+                arrival={minutes:eta,distanceKm:nearest.dist*kmPerPixel,dbz:nearest.dbz,direction:pwsRadarCompass8(bearing),speedKmh:motion.speedKmh,confidence:motion.score};
+            }
+        }
+        return {cityDbz,nearest,arrival,echoCount,nowCount,motion,kmPerPixel,frameMinutes};
+    }
+    async function pwsAnalyzeRadarFrames(force=false) {
+        const frames=pwsRadarState.data?.frames||[];
+        if(!pwsRadarState.inViewport||document.visibilityState!=='visible'||pwsRadarState.analysisLoading||frames.length<1)return;
+        if(!force&&pwsRadarState.analysis&&Date.now()-pwsRadarState.lastAnalysisAt<10*60000)return;
+        pwsRadarState.analysisLoading=true;pwsRadarState.analysisError='';
+        try{
+            const recent=frames.slice(-2),current=await pwsRadarLoadPixels(recent[recent.length-1]);
+            let previous=null,minutes=10;
+            if(recent.length>1){previous=await pwsRadarLoadPixels(recent[0]);minutes=Math.max(1,(current.time-previous.time)/60);}
+            pwsRadarState.analysis=pwsRadarAnalyzePixels(previous,current,minutes);
+            pwsRadarState.lastAnalysisAt=Date.now();
+        }catch(e){pwsRadarState.analysis=null;pwsRadarState.analysisError=(String(e?.message||'').toLowerCase().includes('taint')||String(e?.name||'')==='SecurityError')?'A radarforrás nem engedélyezte a képpontok biztonságos kiolvasását. A radarkép ettől még használható.':'A radar képelemzése jelenleg nem érhető el.';pwsRadarState.lastAnalysisAt=Date.now();}
+        finally{pwsRadarState.analysisLoading=false;const el=document.querySelector('[data-gw-key="pws-radar-analysis"]');if(el)el.outerHTML=pwsRadarAnalysisHtml();}
+    }
+    function pwsRadarAnalysisHtml() {
+        const a=pwsRadarState.analysis;
+        if(pwsRadarState.analysisLoading)return `<div class="pws-radar-analysis" data-gw-key="pws-radar-analysis"><div class="pws-radar-analysis-head"><span class="pws-radar-analysis-title">RADARALAPÚ HELYI ÉRTÉKELÉS</span><span class="pws-radar-analysis-tag">KÉPELEMZÉS</span></div><div class="pws-radar-analysis-main">A legfrissebb radarképkockák elemzése…</div></div>`;
+        if(!a)return `<div class="pws-radar-analysis" data-gw-key="pws-radar-analysis"><div class="pws-radar-analysis-head"><span class="pws-radar-analysis-title">RADARALAPÚ HELYI ÉRTÉKELÉS</span><span class="pws-radar-analysis-tag">NYÍREGYHÁZA</span></div><div class="pws-radar-analysis-main">${gwEsc(pwsRadarState.analysisError||'A radarelemzéshez még nincs elegendő képkocka.')}</div><div class="pws-radar-analysis-note">Csak a mért radar-visszhangból számolunk; ha a képelemzés nem olvasható, nem becsülünk érkezési időt.</div></div>`;
+        const dbz=a.cityDbz,cityText=dbz>=15?`Nyíregyháza felett ${pwsRadarEchoLabel(dbz).toLowerCase()} látható.`:'A legfrissebb képkockán Nyíregyháza felett nem látható mérhető csapadékjel.';
+        const arrival=a.arrival;
+        const etaText=arrival?`A legközelebbi, a város felé mozgó radarjel ${arrival.direction} felől érkezhet. A képkockákból számított becslés szerint körülbelül ${Math.max(5,Math.round(arrival.minutes/5)*5)} perc múlva érheti el Nyíregyháza térségét, ha a mozgása nem változik.`:(a.nearest?`A legközelebbi mérhető csapadékjel körülbelül ${Math.round(a.nearest.dist*a.kmPerPixel)} km-re látható, de a képkockákból nem állapítható meg kellő biztonsággal, hogy Nyíregyháza felé tart-e.`:'A legfrissebb radarképen nem látható olyan csapadékzóna a vizsgált körzetben, amelynek Nyíregyházára érkezése megbízhatóan kiszámítható lenne.');
+        const intensity=arrival?arrival.dbz:dbz;
+        const precipLabel=intensity>=15?pwsRadarEchoLabel(intensity):'Nem észlelhető csapadékjel';
+        const tempRow=pwsInyreg42State.current?pwsNormalizeArchiveRecord(pwsInyreg42State.current,'24h'):null,temp=tempRow?.temp;
+        const typeNote=temp===null||temp===undefined?'A radar önmagában nem különbözteti meg az esőt, szitálást, záport és havat.':temp<=0.5?`A PWS felszíni hőmérséklete ${temp.toFixed(1)} °C: fagyos csapadék is lehetséges, de a radar nem azonosítja külön a havat.`:temp<2.5?`A PWS felszíni hőmérséklete ${temp.toFixed(1)} °C: vegyes halmazállapot is előfordulhat; ezt a radar önmagában nem dönti el.`:`A PWS felszíni hőmérséklete ${temp.toFixed(1)} °C, ezért a felszínen az eső valószínűbb; a csapadék típusát a radar nem méri közvetlenül.`;
+        return `<div class="pws-radar-analysis" data-gw-key="pws-radar-analysis"><div class="pws-radar-analysis-head"><span class="pws-radar-analysis-title">RADARALAPÚ HELYI ÉRTÉKELÉS</span><span class="pws-radar-analysis-tag">${arrival?'MOZGÁSI BECSLÉS':'MÉRT VISSZHANG'}</span></div><div class="pws-radar-analysis-main">${gwEsc(cityText)}</div><div class="pws-radar-analysis-detail">${gwEsc(etaText)}</div><div class="pws-radar-analysis-grid"><div class="pws-radar-analysis-stat"><span>Csapadékjel erőssége</span><strong>${gwEsc(precipLabel)}</strong></div><div class="pws-radar-analysis-stat"><span>${arrival?'Közeledés iránya':'Legközelebbi radarjel'}</span><strong>${arrival?gwEsc(arrival.direction+' felől'):a.nearest?Math.round(a.nearest.dist*a.kmPerPixel)+' km':'—'}</strong></div><div class="pws-radar-analysis-stat"><span>Radarjel mozgása</span><strong>${arrival?Math.round(arrival.speedKmh)+' km/h':'Nem igazolható'}</strong></div></div><div class="pws-radar-analysis-note">${gwEsc(typeNote)} A becslés a legutóbbi két mért radarkép képpontjainak elmozdulásából készül, nem előrejelzési feed. Az értékelés mindig a legfrissebb két mért képkockát használja; a csúszka a korábbi radarképeket mutatja. A RainViewer radar-visszaverődést mutat; a szitálás/eső/zápor/hó típus nem különíthető el biztosan.</div></div>`;
+    }
+    function pwsObserveRadarMap() {
+        const target=document.querySelector('[data-gw-key="pws-live-radar-visual"]');
+        if(!target)return;
+        if(pwsRadarState.mapObservedTarget===target)return;
+        if(pwsRadarState.mapObserver){try{pwsRadarState.mapObserver.disconnect();}catch(e){}}
+        pwsRadarState.mapObservedTarget=target;
+        if(!('IntersectionObserver' in window)){
+            pwsRadarState.inViewport=true;void pwsAnalyzeRadarFrames(false);return;
+        }
+        pwsRadarState.mapObserver=new IntersectionObserver(entries=>{
+            for(const entry of entries){
+                if(entry.target!==target)continue;
+                pwsRadarState.inViewport=entry.isIntersecting&&entry.intersectionRatio>0;
+                if(pwsRadarState.inViewport)void pwsAnalyzeRadarFrames(false);
+            }
+        },{root:null,rootMargin:'80px 0px',threshold:0.05});
+        pwsRadarState.mapObserver.observe(target);
+    }
+
+    function pwsAqiMeaning(value) {
+        const n = Number(value);
+        if (!Number.isFinite(n)) return 'Nem áll rendelkezésre';
+        if (n <= 20) return 'Jó'; if (n <= 40) return 'Megfelelő'; if (n <= 60) return 'Mérsékelt';
+        if (n <= 80) return 'Rossz'; if (n <= 100) return 'Nagyon rossz'; return 'Rendkívül rossz';
+    }
+    function pwsDailyReviewRows() {
+        const today=nyirLocalDateKey(new Date()),byMinute=new Map();
+        const raw=(pwsInyreg42State.dayObs||[]);
+        raw.forEach(record=>{
+            const row=pwsNormalizeArchiveRecord(record,'24h');
+            if(!row||nyirLocalDateKey(new Date(row.epoch*1000))!==today)return;
+            byMinute.set(Math.round(row.epoch/60),row);
+        });
+        const current=pwsInyreg42State.current;
+        if(current){
+            const row=pwsNormalizeArchiveRecord(current,'24h');
+            if(row&&nyirLocalDateKey(new Date(row.epoch*1000))===today)byMinute.set(Math.round(row.epoch/60),row);
+        }
+        return Array.from(byMinute.values()).sort((a,b)=>a.epoch-b.epoch);
+    }
+    function pwsDailyHour(epoch) {
+        return Number(new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Budapest',hour:'2-digit',hourCycle:'h23'}).format(new Date(epoch*1000)));
+    }
+    function pwsDailyReviewPanel() {
+        const rows=pwsDailyReviewRows(),dateLabel=new Intl.DateTimeFormat('hu-HU',{timeZone:'Europe/Budapest',month:'long',day:'numeric'}).format(new Date());
+        const tempRows=rows.filter(r=>Number.isFinite(r.temp));
+        const temps=tempRows.map(r=>r.temp),gusts=rows.map(r=>r.gust).filter(Number.isFinite),pressures=rows.map(r=>r.pressure).filter(Number.isFinite);
+        const m=pwsInyreg42State.current?.metric||{};
+        const dailyTotals=rows.map(r=>pwsSafeNumber(r.raw?.metric?.precipTotal)).filter(v=>v!==null&&v>=0);
+        const currentTotal=pwsSafeNumber(m.precipTotal);
+        const rainTotal=currentTotal!==null?currentTotal:(dailyTotals.length?Math.max(...dailyTotals):null);
+        const fmt=(v,d=1)=>Number.isFinite(v)?v.toLocaleString('hu-HU',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';
+        const minTemp=temps.length?Math.min(...temps):null,maxTemp=temps.length?Math.max(...temps):null;
+        const minTempRow=minTemp===null?null:tempRows.find(r=>r.temp===minTemp),maxTempRow=maxTemp===null?null:tempRows.find(r=>r.temp===maxTemp);
+        const maxGust=gusts.length?Math.max(...gusts):null;
+        const maxGustRow=maxGust===null?null:rows.find(r=>r.gust===maxGust);
+        const pressureRange=pressures.length?Math.max(...pressures)-Math.min(...pressures):null;
+        const timeShort=e=>e?new Date(e*1000).toLocaleTimeString('hu-HU',{timeZone:'Europe/Budapest',hour:'2-digit',minute:'2-digit'}):'';
+        const stats=`<div class="pws-daily-stats">
+            <div class="pws-daily-stat"><span>Mai legalacsonyabb</span><strong>${minTemp===null?'—':fmt(minTemp)+' °C'}</strong>${minTempRow?`<small>${timeShort(minTempRow.epoch)}-kor</small>`:''}</div>
+            <div class="pws-daily-stat"><span>Mai legmagasabb</span><strong>${maxTemp===null?'—':fmt(maxTemp)+' °C'}</strong>${maxTempRow?`<small>${timeShort(maxTempRow.epoch)}-kor</small>`:''}</div>
+            <div class="pws-daily-stat"><span>Mai csapadék</span><strong>${rainTotal===null?'—':fmt(rainTotal,2)+' mm'}</strong><small>${rainTotal!==null&&rainTotal>=.05?'Mai összesített mennyiség':'Napi összeg'}</small></div>
+            <div class="pws-daily-stat"><span>Legnagyobb széllökés</span><strong>${maxGust===null?'—':fmt(maxGust)+' km/h'}</strong>${maxGustRow?`<small>${timeShort(maxGustRow.epoch)}-kor</small>`:''}</div>
+        </div>`;
+        let chart='';
+        if(tempRows.length>=2){
+            const W=560,H=142,L=35,R=12,T=12,B=25,vals=tempRows.map(r=>r.temp),lo=Math.min(...vals),hi=Math.max(...vals),span=Math.max(.5,hi-lo),pad=span*.16;
+            const min=lo-pad,max=hi+pad,first=tempRows[0].epoch,last=Math.max(first+60,tempRows[tempRows.length-1].epoch),x=r=>L+(r.epoch-first)/(last-first)*(W-L-R),y=v=>T+(1-(v-min)/(max-min))*(H-T-B);
+            const line=tempRows.map((r,i)=>`${i?'L':'M'}${x(r).toFixed(1)} ${y(r.temp).toFixed(1)}`).join(' ');
+            const area=`${line} L${x(tempRows[tempRows.length-1]).toFixed(1)} ${H-B} L${x(tempRows[0]).toFixed(1)} ${H-B} Z`;
+            const grid=[0,.5,1].map(f=>{const yy=T+f*(H-T-B),v=max-f*(max-min);return `<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#e4edf4" stroke-width="1"/><text x="${L-7}" y="${yy+3}" fill="#7890a4" font-size="9" text-anchor="end">${fmt(v,0)}°</text>`}).join('');
+            const time0=new Date(first*1000).toLocaleTimeString('hu-HU',{timeZone:'Europe/Budapest',hour:'2-digit',minute:'2-digit'}),time1=new Date(last*1000).toLocaleTimeString('hu-HU',{timeZone:'Europe/Budapest',hour:'2-digit',minute:'2-digit'});
+            chart=`<div class="pws-daily-chart-wrap"><div class="pws-daily-chart-title">Hőmérséklet alakulása ma</div><svg class="pws-daily-temp-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Mai hőmérséklet-görbe a nyíregyházi PWS mérései alapján"><defs><linearGradient id="pws-daily-temp-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f59e0b" stop-opacity=".28"/><stop offset="1" stop-color="#f59e0b" stop-opacity=".015"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#pws-daily-temp-fill)"/><path d="${line}" fill="none" stroke="#e89b29" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${x(tempRows[tempRows.length-1]).toFixed(1)}" cy="${y(tempRows[tempRows.length-1].temp).toFixed(1)}" r="4" fill="#f59e0b" stroke="#fff" stroke-width="2"/><text x="${L}" y="${H-5}" fill="#7890a4" font-size="9">${time0}</text><text x="${W-R}" y="${H-5}" fill="#7890a4" font-size="9" text-anchor="end">${time1}</text></svg></div>`;
+        } else {
+            chart=`<div class="pws-daily-empty">${pwsInyreg42State.lastDayFetch?'Még kevés mai mérés érkezett a napi görbéhez.':'A mai mérési adatok betöltése folyamatban van.'}</div>`;
+        }
+        const rainy=rows.filter(r=>Number.isFinite(r.rain)&&r.rain>=.05);
+        const events=[];
+        rainy.forEach(r=>{
+            const prev=events[events.length-1];
+            if(prev&&r.epoch-prev.end<=25*60){prev.end=r.epoch;prev.peak=Math.max(prev.peak,r.rain);prev.count++;}
+            else events.push({start:r.epoch,end:r.epoch,peak:r.rain,count:1});
+        });
+        const time=e=>new Date(e*1000).toLocaleTimeString('hu-HU',{timeZone:'Europe/Budapest',hour:'2-digit',minute:'2-digit'});
+        const eventHtml=events.length?`<div class="pws-daily-rain-events">${events.slice(-4).map(e=>`<span class="pws-daily-rain-event">🌧 ${time(e.start)}${e.end-e.start>=8*60?'–'+time(e.end):''} · ${fmt(e.peak,1)} mm/h csúcs</span>`).join('')}</div>`:
+            (rainTotal!==null&&rainTotal<.05?'<div class="pws-daily-foot">Ma eddig nem hullott mérhető csapadék.</div>':'');
+        const rainBins=Array.from({length:24},()=>0);
+        rows.forEach(r=>{if(Number.isFinite(r.rain)&&r.rain>0){const h=pwsDailyHour(r.epoch);if(h>=0&&h<24)rainBins[h]=Math.max(rainBins[h],r.rain);}});
+        const maxRain=Math.max(.2,...rainBins),bars=rainBins.map((v,i)=>{const h=48*Math.max(0,v)/maxRain,x=8+i*22;return `<rect x="${x}" y="${55-h}" width="13" height="${Math.max(1,h)}" rx="3" fill="${v>=.1?'#2998c5':'#d8e8f1'}"/><text x="${x+6.5}" y="68" font-size="7" text-anchor="middle" fill="#8095a7">${i%3===0?i:''}</text>`}).join('');
+        const rainChart=rows.some(r=>Number.isFinite(r.rain))?`<div class="pws-daily-rain-label">Csapadékintenzitás óránként · mm/h</div><svg class="pws-daily-rain-chart" viewBox="0 0 550 75" role="img" aria-label="Csapadékintenzitás óránként a mai napon">${bars}</svg>`:'';
+        const last=rows.length?rows[rows.length-1]:null;
+        return `<section class="pws-daily-review" data-gw-key="pws-daily-review"><div class="pws-daily-head"><div><div class="pws-live-env-title">Mai időjárásunk eddig</div><div class="pws-daily-date">Nyíregyháza · ${gwEsc(dateLabel)} · mért PWS-adatok</div></div><span class="pws-live-env-chip">PWS NAPLÓ</span></div>${stats}${chart}${rainChart}${eventHtml}<div class="pws-daily-foot">${rows.length?`${rows.length} érvényes mai mérés · utolsó adat: ${time(last.epoch)}`:'A napi megfigyeléssor még töltődik.'}${pressureRange!==null?` · Napi légnyomás-ingadozás: ${fmt(pressureRange,1)} hPa`:''}</div></section>`;
+    }
+    function pwsRenderLocalObservationsPanel() {
+        const data=pwsRadarState.data,frames=data?.frames||[],idx=Math.max(0,Math.min(pwsRadarState.frameIndex,frames.length-1));
+        const frame=frames[idx],host=data?.host||'https://tilecache.rainviewer.com',radarUrl=frame?`${host}${frame.path}/512/7/${NYIREGYHAZA_LAT}/${NYIREGYHAZA_LON}/2/1_0.png`:'',currentFrameTime=pwsRadarFrameTime(frame);
+        const aqi=nyirOmState.aqi||null,aqiValue=aqi&&aqi.european_aqi!==undefined?Number(aqi.european_aqi):NaN;
+        const metric=(key,digits=1,unit='µg/m³')=>aqi&&aqi[key]!==undefined&&aqi[key]!==null&&Number.isFinite(Number(aqi[key]))?`${Number(aqi[key]).toFixed(digits)} ${unit}`:'—';
+        const aqiScore=Number.isFinite(aqiValue)?Math.round(aqiValue):'—',aqiLabel=Number.isFinite(aqiValue)?pwsAqiMeaning(aqiValue):'—';
+        const radarContent=frame?`<img class="pws-live-radar-img" data-gw-key="pws-live-radar-image" data-frame-url="${gwEsc(radarUrl)}" src="${gwEsc(radarUrl)}" alt="RainViewer csapadékradar Nyíregyháza és környéke felett" loading="eager" decoding="async"><span class="pws-live-radar-marker" aria-label="Nyíregyháza középpont"></span><span class="pws-live-radar-region-chip">NYÍREGYHÁZA · SZABOLCS-SZATMÁR-BEREG</span>`:`<div class="pws-live-radar-empty">${pwsRadarState.loading?'Radar betöltése…':gwEsc(pwsRadarState.error||'A radarkép most nem érhető el.')}<button type="button" class="pws-live-radar-controls primary" onclick="pwsLoadRadar(true)">↻ Újra</button></div>`;
+        return `<section class="pws-live-insights" data-gw-key="pws-live-insights">
+            <div class="pws-live-insights-head"><div><div class="pws-live-insights-title">NYÍREGYHÁZA · HELYI MEGFIGYELÉSEK</div><div class="pws-live-insights-sub">Mért csapadékmozgás és napi helyi adatok</div></div><span class="pws-wg-model-chip">RADAR + LEVEGŐ</span></div>
+            <div class="pws-live-radar" data-gw-key="pws-live-radar">
+                <div class="pws-live-radar-head"><div><div class="pws-live-radar-kicker">CSAPADÉKRADAR</div><div class="pws-live-radar-title">Nyíregyháza és Szabolcs-Szatmár-Bereg</div></div><span class="pws-live-radar-status" data-gw-key="pws-radar-count">${frames.length?`${frames.length} mért képkocka`:(pwsRadarState.loading?'Betöltés…':'Nem elérhető')}</span></div>
+                <div class="pws-live-radar-visual" data-gw-key="pws-live-radar-visual">${radarContent}</div>
+                <div class="pws-live-radar-legend" aria-label="Csapadékradar színjelmagyarázat"><span class="pws-live-radar-legend-title">Csapadék erőssége</span><span class="pws-live-radar-legend-bar" aria-hidden="true"></span><span class="pws-live-radar-legend-end">dBZ</span><div class="pws-live-radar-legend-labels"><span>Gyenge</span><span>Mérsékelt</span><span>Erős</span><span>Intenzív</span></div></div>
+                <div class="pws-live-radar-foot"><span data-gw-key="pws-radar-frame-label">${frame?`Radarkép időpontja: ${gwEsc(currentFrameTime)} · Budapest`:'A radarkép betöltése folyamatban.'}</span><span>Nyíregyháza középpontban</span></div>
+                <div class="pws-radar-timeline"><div class="pws-radar-timeline-top"><span>Idővonal · mért radar-képkockák</span><strong class="pws-radar-timeline-time" data-gw-key="pws-radar-slider-time">${frame?gwEsc(pwsRadarFrameTime(frame))+' · Budapest':'—'}</strong></div><input class="pws-radar-slider" type="range" min="0" max="${Math.max(0,frames.length-1)}" step="1" value="${idx}" data-gw-key="pws-radar-slider" oninput="pwsRadarSliderPreview(this.value)" onchange="pwsRadarSliderChange(this.value)" aria-label="Radarképek idővonala" ${frames.length<2?'disabled':''}><div class="pws-radar-timeline-ends"><span data-gw-key="pws-radar-slider-start">${frames.length?gwEsc(pwsRadarFrameTime(frames[0])):'—'}</span><span data-gw-key="pws-radar-slider-end">${frames.length?gwEsc(pwsRadarFrameTime(frames[frames.length-1])):'—'}</span></div><div class="pws-radar-timeline-actions"><button type="button" data-gw-key="pws-radar-prev" onclick="pwsRadarStep(-1)" ${!frames.length||idx<=0?'disabled':''}>← Egy képkockával vissza</button><button type="button" data-gw-key="pws-radar-next" onclick="pwsRadarStep(1)" ${!frames.length||idx>=frames.length-1?'disabled':''}>Előre →</button><button type="button" data-gw-key="pws-radar-latest" class="primary" onclick="pwsRadarShowLatest()" ${!frames.length||idx>=frames.length-1?'disabled':''}>Legfrissebb</button><button type="button" onclick="pwsLoadRadar(true)" title="Radarképek frissítése">↻ Frissítés</button></div><div class="pws-radar-analysis" data-gw-key="pws-radar-analysis"><div class="pws-radar-analysis-head"><span class="pws-radar-analysis-title">RADARALAPÚ HELYI ÉRTÉKELÉS</span><span class="pws-radar-analysis-tag">${pwsRadarState.analysis?'FRISS':'NYÍREGYHÁZA'}</span></div><div class="pws-radar-analysis-main">${pwsRadarState.analysis?gwEsc(pwsRadarState.analysis.cityDbz>=15?pwsRadarEchoLabel(pwsRadarState.analysis.cityDbz):'A legfrissebb képkockán Nyíregyháza felett nincs mérhető csapadékjel.'):(pwsRadarState.analysisLoading?'A legfrissebb radarképkockák elemzése…':'A részletes radarelemzés a térkép megjelenésekor indul.')}</div><div class="pws-radar-analysis-note">A radar-visszhangok mozgásából készülő becslés; jövőbeli RainViewer-képkocka nem áll rendelkezésre.</div></div></div>
+                <div class="pws-live-radar-foot"><span><a href="https://www.rainviewer.com/" target="_blank" rel="noopener noreferrer" style="color:#c7edff;font-weight:800;text-decoration:none">Radar · RainViewer ↗</a></span><span>RainViewer · mért csapadékradar · 10 perces képkockák</span></div>
+            </div>
+            <div class="pws-live-env-grid">
+                <div class="pws-live-env-card pws-live-aqi-wide" data-gw-key="pws-live-aqi">
+                    <div class="pws-live-env-head"><div class="pws-live-env-title">Levegőminőség · Nyíregyháza</div><span class="pws-live-env-chip">CAMS MODELL</span></div>
+                    <div class="pws-live-aqi-main"><div class="pws-live-aqi-number">${gwEsc(aqiScore)}</div><div><div class="pws-live-aqi-label">${gwEsc(aqiLabel)}</div><div class="pws-live-aqi-note">A legfrissebb elérhető modellbecslés</div></div></div>
+                    <div class="pws-live-aqi-metrics"><div class="pws-live-aqi-metric"><span>PM2.5</span><strong>${gwEsc(metric('pm2_5'))}</strong></div><div class="pws-live-aqi-metric"><span>PM10</span><strong>${gwEsc(metric('pm10'))}</strong></div><div class="pws-live-aqi-metric"><span>Ózon · O₃</span><strong>${gwEsc(metric('ozone'))}</strong></div><div class="pws-live-aqi-metric"><span>Nitrogén-dioxid · NO₂</span><strong>${gwEsc(metric('nitrogen_dioxide'))}</strong></div></div>
+                </div>
+                ${pwsRenderOutdoorComfortTile()}
+            </div>
+        </section>`;
+    }
+
+    function pwsRenderOutdoorComfortTile() {
+        const obs=pwsInyreg42State.current, m=obs?.metric||{};
+        if(!obs)return '';
+        const fresh=pwsObsIsFresh(obs);
+        const num=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v))?Number(v):null;
+        const temp=num(m.temp), humidity=fresh?num(obs.humidity):null, dew=num(m.dewpt), rawWind=fresh?num(m.windSpeed):null;
+        const rawFeels=temp!==null?(temp<=16.1&&num(m.windChill)!==null?num(m.windChill):(temp>=26.7&&num(m.heatIndex)!==null?num(m.heatIndex):temp)):null;
+        const feels=rawFeels===null?null:rawFeels;
+        let label='Komfortadat betöltése', tint='neutral', icon='◌';
+        if(feels!==null){
+            if(feels<=-5){label='Nagyon hideg';tint='cold';icon='❄';}
+            else if(feels<8){label='Hidegérzet';tint='cold';icon='❄';}
+            else if(feels<16){label='Hűvös, friss levegő';tint='cool';icon='◒';}
+            else if(feels<25){label='Kellemes hőérzet';tint='mild';icon='☀';}
+            else if(feels<30){label='Meleg idő';tint='warm';icon='☀';}
+            else {label='Nagy meleg';tint='hot';icon='♨';}
+            if(humidity!==null&&humidity>=85&&feels>=20){label='Párás, fülledt';tint='warm';icon='☁';}
+            else if(rawWind!==null&&rawWind>=22&&feels<16){label='Hűvös, szeles';tint='cool';icon='〰';}
+        }
+        const dewGap=temp!==null&&dew!==null?temp-dew:null;
+        const fmt=(v,d=1)=>v===null?'—':v.toLocaleString('hu-HU',{minimumFractionDigits:d,maximumFractionDigits:d});
+        const stamp=obs.obsTimeLocal?String(obs.obsTimeLocal).split(' ').pop().slice(0,5):'friss PWS-adat';
+        return `<div class="pws-live-env-card pws-live-comfort-card tint-${tint}" data-gw-key="pws-live-comfort"><div class="pws-live-env-head"><div class="pws-live-env-title">Kinti komfort · Nyíregyháza</div><span class="pws-live-env-chip">PWS · 30 MP</span></div><div class="pws-comfort-main"><span class="pws-comfort-icon" aria-hidden="true">${icon}</span><div><strong>${feels!==null?fmt(feels,1)+' °C':'—'}</strong><span>Érzékelt hőmérséklet</span></div></div><div class="pws-comfort-state">${gwEsc(label)}</div><div class="pws-comfort-metrics"><div><span>Páratartalom</span><strong>${humidity!==null?fmt(humidity,0)+'%':'—'}</strong></div><div><span>Harmatpont</span><strong>${dew!==null?fmt(dew,1)+' °C':'—'}</strong></div><div><span>Szél</span><strong>${rawWind!==null?fmt(rawWind,1)+' km/h':'—'}</strong></div><div><span>Harmatpont-különbség</span><strong>${dewGap!==null?fmt(dewGap,1)+' °C':'—'}</strong></div></div><div class="pws-comfort-foot">${gwEsc(pwsInyreg42State.activeStationId||pwsInyreg42Config.stationId||'PWS')} · ${gwEsc(stamp)}</div></div>`;
+    }
+
     async function pwsLoadMetar(force=false) {
         if(pwsMetarState.loading || (!force && pwsMetarState.data && Date.now()-pwsMetarState.lastFetchAt<4*60000))return;
         pwsMetarState.loading=true;
         try{
-            const res=await fetch(`${KEPBEN_WEATHER_PROXY_URL}/api/metar?station=LHNY`,{cache:'no-store'});
+            const res=await fetch(`${KEPBEN_WEATHER_PROXY_URL}/api/metar?station=LHNY`,{cache:'default'});
             const data=await res.json(); if(!res.ok||!data.success)throw new Error(data.error||`METAR HTTP ${res.status}`);
             pwsMetarState.data=data; pwsMetarState.lastFetchAt=Date.now(); pwsMetarState.error='';
         }catch(e){pwsMetarState.error=e?.message||'METAR-adat nem érhető el.';}
@@ -2237,9 +2879,28 @@
         const visual=pwsMetarSkyIllustration(cloud);
         const coverage=cloud?.range||'nem számszerűsíthető';
         const layerChips=(cloud?.layers||[]).map(x=>`<span>${gwEsc(x.cover)}${x.base!==null?' · '+gwEsc(pwsMetarHeightText(x.base)):''}${x.type?' · '+gwEsc(x.type):''}</span>`).join('');
-        const percent=cloud?.percent!==null&&cloud?.percent!==undefined?`<div class="pws-pro-metar-cover"><div><span>A kiemelt felhőréteg fedettsége</span><strong>${gwEsc(coverage)}</strong></div><div class="pws-pro-metar-cover-track"><i style="width:${Math.max(0,Math.min(100,cloud.percent))}%"></i></div><small>${gwEsc(cloud.oktas||'')} · kódolt METAR-becslés, nem műholdas pixelmérés</small></div>`:'';
+        const percent=cloud?.percent!==null&&cloud?.percent!==undefined?`<div class="pws-pro-metar-cover"><div><span>A kiemelt felhőréteg fedettsége</span><strong>${gwEsc(coverage)}</strong></div><div class="pws-pro-metar-cover-track"><i style="width:${Math.max(0,Math.min(100,cloud.percent))}%"></i></div><small>${gwEsc(cloud.oktas||'')}</small></div>`:'';
+        const metarNum = value => value!==null && value!==undefined && value!=='' && Number.isFinite(Number(value));
+        const visRaw = ob.visib!==undefined && ob.visib!==null ? String(ob.visib).trim() : '';
+        const visParsed = parseFloat(visRaw.replace(/[^0-9.]/g,''));
+        const visText = Number.isFinite(visParsed) ? `${(visParsed*1.609344).toFixed(1)} km${/[+>]$/.test(visRaw)?' vagy több':''}` : null;
+        const windKm = metarNum(ob.wspd) ? Number(ob.wspd)*1.852 : null;
+        const gustKm = metarNum(ob.wgst) ? Number(ob.wgst)*1.852 : null;
+        const wxRaw = String(ob.wxString||'').toUpperCase();
+        const wxLabel = wxRaw ? (wxRaw.includes('TS')?'Zivatar':wxRaw.includes('SN')?'Havazás':wxRaw.includes('FZRA')?'Ónos eső':wxRaw.includes('RA')?'Eső':wxRaw.includes('DZ')?'Szitálás':wxRaw.includes('FG')?'Köd':wxRaw.includes('BR')?'Párásság':wxRaw.includes('HZ')?'Homályos levegő':wxRaw.includes('SH')?'Zápor':wxRaw) : null;
+        const metarRows = [
+            ['Hőmérséklet',metarNum(ob.temp)?`${Number(ob.temp).toFixed(1)} °C`:null],
+            ['Harmatpont',metarNum(ob.dewp)?`${Number(ob.dewp).toFixed(1)} °C`:null],
+            ['Szélsebesség',windKm!==null?`${windKm.toFixed(1)} km/h`:null],
+            ['Széllökés',gustKm!==null?`${gustKm.toFixed(1)} km/h`:null],
+            ['Szélirány',metarNum(ob.wdir)?`${getFullCompassDirection(Number(ob.wdir))} · ${Math.round(Number(ob.wdir))}°`:null],
+            ['Látótávolság',visText],
+            ['Légnyomás',metarNum(ob.altim)?`${Number(ob.altim).toFixed(1)} hPa`:null],
+            ['Időjárási jelenség',wxLabel]
+        ].filter(([,value])=>value!==null);
+        const metarExtra=metarRows.length?`<div class="pws-live-station-grid pws-pro-metar-live-grid">${metarRows.map(([label,value])=>`<div class="pws-live-station-metric"><span>${label}</span><strong>${gwEsc(value)}</strong></div>`).join('')}</div>`:'';
         const explanatory=cloud?.plain||'A felhőzetet a repülőtéri jelentés kódja írja le.';
-        return `<section class="pws-pro-panel pws-pro-metar-panel" data-gw-key="pws-pro-metar"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">FÜGGETLEN HELYI MEGFIGYELÉS</div><div class="pws-pro-title">Repülőtéri égbolt · LHNY</div></div><span class="pws-pro-source pws-pro-source-live">METAR / SPECI</span></div><div class="pws-pro-metar-scene-wrap">${visual}<div class="pws-pro-metar-scene-copy"><span>MIT LÁTNA EGY MEGFIGYELŐ?</span><strong>${gwEsc(cloud?.label||'Felhőzet nem ismert')}</strong><p>${gwEsc(explanatory)}</p></div></div>${percent}<div class="pws-pro-metar-grid pws-pro-metar-grid-clear"><div class="pws-pro-metar-main"><span>${gwEsc(ceilingLabel)}</span><strong>${gwEsc(height)}</strong><small>${cloud?.ceilingType==='VV'?'Függőleges látás a felhőbe vagy homályba':'A repülőtér felszíne fölött (AGL), nem tengerszint feletti magasság'}</small></div><div class="pws-pro-metar-meta"><span>Megfigyelés kora</span><strong>${gwEsc(age)}</strong><span>Megfigyelési idő</span><strong>${gwEsc(ts||'időpont nélkül')}</strong></div></div>${layerChips?`<div class="pws-pro-cloud-layers pws-pro-cloud-layers-detail"><b>Jelentett felhőrétegek</b>${layerChips}</div>`:''}<details class="pws-pro-metar-raw"><summary>Részletes METAR-kód megtekintése</summary><div class="pws-pro-raw">${gwEsc(ob.rawOb||ob.raw||'Nyers METAR nem érkezett')}</div></details><div class="pws-pro-foot">Forrás: NOAA Aviation Weather Center · LHNY repülőtéri jelentés. A METAR a repülőtér környezetének hivatalos észlelési jelentése, nem Nyíregyháza teljes városára kiterjedő felhőmérés. Az FEW/SCT/BKN/OVC kódok oktás-tartományt jelentenek; a százalék a kiemelt réteg közelítő tartománya. A különböző magasságú rétegek fedettségét nem adjuk össze.</div><button class="pws-pro-inline-btn" type="button" onclick="pwsLoadMetar(true)">↻ Frissítés</button></section>`;
+        return `<section class="pws-pro-panel pws-pro-metar-panel" data-gw-key="pws-pro-metar"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">FÜGGETLEN HELYI MEGFIGYELÉS</div><div class="pws-pro-title">Repülőtéri égbolt · LHNY</div></div><span class="pws-pro-source pws-pro-source-live">METAR / SPECI</span></div><div class="pws-pro-metar-scene-wrap">${visual}<div class="pws-pro-metar-scene-copy"><span>MIT LÁTNA EGY MEGFIGYELŐ?</span><strong>${gwEsc(cloud?.label||'Felhőzet nem ismert')}</strong><p>${gwEsc(explanatory)}</p></div></div>${percent}${metarExtra}<div class="pws-pro-metar-grid pws-pro-metar-grid-clear"><div class="pws-pro-metar-main"><span>${gwEsc(ceilingLabel)}</span><strong>${gwEsc(height)}</strong><small>${cloud?.ceilingType==='VV'?'Függőleges látás':'Felhőplafon'}</small></div><div class="pws-pro-metar-meta"><span>Megfigyelés kora</span><strong>${gwEsc(age)}</strong><span>Megfigyelési idő</span><strong>${gwEsc(ts||'időpont nélkül')}</strong></div></div>${layerChips?`<div class="pws-pro-cloud-layers pws-pro-cloud-layers-detail"><b>Jelentett felhőrétegek</b>${layerChips}</div>`:''}<details class="pws-pro-metar-raw"><summary>Részletes METAR-kód megtekintése</summary><div class="pws-pro-raw">${gwEsc(ob.rawOb||ob.raw||'Nyers METAR nem érkezett')}</div></details><button class="pws-pro-inline-btn" type="button" onclick="pwsLoadMetar(true)">↻ Frissítés</button></section>`;
     }
     async function pwsLoadSatellite(product,force=false) {
         if(!['CloudType','InfraCloud','NaturalRGB','NightRGB','FogRGB','HRVCloudRGB','AirmassRGB','24hCloudRGB'].includes(product))return;
@@ -2247,7 +2908,7 @@
         if(!force && pwsSatelliteState.product===product && pwsSatelliteState.data && Date.now()-pwsSatelliteState.lastFetchAt<4*60000){renderPwsInyreg42Widget();return;}
         pwsSatelliteState.product=product;pwsSatelliteState.loading=true;pwsSatelliteState.error='';renderPwsInyreg42Widget();
         try{
-            const res=await fetch(`${KEPBEN_WEATHER_PROXY_URL}/api/satellite?product=${encodeURIComponent(product)}&frames=8`,{cache:'no-store'});
+            const res=await fetch(`${KEPBEN_WEATHER_PROXY_URL}/api/satellite?product=${encodeURIComponent(product)}&frames=8&t=${Math.floor(Date.now()/60000)}`,{cache:'no-store'});
             const data=await res.json();if(!res.ok||!data.success)throw new Error(data.error||`Műhold HTTP ${res.status}`);
             pwsSatelliteState.data=data;pwsSatelliteState.frameIndex=Math.max(0,(data.images||[]).length-1);pwsSatelliteState.lastFetchAt=Date.now();pwsSatelliteState.error='';
         }catch(e){pwsSatelliteState.error=e?.message||'Műholdkép nem érhető el.';}
@@ -2279,6 +2940,7 @@
         const play=panel.querySelector('#pws-pro-sat-play-btn');if(play)play.textContent=pwsSatelliteState.playing?'Ⅱ Szünet':'▶ Finom lejátszás';
     }
     function pwsSetSatelliteProduct(product){pwsStopSatelliteAnimation();pwsLoadSatellite(product,true);}
+    function pwsToggleSatellitePanel(){pwsSatelliteState.collapsed=!pwsSatelliteState.collapsed;if(pwsSatelliteState.collapsed)pwsStopSatelliteAnimation();renderPwsInyreg42Widget();}
     function pwsSetSatelliteZoom(mode){pwsSatelliteState.zoomMode=mode==='europe'?'europe':'hungary';const panel=document.querySelector('[data-gw-key="pws-pro-satellite"]');const wrap=panel?.querySelector('.pws-pro-sat-image-wrap');if(wrap)wrap.classList.toggle('is-hungary-zoom',pwsSatelliteState.zoomMode==='hungary');panel?.querySelectorAll('[data-sat-zoom]').forEach(b=>b.classList.toggle('active',b.dataset.satZoom===pwsSatelliteState.zoomMode));}
     function pwsMoveSatelliteFrame(delta){const imgs=pwsSatelliteState.data?.images||[];if(!imgs.length)return;pwsSatelliteState.frameIndex=(pwsSatelliteState.frameIndex+delta+imgs.length)%imgs.length;pwsUpdateSatelliteFrameDom();}
     function pwsStopSatelliteAnimation(){if(pwsSatelliteState.playTimer)clearInterval(pwsSatelliteState.playTimer);pwsSatelliteState.playTimer=null;pwsSatelliteState.playing=false;pwsUpdateSatelliteFrameDom();}
@@ -2288,7 +2950,8 @@
         if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){pwsUpdateSatelliteFrameDom();return;}
         pwsSatelliteState.playing=true;
         pwsSatelliteState.playTimer=setInterval(()=>{
-            if(document.visibilityState!=='visible'){pwsStopSatelliteAnimation();return;}
+            const panel=document.querySelector('[data-gw-key="pws-pro-satellite"]'),rect=panel?.getBoundingClientRect();
+            if(document.visibilityState!=='visible'||pwsSatelliteState.collapsed||!rect||rect.bottom<0||rect.top>window.innerHeight){pwsStopSatelliteAnimation();return;}
             const list=pwsSatelliteState.data?.images||[];if(!list.length){pwsStopSatelliteAnimation();return;}
             pwsSatelliteState.frameIndex=(pwsSatelliteState.frameIndex+1)%list.length;
             pwsUpdateSatelliteFrameDom();
@@ -2297,12 +2960,17 @@
     }
     function pwsRenderSatellitePanel(){
         const data=pwsSatelliteState.data,imgs=data?.images||[],idx=Math.min(pwsSatelliteState.frameIndex,Math.max(0,imgs.length-1)),frame=imgs[idx],products=[['CloudType','Felhőtípus'],['InfraCloud','Infravörös'],['NaturalRGB','Természetes szín'],['NightRGB','Éjszakai'],['FogRGB','Köd / alacsony felhő']];
-        const tabs=products.map(([v,l])=>`<button type="button" class="pws-pro-toggle ${pwsSatelliteState.product===v?'active':''}" onclick="pwsSetSatelliteProduct('${v}')">${l}</button>`).join('');
         const meta=pwsSatelliteFrameMeta(frame);
+        const head=`<div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">VALÓDI MŰHOLDAS MEGFIGYELÉS</div><div class="pws-pro-title">Meteosat műholdképek</div><div class="pws-pro-sat-subtitle">Magyarország · Kárpát-medence · Európa</div></div><div class="pws-pro-sat-head-actions"><span class="pws-pro-source">HungaroMet · MSG/SEVIRI</span><button class="pws-pro-sat-collapse-btn" type="button" onclick="pwsToggleSatellitePanel()">${pwsSatelliteState.collapsed?'＋ Megnyitás':'× Kilépés'}</button></div></div>`;
+        if(pwsSatelliteState.collapsed){
+            return `<section class="pws-pro-panel pws-pro-sat-panel" data-gw-key="pws-pro-satellite">${head}<div class="pws-pro-sat-collapsed"><span>${frame?`${gwEsc(meta.freshness.label)} · ${gwEsc(meta.ageText)} · ${gwEsc(products.find(x=>x[0]===pwsSatelliteState.product)?.[1]||'Műholdkép')}`:'A műholdkép-panel össze van csukva.'}</span><button class="pws-pro-inline-btn" type="button" onclick="pwsToggleSatellitePanel()">Műholdképek megnyitása</button></div></section>`;
+        }
+        const tabs=products.map(([v,l])=>`<button type="button" class="pws-pro-toggle ${pwsSatelliteState.product===v?'active':''}" onclick="pwsSetSatelliteProduct('${v}')">${l}</button>`).join('');
         const zoomButtons=`<div class="pws-pro-sat-zoom"><span>TERÜLET</span><button type="button" data-sat-zoom="hungary" class="pws-pro-toggle ${pwsSatelliteState.zoomMode==='hungary'?'active':''}" onclick="pwsSetSatelliteZoom('hungary')">Magyarország</button><button type="button" data-sat-zoom="europe" class="pws-pro-toggle ${pwsSatelliteState.zoomMode==='europe'?'active':''}" onclick="pwsSetSatelliteZoom('europe')">Teljes Európa</button></div>`;
         const image=frame?`<div class="pws-pro-sat-image-wrap ${pwsSatelliteState.zoomMode==='hungary'?'is-hungary-zoom':''}"><img id="pws-pro-sat-image" data-frame-url="${gwEsc(frame.imageUrl)}" src="${gwEsc(frame.imageUrl)}" alt="HungaroMet Meteosat ${gwEsc(data.product)} műholdkép, ${pwsSatelliteState.zoomMode==='hungary'?'Magyarországra nagyítva':'európai áttekintés'}" loading="lazy" decoding="async"><span class="pws-pro-sat-region-tag">${pwsSatelliteState.zoomMode==='hungary'?'MAGYARORSZÁG · KÁRPÁT-MEDENCE':'EURÓPAI ÁTTEKINTÉS'}</span><span id="pws-pro-sat-time" class="pws-pro-sat-time">${gwEsc(meta.stamp)} UTC</span></div><div id="pws-pro-sat-freshness" class="pws-pro-sat-freshness ${meta.freshness.cls}"><span></span>${meta.freshness.label} · ${meta.ageText}</div>`:`<div class="pws-pro-chart-empty">${pwsSatelliteState.loading?'HungaroMet műholdképek keresése…':gwEsc(pwsSatelliteState.error||'Ehhez a termékhez most nincs elérhető kép.')}<button type="button" class="pws-pro-inline-btn" onclick="pwsLoadSatellite(pwsSatelliteState.product,true)">↻ Újrapróbálás</button></div>`;
         const transport=imgs.length?`<div class="pws-pro-sat-controls"><button type="button" class="pws-pro-inline-btn" onclick="pwsMoveSatelliteFrame(-1)">‹ Előző</button><button id="pws-pro-sat-play-btn" type="button" class="pws-pro-inline-btn" onclick="pwsToggleSatelliteAnimation()">${pwsSatelliteState.playing?'Ⅱ Szünet':'▶ Finom lejátszás'}</button><button type="button" class="pws-pro-inline-btn" onclick="pwsMoveSatelliteFrame(1)">Következő ›</button><span id="pws-pro-sat-counter">${idx+1} / ${imgs.length}</span></div>`:'';
-        return `<section class="pws-pro-panel" data-gw-key="pws-pro-satellite"><div class="pws-pro-panel-head"><div><div class="pws-pro-kicker">VALÓDI MŰHOLDAS MEGFIGYELÉS</div><div class="pws-pro-title">Meteosat · Magyarország és Európa</div></div><span class="pws-pro-source">HungaroMet · MSG/SEVIRI</span></div><div class="pws-pro-controls pws-pro-sat-tabs">${tabs}</div>${zoomButtons}${image}${transport}<div class="pws-pro-foot">HungaroMet Meteosat SEVIRI műholdkép, 15 perces képkockákkal. A Magyarország nézet a regionális kép digitális nagyítása: a kivágás közelebb hozza a térséget, de nem növeli az eredeti felvétel mérési részletességét. A műholdas kép a felhőzet térbeli alakulását mutatja, nem helyi felszíni szenzormérést.</div></section>`;
+        const exitRow=`<div class="pws-pro-sat-exit-row"><button type="button" class="pws-pro-inline-btn" onclick="pwsToggleSatellitePanel()">－ Műholdnézet bezárása</button></div>`;
+        return `<section class="pws-pro-panel pws-pro-sat-panel" data-gw-key="pws-pro-satellite">${head}<div class="pws-pro-controls pws-pro-sat-tabs">${tabs}</div>${zoomButtons}${image}${transport}${exitRow}</section>`;
     }
 
     function renderPwsInyreg42Widget() {
@@ -2420,7 +3088,7 @@
                     <div class="pws-wg-pollutant-chip"><span>NO₂</span><strong>${pwsWgNum(omAqi.nitrogen_dioxide, 1)} µg</strong></div>
                     <div class="pws-wg-pollutant-chip"><span>Por</span><strong>${pwsWgNum(omAqi.dust, 0)} µg</strong></div>
                 </div>
-                <div class="pws-wg-meta-footer"><span>Pollen: ${gwEsc(pollens)}</span><br><span>Open-Meteo / CAMS modelladat; nem helyi levegőminőség-szenzor. A frissítési ciklus forrástól függ, nem 10 perces valós mérés.</span></div>
+                <div class="pws-wg-meta-footer"><span>Pollen: ${gwEsc(pollens)}</span></div>
             </div>`;
         }
 
@@ -2460,15 +3128,15 @@
                 </div>
 
                 <div class="pws-wg-wind-hero" data-gw-key="pws-wind-hero" style="--pws-wind-hero-bg:${themes.wTheme.bg};--pws-wind-hero-border:${themes.wTheme.border}">
-                    <div class="pws-wg-wind-hero-compass">${pwsWgSvgWindHero(smoothAng, themes.wTheme.accent)}</div>
+                    <div class="pws-wg-wind-hero-compass">${pwsWgSvgWindHero(smoothAng, themes.wTheme.accent, windState.speed, windState.dirDeg !== null)}</div>
                     <div class="pws-wg-wind-hero-info">
                         <div class="pws-wg-wind-hero-top">
-                            <span class="pws-wg-wind-hero-title">${pwsSvgIcon('compass')} Valós szélmérő</span>
+                            <span class="pws-wg-wind-hero-title">${pwsSvgIcon('wind')} Valós szélmérő</span>
                             <span id="pws-hero-wind-live-tag" class="pws-wg-wind-live-tag ${windState.sourceIsOm ? 'is-om' : ''}">${gwEsc(windState.sourceTag)}</span>
                         </div>
                         <div class="pws-wg-wind-hero-speed-row">
                             <span id="pws-hero-wind-speed" class="pws-wg-wind-hero-speed" style="color:${windState.speed !== null && Number.isFinite(windState.speed) ? getWindSpeedColor(windState.speed) : '#1e293b'}">${gwEsc(pwsWgNum(windState.speed, 1))}<small>km/h</small></span>
-                            <span id="pws-hero-wind-dir-text" class="pws-wg-wind-hero-dir">${gwEsc(windState.dirText)}</span>
+                            <span id="pws-hero-wind-dir-text" class="pws-wg-wind-hero-dir">${gwEsc(windState.dirDeg !== null ? `${windState.dirText} · ${Math.round(windState.dirDeg)}°` : windState.dirText)}</span>
                         </div>
                         <div class="pws-wg-wind-hero-gust">Széllökés: <strong>${gwEsc(pwsWgNum(gustVal, 1))} km/h</strong>${stats.gustHigh !== null ? ` · Csúcs: ${gwEsc(pwsWgNum(stats.gustHigh, 1))}` : ''}</div>
                         <div class="pws-wg-bf-wrap">
@@ -2548,6 +3216,7 @@
                     </div>
                 </div>
 
+                ${pwsRenderLocalObservationsPanel()}
                 ${pwsRenderMetarPanel()}
                 ${pwsRenderSatellitePanel()}
                 ${pwsRenderWindRose()}
@@ -2557,23 +3226,12 @@
                 ${atmoSoilHtml}
                 ${agroAstroHtml}
                 ${aqiHtml}
+                ${pwsDailyReviewPanel()}
 
-                <div class="pws-wg-extra-section" data-gw-key="pws-extra-section">
-                    <div class="pws-wg-extra-head"><span class="pws-wg-extra-title">${pwsSvgIcon('stats','pws-wg-ico-lg')} Napi összesítés (PWS)</span><span class="pws-wg-model-chip">QC: ${gwEsc(pwsQcStatusLabel(obs.qcStatus))}</span></div>
-                    <div class="pws-wg-extra-grid">
-                        <div class="pws-wg-extra-item" data-gw-key="pws-ex-1" style="--ex-accent:${themes.tTheme.accent}"><div class="pws-wg-extra-lbl">Napi Min / Max hőmérséklet</div><div class="pws-wg-extra-val">${stats.tempLow !== null ? `${gwEsc(pwsWgNum(stats.tempLow, 1))}°C` : '—'} / ${stats.tempHigh !== null ? `${gwEsc(pwsWgNum(stats.tempHigh, 1))}°C` : '—'}</div></div>
-                        <div class="pws-wg-extra-item" data-gw-key="pws-ex-2" style="--ex-accent:${themes.tTheme.accent}"><div class="pws-wg-extra-lbl">Hőindex / Szélhűtés</div><div class="pws-wg-extra-val">${gwEsc(pwsWgNum(m.heatIndex, 1))}°C / ${gwEsc(pwsWgNum(m.windChill, 1))}°C</div></div>
-                        <div class="pws-wg-extra-item" data-gw-key="pws-ex-3" style="--ex-accent:${themes.hTheme.accent}"><div class="pws-wg-extra-lbl">Napi pára Min / Max</div><div class="pws-wg-extra-val">${stats.humLow !== null ? `${gwEsc(pwsWgNum(stats.humLow, 0))}%` : '—'} / ${stats.humHigh !== null ? `${gwEsc(pwsWgNum(stats.humHigh, 0))}%` : '—'}</div></div>
-                        <div class="pws-wg-extra-item" data-gw-key="pws-ex-4" style="--ex-accent:${themes.wTheme.accent}"><div class="pws-wg-extra-lbl">Max szél / Max lökés</div><div class="pws-wg-extra-val">${stats.windHigh !== null ? `${gwEsc(pwsWgNum(stats.windHigh, 1))}` : '—'} / ${stats.gustHigh !== null ? `${gwEsc(pwsWgNum(stats.gustHigh, 1))} km/h` : '—'}</div></div>
-                    </div>
-                    <div class="pws-wg-meta-footer">
-                        <span>Koordináták: ${obs.lat !== undefined ? gwEsc(Number(obs.lat).toFixed(4)) : '—'}, ${obs.lon !== undefined ? gwEsc(Number(obs.lon).toFixed(4)) : '—'}${m.elev !== undefined ? ` · ${gwEsc(m.elev)} m` : ''}</span>
-                        <span>PWS: ${gwEsc(obsUtcStr)}${nyirOmState.lastForecastFetchAt ? ` · Open-Meteo lekérés: ${gwEsc(gwDateTime(new Date(nyirOmState.lastForecastFetchAt).toISOString()))}` : ''}</span>
-                    </div>
-                </div>
             </div>
         `;
         gwRenderSmoothly(root, html);
+        pwsObserveRadarMap();
         void ensureNyirAstronomy(false);
         if (pwsInyreg42State.windPulsePending) {
             const windHero = root.querySelector('.pws-wg-wind-hero');
@@ -2614,6 +3272,9 @@
         if (pwsInyreg42State.fetching) return;
 
         const now = Date.now(), slotNow = Math.floor(now / OM_SYNC_SLOT_MS);
+        const todayKey = nyirLocalDateKey(new Date());
+        const dayChanged = pwsInyreg42State.dailyReviewDateKey !== todayKey;
+        if (dayChanged) { pwsInyreg42State.dailyReviewDateKey = todayKey; pwsInyreg42State.dayObs = []; pwsInyreg42State.lastDayFetch = 0; }
         const needCurrent = forceRefresh || !pwsInyreg42State.current || (now - pwsInyreg42State.lastCurrentFetch >= 28000);
         const needOm = forceRefresh || !nyirOmState.raw || nyirOmState.lastForecastSlot !== slotNow;
         const needGw = forceRefresh || !googleWeatherFullData || googleWeatherLastClientSlot !== slotNow;
@@ -2670,16 +3331,36 @@
 
     function startPwsInyreg42Engine() {
         if (pwsInyreg42State.timerId) { clearInterval(pwsInyreg42State.timerId); pwsInyreg42State.timerId = null; }
+        if (pwsInyreg42State.auxTimerId) { clearInterval(pwsInyreg42State.auxTimerId); pwsInyreg42State.auxTimerId = null; }
+        if (pwsInyreg42State.mapTimerId) { clearInterval(pwsInyreg42State.mapTimerId); pwsInyreg42State.mapTimerId = null; }
         if (nyirOmState.syncTimerId) { clearTimeout(nyirOmState.syncTimerId); nyirOmState.syncTimerId = null; }
         if (!pwsInyreg42Config || !pwsInyreg42Config.enabled) return;
-        if (pwsInyreg42State.auxTimerId) { clearInterval(pwsInyreg42State.auxTimerId); pwsInyreg42State.auxTimerId = null; }
         renderPwsInyreg42Widget();
         fetchPwsInyreg42Data(false);
         pwsLoadMetar(false);
-        pwsLoadSatellite('CloudType', false);
+        if (document.visibilityState === 'visible') {
+            pwsLoadSatellite(pwsSatelliteState.product || 'CloudType', false);
+            pwsLoadRadar(false);
+        }
         scheduleNyirOmSync();
         pwsInyreg42State.timerId = setInterval(() => { if (document.visibilityState === 'visible' && pwsInyreg42Config?.enabled) fetchPwsInyreg42Data(false); }, 30000);
-        pwsInyreg42State.auxTimerId = setInterval(() => { if (document.visibilityState === 'visible' && pwsInyreg42Config?.enabled) { pwsLoadMetar(true); pwsLoadSatellite(pwsSatelliteState.product || 'CloudType', true); } }, 5*60000);
+        // METAR remains on its existing 5-minute cadence.
+        pwsInyreg42State.auxTimerId = setInterval(() => { if (document.visibilityState === 'visible' && pwsInyreg42Config?.enabled) pwsLoadMetar(true); }, 5*60000);
+        // A 10-minute visible-tab check; no radar/satellite requests while the page is hidden.
+        pwsInyreg42State.mapTimerId = setInterval(() => refreshPwsMapsIfDue(false), 10*60000);
+    }
+    function refreshPwsMapsIfDue(forceOnReturn=false) {
+        if (document.visibilityState !== 'visible' || !pwsInyreg42Config?.enabled) return;
+        const now = Date.now(), limit = 10 * 60000;
+        if (forceOnReturn) {
+            // Prevent the visibilitychange + focus events from creating duplicate refreshes.
+            if (now - (pwsInyreg42State.lastMapsReturnRefreshAt || 0) < 15000) return;
+            pwsInyreg42State.lastMapsReturnRefreshAt = now;
+        } else if (now - (pwsInyreg42State.lastMapsReturnRefreshAt || 0) < 15000) {
+            return;
+        }
+        if (!pwsRadarState.loading && (forceOnReturn || now - (pwsRadarState.lastFetchAt || 0) >= limit)) pwsLoadRadar(true);
+        if (!pwsSatelliteState.loading && (forceOnReturn || now - (pwsSatelliteState.lastFetchAt || 0) >= limit)) pwsLoadSatellite(pwsSatelliteState.product || 'CloudType', true);
     }
 
     function updatePwsInyreg42DevFields() {
@@ -2694,6 +3375,248 @@
         if (hintEl) hintEl.textContent = kbTodayColumnLabels.length ? 'Jelenlegi aktív oszlopok: ' + kbTodayColumnLabels.map((n, i) => `${i + 1}. ${n}`).join('  |  ') : 'Az oszlopok listája a hírek betöltése után jelenik meg.';
     }
 
+    function stopSpaceWeatherEngine() {
+        if (spaceWeatherState.timerId) clearInterval(spaceWeatherState.timerId);
+        spaceWeatherState.timerId = null;
+    }
+    async function fetchSpaceWeatherSolar(force=false) {
+        if (!spaceWeatherConfig?.enabled || spaceWeatherState.solarLoading || document.visibilityState !== 'visible') return;
+        if (!force && spaceWeatherState.solar && Date.now() - spaceWeatherState.lastSolarFetchAt < 60000) return;
+        spaceWeatherState.solarLoading = true;
+        try {
+            const res = await fetch(`${KEPBEN_WEATHER_PROXY_URL}/api/space-weather`, {cache:'default'});
+            const data = await res.json();
+            if (!res.ok || !data?.success) throw new Error(data?.error || `NOAA HTTP ${res.status}`);
+            spaceWeatherState.solar = data;
+            spaceWeatherState.lastSolarFetchAt = Date.now();
+            spaceWeatherState.solarError = '';
+        } catch (error) { spaceWeatherState.solarError = error?.message || 'A NOAA-adatok most nem érhetők el.'; }
+        finally { spaceWeatherState.solarLoading = false; renderSpaceWeatherWidget(); }
+    }
+    async function fetchSpaceWeatherIss(force=false) {
+        if (!spaceWeatherConfig?.enabled || spaceWeatherState.issLoading || document.visibilityState !== 'visible') return;
+        if (!force && spaceWeatherState.iss && Date.now() - spaceWeatherState.lastIssFetchAt < 45000) return;
+        spaceWeatherState.issLoading = true;
+        try {
+            const res = await fetch(`${KEPBEN_WEATHER_PROXY_URL}/api/iss`, {cache:'default'});
+            const data = await res.json();
+            if (!res.ok || !data?.success) throw new Error(data?.error || `ISS HTTP ${res.status}`);
+            spaceWeatherState.iss = data;
+            spaceWeatherState.lastIssFetchAt = Date.now();
+            spaceWeatherState.issError = '';
+            void fetchSpaceWeatherGround(false);
+        } catch (error) { spaceWeatherState.issError = error?.message || 'Az ISS pozíciója most nem érhető el.'; }
+        finally { spaceWeatherState.issLoading = false; renderSpaceWeatherWidget(); }
+    }
+    async function fetchSpaceWeatherGround(force=false) {
+        if (!spaceWeatherConfig?.enabled || spaceWeatherState.groundLoading || document.visibilityState !== 'visible') return;
+        const iss = spaceWeatherState.iss;
+        const lat = Number(iss?.latitude), lon = Number(iss?.longitude);
+        if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+        if (!force && spaceWeatherState.groundWeather && Date.now() - spaceWeatherState.lastGroundFetchAt < 3*60000) return;
+        spaceWeatherState.groundLoading = true;
+        try {
+            const q = `lat=${encodeURIComponent(lat.toFixed(2))}&lon=${encodeURIComponent(lon.toFixed(2))}`;
+            const res = await fetch(`${KEPBEN_WEATHER_PROXY_URL}/api/iss-ground-weather?${q}`, {cache:'default'});
+            const data = await res.json();
+            if (!res.ok || !data?.success) throw new Error(data?.error || `Felszíni időjárás HTTP ${res.status}`);
+            spaceWeatherState.groundWeather = data.weather || null;
+            spaceWeatherState.groundLocation = data.location || null;
+            spaceWeatherState.lastGroundFetchAt = Date.now();
+            spaceWeatherState.groundError = '';
+        } catch (error) { spaceWeatherState.groundError = error?.message || 'A felszíni modelladat most nem érhető el.'; spaceWeatherState.lastGroundFetchAt = Date.now(); }
+        finally { spaceWeatherState.groundLoading = false; renderSpaceWeatherWidget(); }
+    }
+    async function fetchSpaceWeatherPasses(force=false) {
+        if (!spaceWeatherConfig?.enabled || spaceWeatherState.passesLoading || document.visibilityState !== 'visible') return;
+        if (!force && spaceWeatherState.passes && Date.now() - spaceWeatherState.lastPassesFetchAt < 10*60000) return;
+        spaceWeatherState.passesLoading = true;
+        try {
+            const res = await fetch(`${KEPBEN_WEATHER_PROXY_URL}/api/iss-passes`, {cache:'default'});
+            const data = await res.json();
+            if (!res.ok || !data?.success) throw new Error(data?.error || `ISS átvonulás HTTP ${res.status}`);
+            spaceWeatherState.passes = data;
+            spaceWeatherState.lastPassesFetchAt = Date.now();
+            spaceWeatherState.passesError = '';
+        } catch (error) { spaceWeatherState.passesError = error?.message || 'Az átvonulási előrejelzés most nem érhető el.'; spaceWeatherState.lastPassesFetchAt = Date.now(); }
+        finally { spaceWeatherState.passesLoading = false; renderSpaceWeatherWidget(); }
+    }
+    function startSpaceWeatherEngine() {
+        if (!spaceWeatherConfig?.enabled || document.visibilityState !== 'visible') { stopSpaceWeatherEngine(); return; }
+        fetchSpaceWeatherSolar(false); fetchSpaceWeatherIss(false); fetchSpaceWeatherPasses(false);
+        if (spaceWeatherState.timerId) return;
+        spaceWeatherState.timerId = setInterval(() => {
+            if (!spaceWeatherConfig?.enabled || document.visibilityState !== 'visible') return;
+            fetchSpaceWeatherSolar(false); fetchSpaceWeatherIss(false); fetchSpaceWeatherPasses(false); fetchSpaceWeatherGround(false);
+        }, 60000);
+    }
+    function pwsSpaceDate(value) {
+        const d = value ? new Date(value) : null;
+        return d && Number.isFinite(d.getTime()) ? d.toLocaleTimeString('hu-HU',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Budapest'}) : '—';
+    }
+    function pwsSpaceDateTime(value) {
+        const d = value ? new Date(value) : null;
+        return d && Number.isFinite(d.getTime()) ? d.toLocaleString('hu-HU',{timeZone:'Europe/Budapest',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}) : '—';
+    }
+    function pwsSpaceAge(value) {
+        const ms = value ? Date.parse(value) : NaN;
+        if (!Number.isFinite(ms)) return 'időpont nélkül';
+        const mins = Math.max(0, Math.round((Date.now()-ms)/60000));
+        return mins < 1 ? 'kevesebb mint 1 perce' : `${mins} perce`;
+    }
+    function pwsIssDistanceKm(lat, lon) {
+        const lat1=Number(lat)*Math.PI/180, lat2=NYIREGYHAZA_LAT*Math.PI/180, dLat=(NYIREGYHAZA_LAT-Number(lat))*Math.PI/180, dLon=(NYIREGYHAZA_LON-Number(lon))*Math.PI/180;
+        const a=Math.sin(dLat/2)**2+Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLon/2)**2;
+        return 6371*2*Math.atan2(Math.sqrt(a),Math.sqrt(Math.max(0,1-a)));
+    }
+    function kbSpaceToggleMetric(button){
+        if(!button)return;const flipped=button.classList.toggle('is-flipped');button.setAttribute('aria-pressed',String(flipped));
+    }
+    function kbSpaceFlipCard(frontHtml,help,title){
+        const label=String(title||'Űridőjárási adat').replace(/\s+/g,' ').trim();
+        const helpText=String(help||'Az adat a legfrissebb elérhető mérésből származik.').replace(/\s+/g,' ').trim();
+        // A magyarázó oldal magasságát a szöveghez és a kijelzőhöz igazítjuk;
+        // nincs belső görgetés és nincs levágott leírás.
+        const viewportWidth=typeof window!=='undefined'?Math.max(320,window.innerWidth||1024):1024;
+        const mobile=viewportWidth<=680;
+        const narrow=viewportWidth<=420;
+        const charsPerLine=narrow?21:(mobile?27:36);
+        const textLines=Math.ceil(helpText.length/charsPerLine);
+        const titleLines=Math.max(1,Math.ceil((label.length+16)/charsPerLine));
+        const cardHeight=Math.max(166,Math.min(320,Math.ceil(58+(textLines+titleLines+1)*13.2)));
+        return `<button type="button" class="kb-space-metric kb-space-flip" style="--kb-space-flip-height:${cardHeight}px" onclick="kbSpaceToggleMetric(this)" aria-pressed="false" aria-label="${gwEsc(label)} – mutass rá vagy koppints a magyarázathoz"><span class="kb-space-flip-inner"><span class="kb-space-flip-face kb-space-flip-front">${frontHtml}<span class="kb-space-flip-cue" aria-hidden="true">ⓘ</span></span><span class="kb-space-flip-face kb-space-flip-back"><strong>${gwEsc(label)} · mit látunk?</strong><span>${gwEsc(helpText)}</span></span></span></button>`;
+    }
+    function kbSpaceMetricHelp(label,value){
+        const key=String(label||'').toLowerCase();
+        if(key.includes('sebessége'))return 'A napszél a Napból kiáramló részecskék árama. Gyakori: 300–500 km/s; 500–700 gyors, 700 felett nagyon gyors. Önmagában a sebesség nem jelent vihart: a Bz és a sűrűség is számít.';
+        if(key.includes('részecskesűrűség'))return 'A napszélben lévő protonok száma köbcentiméterenként. Gyakori: 1–10/cm³. Hirtelen emelkedéskor a napszél nyomása is nőhet.';
+        if(key.includes('hőmérséklete'))return 'A napszél részecskéinek hőmérséklete. Nagyon változó; önmagában nincs lakossági veszélyhatára. A sebességgel és a mágneses térrel együtt értelmezd.';
+        if(key.includes('mágneses tér erőssége'))return 'A bolygóközi mágneses tér teljes erőssége; gyakran néhány nT. A földi hatásnál a déli irányú Bz és annak tartóssága különösen fontos.';
+        if(key.includes('észak–déli'))return 'A Bz a mágneses tér észak–déli összetevője. Tartósan −5 nT alatt fokozódhat az energiaátadás; −10 nT körül erősebb hatás lehetséges. A tartósság is számít.';
+        if(key.includes('kelet–nyugati'))return 'A By a mágneses tér kelet–nyugati összetevője. Önmagában nem viharfokozat; a Bz-vel és a napszél sebességével együtt értelmezzük.';
+        if(key.includes('nyomása'))return 'A napszél Földre gyakorolt dinamikus nyomása. Gyakran 1–3 nPa. Hirtelen kiugrás összenyomhatja a Föld mágneses védőburkát.';
+        return 'Ez egy élő űridőjárási mérés. A forrás időbélyegét is figyeld: a mérés frissessége legalább olyan fontos, mint maga a szám.';
+    }
+    function kbSpaceScaleHelp(prefix){
+        if(prefix==='G')return 'G1: enyhe, G2: közepes, G3: erős, G4: nagyon erős, G5: szélsőséges geomágneses vihar. A műholdakra, rádióra, navigációra és a sarki fényre is hatással lehet.';
+        if(prefix==='R')return 'Az R-skála a napkitörések miatti rövidhullámú rádiózavart jelöli. R1: gyenge, R2: közepes, R3: erős, R4: nagyon erős, R5: szélsőséges rádiókimaradás a napos oldalon.';
+        return 'Az S-skála a nagy energiájú protonok sugárzási viharát jelöli. S1–S5 egyre erősebb fokozat; főként műholdakra, űrhajósokra és magasban repülő járatokra jelent kockázatot.';
+    }
+    function renderSpaceWeatherWidget() {
+        const root = document.getElementById('space-weather-widget-root');
+        if (!root || !spaceWeatherConfig?.enabled) return;
+        const solar=spaceWeatherState.solar, iss=spaceWeatherState.iss;
+        const wind=solar?.solarWind || {}, kp=solar?.kp || {}, scales=solar?.scales || {};
+        const asNum = value => value===null || value===undefined || value==='' || !Number.isFinite(Number(value)) ? null : Number(value);
+        const fmt = (value,digits=1) => asNum(value)===null ? '—' : asNum(value).toLocaleString('hu-HU',{minimumFractionDigits:digits,maximumFractionDigits:digits});
+        const ageMinutes = value => { const ms=value?Date.parse(value):NaN; return Number.isFinite(ms)?Math.max(0,Math.round((Date.now()-ms)/60000)):null; };
+        const windTime=wind.plasmaTime||wind.speedTime||solar?.fetchedAt;
+        const windAge=ageMinutes(windTime);
+        const magAge=ageMinutes(wind.magTime);
+        const solarFresh=windAge!==null && windAge<=10 && [wind.speed,wind.density,wind.bz,wind.bt].some(v=>asNum(v)!==null);
+        const kpValue=asNum(kp.value), speed=asNum(wind.speed), density=asNum(wind.density), temperature=asNum(wind.temperature), bz=asNum(wind.bz), by=asNum(wind.by), bt=asNum(wind.bt), pressure=asNum(wind.dynamicPressure);
+        const kpMeaning=kpValue===null?'':kpValue<2?'Nagyon nyugodt':kpValue<4?'Nyugodt':kpValue<5?'Nyugtalanabb mágneses tér':kpValue<6?'Gyenge geomágneses vihar':kpValue<7?'Közepes geomágneses vihar':kpValue<8?'Erős geomágneses vihar':kpValue<9?'Nagyon erős geomágneses vihar':'Rendkívüli geomágneses vihar';
+        const bzMeaning=bz===null?'':bz<0?'Déli irányú – kedvezhet a geomágneses viharnak':'Északi irányú – jelenleg kevésbé kedvez a viharnak';
+        const scaleTile=(label,obj,prefix)=>obj&&obj.level!==null&&obj.level!==undefined?kbSpaceFlipCard(`<span>${gwEsc(label)}</span><strong>${prefix}${obj.level} / 5</strong><small>${gwEsc(obj.meaning||'')}</small>`,kbSpaceScaleHelp(prefix),label):'';
+        const metricTile=(label,value,unit,sub='',time=null,digits=1)=>value===null? '' : kbSpaceFlipCard(`<span>${gwEsc(label)}</span><strong>${fmt(value,digits)} ${gwEsc(unit)}</strong>${sub?`<small>${gwEsc(sub)}</small>`:''}${time?`<small>Mérés: ${gwEsc(pwsSpaceAge(time))}</small>`:''}`,kbSpaceMetricHelp(label,value),label);
+        const makeSpark=(rows,key,title,unit,stroke)=>{
+            const pts=(Array.isArray(rows)?rows:[]).map(r=>({v:asNum(r[key]),t:r.time})).filter(p=>p.v!==null);
+            if(pts.length<3)return '';
+            const vals=pts.map(p=>p.v), min=Math.min(...vals), max=Math.max(...vals), span=max-min||1, w=360,h=54,pad=4;
+            const coords=vals.map((v,i)=>`${(pad+i*(w-2*pad)/(vals.length-1)).toFixed(1)},${(h-pad-((v-min)/span)*(h-2*pad)).toFixed(1)}`).join(' ');
+            return `<div class="kb-space-spark"><div class="kb-space-spark-head"><span>${title}</span><span>${fmt(vals[vals.length-1],0)} ${unit}</span></div><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${title}, utolsó ${pts.length} egyperces mérés"><path d="M4 27H356" stroke="rgba(194,213,245,.18)" stroke-width="1"/><polyline points="${coords}" fill="none" stroke="${stroke}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="kb-space-spark-foot"><span>${gwEsc(pwsSpaceDate(pts[0].t))}</span><span>${gwEsc(pwsSpaceAge(pts[pts.length-1].t))}</span></div></div>`;
+        };
+        const windMetrics=[
+            metricTile('Napszél sebessége',speed,'km/s',wind.activeSpacecraft||wind.source||'Aktív mérőűrszonda',wind.speedTime||wind.plasmaTime,0),
+            metricTile('Napszél részecskesűrűsége',density,'/cm³','Protonok száma köbcentiméterenként',wind.plasmaTime,1),
+            metricTile('Napszél hőmérséklete',temperature,'K','A Föld felé tartó részecskék hőmérséklete',wind.plasmaTime,0),
+            metricTile('Mágneses tér erőssége',bt,'nT','A bolygóközi mágneses tér teljes erőssége',wind.magTime,1),
+            metricTile('Mágneses tér észak–déli iránya',bz,'nT',bzMeaning,wind.magTime,1),
+            metricTile('Mágneses tér kelet–nyugati iránya',by,'nT','A mágneses tér másik összetevője',wind.magTime,1),
+            metricTile('Napszél nyomása',pressure,'nPa','A részecskesűrűségből és sebességből számítva',wind.plasmaTime,2)
+        ].filter(Boolean).join('');
+        const sparkHtml=[makeSpark(wind.history,'speed','Napszél sebessége · utolsó 60 perc','km/s','#77d5ff'),makeSpark(wind.history,'density','Napszél sűrűsége · utolsó 60 perc','/cm³','#c2a6ff')].join('');
+        const kpTile=kpValue===null?'':kbSpaceFlipCard(`<span>A Föld mágneses nyugtalansága</span><strong>Kp ${fmt(kpValue,1)} / 9</strong><small>${gwEsc(kpMeaning)} · ${gwEsc(kp.kind||'NOAA becslés')} · ${gwEsc(pwsSpaceAge(kp.time))}</small>`,'Kp 0–2: nyugodt; 3–4: aktívabb; 5–9: geomágneses vihar (G1–G5). Háromórás index, nem pillanatnyi érték.','Geomágneses aktivitás');
+        const xray=solar?.xray||null, proton=solar?.protons||null, electron=solar?.electrons||null, aurora=solar?.aurora||null;
+        const flareText=xray?.flareClass||'';
+        const protonLevel=proton&&Number.isFinite(Number(proton.stormLevel))?Number(proton.stormLevel):null;
+        const protonMeaning=protonLevel===null?'':protonLevel===0?'Alapérték':`S${protonLevel} sugárzási fokozat`;
+        const activityTiles=[
+            xray?kbSpaceFlipCard(`<span>Nap röntgensugárzása · napkitörések</span><strong>${gwEsc(flareText||fmt(xray.flux,2)+' W/m²')}</strong><small>${xray.satellite?'GOES műhold · ':''}${gwEsc(pwsSpaceAge(xray.time))}</small>`,'A–B: nagyon gyenge; C: gyenge; M: erős; X: rendkívül erős kitörés. Minden betűlépés kb. tízszeres röntgenfluxust jelent. Az erős kitörés rádiózavart okozhat a Föld napos oldalán.','Napkitörés · röntgensugárzás'):'',
+            proton&&asNum(proton.flux)!==null?kbSpaceFlipCard(`<span>Nagy energiájú protonok</span><strong>${fmt(proton.flux,2)} pfu</strong><small>${gwEsc(protonMeaning)} · ${gwEsc(pwsSpaceAge(proton.time))}</small>`,'A NOAA S-skála a 10 MeV feletti protonáramhoz kötődik: S1: 10, S2: 100, S3: 1 000, S4: 10 000, S5: 100 000 pfu felett. Főként az űreszközök és űrhajósok szempontjából fontos.','Protonáram'):'',
+            electron&&asNum(electron.flux)!==null?kbSpaceFlipCard(`<span>Nagy energiájú elektronok</span><strong>${fmt(electron.flux,2)} e⁻/(cm²·s·sr)</strong><small>${gwEsc(electron.channel||'GOES mérés')} · ${gwEsc(pwsSpaceAge(electron.time))}</small>`,'A nagy energiájú elektronok mennyiségét mutatja a megadott mérési csatornában. Műholdak töltődésének követésére hasznos; nincs minden csatornára érvényes általános veszélyhatár.','Elektronáram'):'',
+            scaleTile('Geomágneses vihar a Föld körül',scales.geomagnetic,'G'),
+            scaleTile('Rádiós kommunikáció zavarai',scales.radio,'R'),
+            scaleTile('Nagy energiájú részecskék',scales.radiation,'S'),
+            kpTile,
+            solar?.solarFlux&&asNum(solar.solarFlux.value)!==null?kbSpaceFlipCard(`<span>A Nap rádiósugárzása · 10,7 cm</span><strong>${fmt(solar.solarFlux.value,1)} SFU</strong><small>Napaktivitást jelző mérőszám · ${gwEsc(pwsSpaceAge(solar.solarFlux.time))}</small>`,'A 10,7 cm-es naprádió-fluxus a Nap aktivitásának követőszáma. Nem közvetlen veszélyjelzés; inkább a naptevékenység hosszabb távú erősségét mutatja.','Naprádió-fluxus'):'',
+            solar?.drap&&asNum(solar.drap.highestAffectedFrequencyMHz)!==null?kbSpaceFlipCard(`<span>Rádióhullámok elnyelése · Nyíregyháza</span><strong>${fmt(solar.drap.highestAffectedFrequencyMHz,1)} MHz</strong><small>${gwEsc(solar.drap.highestAffectedFrequencyMHz>0?'HF-sávban elnyelés jelezhető':'Érdemi HF-elnyelés nem jelezhető')} · ${gwEsc(pwsSpaceAge(solar.drap.validAt))}</small>`,'A NOAA D-RAP modellje azt becsüli, hogy a Nap röntgensugárzása és a nagy energiájú részecskék miatt milyen magas frekvenciáig gyengülhetnek a rövidhullámú rádiójelek. Ez Nyíregyháza környéki modellérték, nem helyi rádiómérés. A nagyobb MHz-érték erősebb elnyelést jelent.','Rádióhullám-elnyelés · D-RAP'):''
+        ].filter(Boolean).join('');
+        const auroraValue=aurora&&asNum(aurora.probabilityAtNyiregyhaza)!==null?Number(aurora.probabilityAtNyiregyhaza):null;
+        const auroraHtml=auroraValue===null?'':`<div class="kb-aurora-strip"><div><div class="kb-space-section-title">🌌 Sarki fény esélye Nyíregyháza környékén</div><div class="kb-space-subtitle">${gwEsc(aurora.forecastTime||'NOAA előrejelzés')}</div></div><strong>${Math.round(auroraValue)}%</strong></div>`;
+        const alertRows=Array.isArray(solar?.alerts)?solar.alerts:null;
+        const alertsHtml=alertRows===null?'':`<div class="kb-space-alert-section"><div class="kb-space-section-head"><span class="kb-space-section-title">⚠️ Legutóbbi naptevékenységi jelzések</span><span class="kb-space-section-tag">NOAA</span></div>${alertRows.length?`<div class="kb-space-alert-list">${alertRows.map(a=>`<div class="kb-space-alert"><div class="kb-space-alert-top"><strong>${gwEsc(a.title||a.category||'NOAA-jelzés')}</strong><span>${gwEsc(a.severity||'JELZÉS')}</span></div><p>${gwEsc(a.summary||'')}</p><small>${gwEsc(a.time?pwsSpaceDate(a.time):'Időpont nélkül')}${a.code?' · '+gwEsc(a.code):''}</small></div>`).join('')}</div>`:`<div class="kb-space-no-alert">Az elmúlt 24 órában nem érkezett új NOAA-figyelmeztetés.</div>`}</div>`;
+        const windHtml=windMetrics||activityTiles||sparkHtml?`<div class="kb-space-section"><div class="kb-space-section-head"><span class="kb-space-section-title">☀️ A Napból érkező részecskék és mágneses tér</span><span class="kb-space-section-tag">NOAA · 1 PERCES MÉRÉSEK</span></div><div class="kb-space-metrics">${windMetrics}</div>${sparkHtml}<div class="kb-space-section-head" style="margin-top:13px"><span class="kb-space-section-title">A Nap aktivitása és földi hatásai</span></div><div class="kb-space-activity">${activityTiles}</div>${auroraHtml}<div class="kb-space-section-time">Napszél mérése: ${gwEsc(windTime?pwsSpaceDate(windTime):'—')} · ${gwEsc(windAge===null?'':windAge<1?'most':`${windAge} perce`)}${wind.magTime?` · Mágneses tér: ${gwEsc(pwsSpaceAge(wind.magTime))}`:''}</div>${alertsHtml}</div>`:`<div class="kb-space-loading">Űridőjárási mérések betöltése…</div>`;
+        let issHtml='';
+        if (iss) {
+            const lat=asNum(iss.latitude), lon=asNum(iss.longitude), alt=asNum(iss.altitude), vel=asNum(iss.velocity), footprint=asNum(iss.footprint);
+            const dist=lat!==null&&lon!==null?pwsIssDistanceKm(lat,lon):NaN;
+            const x=lon!==null?Math.max(4,Math.min(96,50+lon/180*46)):50, y=lat!==null?Math.max(7,Math.min(93,50-lat/90*43)):50;
+            const light=String(iss.visibility||'').toLowerCase()==='daylight'?'Napfényben':(String(iss.visibility||'').toLowerCase()==='eclipsed'?'A Föld árnyékában':'');
+            const issStamp=iss.timestamp?new Date(Number(iss.timestamp)*1000).toISOString():iss.fetchedAt;
+            const groundLoc=spaceWeatherState.groundLocation||null;
+            let localizedCountry='';
+            if(groundLoc?.countryCode){try{localizedCountry=new Intl.DisplayNames(['hu'],{type:'region'}).of(String(groundLoc.countryCode).toUpperCase())||'';}catch(e){localizedCountry='';}}
+            const countryText=(groundLoc?.countryName&&groundLoc.countryName!==groundLoc.countryCode)?groundLoc.countryName:(localizedCountry|| (groundLoc?.countryCode?`országkód: ${groundLoc.countryCode}`:'nyílt víz'));
+            const landPlace=groundLoc?.nearbyPlace?`Közelben: ${groundLoc.nearbyPlace}${Number.isFinite(Number(groundLoc.nearbyDistanceKm))?` · kb. ${Math.round(Number(groundLoc.nearbyDistanceKm))} km`:''}`:'';
+            const marinePlace=groundLoc?.marineName?`${groundLoc.marineName} · tengeri terület`:'';
+            const regionPlace=groundLoc?.regionName?`Térség: ${groundLoc.regionName}`:'';
+            const latText=lat!==null?`${Math.abs(lat).toFixed(4)}° ${lat>=0?'É':'D'}`:'—';
+            const lonText=lon!==null?`${Math.abs(lon).toFixed(4)}° ${lon>=0?'K':'Ny'}`:'—';
+            const pointCoords=`${latText} · ${lonText}`;
+            const pointDate=iss.timestamp?new Date(Number(iss.timestamp)*1000):new Date();
+            const pointTimezone=groundLoc?.timezone||'UTC';
+            let pointLocalTime='—';
+            try{pointLocalTime=new Intl.DateTimeFormat('hu-HU',{timeZone:pointTimezone,hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(pointDate);}catch(e){pointLocalTime=new Intl.DateTimeFormat('hu-HU',{timeZone:'UTC',hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(pointDate);}
+            const pointTimeLabel=pointTimezone==='UTC'?'UTC idő':`helyi idő · ${pointTimezone}`;
+            const mapPointUrl=lat!==null&&lon!==null?`https://www.google.com/maps?q=${lat.toFixed(4)},${lon.toFixed(4)}`:'';
+            const place=(marinePlace?[marinePlace,countryText]:[landPlace,regionPlace,countryText]).filter(Boolean).join(' · ')||'Ismeretlen földrajzi terület';
+            const surface=spaceWeatherState.groundWeather || iss.surfaceWeather || null;
+            const surfaceItems=surface?[
+                ['Hőmérséklet',asNum(surface.temperatureC)!==null?fmt(surface.temperatureC,1)+' °C':null],
+                ['Felhőzet',asNum(surface.cloudCoverPct)!==null?fmt(surface.cloudCoverPct,0)+'%':null],
+                ['Csapadék',asNum(surface.precipitationMm)!==null?fmt(surface.precipitationMm,1)+' mm':null],
+                ['Páratartalom',asNum(surface.humidityPct)!==null?fmt(surface.humidityPct,0)+'%':null],
+                ['Szél',asNum(surface.windKmh)!==null?fmt(surface.windKmh,0)+' km/h':null],
+                ['Széllökés',asNum(surface.windGustKmh)!==null?fmt(surface.windGustKmh,0)+' km/h':null],
+                ['Hőérzet',asNum(surface.apparentTemperatureC)!==null?fmt(surface.apparentTemperatureC,1)+' °C':null],
+                ['Légnyomás',asNum(surface.pressureHpa)!==null?fmt(surface.pressureHpa,0)+' hPa':null]
+            ].filter(x=>x[1]!==null).map(([label,value])=>`<div class="kb-iss-val"><span>${label}</span><strong>${gwEsc(value)}</strong></div>`).join(''):'';
+            const passesData=Array.isArray(spaceWeatherState.passes?.passes)?spaceWeatherState.passes.passes:[];
+            const upcoming=passesData.filter(p=>p?.culminate?.time && Date.parse(p.culminate.time)>Date.now()-60000).slice(0,3);
+            const passesHtml=`<div class="kb-iss-passes"><div class="kb-iss-passes-head"><span class="kb-iss-passes-title">🌠 Mikor halad el Nyíregyháza felett?</span><span class="kb-space-section-tag">PÁLYAELŐREJELZÉS</span></div>${upcoming.length?upcoming.map(p=>{const maxEl=asNum(p.culminate?.degrees), width=maxEl!==null?Math.max(2,Math.min(100,maxEl/90*100)):0;const peakDir=p.culminate?.direction||'—';return `<div class="kb-iss-pass"><div class="kb-iss-pass-date">${gwEsc(pwsSpaceDateTime(p.culminate?.time))}</div><div class="kb-iss-pass-main"><strong>${maxEl!==null?fmt(maxEl,0)+'°':'—'} legmagasabb pont</strong><span>${gwEsc(peakDir)} · ${asNum(p.culminate?.azimuth)!==null?fmt(p.culminate.azimuth,0)+'°':''}</span></div><div class="kb-iss-pass-track"><i style="width:${width.toFixed(1)}%"></i></div><div class="kb-iss-pass-times"><span>Feltűnik: ${gwEsc(pwsSpaceDate(p.rise?.time))} · ${gwEsc(p.rise?.direction||'')}</span><span>Eltűnik: ${gwEsc(pwsSpaceDate(p.set?.time))} · ${gwEsc(p.set?.direction||'')}</span><span>${gwEsc(p.length_mins||'')}</span></div></div>`}).join(''):(spaceWeatherState.passesLoading?'<div class="kb-iss-pass-empty">A következő átvonulásokat számolom…</div>':`<div class="kb-iss-pass-empty">${gwEsc(spaceWeatherState.passesError||'Most nincs megjeleníthető előrejelzett átvonulás.')}</div>`)}<div class="kb-iss-subpoint-foot">Az időpontok előrejelzések a friss pályaelemek alapján; a tényleges láthatóságot felhőzet és a Nap állása is befolyásolja. Számítás frissítve: ${gwEsc(spaceWeatherState.passes?.computedAt?pwsSpaceDateTime(spaceWeatherState.passes.computedAt):'—')}.</div></div>`;
+            const pointInfoHtml=`<div class="kb-iss-subpoint-place">${gwEsc(place)} · ${gwEsc(pointCoords)}</div><div class="kb-iss-subpoint-status">Az ISS pozíciójának időpontja szerinti ${gwEsc(pointTimeLabel)}: <strong>${gwEsc(pointLocalTime)}</strong>${mapPointUrl?` · <a href="${gwEsc(mapPointUrl)}" target="_blank" rel="noopener noreferrer">Pontos földpont megnyitása térképen ↗</a>`:''}${groundLoc?.locationAttribution?` · ${gwEsc(groundLoc.locationAttribution)}`:''}</div>`;
+            const weatherHtml=surfaceItems?`<div class="kb-iss-subpoint"><div class="kb-iss-subpoint-title">🌍 IDŐJÁRÁS AZ ISS ALATTI FÖLDPONTON</div>${pointInfoHtml}${surface?.summary?`<div class="kb-space-subtitle">${gwEsc(surface.summary)}</div>`:''}<div class="kb-iss-subpoint-grid">${surfaceItems}</div><div class="kb-iss-subpoint-status">Felszíni modelladat időpontja · ${gwEsc(surface.time?pwsSpaceDateTime(surface.time):'friss adat')}</div><div class="kb-iss-subpoint-foot">A koordináta a tényleges földpont. A közelben jelölt település/terület a térképadatbázis legközelebbi megfelelő objektuma; a távolság légvonalban értendő. Az időjárás modelladat, nem helyszíni mérés.</div></div>`:`<div class="kb-iss-subpoint"><div class="kb-iss-subpoint-title">🌍 IDŐJÁRÁS AZ ISS ALATTI FÖLDPONTON</div>${pointInfoHtml}<div class="kb-iss-subpoint-foot">${gwEsc(spaceWeatherState.groundError || (spaceWeatherState.groundLoading?'A felszíni időjárás betöltése…':'Ehhez a ponthoz most nincs használható modelladat.'))}</div></div>`;
+            issHtml=`<div class="kb-space-section"><div class="kb-space-section-head"><span class="kb-space-section-title">🛰️ Nemzetközi Űrállomás · ISS</span><span class="kb-space-section-tag">AKTUÁLIS POZÍCIÓ</span></div><div class="kb-iss-map" role="img" aria-label="Az ISS közelítő földrajzi helyzete, a pozíciójelölő a koordináták alapján mozog"><span class="kb-iss-latline"></span><span class="kb-iss-dot" style="left:${x.toFixed(2)}%;top:${y.toFixed(2)}%"></span><span class="kb-iss-map-label">ISS · ${gwEsc(light||'pályán')}</span></div><div class="kb-iss-grid"><div class="kb-iss-val"><span>Magasság a Föld felett</span><strong>${alt!==null?Math.round(alt)+' km':'—'}</strong></div><div class="kb-iss-val"><span>Haladási sebesség</span><strong>${vel!==null?Math.round(vel).toLocaleString('hu-HU')+' km/h':'—'}</strong></div><div class="kb-iss-val"><span>Nyíregyházától · felszíni távolság</span><strong>${Number.isFinite(dist)?Math.round(dist).toLocaleString('hu-HU')+' km':'—'}</strong></div><div class="kb-iss-val"><span>Földrajzi koordináta</span><strong>${lat!==null&&lon!==null?lat.toFixed(2)+'° · '+lon.toFixed(2)+'°':'—'}</strong></div>${footprint!==null?`<div class="kb-iss-val"><span>Az ISS rádióhorizontjának szélessége</span><strong>${Math.round(footprint).toLocaleString('hu-HU')} km</strong></div>`:''}<div class="kb-iss-val"><span>Megvilágítás</span><strong>${gwEsc(light||'—')}</strong></div></div>${weatherHtml}${passesHtml}<div class="kb-space-time">ISS-pozíció időpontja: ${gwEsc(issStamp?pwsSpaceDate(issStamp):'—')}</div></div>`;
+        } else if (spaceWeatherState.issLoading) {
+            issHtml=`<div class="kb-space-section"><div class="kb-space-section-head"><span class="kb-space-section-title">🛰️ Nemzetközi Űrállomás · ISS</span></div><div class="kb-space-loading">Az űrállomás aktuális helyzetének betöltése…</div></div>`;
+        }
+        const hasAny=!!(solar||iss), statusClass=hasAny&&!solarFresh?'kb-space-status is-stale':'kb-space-status';
+        const statusText=solarFresh?'Friss nap- és űridőjárási mérések':(hasAny?'A legutóbbi mérések láthatók':'Adatok betöltése');
+        root.innerHTML=`<article class="kb-space-card"><div class="kb-space-hero"><div class="kb-space-kicker">KÉPBEN! · NAPRENDSZER ÉS FÖLD KÖRÜLI PÁLYA</div><div class="kb-space-heading">ŰRIDŐJÁRÁS + ISS</div><span class="${statusClass}">${statusText}</span></div>${windHtml}${issHtml}<div class="kb-space-foot"><a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener noreferrer">NOAA / SWPC ↗</a> · <a href="https://wheretheiss.at/" target="_blank" rel="noopener noreferrer">ISS pozíció ↗</a> · <a href="https://iss-in.space/" target="_blank" rel="noopener noreferrer">Átvonulások ↗</a></div></article>`;
+    }
+    async function saveSpaceWeatherConfig() {
+        const checkbox=document.getElementById('spacewx-enabled-checkbox');
+        spaceWeatherConfig={enabled:!!checkbox?.checked,updatedAt:new Date().toISOString()};
+        try {
+            const res=await fetch(`${FIREBASE_URL}/analytics/space_weather_config.json`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(spaceWeatherConfig)});
+            if (!res.ok) throw new Error(`Firebase HTTP ${res.status}`);
+            if (localGyujtoData) renderNewsroomDayNightCycle(localGyujtoData);
+            if (spaceWeatherConfig.enabled) startSpaceWeatherEngine(); else stopSpaceWeatherEngine();
+            alert(spaceWeatherConfig.enabled?'✅ Az Űridőjárás + ISS külön kártya bekapcsolva.':'✅ Az Űridőjárás + ISS külön kártya kikapcsolva.');
+        } catch(error) { alert('A beállítás mentése nem sikerült. Ellenőrizd a Firebase-kapcsolatot.'); }
+    }
+
     async function savePwsInyreg42Config() {
         const enabled = !!document.getElementById('pws-inyreg42-enabled-checkbox').checked, stationId = extractPwsStationId(document.getElementById('pws-inyreg42-station-input').value) || 'INYREG42', backupsRaw = (document.getElementById('pws-inyreg42-backups-input').value || 'INYREG59, INYREG56').split(/[\s,;]+/).map(s => extractPwsStationId(s)).filter(Boolean), title = (document.getElementById('pws-inyreg42-title-input').value || 'Nyíregyháza MOST').trim(), placementMode = document.getElementById('pws-inyreg42-mode-select').value || 'column', position = parseInt(document.getElementById('pws-inyreg42-pos-select').value, 10) || 3;
         pwsInyreg42Config = { enabled, stationId, backupStations: backupsRaw.length ? backupsRaw : PWS_DEFAULT_BACKUP_STATIONS.slice(), title, placementMode, position, updatedAt: new Date().toISOString() };
@@ -2701,6 +3624,7 @@
         nyirOmState.lastForecastSlot = null; nyirOmState.lastAqiSlot = null; nyirOmState.lastKpSlot = null;
         try {
             await fetch(`${FIREBASE_URL}/analytics/pws_inyreg42_config.json`, { method: 'PUT', body: JSON.stringify(pwsInyreg42Config) });
+            if (!pwsInyreg42Config.enabled) pwsStopRadarPlayback();
             if (localGyujtoData) renderNewsroomDayNightCycle(localGyujtoData);
             startPwsInyreg42Engine(); updatePwsInyreg42DevFields();
             alert(`✅ Nyíregyháza MOST beállítás elmentve!\nÁllomások: ${[stationId, ...pwsInyreg42Config.backupStations].join(' → ')}`);
@@ -2780,7 +3704,7 @@
     async function loadDevAnalyticsData() {
         try {
             const todayStr = new Date().toLocaleDateString('sv-SE'), t = Date.now();
-            const [vr,cr,br,nr,bcr,fr,bkr,exr,pr,kr,rdr,rr,nyr,rlr,thr,pir] = await Promise.all([
+            const [vr,cr,br,nr,bcr,fr,bkr,exr,pr,kr,rdr,rr,nyr,rlr,thr,pir,swr] = await Promise.all([
                 fetch(`${FIREBASE_URL}/analytics/visitors.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/daily_clicks/${todayStr}.json?t=${t}`,{cache:'no-store'}),
                 fetch(`${FIREBASE_URL}/analytics/banned.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/ip_names.json?t=${t}`,{cache:'no-store'}),
                 fetch(`${FIREBASE_URL}/analytics/broadcast.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/blacklist.json?t=${t}`,{cache:'no-store'}),
@@ -2788,7 +3712,8 @@
                 fetch(`${FIREBASE_URL}/analytics/pws_stations.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/pws_kocka.json?t=${t}`,{cache:'no-store'}),
                 fetch(`${FIREBASE_URL}/analytics/radar_config.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/radio_config.json?t=${t}`,{cache:'no-store'}),
                 fetch(`${FIREBASE_URL}/analytics/nyir_weather_config.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/radio_stations.json?t=${t}`,{cache:'no-store'}),
-                fetch(`${FIREBASE_URL}/analytics/theme_config.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/pws_inyreg42_config.json?t=${t}`,{cache:'no-store'})
+                fetch(`${FIREBASE_URL}/analytics/theme_config.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/pws_inyreg42_config.json?t=${t}`,{cache:'no-store'}),
+                fetch(`${FIREBASE_URL}/analytics/space_weather_config.json?t=${t}`,{cache:'no-store'}).catch(()=>null)
             ]);
             const visitors = await vr.json()||{}, clicks = await cr.json()||{}, banned = await br.json()||{}, ipNames = await nr.json()||{}, bcast = await bcr.json()||{};
             blacklistKeywords = await fr.json()||[]; breakingKeywords = await bkr.json()||[]; breakingExcludedMap = await exr.json()||{};
@@ -2799,6 +3724,8 @@
             nyirWeatherConfig = await nyr.json()||{enabled:false,forecastStripEnabled:false,forecastPosition:'under_top3',forecastIntervalMin:10,primarySource:'google',position:2,url:''};
             const lpi = await pir.json();
             if (lpi) { pwsInyreg42Config = Object.assign({enabled:false,stationId:'INYREG42',backupStations:PWS_DEFAULT_BACKUP_STATIONS.slice(),title:'Nyíregyháza MOST',placementMode:'column',position:3},lpi); if(!Array.isArray(pwsInyreg42Config.backupStations)||!pwsInyreg42Config.backupStations.length)pwsInyreg42Config.backupStations=PWS_DEFAULT_BACKUP_STATIONS.slice(); }
+            const swData = swr ? await swr.json().catch(()=>null) : null; spaceWeatherConfig = Object.assign({enabled:false}, swData || {});
+            const swCheck = document.getElementById('spacewx-enabled-checkbox'); if (swCheck) swCheck.checked = !!spaceWeatherConfig.enabled;
             const rl = await rlr.json(); radioStationsList = Array.isArray(rl)?rl:[];
             const th = await thr.json(); if (th) applyThemeConfig(th);
             renderVisitorsTable(visitors,ipNames,banned); renderClicksTable(clicks); renderBannedTable(banned);
@@ -2824,7 +3751,7 @@
             if(document.getElementById('theme-card-select'))document.getElementById('theme-card-select').value=themeConfig.cardBg||'white_glass';
             if(document.getElementById('theme-font-select'))document.getElementById('theme-font-select').value=themeConfig.fontFamily||'Inter';
             updatePwsInyreg42DevFields(); renderDevPwsStationsList(); renderDevRadioStationsList(); renderDevBreakingNewsList(); updateUnifiedMediaBarVisibility();
-            startPwsEngine(); startPwsInyreg42Engine(); startKockaPwsEngine(); startRadarEngine(); initRadioEngine();
+            startPwsEngine(); startPwsInyreg42Engine(); if (spaceWeatherConfig.enabled) startSpaceWeatherEngine(); else stopSpaceWeatherEngine(); startKockaPwsEngine(); startRadarEngine(); initRadioEngine();
         } catch(e) {}
     }
 
@@ -3033,6 +3960,11 @@
                 columnsData[targetIdx].embedPwsPos = pwsMode;
             }
         }
+        if (!isYesterday && spaceWeatherConfig && spaceWeatherConfig.enabled) {
+            const pwsColumnIndex = columnsData.findIndex(c => c.isPwsInyreg);
+            const spaceCol = { name: "ŰRIDŐJÁRÁS + ISS", isAll: false, isBreaking: false, isWeather: false, isPwsInyreg: false, isSpaceWeather: true, items: [], logo: null, theme: { bg: 'linear-gradient(135deg,#172554 0%,#43347b 100%)', border: '#9586df' } };
+            columnsData.splice(pwsColumnIndex >= 0 ? pwsColumnIndex + 1 : columnsData.length, 0, spaceCol);
+        }
         if (!isYesterday) {
             kbTodayColumnLabels = columnsData.map(c => c.name);
             const hintEl = document.getElementById('pws-inyreg42-columns-hint');
@@ -3040,22 +3972,23 @@
         }
 
         grid.innerHTML = '';
-        if (!allItems.length && (!nyirWeatherConfig || !nyirWeatherConfig.enabled) && (!pwsInyreg42Config || !pwsInyreg42Config.enabled)) {
+        if (!allItems.length && (!nyirWeatherConfig || !nyirWeatherConfig.enabled) && (!pwsInyreg42Config || !pwsInyreg42Config.enabled) && (!spaceWeatherConfig || !spaceWeatherConfig.enabled)) {
             grid.innerHTML = '<div class="empty-state" style="text-align:center; color:#64748b; padding:30px; width:100%; grid-column: 1 / -1; font-family:\'Space Mono\',monospace;">Nincs megjeleníthető hír ebben az idősávban.</div>';
             return;
         }
         const fragment = document.createDocumentFragment();
         columnsData.forEach(col => {
             const colDiv = document.createElement('div');
-            colDiv.className = 'channel-column' + (col.isAll ? ' is-all-feed' : '') + (col.isBreaking ? ' is-breaking-column' : '') + (col.isWeather ? ' is-weather-column' : '') + (col.isPwsInyreg ? ' is-pws-inyreg-column' : '');
+            colDiv.className = 'channel-column' + (col.isAll ? ' is-all-feed' : '') + (col.isBreaking ? ' is-breaking-column' : '') + (col.isWeather ? ' is-weather-column' : '') + (col.isPwsInyreg ? ' is-pws-inyreg-column' : '') + (col.isSpaceWeather ? ' is-space-weather-column' : '');
             colDiv.style.borderTop = `4px solid ${col.theme.border}`;
             const headerDiv = document.createElement('div'); headerDiv.className = 'channel-column-header'; headerDiv.style.background = col.theme.bg; headerDiv.style.borderBottom = `2px solid ${col.theme.border}`;
-            const logoHtml = col.isAll ? '<span style="font-size:1.15rem;flex-shrink:0;">🌐</span>' : (col.isBreaking ? '<span style="font-size:1.15rem;flex-shrink:0;">🚨</span>' : (col.isWeather ? '<span style="font-size:1.15rem;flex-shrink:0;">🌤️</span>' : (col.isPwsInyreg ? '<span style="font-size:1.15rem;flex-shrink:0;">🌡️</span>' : (col.logo ? `<img src="${col.logo}" class="channel-header-logo" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` : '<span style="font-size:1rem;">📰</span>'))));
-            headerDiv.innerHTML = `<div class="channel-brand-info">${logoHtml}<span class="channel-header-title">${col.name}</span></div><div class="channel-header-meta"><span class="channel-header-date">${columnHeaderDate}</span><span class="channel-header-badge">${col.isPwsInyreg ? '30MP ÉLŐ' : (col.isWeather ? 'ÉLŐ' : col.items.length + ' db')}</span></div>`;
+            const logoHtml = col.isAll ? '<span style="font-size:1.15rem;flex-shrink:0;">🌐</span>' : (col.isBreaking ? '<span style="font-size:1.15rem;flex-shrink:0;">🚨</span>' : (col.isWeather ? '<span style="font-size:1.15rem;flex-shrink:0;">🌤️</span>' : (col.isPwsInyreg ? '<span style="font-size:1.15rem;flex-shrink:0;">🌡️</span>' : (col.isSpaceWeather ? '<span style="font-size:1.15rem;flex-shrink:0;">🌌</span>' : (col.logo ? `<img src="${col.logo}" class="channel-header-logo" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` : '<span style="font-size:1rem;">📰</span>')))));
+            headerDiv.innerHTML = `<div class="channel-brand-info">${logoHtml}<span class="channel-header-title">${col.name}</span></div><div class="channel-header-meta"><span class="channel-header-date">${columnHeaderDate}</span><span class="channel-header-badge">${col.isPwsInyreg ? '30MP ÉLŐ' : (col.isSpaceWeather ? 'NOAA · ISS' : (col.isWeather ? 'ÉLŐ' : col.items.length + ' db'))}</span></div>`;
             const bodyDiv = document.createElement('div'); bodyDiv.className = 'channel-column-body';
 
             if (col.embedPwsPos === 'embed_top') { const m = document.createElement('div'); m.id = 'pws-inyreg42-widget-root'; bodyDiv.appendChild(m); }
             if (col.isPwsInyreg) { const m = document.createElement('div'); m.id = 'pws-inyreg42-widget-root'; bodyDiv.appendChild(m); }
+            else if (col.isSpaceWeather) { const m = document.createElement('div'); m.id = 'space-weather-widget-root'; bodyDiv.appendChild(m); }
             else if (col.isWeather) { const w = document.createElement('div'); w.innerHTML = createNyirWeatherColumnHTML(); while (w.firstChild) bodyDiv.appendChild(w.firstChild); setTimeout(() => { loadWeather(); }, 50); }
             else if (!col.items.length && col.isBreaking) { const e = document.createElement('div'); e.innerHTML = '<div style="text-align:center;color:#94a3b8;font-size:0.8rem;padding:20px;">Nincs rendkívüli hír.</div>'; bodyDiv.appendChild(e.firstChild); }
             else { const bf = document.createDocumentFragment(); col.items.forEach(item => bf.appendChild(createNewsItemCard(item, col.isAll, col.isBreaking))); bodyDiv.appendChild(bf); }
@@ -3067,6 +4000,8 @@
             renderPwsInyreg42Widget();
             if (!pwsInyreg42State.current || (Date.now() - pwsInyreg42State.lastCurrentFetch >= 28000)) fetchPwsInyreg42Data(false);
         }
+        if (!isYesterday && spaceWeatherConfig && spaceWeatherConfig.enabled) { renderSpaceWeatherWidget(); startSpaceWeatherEngine(); }
+        else if (!isYesterday) stopSpaceWeatherEngine();
         const bodies = grid.querySelectorAll('.channel-column-body');
         bodies.forEach((el, idx) => { if (scrollPositions[idx] !== undefined) el.scrollTop = scrollPositions[idx]; });
         requestAnimationFrame(() => { bodies.forEach((el, idx) => { if (scrollPositions[idx] !== undefined) el.scrollTop = scrollPositions[idx]; }); });
@@ -3151,10 +4086,11 @@
             fetch(`${FIREBASE_URL}/analytics/nyir_weather_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
             fetch(`${FIREBASE_URL}/analytics/radio_stations.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
             fetch(`${FIREBASE_URL}/analytics/theme_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-            fetch(`${FIREBASE_URL}/analytics/pws_inyreg42_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null)
+            fetch(`${FIREBASE_URL}/analytics/pws_inyreg42_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/space_weather_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null)
         ]);
 
-        const [workerData, filterRes, breakingRes, excludedRes, pwsRes, kockaRes, radarRes, radioRes, nyirRes, radioListRes, themeRes, pwsInyregRes] = results;
+        const [workerData, filterRes, breakingRes, excludedRes, pwsRes, kockaRes, radarRes, radioRes, nyirRes, radioListRes, themeRes, pwsInyregRes, spaceWeatherRes] = results;
 
         // Az adatokat most csak eltesszük; a híroszlopok és az időjárásoszlop kirajzolása
         // a Firebase-konfigurációk beolvasása UTÁN történik (különben az enabled=false alapérték győz).
@@ -3170,7 +4106,7 @@
             newsDataForRender = localGyujtoData || null;
         }
 
-        const [filterData, breakingData, excludedData, pwsData, kockaData, radarData, radioData, nyirData, radioListData, themeData, pwsInyregData] = await Promise.all([
+        const [filterData, breakingData, excludedData, pwsData, kockaData, radarData, radioData, nyirData, radioListData, themeData, pwsInyregData, spaceWeatherData] = await Promise.all([
             safeJsonResponse(filterRes, [], 'Tiltólista'),
             safeJsonResponse(breakingRes, [], 'Rendkívüli kulcsszavak'),
             safeJsonResponse(excludedRes, {}, 'Kizárt hírek'),
@@ -3181,7 +4117,8 @@
             safeJsonResponse(nyirRes, { enabled: false, forecastStripEnabled: false, primarySource: 'worker', position: 2, url: '' }, 'Nyíregyházi időjárás konfiguráció'),
             safeJsonResponse(radioListRes, [], 'Rádióállomások'),
             safeJsonResponse(themeRes, null, 'Téma konfiguráció'),
-            safeJsonResponse(pwsInyregRes, null, 'PWS INYREG42 konfiguráció')
+            safeJsonResponse(pwsInyregRes, null, 'PWS INYREG42 konfiguráció'),
+            safeJsonResponse(spaceWeatherRes, { enabled: false }, 'Űridőjárás konfiguráció')
         ]);
 
         blacklistKeywords = Array.isArray(filterData) ? filterData : [];
@@ -3198,6 +4135,7 @@
             pwsInyreg42Config = Object.assign({ enabled: false, stationId: 'INYREG42', backupStations: PWS_DEFAULT_BACKUP_STATIONS.slice(), title: 'Nyíregyháza MOST', placementMode: 'column', position: 3 }, pwsInyregData);
             if (!Array.isArray(pwsInyreg42Config.backupStations) || !pwsInyreg42Config.backupStations.length) pwsInyreg42Config.backupStations = PWS_DEFAULT_BACKUP_STATIONS.slice();
         }
+        spaceWeatherConfig = Object.assign({ enabled: false }, spaceWeatherData || {});
 
         if (newsDataForRender) {
             try {
@@ -3227,6 +4165,8 @@
         if (nyirWeatherConfig && nyirWeatherConfig.forecastStripEnabled && !nyirWeatherConfig.enabled) loadGoogleWeatherCard(false);
         startPwsEngine();
         startPwsInyreg42Engine();
+        if (spaceWeatherConfig && spaceWeatherConfig.enabled) startSpaceWeatherEngine();
+        else stopSpaceWeatherEngine();
         startKockaPwsEngine();
         startRadarEngine();
         initRadioEngine();
