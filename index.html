@@ -843,6 +843,57 @@
 
 </style>
 <meta name="kepben-realtime-build" content="2026-11-17-iss-subpoint-comfort-drap-radar-live-v10">
+<style id="pws-county-radar-styles">
+.pws-radar-county{margin-top:9px;padding:11px 12px;border:1px solid #bdd5e7;border-radius:14px;background:linear-gradient(145deg,#f7fbff,#eaf3fa);color:#17324c;box-shadow:0 4px 13px rgba(31,65,96,.05)}
+    .pws-radar-county-head{display:flex;align-items:flex-start;justify-content:space-between;gap:9px}
+    .pws-radar-county-head strong{display:block;color:#173d5b;font:850 .72rem/1.3 'Inter',sans-serif}
+    .pws-radar-county-head small{display:block;margin-top:3px;color:#5c748a;font:650 .57rem/1.4 'Inter',sans-serif}
+    .pws-radar-county-badge{flex:0 0 auto;padding:4px 7px;border:1px solid #c7d9e8;border-radius:999px;background:#fff;color:#385b75;font:800 .52rem/1.2 'Space Mono',monospace}
+    .pws-radar-county-summary{display:flex;flex-wrap:wrap;gap:5px;margin:9px 0}
+    .pws-radar-county-summary span{padding:5px 7px;border-radius:7px;background:#fff;border:1px solid #d8e5ef;color:#58728a;font:650 .53rem/1.25 'Inter',sans-serif}
+    .pws-radar-county-summary b{color:#153e5d;font-weight:850}
+    .pws-radar-town-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+    .pws-radar-town{min-width:0;padding:7px 8px;border:1px solid #d7e4ee;border-radius:9px;background:#fff}
+    .pws-radar-town-top{display:flex;align-items:center;justify-content:space-between;gap:5px}
+    .pws-radar-town-top strong{color:#183e5c;font:800 .61rem/1.2 'Inter',sans-serif;min-width:0}
+    .pws-radar-town-top span{flex:0 0 auto;color:#647c90;font:800 .45rem/1.2 'Inter',sans-serif;letter-spacing:.02em}
+    .pws-radar-town-detail{margin-top:4px;color:#5d7387;font:600 .52rem/1.35 'Inter',sans-serif;overflow-wrap:anywhere}
+    .pws-radar-town.wet{border-color:#9fd5e8;background:#f0faff}.pws-radar-town.wet .pws-radar-town-top span{color:#08779d}
+    .pws-radar-town.approach{border-color:#efd19b;background:#fffbf1}.pws-radar-town.approach .pws-radar-town-top span{color:#a56614}
+    .pws-radar-county-note{margin-top:8px;color:#72879a;font:550 .5rem/1.42 'Inter',sans-serif}
+    .pws-radar-field{margin:9px 0 8px;padding:9px;border:1px solid #cbddea;border-radius:10px;background:linear-gradient(135deg,#fff,#f2f8fc)}
+    .pws-radar-field-title{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#264d6a;font:850 .61rem/1.25 'Inter',sans-serif}
+    .pws-radar-field-title small{color:#6d879b;font:700 .48rem/1.2 'Inter',sans-serif}
+    .pws-radar-field-main{margin-top:5px;color:#183e5c;font:800 .72rem/1.4 'Inter',sans-serif}
+    .pws-radar-field-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-top:7px}
+    .pws-radar-field-stat{min-width:0;padding:6px;border:1px solid #dbe7f0;border-radius:8px;background:#fff}
+    .pws-radar-field-stat span{display:block;color:#6a8195;font:650 .48rem/1.25 'Inter',sans-serif}
+    .pws-radar-field-stat b{display:block;margin-top:3px;color:#163f5f;font:850 .64rem/1.25 'Space Mono',monospace;overflow-wrap:anywhere}
+    .pws-radar-town-section-title{margin:10px 0 6px;color:#355b78;font:850 .56rem/1.25 'Inter',sans-serif;letter-spacing:.025em}
+    @media(max-width:620px){.pws-radar-field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:420px){.pws-radar-county{padding:9px}.pws-radar-town-grid{grid-template-columns:1fr}.pws-radar-county-summary span{flex:1 1 44%}}
+</style>
+<style id="lhny-airport-archive-styles">
+.channel-column.is-airport-archive-column .channel-column-body{padding:10px!important;gap:10px!important;background:#edf3f9!important;display:block!important;overflow-y:auto!important}
+.aa-shell{color:#102033;font-family:Inter,system-ui,sans-serif;display:flex;flex-direction:column;gap:11px}
+.aa-hero{border-radius:14px;padding:14px;color:#f8fbff;background:radial-gradient(circle at 90% 0%,rgba(56,189,248,.24),transparent 42%),linear-gradient(145deg,#10233f,#1d4269 68%,#255d82);box-shadow:0 7px 18px rgba(15,35,60,.16)}
+.aa-kicker{font:800 .62rem 'Space Mono',monospace;letter-spacing:.12em;color:#92ddff;text-transform:uppercase}
+.aa-title{font-size:1.03rem;font-weight:900;margin:5px 0 3px;color:#fff}.aa-sub{font-size:.68rem;color:#c8d9eb;line-height:1.45}
+.aa-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:12px}
+.aa-stat{padding:9px 10px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(255,255,255,.08);min-width:0}
+.aa-stat label{display:block;color:#b8d0e7;font:700 .56rem 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.06em}.aa-stat strong{display:block;color:#fff;font:800 1.12rem 'Space Mono',monospace;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.aa-stat small{font-size:.58rem;color:#b8d0e7}
+.aa-panel{background:#fff;border:1px solid #d7e2ee;border-radius:13px;padding:11px;box-shadow:0 3px 10px rgba(18,42,70,.045)}
+.aa-panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px}.aa-panel-head strong{font:800 .72rem 'Space Mono',monospace;color:#153b61;text-transform:uppercase}.aa-pills{display:flex;gap:5px;flex-wrap:wrap}
+.aa-select{max-width:100%;min-width:0;border:1px solid #bfd0e0;border-radius:8px;padding:7px 8px;background:#f8fbfe;color:#17334d;font:700 .65rem 'Space Mono',monospace}.aa-custom-range{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px;padding:8px;background:#f6f9fc;border:1px solid #e0e9f2;border-radius:9px}.aa-custom-range label{display:flex;flex-direction:column;gap:4px;color:#6b8195;font:700 .53rem 'Space Mono',monospace}.aa-custom-range input{min-width:0;width:100%;box-sizing:border-box;border:1px solid #bfd0e0;border-radius:7px;padding:6px;background:#fff;color:#17334d;font:700 .62rem 'Space Mono',monospace}.aa-custom-range button,.aa-custom-range small{grid-column:1/-1}.aa-custom-range small{color:#71869a;font-size:.55rem;line-height:1.4}
+.aa-chart-wrap{width:100%;overflow:hidden}.aa-chart{width:100%;height:auto;display:block;overflow:visible}.aa-chart text{font:9px 'Space Mono',monospace;fill:#647b91}.aa-chart .grid{stroke:#e4edf5;stroke-width:1}.aa-chart .line{fill:none;stroke:#087fbd;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}.aa-chart .area{fill:url(#aaArea)}.aa-chart .dot{fill:#fff;stroke:#087fbd;stroke-width:2}
+.aa-legend{display:flex;gap:12px;flex-wrap:wrap;color:#62788d;font-size:.6rem;margin-top:5px}.aa-legend span{display:inline-flex;gap:5px;align-items:center}.aa-legend i{width:8px;height:8px;border-radius:50%;display:inline-block;background:#087fbd}
+.aa-status{font-size:.63rem;color:#60778d;line-height:1.45}.aa-status b{color:#1d557d}.aa-progress{height:6px;background:#e6eef6;border-radius:99px;overflow:hidden;margin-top:7px}.aa-progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#0ea5e9,#10b981);transition:width .25s}
+.aa-table{width:100%;border-collapse:collapse;font-size:.61rem;color:#253c51}.aa-table th{text-align:left;color:#61788d;font:700 .56rem 'Space Mono',monospace;padding:6px 4px;border-bottom:1px solid #dce6ef}.aa-table td{padding:7px 4px;border-bottom:1px solid #edf2f7;vertical-align:top}.aa-table tr:last-child td{border-bottom:0}.aa-metar{display:block;color:#657b8f;font-size:.55rem;line-height:1.4;overflow-wrap:anywhere;margin-top:3px}
+.aa-empty{padding:16px;text-align:center;color:#71869a;font-size:.68rem;line-height:1.5}.aa-source{font-size:.56rem;color:#72879a;line-height:1.45}.aa-action{border:1px solid #c2d7e9;border-radius:8px;background:#edf6fc;color:#14527b;font:700 .61rem 'Space Mono',monospace;padding:7px 9px;cursor:pointer}.aa-action:active{transform:translateY(1px)}
+.aa-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:7px}.aa-mini{background:#f5f8fc;border:1px solid #e1eaf2;border-radius:9px;padding:8px}.aa-mini label{font:700 .56rem 'Space Mono',monospace;color:#657e94}.aa-mini strong{display:block;font:800 .83rem 'Space Mono',monospace;color:#183c5f;margin-top:4px}
+.aa-error{padding:8px 9px;background:#fff4f2;border:1px solid #fecaca;border-radius:8px;color:#9b2c25;font-size:.63rem;line-height:1.4}
+@media(max-width:480px){.aa-stats{gap:6px}.aa-stat{padding:8px}.aa-stat strong{font-size:.98rem}.aa-panel{padding:9px}}
+</style>
 </head>
 <body>
 
@@ -873,6 +924,7 @@
             <button class="dev-tab-btn" onclick="switchDevTab('pws', event)">🌡️ PWS WEATHER</button>
             <button class="dev-tab-btn" onclick="switchDevTab('radio', event)">📻 RÁDIÓ BEÁLLÍTÁSOK</button>
             <button class="dev-tab-btn" onclick="switchDevTab('nyir-weather', event)">🌤️ NYÍREGYHÁZA IDŐJÁRÁS</button>
+            <button class="dev-tab-btn" onclick="switchDevTab('airport-archive', event)">✈️ REPÜLŐTÉRI ARCHÍVUM</button>
             <button class="dev-tab-btn" onclick="switchDevTab('theme', event)">🎨 TÉMA ÉS STÍLUS</button>
         </div>
         <div class="dev-body">
@@ -982,6 +1034,26 @@
                         <select id="nyir-weather-position-select" style="width:100%; background:#1e293b; color:#38bdf8; border:1px solid #334155; border-radius:6px; padding:8px; margin-bottom:12px;"><option value="1">1. Oszlop</option><option value="2" selected>2. Oszlop</option><option value="3">3. Oszlop</option></select>
                     </div>
                     <button class="btn-act btn-unban" style="padding:8px 16px;" onclick="saveNyirWeatherConfig()">💾 MENTÉS</button>
+                </div>
+            </div>
+
+            <div id="tab-airport-archive" class="dev-tab-content" style="display:none;">
+                <div class="stat-card" style="text-align:left;padding:16px;margin-bottom:16px;border-color:rgba(14,165,233,.45);">
+                    <div style="font-family:'Space Mono',monospace;color:#38bdf8;font-weight:800;margin-bottom:8px;">✈️ LHNY · REPÜLŐTÉRI METEOROLÓGIAI ARCHÍVUM</div>
+                    <p style="font-size:.74rem;color:#cbd5e1;line-height:1.55;margin-bottom:13px;">Önálló Nyíregyháza repülőtéri előzményoszlop. Az Iowa Environmental Mesonet HU__ASOS archívumából visszamenőleg tölti be az észleléseket, évjáratonként, a meglévő adatokat Firebase-ben tárolja. Csak bekapcsolva és látható böngészőfülnél dolgozik.</p>
+                    <div style="background:#0f172a;border:1px solid #334155;border-radius:10px;padding:13px;margin-bottom:12px;">
+                        <label style="font-family:'Space Mono',monospace;font-size:.78rem;color:#f8fafc;display:flex;align-items:center;gap:9px;margin-bottom:12px;"><input type="checkbox" id="airport-archive-enabled-checkbox" style="width:18px;height:18px;"><strong>🟢 REPÜLŐTÉRI ARCHÍVUMKÁRTYA BEKAPCSOLÁSA</strong></label>
+                        <label style="display:block;font:700 .65rem 'Space Mono',monospace;color:#94c5e5;margin-bottom:6px;">MEGJELENÍTÉS HELYE AZ OSZLOPOK KÖZÖTT</label>
+                        <select id="airport-archive-position-select" style="width:100%;background:#1e293b;color:#38bdf8;border:1px solid #334155;border-radius:7px;padding:8px;margin-bottom:12px;">
+                            <option value="1">1. oszlop</option><option value="2">2. oszlop</option><option value="3">3. oszlop</option><option value="4" selected>4. oszlop</option><option value="5">5. oszlop</option><option value="6">6. oszlop</option><option value="7">7. oszlop</option><option value="8">8. oszlop</option><option value="9">9. oszlop</option><option value="10">10. oszlop</option><option value="11">11. oszlop</option><option value="12">12. oszlop</option><option value="13">13. oszlop</option><option value="14">14. oszlop</option><option value="15">15. oszlop</option><option value="99">Utolsó oszlopként</option>
+                        </select>
+                        <label style="display:block;font:700 .65rem 'Space Mono',monospace;color:#94c5e5;margin-bottom:6px;">FRISSÍTÉSI IDŐKÖZ</label>
+                        <select id="airport-archive-refresh-select" style="width:100%;background:#1e293b;color:#38bdf8;border:1px solid #334155;border-radius:7px;padding:8px;margin-bottom:12px;">
+                            <option value="15" selected>15 perc · ajánlott</option><option value="30">30 perc · takarékos</option><option value="60">60 perc</option><option value="180">3 óra</option><option value="360">6 óra</option>
+                        </select>
+                        <div style="font-size:.65rem;color:#a8bdcf;line-height:1.55;background:#17263a;border:1px solid #30445d;border-radius:8px;padding:9px;">A lekérési kezdőhatár 1972.12.31.; az LHNY tényleges előzményei változónként eltérnek. A rendszer a normál METAR/SPECI mellett az elérhető 5 perces MADIS/HFMETAR adatokat is kéri. A HFMETAR hőmérséklet- és harmatpontmezőit ismert pontossági korlátozás miatt nem használjuk; ezeket normál jelentésekből vesszük. A hiányzó mezőket nem becsüljük. A rendszer évjáratonként tölti be a napi összesítéseket, és kihagyja a már elmentett éveket. A csapadékmező a nem amerikai IEM-állomásnál rendszerint hiányzik; a jég-/hóadatok is csak akkor jelennek meg, ha a feed tartalmazza őket. A részletes nézet külön, legfeljebb 8 napos lekérést használ.</div>
+                    </div>
+                    <div style="display:flex;gap:9px;flex-wrap:wrap;align-items:center;"><button class="btn-act btn-unban" style="padding:8px 15px;" onclick="saveAirportArchiveConfig()">💾 BEÁLLÍTÁSOK MENTÉSE</button><span id="airport-archive-dev-status" style="font-size:.65rem;color:#94a3b8;">Még nincs engedélyezve.</span></div>
                 </div>
             </div>
 
@@ -1106,8 +1178,12 @@
     };
     let pwsMetarState = { data: null, loading: false, error: '', lastFetchAt: 0 };
     let pwsSatelliteState = { product: 'CloudType', data: null, loading: false, error: '', frameIndex: 0, playing: false, playTimer: null, lastFetchAt: 0, zoomMode: 'hungary', collapsed: false };
-    let pwsRadarState = { data: null, loading: false, error: '', lastFetchAt: 0, frameIndex: 0, playing: false, playTimer: null, mapObserver: null, mapObservedTarget: null, inViewport: false, userPaused: false, analysis: null, analysisLoading: false, analysisError: '', lastAnalysisAt: 0 };
+    let pwsRadarState = { data: null, loading: false, error: '', lastFetchAt: 0, frameIndex: 0, playing: false, playTimer: null, mapObserver: null, mapObservedTarget: null, inViewport: false, userPaused: false, analysis: null, analysisLoading: false, analysisError: '', lastAnalysisAt: 0, analysisFrameIndex: null, analysisRequestId: 0, pixelCache: new Map(), county: null, countyLoading: false, countyError: '', mapMode: 'precip' };
     let spaceWeatherConfig = { enabled: false };
+    const AIRPORT_ARCHIVE_FIRST_DAY = '1972-12-31';
+    let airportArchiveConfig = { enabled: false, position: 4, refreshMin: 15, firstDay: AIRPORT_ARCHIVE_FIRST_DAY };
+    let airportArchiveState = { timerId: null, backfillRunning: false, loading: false, error: '', status: 'Kikapcsolva', meta: null, yearCache: new Map(), rawCache: new Map(), points: [], range: '7d', customStart: '', customEnd: '', lastRangeRaw: true, metric: 'wind', lastRefreshAt: 0, backfillYear: null, backfillRetryAt: 0, backfillFailed: false, owner: 'lhny-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,8), requestId: 0, startupPromise: null };
+
     let spaceWeatherState = { solar: null, iss: null, passes: null, groundWeather: null, groundLocation: null, solarLoading: false, issLoading: false, passesLoading: false, groundLoading: false, solarError: '', issError: '', passesError: '', groundError: '', lastSolarFetchAt: 0, lastIssFetchAt: 0, lastPassesFetchAt: 0, lastGroundFetchAt: 0, timerId: null };
 
     const KEPBEN_LIVE_OBSERVATIONS_BUILD = "2026-11-17-iss-groundpoint-radar-timeline-analysis-v9";
@@ -2123,7 +2199,6 @@
           </g>
           <circle cx="60" cy="60" r="5.8" fill="#183b5b" stroke="#ffffff" stroke-width="1.8"/>
           <circle cx="60" cy="60" r="2" fill="${pointerColor}"/>
-          <text x="60" y="116" text-anchor="middle" fill="#647d96" font-size="5.5" font-weight="800" letter-spacing=".55">SZÉLIRÁNY</text>
         </svg>`;
     }
     function pwsWgSvgTemp(temp, avgTemp, accent) {
@@ -2506,7 +2581,12 @@
             // Mindig a legfrissebb, ténylegesen mért képkockán nyíljon meg; automatikus lejátszás nincs.
             pwsRadarState.frameIndex = Math.max(0, data.frames.length - 1);
             pwsRadarState.playing = false;
+            pwsRadarState.analysisRequestId = (pwsRadarState.analysisRequestId || 0) + 1;
+            if (pwsRadarAnalysisDebounceTimer) { clearTimeout(pwsRadarAnalysisDebounceTimer); pwsRadarAnalysisDebounceTimer = null; }
+            pwsRadarState.analysisLoading = false;
+            pwsRadarState.analysisFrameIndex = null;
             pwsRadarState.analysis = null;
+            pwsRadarState.county = null;
             pwsRadarState.analysisError = '';
             pwsRadarState.lastAnalysisAt = 0;
             pwsRadarState.lastFetchAt = Date.now();
@@ -2561,17 +2641,36 @@
     }
     function pwsRadarStep(delta) {
         const frames=pwsRadarState.data?.frames||[];if(!frames.length)return;
-        pwsRadarState.frameIndex=Math.max(0,Math.min(frames.length-1,pwsRadarState.frameIndex+Number(delta||0)));
+        const next=Math.max(0,Math.min(frames.length-1,pwsRadarState.frameIndex+Number(delta||0)));
+        if(next===pwsRadarState.frameIndex)return;
+        pwsRadarState.frameIndex=next;
         pwsUpdateRadarVisual();
+        pwsRadarScheduleFrameAnalysis();
     }
     let pwsRadarSliderRaf = 0;
     let pwsRadarSliderPendingIndex = null;
+    let pwsRadarAnalysisDebounceTimer = null;
+    function pwsRadarScheduleFrameAnalysis() {
+        if(!pwsRadarState.inViewport||document.visibilityState!=='visible')return;
+        if(pwsRadarAnalysisDebounceTimer)clearTimeout(pwsRadarAnalysisDebounceTimer);
+        // A gyors gombnyomásoknál csak az utolsó kiválasztott képkockához indítunk képelemzést.
+        pwsRadarState.analysisRequestId++;
+        // Ne mutassuk a korábbi képkocka eredményeit az új időpont címkéje alatt.
+        pwsRadarState.analysis=null;pwsRadarState.county=null;
+        pwsRadarState.analysisLoading=true;pwsRadarState.analysisError='';
+        pwsRadarRenderAnalysisPanels();
+        pwsRadarAnalysisDebounceTimer=setTimeout(()=>{
+            pwsRadarAnalysisDebounceTimer=null;
+            void pwsAnalyzeRadarFrames(true);
+        },140);
+    }
+
     function pwsRadarSliderPreview(value) {
         const frames=pwsRadarState.data?.frames||[];if(!frames.length)return;
         const idx=Math.max(0,Math.min(frames.length-1,Math.round(Number(value)||0)));
         pwsRadarSliderPendingIndex=idx;
         const timeEl=document.querySelector('[data-gw-key="pws-radar-slider-time"]');
-        if(timeEl)timeEl.textContent=pwsRadarFrameTime(frames[idx])+' · Budapest';
+        if(timeEl)timeEl.textContent=pwsRadarFrameTime(frames[idx]);
         // A képkocka már húzás közben vált; RAF legfeljebb egy képkérést indít képernyőfrissítésenként.
         if(!pwsRadarSliderRaf) pwsRadarSliderRaf=requestAnimationFrame(()=>{
             pwsRadarSliderRaf=0;
@@ -2579,6 +2678,8 @@
             pwsRadarState.frameIndex=pwsRadarSliderPendingIndex;
             pwsRadarSliderPendingIndex=null;
             pwsUpdateRadarVisual();
+            // A csúszka húzása közben is újraszámoljuk a kijelölt képkockát; a debounce csak a legutolsó állást engedi tovább.
+            pwsRadarScheduleFrameAnalysis();
         });
     }
     function pwsRadarSliderChange(value) {
@@ -2587,10 +2688,14 @@
         pwsRadarSliderPendingIndex=null;
         pwsRadarState.frameIndex=Math.max(0,Math.min(frames.length-1,Math.round(Number(value)||0)));
         pwsUpdateRadarVisual();
+        pwsRadarScheduleFrameAnalysis();
     }
     function pwsRadarShowLatest() {
         const frames=pwsRadarState.data?.frames||[];if(!frames.length)return;
-        pwsRadarState.frameIndex=frames.length-1;pwsUpdateRadarVisual();
+        const next=frames.length-1;
+        if(next===pwsRadarState.frameIndex)return;
+        pwsRadarState.frameIndex=next;pwsUpdateRadarVisual();
+        pwsRadarScheduleFrameAnalysis();
     }
     function pwsStopRadarPlayback(userAction=false) {
         if(userAction)pwsRadarState.userPaused=true;
@@ -2613,7 +2718,12 @@
         return bestD<52000?best:-1;
     }
     function pwsRadarLoadPixels(frame) {
-        return new Promise((resolve,reject)=>{
+        const cache=pwsRadarState.pixelCache||(pwsRadarState.pixelCache=new Map());
+        const key=String(frame?.path||frame?.time||'');
+        if(cache.has(key)){
+            const cached=cache.get(key);cache.delete(key);cache.set(key,cached);return cached;
+        }
+        const task=new Promise((resolve,reject)=>{
             const url=pwsRadarImageUrl(frame);if(!url){reject(new Error('A radarkép URL-je hiányzik.'));return;}
             const img=new Image();img.crossOrigin='anonymous';img.decoding='async';
             img.onload=()=>{
@@ -2629,6 +2739,10 @@
             img.onerror=()=>reject(new Error('A radar képelemzése nem érhető el.'));
             img.src=url;
         });
+        cache.set(key,task);
+        while(cache.size>8)cache.delete(cache.keys().next().value);
+        task.catch(()=>{if(cache.get(key)===task)cache.delete(key);});
+        return task;
     }
     function pwsRadarEchoLabel(dbz) {
         if(dbz<15)return 'Nincs mérhető csapadékjel';
@@ -2687,32 +2801,301 @@
         }
         return {cityDbz,nearest,arrival,echoCount,nowCount,motion,kmPerPixel,frameMinutes};
     }
+
+    const PWS_SZABOLCS_RADAR_TOWNS = [
+        {name:'Nyíregyháza',lat:47.9554,lon:21.7167,central:true},
+        {name:'Balkány',lat:47.7694,lon:21.8569},
+        {name:'Nagykálló',lat:47.8749,lon:21.8408},
+        {name:'Újfehértó',lat:47.8,lon:21.6833},
+        {name:'Tiszavasvári',lat:47.9667,lon:21.35},
+        {name:'Kisvárda',lat:48.2167,lon:22.0833},
+        {name:'Nyírbátor',lat:47.8333,lon:22.1333},
+        {name:'Mátészalka',lat:47.9553,lon:22.3235},
+        {name:'Vásárosnamény',lat:48.1254,lon:22.3133},
+        {name:'Fehérgyarmat',lat:47.9833,lon:22.5167},
+        {name:'Nyírtelek',lat:48.0167,lon:21.6333}
+    ];
+    function pwsRadarMapPoint(lat,lon,size=96) {
+        const z=7,world=256*Math.pow(2,z),toX=x=>(x+180)/360*world,toY=y=>{
+            const r=Math.max(-85.05112878,Math.min(85.05112878,y))*Math.PI/180;
+            return (1-Math.asinh(Math.tan(r))/Math.PI)/2*world;
+        };
+        // A RainViewer 512px-es koordinátacsempéje egy 256px-es z=7 térképcsempének felel meg.
+        const scale=2*size/512,cx=(size-1)/2,cy=(size-1)/2;
+        return {x:cx+(toX(lon)-toX(NYIREGYHAZA_LON))*scale,y:cy+(toY(lat)-toY(NYIREGYHAZA_LAT))*scale};
+    }
+    // A megyei maszk a geoHungary counties.geojson Szabolcs-Szatmár-Bereg poligonjából származik.
+    // A határvonalat a 96×96-as elemzőrácshoz egyszerűsítettük; ez nem növeli a radar letöltési méretét.
+    const PWS_SZABOLCS_COUNTY_BOUNDARY = [
+        [21.0787585, 48.0020777],
+        [21.1310935, 48.0483753],
+        [21.2129746, 48.0232733],
+        [21.2588014, 48.0601099],
+        [21.2658434, 48.0386541],
+        [21.329838, 48.0218037],
+        [21.4121025, 48.0334892],
+        [21.4089213, 48.0510711],
+        [21.4324297, 48.0433584],
+        [21.4621127, 48.0713104],
+        [21.4138183, 48.1218081],
+        [21.4436806, 48.1775666],
+        [21.5054916, 48.17247],
+        [21.5778973, 48.20977],
+        [21.7214086, 48.1863905],
+        [21.7240182, 48.203849],
+        [21.7725093, 48.194347],
+        [21.8275666, 48.2440874],
+        [21.8418427, 48.2231846],
+        [21.9202499, 48.2395659],
+        [22.0144284, 48.3114904],
+        [22.0863245, 48.3107871],
+        [22.1310559, 48.391233],
+        [22.2125723, 48.4256468],
+        [22.2654858, 48.4098675],
+        [22.2398761, 48.3870056],
+        [22.2675723, 48.3611613],
+        [22.3178106, 48.3545437],
+        [22.3384267, 48.2792074],
+        [22.3847547, 48.2339632],
+        [22.489903, 48.2534237],
+        [22.5711443, 48.1961428],
+        [22.5616362, 48.1816066],
+        [22.5982449, 48.144756],
+        [22.5902764, 48.1073415],
+        [22.6754492, 48.0919969],
+        [22.7347192, 48.119848],
+        [22.8254256, 48.1175118],
+        [22.8364364, 48.080249],
+        [22.8820425, 48.0548054],
+        [22.835562, 47.9905988],
+        [22.8974573, 47.9545402],
+        [22.8473298, 47.9077579],
+        [22.7586924, 47.8941445],
+        [22.77775, 47.8422508],
+        [22.7136345, 47.8360928],
+        [22.6801939, 47.7877527],
+        [22.5490019, 47.7722247],
+        [22.4812121, 47.8108887],
+        [22.444834, 47.79855],
+        [22.4313319, 47.7398119],
+        [22.3177715, 47.7660887],
+        [22.3176236, 47.7433657],
+        [22.264325, 47.7310675],
+        [22.2589954, 47.6979056],
+        [22.2306796, 47.6931961],
+        [22.1704398, 47.5916361],
+        [22.1183525, 47.6039879],
+        [22.1045726, 47.6580772],
+        [22.0754598, 47.6718081],
+        [22.0217944, 47.6202422],
+        [22.011328, 47.6646688],
+        [21.9809612, 47.6757615],
+        [21.9870152, 47.7042152],
+        [21.9242745, 47.7332054],
+        [21.8877481, 47.7261012],
+        [21.8833954, 47.6972819],
+        [21.8361819, 47.6690597],
+        [21.7191052, 47.7068769],
+        [21.7001267, 47.733227],
+        [21.6360988, 47.7293443],
+        [21.541329, 47.7904654],
+        [21.5655327, 47.9297227],
+        [21.5162207, 47.9414436],
+        [21.2709472, 47.9048785],
+        [21.1943851, 47.95773],
+        [21.12751, 47.9574131],
+    ];
+    const PWS_RADAR_COUNTY_MASK_CACHE = new Map();
+    function pwsRadarPointInPolygon(x,y,poly) {
+        let inside=false;
+        for(let i=0,j=poly.length-1;i<poly.length;j=i++){
+            const a=poly[i],b=poly[j];
+            const crosses=((a.y>y)!==(b.y>y))&&(x<(b.x-a.x)*(y-a.y)/(b.y-a.y||1e-12)+a.x);
+            if(crosses)inside=!inside;
+        }
+        return inside;
+    }
+    function pwsRadarGetCountyMask(size) {
+        if(PWS_RADAR_COUNTY_MASK_CACHE.has(size))return PWS_RADAR_COUNTY_MASK_CACHE.get(size);
+        const polygon=PWS_SZABOLCS_COUNTY_BOUNDARY.map(([lon,lat])=>pwsRadarMapPoint(lat,lon,size));
+        const minX=Math.max(0,Math.floor(Math.min(...polygon.map(p=>p.x)))),maxX=Math.min(size-1,Math.ceil(Math.max(...polygon.map(p=>p.x))));
+        const minY=Math.max(0,Math.floor(Math.min(...polygon.map(p=>p.y)))),maxY=Math.min(size-1,Math.ceil(Math.max(...polygon.map(p=>p.y))));
+        const mask=new Uint8Array(size*size),indexList=[];let validCells=0;
+        for(let y=minY;y<=maxY;y++)for(let x=minX;x<=maxX;x++){
+            if(pwsRadarPointInPolygon(x+0.5,y+0.5,polygon)){const index=y*size+x;mask[index]=1;indexList.push(index);validCells++;}
+        }
+        // Ritka, megyehatáron belüli indexlista: az ismétlődő mozgáskeresés nem járja be a teljes képet.
+        const indices=Uint16Array.from(indexList);
+        const result={mask,indices,validCells,polygon,minX,maxX,minY,maxY};
+        PWS_RADAR_COUNTY_MASK_CACHE.set(size,result);
+        return result;
+    }
+    function pwsRadarAnalyzeCountyField(previous,current,frameMinutes) {
+        const size=current.size,now=current.dbz,old=previous?.dbz||null,region=pwsRadarGetCountyMask(size),mask=region.mask;
+        let echoCells=0,solidCells=0,strongCells=0,maxDbz=-1,weak=0,light=0,moderate=0,strong=0;
+        let oldCount=0,newCount=0;
+        for(let q=0;q<region.indices.length;q++){
+            const i=region.indices[q],v=now[i];
+            if(old&&old[i]>=20)oldCount++;if(v>=20)newCount++;
+            if(v<15)continue;
+            echoCells++;maxDbz=Math.max(maxDbz,v);
+            if(v<20)weak++;else if(v<30)light++;else if(v<40)moderate++;else strong++;
+            if(v>=20)solidCells++;if(v>=35)strongCells++;
+        }
+        // Összefüggő radarzónák: 8-szomszédos, legalább három 20 dBZ feletti cellából álló foltok.
+        const visited=new Uint8Array(mask.length),stack=new Uint16Array(mask.length);let zones=0,largestZoneCells=0;
+        for(let q=0;q<region.indices.length;q++){
+            const i=region.indices[q];
+            if(visited[i]||now[i]<20)continue;
+            let top=0,count=0;stack[top++]=i;visited[i]=1;
+            while(top){
+                const at=stack[--top];count++;const x=at%size,y=(at/size)|0;
+                for(let oy=-1;oy<=1;oy++)for(let ox=-1;ox<=1;ox++){
+                    if(!ox&&!oy)continue;const xx=x+ox,yy=y+oy;if(xx<0||yy<0||xx>=size||yy>=size)continue;
+                    const ni=yy*size+xx;if(mask[ni]&&!visited[ni]&&now[ni]>=20){visited[ni]=1;stack[top++]=ni;}
+                }
+            }
+            if(count>=3){zones++;largestZoneCells=Math.max(largestZoneCells,count);}
+        }
+        let motion=null;
+        if(old&&frameMinutes>0&&oldCount>=8&&newCount>=8){
+            let best={dx:0,dy:0,score:0};
+            for(let dy=-6;dy<=6;dy++)for(let dx=-6;dx<=6;dx++){
+                if(!dx&&!dy)continue;let inter=0;
+                for(let q=0;q<region.indices.length;q++){
+                    const i=region.indices[q];if(old[i]<20)continue;const x=i%size,y=(i/size)|0,xx=x+dx,yy=y+dy;
+                    if(xx<0||yy<0||xx>=size||yy>=size)continue;const ni=yy*size+xx;
+                    if(mask[ni]&&now[ni]>=20)inter++;
+                }
+                const score=inter/Math.max(1,oldCount+newCount-inter);
+                if(score>best.score)best={dx,dy,score};
+            }
+            const shift=Math.hypot(best.dx,best.dy);
+            const kmPerPixel=40075.017*Math.cos(NYIREGYHAZA_LAT*Math.PI/180)/(128*size);
+            if(shift>=1&&best.score>=0.10){
+                const bearing=(Math.atan2(best.dx,-best.dy)*180/Math.PI+360)%360;
+                motion={dx:best.dx,dy:best.dy,shift,score:best.score,speedKmh:shift*kmPerPixel/(frameMinutes/60),direction:pwsRadarCompass8(bearing)};
+            }
+        }
+        return {validCells:region.validCells,echoCells,solidCells,strongCells,weak,light,moderate,strong,maxDbz,coveragePct:region.validCells?echoCells/region.validCells*100:0,zones,largestZoneCells,motion,frameMinutes};
+    }
+    function pwsRadarSamplePoint(frameData,point,radius=2) {
+        const size=frameData.size,values=[];let hitCount=0;
+        for(let y=Math.max(0,Math.floor(point.y-radius));y<=Math.min(size-1,Math.ceil(point.y+radius));y++){
+            for(let x=Math.max(0,Math.floor(point.x-radius));x<=Math.min(size-1,Math.ceil(point.x+radius));x++){
+                if(Math.hypot(x-point.x,y-point.y)>radius+0.35)continue;
+                const v=frameData.dbz[y*size+x];if(v>=15){values.push(v);if(v>=20)hitCount++;}
+            }
+        }
+        return {dbz:values.length?Math.max(...values):-1,pixels:values.length,solidPixels:hitCount,detected:values.length>=2&&hitCount>=1};
+    }
+    function pwsRadarTownApproach(frameData,target,motion,kmPerPixel,frameMinutes) {
+        if(!motion||motion.speedKmh<3||motion.score<0.10)return null;
+        const size=frameData.size,dxv=motion.dx,dyv=motion.dy,shift=motion.shift;
+        let nearest=null;
+        for(let y=2;y<size-2;y++)for(let x=2;x<size-2;x++){
+            const v=frameData.dbz[y*size+x];if(v<20)continue;
+            let neighbors=0;for(let oy=-1;oy<=1;oy++)for(let ox=-1;ox<=1;ox++)if(frameData.dbz[(y+oy)*size+x+ox]>=20)neighbors++;
+            if(neighbors<2)continue;
+            const rx=target.x-x,ry=target.y-y,dist=Math.hypot(rx,ry);
+            if(dist>40)continue;
+            const along=(rx*dxv+ry*dyv)/shift,cross=Math.abs(rx*dyv-ry*dxv)/shift;
+            if(along<=0||cross*kmPerPixel>18)continue;
+            const eta=along/shift*frameMinutes;
+            if(eta<5||eta>150)continue;
+            if(!nearest||eta<nearest.minutes)nearest={minutes:eta,distanceKm:dist*kmPerPixel,dbz:v,sourceX:x,sourceY:y};
+        }
+        return nearest?{...nearest,speedKmh:motion.speedKmh,confidence:motion.score}:null;
+    }
+    function pwsRadarAnalyzeCounty(previous,current,frameMinutes,mainMotion) {
+        const size=current.size,kmPerPixel=40075.017*Math.cos(NYIREGYHAZA_LAT*Math.PI/180)/(128*size);
+        const towns=PWS_SZABOLCS_RADAR_TOWNS.map(town=>{
+            const point=pwsRadarMapPoint(town.lat,town.lon,size),sample=pwsRadarSamplePoint(current,point,2.25);
+            const prevSample=previous?pwsRadarSamplePoint(previous,point,2.25):null;
+            const approach=sample.detected?null:pwsRadarTownApproach(current,point,mainMotion,kmPerPixel,frameMinutes);
+            const newlyDetected=!!(sample.detected&&prevSample&&!prevSample.detected);
+            let state='Nincs mérhető radarjel',detail='A kijelölt képkockán nem látható összefüggő csapadék-visszhang.';
+            if(sample.detected){state=pwsRadarEchoLabel(sample.dbz);detail=newlyDetected?'Új radarjel jelent meg az előző mért képkockához képest.':'A kijelölt radar-képkockán is látható csapadék-visszhang.';}
+            else if(approach){state='Közeledő radarjel';detail=`A legközelebbi jel kb. ${Math.round(approach.distanceKm)} km-re van, és a település felé mozoghat.`;}
+            return {...town,point,sample,prevSample,approach,newlyDetected,state,detail};
+        });
+        const wet=towns.filter(x=>x.sample.detected),approaching=towns.filter(x=>x.approach).sort((a,b)=>a.approach.minutes-b.approach.minutes),newly=towns.filter(x=>x.newlyDetected);
+        const motionConfidence=!mainMotion?'Nem igazolható':mainMotion.score>=0.35?'Jó':mainMotion.score>=0.20?'Közepes':'Korlátozott';
+        const field=pwsRadarAnalyzeCountyField(previous,current,frameMinutes);
+        const countyMotionConfidence=!field.motion?'Nem igazolható':field.motion.score>=0.35?'Jó':field.motion.score>=0.20?'Közepes':'Korlátozott';
+        return {towns,wet,approaching,newly,motionConfidence,field,countyMotionConfidence,frameMinutes,frameTime:current.time,computedAt:Date.now()};
+    }
+    function pwsRadarRenderAnalysisPanels() {
+        const analysisEl=document.querySelector('[data-gw-key="pws-radar-analysis"]');
+        if(analysisEl)analysisEl.outerHTML=pwsRadarAnalysisHtml();
+        const countyEl=document.querySelector('[data-gw-key="pws-radar-county"]');
+        if(countyEl)countyEl.outerHTML=pwsRadarCountyHtml();
+    }
+
+    function pwsRadarCountyHtml() {
+        const c=pwsRadarState.county;
+        const frames=pwsRadarState.data?.frames||[],selected=frames[pwsRadarState.frameIndex];
+        if(!c)return `<div class="pws-radar-county" data-gw-key="pws-radar-county"><div class="pws-radar-county-head"><div><strong>Szabolcs-Szatmár-Bereg megye · teljes területi radarhelyzet</strong><small>${pwsRadarState.analysisLoading?'A kiválasztott képkocka teljes megyei mezőjének elemzése…':gwEsc(pwsRadarState.analysisError||'A megyei összesítéshez még nincs elegendő képadat.')}</small></div><span class="pws-radar-county-badge">MEGYE + 11 HELY</span></div></div>`;
+        const field=c.field||{validCells:0,echoCells:0,solidCells:0,strongCells:0,zones:0,coveragePct:0,maxDbz:-1,weak:0,light:0,moderate:0,strong:0,largestZoneCells:0,motion:null};
+        const card=t=>{
+            const status=t.sample.detected?'RADARJEL A PONTNÁL':(t.approach?'KÖZELEDHET':'NINCS JEL');
+            const cls=t.sample.detected?'wet':(t.approach?'approach':'dry');
+            const detail=t.sample.detected?`${pwsRadarEchoLabel(t.sample.dbz)}${t.newlyDetected?' · új jel az előző képkockához képest':''}`:(t.approach?`Kb. ${Math.max(5,Math.round(t.approach.minutes/5)*5)} perc · ${Math.round(t.approach.distanceKm)} km távolságból`:'A kiválasztott képkockán nem látható összefüggő radarjel');
+            const extra=t.approach?` · ${pwsRadarCompass8((Math.atan2(t.approach.sourceX-t.point.x,t.point.y-t.approach.sourceY)*180/Math.PI+360)%360)} felől`:'';
+            return `<div class="pws-radar-town ${cls}"><div class="pws-radar-town-top"><strong>${gwEsc(t.name)}</strong><span>${status}</span></div><div class="pws-radar-town-detail">${gwEsc(detail+extra)}</div></div>`;
+        };
+        const wetNames=c.wet.map(x=>x.name),approachNames=c.approaching.map(x=>x.name);
+        const pct=Number(field.coveragePct)||0;
+        const areaSummary=field.echoCells?`A kijelölt radarképkockán a megyehatáron belüli elemzőrács ${pct.toFixed(1).replace('.',',')}%-ában látható radar-visszhang (${field.echoCells} / ${field.validCells} cella), ${field.zones} összefüggő zónában.`:'A kijelölt radarképkockán a megyehatáron belüli elemzőrácsban nem azonosítható mérhető radar-visszhang.';
+        const townSummary=wetNames.length?`A 11 kijelölt települési pontból ${wetNames.length} körül látható radarjel${wetNames.length<=4?': '+wetNames.join(', '):'.'}`:approachNames.length?`${approachNames.length} település felé közeledhet radarjel a mozgásbecslés szerint.`:'A 11 kijelölt települési pontnál nincs helyi radarjel.';
+        const motion=field.motion?`${field.motion.direction} felé · ${Math.round(field.motion.speedKmh)} km/h`:'Nem igazolható';
+        const strongest=field.maxDbz>=15?`${field.maxDbz} dBZ`:'Nincs jel';
+        const frameLabel=selected?pwsRadarFrameTime(selected):'—';
+        return `<div class="pws-radar-county" data-gw-key="pws-radar-county"><div class="pws-radar-county-head"><div><strong>Szabolcs-Szatmár-Bereg megye · teljes területi radarhelyzet</strong><small>Kiválasztott képkocka: ${gwEsc(frameLabel)} · ${gwEsc(areaSummary)} ${gwEsc(townSummary)}</small></div><span class="pws-radar-county-badge">TELJES MEGYE</span></div><div class="pws-radar-field"><div class="pws-radar-field-title"><span>MEGYEI RADARMEZŐ · PIXELRÁCS-ELEMZÉS</span><small>${field.validCells.toLocaleString('hu-HU')} vizsgált cella</small></div><div class="pws-radar-field-main">${field.echoCells?`A radar-visszhang a megyei rács ${pct.toFixed(1).replace('.',',')}%-át érinti.`:'A megyei rácson nem látható mérhető radar-visszhang.'}</div><div class="pws-radar-field-grid"><div class="pws-radar-field-stat"><span>Visszhangos cellák · ≥15 dBZ</span><b>${field.echoCells}</b></div><div class="pws-radar-field-stat"><span>Összefüggő zónák · ≥20 dBZ</span><b>${field.zones}</b></div><div class="pws-radar-field-stat"><span>Erősebb cellák · ≥35 dBZ</span><b>${field.strongCells}</b></div><div class="pws-radar-field-stat"><span>Legerősebb visszhang</span><b>${gwEsc(strongest)}</b></div><div class="pws-radar-field-stat"><span>Gyenge · 15–19 dBZ</span><b>${field.weak}</b></div><div class="pws-radar-field-stat"><span>Enyhe · 20–29 dBZ</span><b>${field.light}</b></div><div class="pws-radar-field-stat"><span>Mérsékelt · 30–39 dBZ</span><b>${field.moderate}</b></div><div class="pws-radar-field-stat"><span>Erős · ≥40 dBZ</span><b>${field.strong}</b></div></div><div class="pws-radar-county-summary"><span>Megyei zóna mozgása: <b>${gwEsc(motion)}</b></span><span>Mozgás megbízhatósága: <b>${gwEsc(c.countyMotionConfidence)}</b></span><span>Legnagyobb összefüggő folt: <b>${field.largestZoneCells} cella</b></span></div></div><div class="pws-radar-county-summary"><span>Radarjel a települési pontoknál: <b>${c.wet.length} / 11</b></span><span>Új jel az előző képkockához képest: <b>${c.newly.length}</b></span><span>Közeledő zóna a településekhez: <b>${c.approaching.length}</b></span><span>Helyi mozgásbecslés: <b>${gwEsc(c.motionConfidence)}</b></span></div><div class="pws-radar-town-section-title">KIJELÖLT TELEPÜLÉSEK · HELYI PONTMINTÁK</div><div class="pws-radar-town-grid">${c.towns.map(card).join('')}</div><div class="pws-radar-county-note">A megyei mező a geoHungary <code>counties.geojson</code> Szabolcs-Szatmár-Bereg poligonjának, a 96×96-as elemzőrácshoz egyszerűsített határmaszkján belüli összes képpontot vizsgálja; a 11 település külön, helyi mintavételt kap. A csúszkán kiválasztott radar-képkockát hasonlítjuk az azt közvetlenül megelőző mért képkockához, ezért visszamenőleg is az adott időpont területi állapota és ahhoz tartozó mozgás jelenik meg. A százalék a radar-visszhanggal érintett elemzőcellák aránya, nem csapadékvalószínűség vagy felszíni mérés. A radar színei visszaverődést jeleznek, nem határozzák meg önmagukban a csapadék típusát.</div></div>`;
+    }
+
     async function pwsAnalyzeRadarFrames(force=false) {
         const frames=pwsRadarState.data?.frames||[];
-        if(!pwsRadarState.inViewport||document.visibilityState!=='visible'||pwsRadarState.analysisLoading||frames.length<1)return;
-        if(!force&&pwsRadarState.analysis&&Date.now()-pwsRadarState.lastAnalysisAt<10*60000)return;
+        if(!pwsRadarState.inViewport||document.visibilityState!=='visible'||frames.length<1)return;
+        const idx=Math.max(0,Math.min(frames.length-1,Number(pwsRadarState.frameIndex)||0));
+        if(!force&&pwsRadarState.analysis&&pwsRadarState.analysisFrameIndex===idx)return;
+        const requestId=++pwsRadarState.analysisRequestId;
         pwsRadarState.analysisLoading=true;pwsRadarState.analysisError='';
+        pwsRadarRenderAnalysisPanels();
         try{
-            const recent=frames.slice(-2),current=await pwsRadarLoadPixels(recent[recent.length-1]);
-            let previous=null,minutes=10;
-            if(recent.length>1){previous=await pwsRadarLoadPixels(recent[0]);minutes=Math.max(1,(current.time-previous.time)/60);}
+            const currentFrame=frames[idx],previousFrame=idx>0?frames[idx-1]:null;
+            const [current,previous]=await Promise.all([pwsRadarLoadPixels(currentFrame),previousFrame?pwsRadarLoadPixels(previousFrame):Promise.resolve(null)]);
+            if(requestId!==pwsRadarState.analysisRequestId)return;
+            const minutes=previous?Math.max(1,(current.time-previous.time)/60):0;
             pwsRadarState.analysis=pwsRadarAnalyzePixels(previous,current,minutes);
+            pwsRadarState.county=pwsRadarAnalyzeCounty(previous,current,minutes,pwsRadarState.analysis.motion);
+            pwsRadarState.analysisFrameIndex=idx;
+            pwsRadarState.countyError='';
+        }catch(e){
+            if(requestId!==pwsRadarState.analysisRequestId)return;
+            pwsRadarState.analysis=null;pwsRadarState.county=null;pwsRadarState.analysisFrameIndex=null;
+            pwsRadarState.analysisError=(String(e?.message||'').toLowerCase().includes('taint')||String(e?.name||'')==='SecurityError')?'A radarforrás nem engedélyezte a képpontok biztonságos kiolvasását. A radarkép ettől még használható.':'A radar képelemzése jelenleg nem érhető el.';
             pwsRadarState.lastAnalysisAt=Date.now();
-        }catch(e){pwsRadarState.analysis=null;pwsRadarState.analysisError=(String(e?.message||'').toLowerCase().includes('taint')||String(e?.name||'')==='SecurityError')?'A radarforrás nem engedélyezte a képpontok biztonságos kiolvasását. A radarkép ettől még használható.':'A radar képelemzése jelenleg nem érhető el.';pwsRadarState.lastAnalysisAt=Date.now();}
-        finally{pwsRadarState.analysisLoading=false;const el=document.querySelector('[data-gw-key="pws-radar-analysis"]');if(el)el.outerHTML=pwsRadarAnalysisHtml();}
+        }finally{
+            if(requestId===pwsRadarState.analysisRequestId){
+                pwsRadarState.analysisLoading=false;pwsRadarState.lastAnalysisAt=Date.now();
+                pwsRadarRenderAnalysisPanels();
+            }
+        }
     }
     function pwsRadarAnalysisHtml() {
         const a=pwsRadarState.analysis;
-        if(pwsRadarState.analysisLoading)return `<div class="pws-radar-analysis" data-gw-key="pws-radar-analysis"><div class="pws-radar-analysis-head"><span class="pws-radar-analysis-title">RADARALAPÚ HELYI ÉRTÉKELÉS</span><span class="pws-radar-analysis-tag">KÉPELEMZÉS</span></div><div class="pws-radar-analysis-main">A legfrissebb radarképkockák elemzése…</div></div>`;
+        const frames=pwsRadarState.data?.frames||[],selected=frames[pwsRadarState.frameIndex];
+        if(pwsRadarState.analysisLoading)return `<div class="pws-radar-analysis" data-gw-key="pws-radar-analysis"><div class="pws-radar-analysis-head"><span class="pws-radar-analysis-title">RADARALAPÚ HELYI ÉRTÉKELÉS</span><span class="pws-radar-analysis-tag">KÉPELEMZÉS</span></div><div class="pws-radar-analysis-main">A ${selected?gwEsc(pwsRadarFrameTime(selected))+'-kor mért':'kiválasztott'} radarképkocka elemzése…</div></div>`;
         if(!a)return `<div class="pws-radar-analysis" data-gw-key="pws-radar-analysis"><div class="pws-radar-analysis-head"><span class="pws-radar-analysis-title">RADARALAPÚ HELYI ÉRTÉKELÉS</span><span class="pws-radar-analysis-tag">NYÍREGYHÁZA</span></div><div class="pws-radar-analysis-main">${gwEsc(pwsRadarState.analysisError||'A radarelemzéshez még nincs elegendő képkocka.')}</div><div class="pws-radar-analysis-note">Csak a mért radar-visszhangból számolunk; ha a képelemzés nem olvasható, nem becsülünk érkezési időt.</div></div>`;
-        const dbz=a.cityDbz,cityText=dbz>=15?`Nyíregyháza felett ${pwsRadarEchoLabel(dbz).toLowerCase()} látható.`:'A legfrissebb képkockán Nyíregyháza felett nem látható mérhető csapadékjel.';
+        const dbz=a.cityDbz,cityText=dbz>=15?`Nyíregyháza felett ${pwsRadarEchoLabel(dbz).toLowerCase()} látható.`:'A kiválasztott képkockán Nyíregyháza felett nem látható mérhető csapadékjel.';
         const arrival=a.arrival;
-        const etaText=arrival?`A legközelebbi, a város felé mozgó radarjel ${arrival.direction} felől érkezhet. A képkockákból számított becslés szerint körülbelül ${Math.max(5,Math.round(arrival.minutes/5)*5)} perc múlva érheti el Nyíregyháza térségét, ha a mozgása nem változik.`:(a.nearest?`A legközelebbi mérhető csapadékjel körülbelül ${Math.round(a.nearest.dist*a.kmPerPixel)} km-re látható, de a képkockákból nem állapítható meg kellő biztonsággal, hogy Nyíregyháza felé tart-e.`:'A legfrissebb radarképen nem látható olyan csapadékzóna a vizsgált körzetben, amelynek Nyíregyházára érkezése megbízhatóan kiszámítható lenne.');
+        const etaText=arrival?`A legközelebbi, a város felé mozgó radarjel ${arrival.direction} felől érkezhet. A képkockákból számított becslés szerint körülbelül ${Math.max(5,Math.round(arrival.minutes/5)*5)} perc múlva érheti el Nyíregyháza térségét, ha a mozgása nem változik.`:(a.nearest?`A legközelebbi mérhető csapadékjel körülbelül ${Math.round(a.nearest.dist*a.kmPerPixel)} km-re látható, de a képkockákból nem állapítható meg kellő biztonsággal, hogy Nyíregyháza felé tart-e.`:'A kiválasztott radarképen nem látható olyan csapadékzóna a vizsgált körzetben, amelynek Nyíregyházára érkezése megbízhatóan kiszámítható lenne.');
         const intensity=arrival?arrival.dbz:dbz;
         const precipLabel=intensity>=15?pwsRadarEchoLabel(intensity):'Nem észlelhető csapadékjel';
         const tempRow=pwsInyreg42State.current?pwsNormalizeArchiveRecord(pwsInyreg42State.current,'24h'):null,temp=tempRow?.temp;
-        const typeNote=temp===null||temp===undefined?'A radar önmagában nem különbözteti meg az esőt, szitálást, záport és havat.':temp<=0.5?`A PWS felszíni hőmérséklete ${temp.toFixed(1)} °C: fagyos csapadék is lehetséges, de a radar nem azonosítja külön a havat.`:temp<2.5?`A PWS felszíni hőmérséklete ${temp.toFixed(1)} °C: vegyes halmazállapot is előfordulhat; ezt a radar önmagában nem dönti el.`:`A PWS felszíni hőmérséklete ${temp.toFixed(1)} °C, ezért a felszínen az eső valószínűbb; a csapadék típusát a radar nem méri közvetlenül.`;
-        return `<div class="pws-radar-analysis" data-gw-key="pws-radar-analysis"><div class="pws-radar-analysis-head"><span class="pws-radar-analysis-title">RADARALAPÚ HELYI ÉRTÉKELÉS</span><span class="pws-radar-analysis-tag">${arrival?'MOZGÁSI BECSLÉS':'MÉRT VISSZHANG'}</span></div><div class="pws-radar-analysis-main">${gwEsc(cityText)}</div><div class="pws-radar-analysis-detail">${gwEsc(etaText)}</div><div class="pws-radar-analysis-grid"><div class="pws-radar-analysis-stat"><span>Csapadékjel erőssége</span><strong>${gwEsc(precipLabel)}</strong></div><div class="pws-radar-analysis-stat"><span>${arrival?'Közeledés iránya':'Legközelebbi radarjel'}</span><strong>${arrival?gwEsc(arrival.direction+' felől'):a.nearest?Math.round(a.nearest.dist*a.kmPerPixel)+' km':'—'}</strong></div><div class="pws-radar-analysis-stat"><span>Radarjel mozgása</span><strong>${arrival?Math.round(arrival.speedKmh)+' km/h':'Nem igazolható'}</strong></div></div><div class="pws-radar-analysis-note">${gwEsc(typeNote)} A becslés a legutóbbi két mért radarkép képpontjainak elmozdulásából készül, nem előrejelzési feed. Az értékelés mindig a legfrissebb két mért képkockát használja; a csúszka a korábbi radarképeket mutatja. A RainViewer radar-visszaverődést mutat; a szitálás/eső/zápor/hó típus nem különíthető el biztosan.</div></div>`;
+        const typeNote=temp===null||temp===undefined?'A radar önmagában nem különbözteti meg az esőt, szitálást, záport és havat.':temp<=0.5?`A jelenlegi PWS felszíni hőmérséklete ${temp.toFixed(1)} °C: fagyos csapadék is lehetséges, de a radar nem azonosítja külön a havat.`:temp<2.5?`A jelenlegi PWS felszíni hőmérséklete ${temp.toFixed(1)} °C: vegyes halmazállapot is előfordulhat; ezt a radar önmagában nem dönti el.`:`A jelenlegi PWS felszíni hőmérséklete ${temp.toFixed(1)} °C, ezért a felszínen az eső valószínűbb; a csapadék típusát a radar nem méri közvetlenül.`;
+        return `<div class="pws-radar-analysis" data-gw-key="pws-radar-analysis"><div class="pws-radar-analysis-head"><span class="pws-radar-analysis-title">RADARALAPÚ HELYI ÉRTÉKELÉS</span><span class="pws-radar-analysis-tag">${selected?'KIVÁLASZTOTT · '+gwEsc(pwsRadarFrameTime(selected)):'MÉRT VISSZHANG'}</span></div><div class="pws-radar-analysis-main">${gwEsc(cityText)}</div><div class="pws-radar-analysis-detail">${gwEsc(etaText)}</div><div class="pws-radar-analysis-grid"><div class="pws-radar-analysis-stat"><span>Csapadékjel erőssége</span><strong>${gwEsc(precipLabel)}</strong></div><div class="pws-radar-analysis-stat"><span>${arrival?'Közeledés iránya':'Legközelebbi radarjel'}</span><strong>${arrival?gwEsc(arrival.direction+' felől'):a.nearest?Math.round(a.nearest.dist*a.kmPerPixel)+' km':'—'}</strong></div><div class="pws-radar-analysis-stat"><span>Radarjel mozgása</span><strong>${arrival?Math.round(arrival.speedKmh)+' km/h':'Nem igazolható'}</strong></div></div><div class="pws-radar-analysis-note">${gwEsc(typeNote)} A Nyíregyháza körüli mozgásbecslés a kijelölt képkocka és az azt közvetlenül megelőző mért radar-képkocka összevetéséből készül. A radar önmagában nem ad hiteles, kalibrált esővalószínűségi százalékot, és nem dönti el biztosan a csapadék halmazállapotát.</div></div>`;
     }
     function pwsObserveRadarMap() {
         const target=document.querySelector('[data-gw-key="pws-live-radar-visual"]');
@@ -2824,6 +3207,7 @@
                 <div class="pws-radar-timeline"><div class="pws-radar-timeline-top"><span>Idővonal · mért radar-képkockák</span><strong class="pws-radar-timeline-time" data-gw-key="pws-radar-slider-time">${frame?gwEsc(pwsRadarFrameTime(frame))+' · Budapest':'—'}</strong></div><input class="pws-radar-slider" type="range" min="0" max="${Math.max(0,frames.length-1)}" step="1" value="${idx}" data-gw-key="pws-radar-slider" oninput="pwsRadarSliderPreview(this.value)" onchange="pwsRadarSliderChange(this.value)" aria-label="Radarképek idővonala" ${frames.length<2?'disabled':''}><div class="pws-radar-timeline-ends"><span data-gw-key="pws-radar-slider-start">${frames.length?gwEsc(pwsRadarFrameTime(frames[0])):'—'}</span><span data-gw-key="pws-radar-slider-end">${frames.length?gwEsc(pwsRadarFrameTime(frames[frames.length-1])):'—'}</span></div><div class="pws-radar-timeline-actions"><button type="button" data-gw-key="pws-radar-prev" onclick="pwsRadarStep(-1)" ${!frames.length||idx<=0?'disabled':''}>← Egy képkockával vissza</button><button type="button" data-gw-key="pws-radar-next" onclick="pwsRadarStep(1)" ${!frames.length||idx>=frames.length-1?'disabled':''}>Előre →</button><button type="button" data-gw-key="pws-radar-latest" class="primary" onclick="pwsRadarShowLatest()" ${!frames.length||idx>=frames.length-1?'disabled':''}>Legfrissebb</button><button type="button" onclick="pwsLoadRadar(true)" title="Radarképek frissítése">↻ Frissítés</button></div><div class="pws-radar-analysis" data-gw-key="pws-radar-analysis"><div class="pws-radar-analysis-head"><span class="pws-radar-analysis-title">RADARALAPÚ HELYI ÉRTÉKELÉS</span><span class="pws-radar-analysis-tag">${pwsRadarState.analysis?'FRISS':'NYÍREGYHÁZA'}</span></div><div class="pws-radar-analysis-main">${pwsRadarState.analysis?gwEsc(pwsRadarState.analysis.cityDbz>=15?pwsRadarEchoLabel(pwsRadarState.analysis.cityDbz):'A legfrissebb képkockán Nyíregyháza felett nincs mérhető csapadékjel.'):(pwsRadarState.analysisLoading?'A legfrissebb radarképkockák elemzése…':'A részletes radarelemzés a térkép megjelenésekor indul.')}</div><div class="pws-radar-analysis-note">A radar-visszhangok mozgásából készülő becslés; jövőbeli RainViewer-képkocka nem áll rendelkezésre.</div></div></div>
                 <div class="pws-live-radar-foot"><span><a href="https://www.rainviewer.com/" target="_blank" rel="noopener noreferrer" style="color:#c7edff;font-weight:800;text-decoration:none">Radar · RainViewer ↗</a></span><span>RainViewer · mért csapadékradar · 10 perces képkockák</span></div>
             </div>
+            ${pwsRadarCountyHtml()}
             <div class="pws-live-env-grid">
                 <div class="pws-live-env-card pws-live-aqi-wide" data-gw-key="pws-live-aqi">
                     <div class="pws-live-env-head"><div class="pws-live-env-title">Levegőminőség · Nyíregyháza</div><span class="pws-live-env-chip">CAMS MODELL</span></div>
@@ -3704,7 +4088,7 @@
     async function loadDevAnalyticsData() {
         try {
             const todayStr = new Date().toLocaleDateString('sv-SE'), t = Date.now();
-            const [vr,cr,br,nr,bcr,fr,bkr,exr,pr,kr,rdr,rr,nyr,rlr,thr,pir,swr] = await Promise.all([
+            const [vr,cr,br,nr,bcr,fr,bkr,exr,pr,kr,rdr,rr,nyr,rlr,thr,pir,swr,aar] = await Promise.all([
                 fetch(`${FIREBASE_URL}/analytics/visitors.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/daily_clicks/${todayStr}.json?t=${t}`,{cache:'no-store'}),
                 fetch(`${FIREBASE_URL}/analytics/banned.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/ip_names.json?t=${t}`,{cache:'no-store'}),
                 fetch(`${FIREBASE_URL}/analytics/broadcast.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/blacklist.json?t=${t}`,{cache:'no-store'}),
@@ -3713,7 +4097,8 @@
                 fetch(`${FIREBASE_URL}/analytics/radar_config.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/radio_config.json?t=${t}`,{cache:'no-store'}),
                 fetch(`${FIREBASE_URL}/analytics/nyir_weather_config.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/radio_stations.json?t=${t}`,{cache:'no-store'}),
                 fetch(`${FIREBASE_URL}/analytics/theme_config.json?t=${t}`,{cache:'no-store'}), fetch(`${FIREBASE_URL}/analytics/pws_inyreg42_config.json?t=${t}`,{cache:'no-store'}),
-                fetch(`${FIREBASE_URL}/analytics/space_weather_config.json?t=${t}`,{cache:'no-store'}).catch(()=>null)
+                fetch(`${FIREBASE_URL}/analytics/space_weather_config.json?t=${t}`,{cache:'no-store'}).catch(()=>null),
+                fetch(`${FIREBASE_URL}/analytics/airport_archive_config.json?t=${t}`,{cache:'no-store'}).catch(()=>null)
             ]);
             const visitors = await vr.json()||{}, clicks = await cr.json()||{}, banned = await br.json()||{}, ipNames = await nr.json()||{}, bcast = await bcr.json()||{};
             blacklistKeywords = await fr.json()||[]; breakingKeywords = await bkr.json()||[]; breakingExcludedMap = await exr.json()||{};
@@ -3726,6 +4111,12 @@
             if (lpi) { pwsInyreg42Config = Object.assign({enabled:false,stationId:'INYREG42',backupStations:PWS_DEFAULT_BACKUP_STATIONS.slice(),title:'Nyíregyháza MOST',placementMode:'column',position:3},lpi); if(!Array.isArray(pwsInyreg42Config.backupStations)||!pwsInyreg42Config.backupStations.length)pwsInyreg42Config.backupStations=PWS_DEFAULT_BACKUP_STATIONS.slice(); }
             const swData = swr ? await swr.json().catch(()=>null) : null; spaceWeatherConfig = Object.assign({enabled:false}, swData || {});
             const swCheck = document.getElementById('spacewx-enabled-checkbox'); if (swCheck) swCheck.checked = !!spaceWeatherConfig.enabled;
+            const aaData = aar ? await aar.json().catch(()=>null) : null;
+            airportArchiveConfig = Object.assign({enabled:false,position:4,refreshMin:15,firstDay:AIRPORT_ARCHIVE_FIRST_DAY}, aaData || {});
+            const aaCheck = document.getElementById('airport-archive-enabled-checkbox'); if (aaCheck) aaCheck.checked = !!airportArchiveConfig.enabled;
+            const aaPosition = document.getElementById('airport-archive-position-select'); if (aaPosition) aaPosition.value = String(airportArchiveConfig.position || 4);
+            const aaRefresh = document.getElementById('airport-archive-refresh-select'); if (aaRefresh) aaRefresh.value = String(airportArchiveConfig.refreshMin || 15);
+            const aaStatus = document.getElementById('airport-archive-dev-status'); if (aaStatus) aaStatus.textContent = airportArchiveConfig.enabled ? 'Mentett állapot: bekapcsolva.' : 'Mentett állapot: kikapcsolva.';
             const rl = await rlr.json(); radioStationsList = Array.isArray(rl)?rl:[];
             const th = await thr.json(); if (th) applyThemeConfig(th);
             renderVisitorsTable(visitors,ipNames,banned); renderClicksTable(clicks); renderBannedTable(banned);
@@ -3753,6 +4144,18 @@
             updatePwsInyreg42DevFields(); renderDevPwsStationsList(); renderDevRadioStationsList(); renderDevBreakingNewsList(); updateUnifiedMediaBarVisibility();
             startPwsEngine(); startPwsInyreg42Engine(); if (spaceWeatherConfig.enabled) startSpaceWeatherEngine(); else stopSpaceWeatherEngine(); startKockaPwsEngine(); startRadarEngine(); initRadioEngine();
         } catch(e) {}
+    }
+
+    async function saveAirportArchiveConfig() {
+        airportArchiveConfig = { enabled: !!document.getElementById('airport-archive-enabled-checkbox')?.checked, position: parseInt(document.getElementById('airport-archive-position-select')?.value, 10) || 4, refreshMin: Math.max(15, Math.min(360, parseInt(document.getElementById('airport-archive-refresh-select')?.value, 10) || 15)), firstDay: AIRPORT_ARCHIVE_FIRST_DAY, updatedAt: new Date().toISOString() };
+        try {
+            const res = await fetch(`${FIREBASE_URL}/analytics/airport_archive_config.json`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(airportArchiveConfig) });
+            if (!res.ok) throw new Error('Firebase HTTP ' + res.status);
+            if (airportArchiveConfig.enabled) { airportArchiveState.status = 'Bekapcsolva · előzmények előkészítése'; }
+            else stopAirportArchiveEngine();
+            await fetchDatabases();
+            alert(airportArchiveConfig.enabled ? '✅ Repülőtéri archívum beállításai elmentve. A történelmi visszatöltés a látható oldalon elindul.' : '✅ A repülőtéri archívumkártya kikapcsolva.');
+        } catch (e) { alert('Az archívum beállításait nem sikerült menteni: ' + (e.message || e)); }
     }
 
     async function saveNyirWeatherConfig() {
@@ -3965,6 +4368,11 @@
             const spaceCol = { name: "ŰRIDŐJÁRÁS + ISS", isAll: false, isBreaking: false, isWeather: false, isPwsInyreg: false, isSpaceWeather: true, items: [], logo: null, theme: { bg: 'linear-gradient(135deg,#172554 0%,#43347b 100%)', border: '#9586df' } };
             columnsData.splice(pwsColumnIndex >= 0 ? pwsColumnIndex + 1 : columnsData.length, 0, spaceCol);
         }
+        if (!isYesterday && airportArchiveConfig && airportArchiveConfig.enabled) {
+            const rawPos = parseInt(airportArchiveConfig.position, 10) || 4;
+            const targetPos = rawPos === 99 ? columnsData.length : Math.max(0, Math.min(columnsData.length, rawPos - 1));
+            columnsData.splice(targetPos, 0, { name: "REPÜLŐTÉRI METEOROLÓGIA", isAll: false, isBreaking: false, isWeather: false, isAirportArchive: true, items: [], logo: null, theme: { bg: 'linear-gradient(135deg,#0f3556 0%,#0e7490 100%)', border: '#38bdf8' } });
+        }
         if (!isYesterday) {
             kbTodayColumnLabels = columnsData.map(c => c.name);
             const hintEl = document.getElementById('pws-inyreg42-columns-hint');
@@ -3972,23 +4380,24 @@
         }
 
         grid.innerHTML = '';
-        if (!allItems.length && (!nyirWeatherConfig || !nyirWeatherConfig.enabled) && (!pwsInyreg42Config || !pwsInyreg42Config.enabled) && (!spaceWeatherConfig || !spaceWeatherConfig.enabled)) {
+        if (!allItems.length && (!nyirWeatherConfig || !nyirWeatherConfig.enabled) && (!pwsInyreg42Config || !pwsInyreg42Config.enabled) && (!spaceWeatherConfig || !spaceWeatherConfig.enabled) && (!airportArchiveConfig || !airportArchiveConfig.enabled)) {
             grid.innerHTML = '<div class="empty-state" style="text-align:center; color:#64748b; padding:30px; width:100%; grid-column: 1 / -1; font-family:\'Space Mono\',monospace;">Nincs megjeleníthető hír ebben az idősávban.</div>';
             return;
         }
         const fragment = document.createDocumentFragment();
         columnsData.forEach(col => {
             const colDiv = document.createElement('div');
-            colDiv.className = 'channel-column' + (col.isAll ? ' is-all-feed' : '') + (col.isBreaking ? ' is-breaking-column' : '') + (col.isWeather ? ' is-weather-column' : '') + (col.isPwsInyreg ? ' is-pws-inyreg-column' : '') + (col.isSpaceWeather ? ' is-space-weather-column' : '');
+            colDiv.className = 'channel-column' + (col.isAll ? ' is-all-feed' : '') + (col.isBreaking ? ' is-breaking-column' : '') + (col.isWeather ? ' is-weather-column' : '') + (col.isPwsInyreg ? ' is-pws-inyreg-column' : '') + (col.isSpaceWeather ? ' is-space-weather-column' : '') + (col.isAirportArchive ? ' is-airport-archive-column' : '');
             colDiv.style.borderTop = `4px solid ${col.theme.border}`;
             const headerDiv = document.createElement('div'); headerDiv.className = 'channel-column-header'; headerDiv.style.background = col.theme.bg; headerDiv.style.borderBottom = `2px solid ${col.theme.border}`;
-            const logoHtml = col.isAll ? '<span style="font-size:1.15rem;flex-shrink:0;">🌐</span>' : (col.isBreaking ? '<span style="font-size:1.15rem;flex-shrink:0;">🚨</span>' : (col.isWeather ? '<span style="font-size:1.15rem;flex-shrink:0;">🌤️</span>' : (col.isPwsInyreg ? '<span style="font-size:1.15rem;flex-shrink:0;">🌡️</span>' : (col.isSpaceWeather ? '<span style="font-size:1.15rem;flex-shrink:0;">🌌</span>' : (col.logo ? `<img src="${col.logo}" class="channel-header-logo" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` : '<span style="font-size:1rem;">📰</span>')))));
-            headerDiv.innerHTML = `<div class="channel-brand-info">${logoHtml}<span class="channel-header-title">${col.name}</span></div><div class="channel-header-meta"><span class="channel-header-date">${columnHeaderDate}</span><span class="channel-header-badge">${col.isPwsInyreg ? '30MP ÉLŐ' : (col.isSpaceWeather ? 'NOAA · ISS' : (col.isWeather ? 'ÉLŐ' : col.items.length + ' db'))}</span></div>`;
+            const logoHtml = col.isAll ? '<span style="font-size:1.15rem;flex-shrink:0;">🌐</span>' : (col.isBreaking ? '<span style="font-size:1.15rem;flex-shrink:0;">🚨</span>' : (col.isWeather ? '<span style="font-size:1.15rem;flex-shrink:0;">🌤️</span>' : (col.isPwsInyreg ? '<span style="font-size:1.15rem;flex-shrink:0;">🌡️</span>' : (col.isSpaceWeather ? '<span style="font-size:1.15rem;flex-shrink:0;">🌌</span>' : (col.isAirportArchive ? '<span style="font-size:1.15rem;flex-shrink:0;">✈️</span>' : (col.logo ? `<img src="${col.logo}" class="channel-header-logo" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` : '<span style="font-size:1rem;">📰</span>'))))));
+            headerDiv.innerHTML = `<div class="channel-brand-info">${logoHtml}<span class="channel-header-title">${col.name}</span></div><div class="channel-header-meta"><span class="channel-header-date">${columnHeaderDate}</span><span class="channel-header-badge">${col.isPwsInyreg ? '30MP ÉLŐ' : (col.isSpaceWeather ? 'NOAA · ISS' : (col.isAirportArchive ? 'LHNY · ARCHÍVUM' : (col.isWeather ? 'ÉLŐ' : col.items.length + ' db')))}</span></div>`;
             const bodyDiv = document.createElement('div'); bodyDiv.className = 'channel-column-body';
 
             if (col.embedPwsPos === 'embed_top') { const m = document.createElement('div'); m.id = 'pws-inyreg42-widget-root'; bodyDiv.appendChild(m); }
             if (col.isPwsInyreg) { const m = document.createElement('div'); m.id = 'pws-inyreg42-widget-root'; bodyDiv.appendChild(m); }
             else if (col.isSpaceWeather) { const m = document.createElement('div'); m.id = 'space-weather-widget-root'; bodyDiv.appendChild(m); }
+            else if (col.isAirportArchive) { const m = document.createElement('div'); m.id = 'airport-archive-widget-root'; bodyDiv.appendChild(m); }
             else if (col.isWeather) { const w = document.createElement('div'); w.innerHTML = createNyirWeatherColumnHTML(); while (w.firstChild) bodyDiv.appendChild(w.firstChild); setTimeout(() => { loadWeather(); }, 50); }
             else if (!col.items.length && col.isBreaking) { const e = document.createElement('div'); e.innerHTML = '<div style="text-align:center;color:#94a3b8;font-size:0.8rem;padding:20px;">Nincs rendkívüli hír.</div>'; bodyDiv.appendChild(e.firstChild); }
             else { const bf = document.createDocumentFragment(); col.items.forEach(item => bf.appendChild(createNewsItemCard(item, col.isAll, col.isBreaking))); bodyDiv.appendChild(bf); }
@@ -3996,6 +4405,8 @@
             colDiv.appendChild(headerDiv); colDiv.appendChild(bodyDiv); fragment.appendChild(colDiv);
         });
         grid.appendChild(fragment);
+        if (!isYesterday && airportArchiveConfig && airportArchiveConfig.enabled) { airportArchiveRenderWidget(); startAirportArchiveEngine(); }
+        else if (!isYesterday) stopAirportArchiveEngine();
         if (!isYesterday && pwsInyreg42Config && pwsInyreg42Config.enabled) {
             renderPwsInyreg42Widget();
             if (!pwsInyreg42State.current || (Date.now() - pwsInyreg42State.lastCurrentFetch >= 28000)) fetchPwsInyreg42Data(false);
@@ -4072,6 +4483,266 @@
         throw lastError || new Error('A hírek Worker egyik végpontja sem válaszolt.');
     }
 
+    // LHNY történelmi archívum: a részletes rövid időtávot az IEM Worker végpont szolgálja ki,
+    // a teljes több évtizedes idősor napi összesítéseit külön évjáratokban őrizzük a Firebase RTDB-ben.
+    const AIRPORT_ARCHIVE_META_PATH = '/analytics/lhny_airport_archive_meta';
+    const AIRPORT_ARCHIVE_DATA_PATH = '/analytics/lhny_airport_archive';
+    const AIRPORT_ARCHIVE_REFRESH_DEFAULT = 15;
+    const AIRPORT_ARCHIVE_MIN_YEAR = 1972;
+    const AIRPORT_ARCHIVE_RAW_DAYS = 8;
+    const AIRPORT_ARCHIVE_PERIODS = { '24h': 1, '7d': 7, '30d': 30, '90d': 90, '1y': 365, '5y': 1826, '10y': 3652, 'max': 0, 'custom': 0 };
+
+    function airportArchiveEsc(value) { return String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+    function airportArchiveDateKey(date) { const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Budapest',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date).filter(x=>x.type!=='literal').map(x=>[x.type,x.value])); return `${p.year}-${p.month}-${p.day}`; }
+    function airportArchiveDateLabel(value, withYear=true) { if(!value)return '—'; const d=new Date(value.length===10?value+'T12:00:00':value); return Number.isNaN(d.getTime())?String(value):new Intl.DateTimeFormat('hu-HU',{timeZone:'Europe/Budapest',month:'short',day:'numeric',...(withYear?{year:'numeric'}:{}),hour:value.length>10?'2-digit':undefined,minute:value.length>10?'2-digit':undefined}).format(d); }
+    function airportArchiveNum(v,d=1){return v===null||v===undefined||v===''||!Number.isFinite(Number(v))?null:Number(Number(v).toFixed(d));}
+    function airportArchiveMetricValue(p,metric){ if(!p)return null; if(metric==='winddir')return p.windDirDeg; if(metric==='temp')return p.tempAvgC ?? p.tempC; if(metric==='dewpoint')return p.dewAvgC ?? p.dewC; if(metric==='humidity')return p.humidityAvg ?? p.humidity; if(metric==='gust')return p.gustMaxKmh ?? p.gustKmh; if(metric==='pressure')return p.pressureAvgHpa ?? p.pressureHpa; if(metric==='visibility')return p.visibilityMinKm ?? p.visibilityKm; if(metric==='cloudbase')return p.cloudBaseMinM ?? p.cloudBaseM; if(metric==='cloud')return p.cloudRankMax ?? p.cloudRank; if(metric==='precip')return p.precipitationMaxMm; if(metric==='snow')return p.snowDepthMaxCm; if(metric==='ice')return p.iceAccretionMaxMm; return p.windAvgKmh ?? p.windKmh; }
+    function airportArchiveMetricLabel(metric){return ({wind:'Átlagos szélsebesség · km/h',winddir:'Szélirány · fok északhoz képest',gust:'Széllökés · km/h',temp:'Hőmérséklet · °C',dewpoint:'Harmatpont · °C',humidity:'Relatív páratartalom · %',pressure:'QNH légnyomás · hPa',visibility:'Látástávolság · km',cloudbase:'Felhőalap · m',cloud:'Felhőfedettség · kategória',precip:'Max. 1 órás csapadék · mm',snow:'Hóvastagság · cm',ice:'Jéglerakódás · mm'})[metric]||'Szélsebesség';}
+    function airportArchiveMetricUnit(metric){return ({wind:'km/h',winddir:'°',gust:'km/h',temp:'°C',dewpoint:'°C',humidity:'%',pressure:'hPa',visibility:'km',cloudbase:'m',cloud:''})[metric]||'';}
+    function airportArchiveCloudName(rank){if(rank===null||rank===undefined||rank===''||!Number.isFinite(Number(rank)))return 'Nincs adat';return ['Derült','Kevés','Szórványos','Töredezett','Borult','Függőleges látás'][Number(rank)]||'Nincs adat';}
+    function airportArchiveWindLabel(deg){if(deg===null||deg===undefined||deg===''||!Number.isFinite(Number(deg)))return '—';const a=((Number(deg)%360)+360)%360,dirs=['É','ÉK','K','DK','D','DNy','Ny','ÉNy'];return `${Math.round(a)}° ${dirs[Math.round(a/45)%8]}`;}
+    function airportArchiveValue(v,unit='',digits=1){return v===null||v===undefined||v===''||!Number.isFinite(Number(v))?'—':Number(v).toFixed(digits)+(unit?' '+unit:'');}
+    function airportArchiveFirebaseUrl(path){const clean=String(path||'').replace(/\.json(?=\/|$)/g,'');return FIREBASE_URL+(clean.endsWith('.json')?clean:clean+'.json');}
+    async function airportArchiveFirebaseJson(path,options={}){const res=await fetch(airportArchiveFirebaseUrl(path),{cache:'no-store',...options});if(!res.ok)throw new Error('Firebase HTTP '+res.status);return res.status===204?null:res.json();}
+    async function airportArchiveFirebaseWrite(path,data,method='PUT'){const res=await fetch(airportArchiveFirebaseUrl(path),{method,headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});if(!res.ok)throw new Error('Firebase mentési hiba HTTP '+res.status);return res.json().catch(()=>null);}
+    function airportArchiveWorkerUrl(mode,start,end){const u=new URL(`${KEPBEN_WEATHER_PROXY_URL}/api/metar-history`);u.searchParams.set('mode',mode);u.searchParams.set('start',start);u.searchParams.set('end',end);return u.toString();}
+    async function airportArchiveFetch(mode,start,end,force=false){
+      const key=mode+'|'+start+'|'+end,cache=airportArchiveState.rawCache.get(key),recentEnd=airportArchiveDateKey(new Date(Date.now()-4*86400000)),cacheTtl=mode==='raw'?5*60000:(end>=recentEnd?90*1000:30*60000);
+      if(!force&&cache&&Date.now()-cache.at<cacheTtl)return cache.data;
+      const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),25000);
+      try{
+        const res=await fetch(airportArchiveWorkerUrl(mode,start,end),{cache:'no-store',signal:controller.signal});
+        const data=await res.json().catch(()=>null);
+        if(res.status===404)throw new Error('A repülőtéri archívum Worker-végpontja ( /api/metar-history ) hiányzik. A kepben-live Worker frissítése szükséges.');
+        if(!res.ok||!data?.success)throw new Error(data?.error||'Az LHNY archívum lekérése sikertelen (HTTP '+res.status+').');
+        airportArchiveState.rawCache.set(key,{at:Date.now(),data});
+        if(airportArchiveState.rawCache.size>8)airportArchiveState.rawCache.delete(airportArchiveState.rawCache.keys().next().value);
+        return data;
+      }catch(e){if(e?.name==='AbortError')throw new Error('Az LHNY adatforrás 25 másodpercen belül nem válaszolt.');throw e;}
+      finally{clearTimeout(timer);}
+    }
+    function airportArchiveSetStatus(message,error=false){airportArchiveState.status=message;const el=document.getElementById('airport-archive-status');if(el){el.textContent=message;el.style.color=error?'#9b2c25':'#60778d';}const dev=document.getElementById('airport-archive-dev-status');if(dev&&document.getElementById('tab-airport-archive')?.style.display!=='none')dev.textContent=message;}
+    function airportArchiveRoot(){return document.getElementById('airport-archive-widget-root');}
+    function airportArchiveBuildWindRose(points){
+      const names=['É','ÉK','K','DK','D','DNy','Ny','ÉNy'],bins=Array(8).fill(0);
+      points.forEach(p=>{const d=p?.windDirDeg;if(d===null||d===undefined||d===''||!Number.isFinite(Number(d)))return;const index=Math.round((((Number(d)%360)+360)%360)/45)%8;bins[index]+=Math.max(1,Number(p.count)||1);});
+      const total=bins.reduce((a,b)=>a+b,0);if(!total)return '<div class="aa-empty">Ehhez az időszakhoz még nincs értékelhető szélirány-adat.</div>';
+      const cx=170,cy=82,maxR=55,maxBin=Math.max(...bins,1),coords=(r,i)=>{const a=(i*45-90)*Math.PI/180;return `${(cx+Math.cos(a)*r).toFixed(1)},${(cy+Math.sin(a)*r).toFixed(1)}`;};
+      const rings=[.33,.66,1].map(k=>`<circle cx="${cx}" cy="${cy}" r="${(maxR*k).toFixed(1)}" fill="none" stroke="#dbe7f1" stroke-dasharray="3 3"/>`).join('');
+      const axes=names.map((n,i)=>{const [x2,y2]=coords(maxR,i).split(','),[tx,ty]=coords(maxR+17,i).split(',');return `<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="#e1eaf2"/><text x="${tx}" y="${(Number(ty)+3).toFixed(1)}" text-anchor="middle">${n}</text>`;}).join('');
+      const polygon=bins.map((v,i)=>coords(maxR*(v/maxBin),i)).join(' ');
+      const labels=bins.map((v,i)=>`<text class="aa-rose-count" x="${coords(maxR*(v/maxBin)+9,i).split(',')[0]}" y="${(Number(coords(maxR*(v/maxBin)+9,i).split(',')[1])+3).toFixed(1)}" text-anchor="middle">${v?Math.round(v):''}</text>`).join('');
+      return `<div class="aa-chart-wrap"><svg class="aa-chart" viewBox="0 0 340 170" role="img" aria-label="Szélirányok eloszlása, szélrózsa">${rings}${axes}<polygon points="${polygon}" fill="#0ea5e9" fill-opacity=".22" stroke="#0284c7" stroke-width="2.5" stroke-linejoin="round"/><circle cx="${cx}" cy="${cy}" r="3" fill="#0369a1"/>${labels}</svg><div class="aa-legend"><span><i></i>Szélirány szerinti észlelésszám</span><span>${total.toLocaleString('hu-HU')} súlyozott jelentés</span></div></div>`;
+    }
+    function airportArchiveBuildChart(points,metric){
+      if(metric==='winddir')return airportArchiveBuildWindRose(points);
+      const valid=points.map(p=>({p,v:airportArchiveMetricValue(p,metric)})).filter(x=>Number.isFinite(x.v));
+      if(valid.length<2)return '<div class="aa-empty">Ehhez az időszakhoz még nincs elegendő mérhető adat a grafikonhoz.</div>';
+      const width=340,height=156,left=38,right=9,top=13,bottom=24,plotW=width-left-right,plotH=height-top-bottom;
+      // Hosszú, több évtizedes görbéknél legfeljebb 900 pontot rajzolunk, a teljes adatsor megmarad a táblában és a memóriában.
+      const plotted=valid.length>900?Array.from({length:900},(_,i)=>valid[Math.round(i*(valid.length-1)/899)]):valid;
+      const vals=plotted.map(x=>x.v),min=Math.min(...vals),max=Math.max(...vals),pad=(max-min)||Math.max(Math.abs(max)*.08,1),lo=min-pad*.12,hi=max+pad*.12;
+      const x=i=>left+(i/(plotted.length-1))*plotW,y=v=>top+(hi-v)/(hi-lo)*plotH;
+      const path=plotted.map((o,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(o.v).toFixed(1)).join(' ');
+      const area=path+` L ${x(plotted.length-1).toFixed(1)} ${(top+plotH).toFixed(1)} L ${left} ${(top+plotH).toFixed(1)} Z`;
+      const ticks=[0,1,2,3].map(i=>{const v=hi-(hi-lo)*i/3,yy=top+plotH*i/3;return `<line class="grid" x1="${left}" x2="${width-right}" y1="${yy}" y2="${yy}"/><text x="${left-5}" y="${yy+3}" text-anchor="end">${v.toFixed(metric==='pressure'?0:1)}</text>`}).join('');
+      const dotIndexes=[0,Math.floor((plotted.length-1)/2),plotted.length-1];
+      const dots=dotIndexes.map(i=>`<circle class="dot" cx="${x(i)}" cy="${y(plotted[i].v)}" r="3.2"/>`).join('');
+      const xlabels=[valid[0],valid[Math.floor((valid.length-1)/2)],valid[valid.length-1]].map((o,i)=>`<text x="${[left,left+plotW/2,width-right][i]}" y="${height-5}" text-anchor="${i===0?'start':i===2?'end':'middle'}">${airportArchiveEsc(airportArchiveDateLabel(o.p.time||o.p.day,false))}</text>`).join('');
+      return `<div class="aa-chart-wrap"><svg class="aa-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${airportArchiveEsc(airportArchiveMetricLabel(metric))}"><defs><linearGradient id="aaArea" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#0ea5e9" stop-opacity=".26"/><stop offset="100%" stop-color="#0ea5e9" stop-opacity=".015"/></linearGradient></defs>${ticks}<path class="area" d="${area}"/><path class="line" d="${path}"/>${dots}${xlabels}</svg><div class="aa-legend"><span><i></i>${airportArchiveEsc(airportArchiveMetricLabel(metric))}</span><span>${valid.length.toLocaleString('hu-HU')} adatpont</span></div></div>`;
+    }
+    function airportArchiveRenderTable(points,raw){
+      const rows=points.slice(-8).reverse(); if(!rows.length)return '<div class="aa-empty">Még nincs megjeleníthető észlelés. A történelmi visszatöltés közben a kártya fokozatosan telik fel.</div>';
+      if(raw)return `<table class="aa-table"><thead><tr><th>IDŐPONT</th><th>HŐM.</th><th>SZÉL / IRÁNY</th><th>NYOMÁS</th></tr></thead><tbody>${rows.map(p=>`<tr><td>${airportArchiveEsc(airportArchiveDateLabel(p.time))}<span class="aa-metar">${airportArchiveEsc(p.sourceType||p.weatherCode||'METAR')}</span></td><td>${airportArchiveValue(p.tempC,'°C')}</td><td>${airportArchiveValue(p.windKmh,'km/h')}<span class="aa-metar">${airportArchiveWindLabel(p.windDirDeg)} · lökés ${airportArchiveValue(p.gustKmh,'km/h')}</span></td><td>${airportArchiveValue(p.pressureHpa,'hPa',0)}</td></tr>`).join('')}</tbody></table>${rows.some(p=>p.rawMetar)?`<details style="margin-top:7px;"><summary style="font-size:.61rem;color:#23557a;cursor:pointer;">Nyers METAR-jelentések</summary>${rows.filter(p=>p.rawMetar).map(p=>`<div class="aa-metar">${airportArchiveEsc(airportArchiveDateLabel(p.time))} · ${airportArchiveEsc(p.rawMetar)}</div>`).join('')}</details>`:''}`;
+      return `<table class="aa-table"><thead><tr><th>NAP</th><th>HŐM.</th><th>SZÉL / LÖKÉS</th><th>FELHŐ / LÁTÁS</th></tr></thead><tbody>${rows.map(p=>`<tr><td>${airportArchiveEsc(airportArchiveDateLabel(p.day))}<span class="aa-metar">${Number(p.count||0)} észlelés</span></td><td>${airportArchiveValue(p.tempAvgC,'°C')}<span class="aa-metar">${airportArchiveValue(p.tempMinC,'°C')} – ${airportArchiveValue(p.tempMaxC,'°C')}</span></td><td>${airportArchiveValue(p.windAvgKmh,'km/h')}<span class="aa-metar">${airportArchiveWindLabel(p.windDirDeg)} · max. ${airportArchiveValue(p.gustMaxKmh,'km/h')}</span></td><td>${airportArchiveEsc(airportArchiveCloudName(p.cloudRankMax))}<span class="aa-metar">alap ${airportArchiveValue(p.cloudBaseMinM,'m',0)} · látás ${airportArchiveValue(p.visibilityMinKm,'km',1)}</span></td></tr>`).join('')}</tbody></table>`;
+    }
+    function airportArchiveRenderKpis(points,raw){
+      const p=points[points.length-1]||null; if(!p)return '<div class="aa-stats"><div class="aa-stat"><label>Legutóbbi adat</label><strong>—</strong></div><div class="aa-stat"><label>Adatpont</label><strong>0</strong></div></div>';
+      const temp=raw?p.tempC:p.tempAvgC,wind=raw?p.windKmh:p.windAvgKmh,gust=raw?p.gustKmh:p.gustMaxKmh,pressure=raw?p.pressureHpa:p.pressureAvgHpa;
+      return `<div class="aa-stats"><div class="aa-stat"><label>Hőmérséklet</label><strong>${airportArchiveValue(temp,'°C')}</strong><small>harmatpont ${airportArchiveValue(raw?p.dewC:p.dewAvgC,'°C')}</small></div><div class="aa-stat"><label>Szél / lökés</label><strong>${airportArchiveValue(wind,'km/h')}</strong><small>${airportArchiveWindLabel(p.windDirDeg)} · lökés ${airportArchiveValue(gust,'km/h')}</small></div><div class="aa-stat"><label>Légnyomás</label><strong>${airportArchiveValue(pressure,'hPa',0)}</strong><small>QNH · állomási nyomás</small></div><div class="aa-stat"><label>Látástávolság</label><strong>${airportArchiveValue(raw?p.visibilityKm:p.visibilityMinKm,'km',1)}</strong><small>felhőalap ${airportArchiveValue(raw?p.cloudBaseM:p.cloudBaseMinM,'m',0)}</small></div></div>`;
+    }
+    function airportArchiveRenderWidget(){
+      const root=airportArchiveRoot();if(!root)return;
+      const points=airportArchiveState.points||[],raw=airportArchiveState.range==='24h'||airportArchiveState.range==='7d'||(airportArchiveState.range==='custom'&&airportArchiveState.lastRangeRaw===true),period=airportArchiveState.range;
+      const meta=airportArchiveState.meta||{},years=meta.years||{},completeYears=Object.keys(years).filter(y=>years[y]?.done).length,totalYears=new Date().getFullYear()-AIRPORT_ARCHIVE_MIN_YEAR+1;
+      const progress=Math.min(100,Math.round(completeYears/Math.max(1,totalYears)*100)),err=airportArchiveState.error;
+      const rangeOptions=[['24h','24 óra'],['7d','7 nap'],['30d','30 nap'],['90d','90 nap'],['1y','1 év'],['5y','5 év'],['10y','10 év'],['max','Teljes archívum'],['custom','Egyedi dátumtartomány']];
+      const metricOptions=[['wind','Szél'],['winddir','Szélirány'],['gust','Széllökés'],['temp','Hőmérséklet'],['dewpoint','Harmatpont'],['humidity','Páratartalom'],['pressure','Légnyomás'],['visibility','Látástávolság'],['cloudbase','Felhőalap'],['cloud','Felhőzet'],['precip','1 órás csapadék'],['snow','Hóvastagság'],['ice','Jéglerakódás']];
+      const pointCount=points.reduce((s,p)=>s+(Number(p.count)||1),0);
+      root.innerHTML=`<div class="aa-shell"><section class="aa-hero"><div class="aa-kicker">LHNY · NYÍREGYHÁZA · HU__ASOS</div><div class="aa-title">Repülőtéri időjárási napló</div><div class="aa-sub">Visszamenőleges automatikus repülőtéri észlelések · napi összesítések és részletes jelentések. Az üres napok mérési hiányt jelentenek, nem becsült értéket.</div>${airportArchiveRenderKpis(points,raw)}<div class="aa-sub" style="margin-top:9px;">${points.length?`Utolsó adat: ${airportArchiveEsc(airportArchiveDateLabel(points[points.length-1].time||points[points.length-1].day))}`:'Adatok előkészítése…'}</div></section>
+        <section class="aa-panel"><div class="aa-panel-head"><strong>Időszak és változó</strong><button class="aa-action" onclick="airportArchiveLoadRange(airportArchiveState.range,true)">↻ Frissítés</button></div><div class="aa-pills"><select class="aa-select" aria-label="Időszak" onchange="airportArchiveLoadRange(this.value)">${rangeOptions.map(([v,l])=>`<option value="${v}" ${period===v?'selected':''}>${l}</option>`).join('')}</select><select class="aa-select" aria-label="Grafikon változó" onchange="airportArchiveSetMetric(this.value)">${metricOptions.map(([v,l])=>`<option value="${v}" ${airportArchiveState.metric===v?'selected':''}>${l}</option>`).join('')}</select></div><div class="aa-custom-range"><label>KEZDŐNAP <input type="date" id="airport-archive-start-date" min="${AIRPORT_ARCHIVE_FIRST_DAY}" max="${airportArchiveDateKey(new Date())}" value="${airportArchiveState.customStart||airportArchiveDateKey(new Date(Date.now()-6*86400000))}"></label><label>ZÁRÓNAP <input type="date" id="airport-archive-end-date" min="${AIRPORT_ARCHIVE_FIRST_DAY}" max="${airportArchiveDateKey(new Date())}" value="${airportArchiveState.customEnd||airportArchiveDateKey(new Date())}"></label><button class="aa-action" onclick="airportArchiveLoadCustomRange()">KIVÁLASZTOTT IDŐSZAK BETÖLTÉSE</button><small>Legfeljebb 8 nap: részletes észlelések · 8 nap felett: napi összesítések · 1972.12.31-től a mai napig</small></div><div style="margin-top:9px;"><div class="aa-panel-head" style="margin-bottom:4px;"><strong>${airportArchiveEsc(airportArchiveMetricLabel(airportArchiveState.metric))}</strong><span style="font-size:.58rem;color:#6b8298;">${pointCount.toLocaleString('hu-HU')} mérés / nap</span></div>${airportArchiveBuildChart(points,airportArchiveState.metric)}</div></section>
+        <section class="aa-panel"><div class="aa-panel-head"><strong>${raw?'Legutóbbi jelentések':'Napi összesítés'}</strong><span style="font-size:.58rem;color:#6b8298;">${points.length.toLocaleString('hu-HU')} rekord/nap</span></div>${airportArchiveRenderTable(points,raw)}</section>
+        <section class="aa-panel"><div class="aa-panel-head"><strong>Archívum feltöltése</strong><span style="font-size:.58rem;color:#6b8298;">${completeYears}/${totalYears} év</span></div><div class="aa-status" id="airport-archive-status">${airportArchiveEsc(err||airportArchiveState.status||'Adatbetöltés…')}</div><div class="aa-progress"><i style="width:${progress}%"></i></div><div class="aa-status" style="margin-top:7px;">A lekérési kezdőhatár 1972.12.31.; az LHNY tényleges előzményei változónként eltérnek. A rendszer a normál METAR/SPECI mellett az elérhető 5 perces MADIS/HFMETAR adatokat is kéri. A HFMETAR hőmérséklet- és harmatpontmezőit ismert pontossági korlátozás miatt nem használjuk; ezeket normál jelentésekből vesszük. Csak tényleges megfigyeléseket tárolunk. Frissítés ${airportArchiveConfig.refreshMin||AIRPORT_ARCHIVE_REFRESH_DEFAULT} percenként, a böngészőfül látható állapotában.</div></section>
+        <div class="aa-source">Adatforrás: Iowa Environmental Mesonet · HU__ASOS · LHNY. Lekért típusok: MADIS HFMETAR (5 perc, ha elérhető), rendszeres METAR és SPECI. Ez archív megfigyelési feed, nem közvetlen, folyamatos műszertelemetria; a változók lefedettsége és minősége időszakonként eltér. A csapadékadat ennél a nem amerikai állomásnál nem garantált.</div></div>`;
+    }
+    async function airportArchiveSetMetric(metric){if(!['wind','winddir','gust','temp','dewpoint','humidity','pressure','visibility','cloudbase','cloud','precip','snow','ice'].includes(metric))return;airportArchiveState.metric=metric;airportArchiveRenderWidget();}
+    async function airportArchiveLoadCustomRange(force=false){
+      if(airportArchiveState.loading||document.visibilityState!=='visible'||!airportArchiveConfig.enabled)return;
+      const start=document.getElementById('airport-archive-start-date')?.value||airportArchiveState.customStart;
+      const end=document.getElementById('airport-archive-end-date')?.value||airportArchiveState.customEnd;
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(start||'')||!/^\d{4}-\d{2}-\d{2}$/.test(end||'')){airportArchiveSetStatus('Válassz érvényes kezdő- és zárónapot.',true);return;}
+      const startMs=Date.parse(start+'T00:00:00Z'),endMs=Date.parse(end+'T00:00:00Z'),span=(endMs-startMs)/86400000+1;
+      if(!Number.isFinite(span)||start<AIRPORT_ARCHIVE_FIRST_DAY||end<start||end>airportArchiveDateKey(new Date())){airportArchiveSetStatus('Az időszak legyen 1972.12.31. és a mai nap között.',true);return;}
+      airportArchiveState.customStart=start;airportArchiveState.customEnd=end;airportArchiveState.range='custom';
+      const raw=span<=8, endExclusive=airportArchiveDateKey(new Date(endMs+86400000));
+      const requestId=++airportArchiveState.requestId;airportArchiveState.loading=true;airportArchiveState.error='';airportArchiveSetStatus('A kiválasztott LHNY-időszak lekérése…');
+      try{
+        let points=[],missingYears=[];
+        if(raw){
+          const data=await airportArchiveFetch('raw',start,endExclusive,force);
+          if(requestId!==airportArchiveState.requestId)return;
+          points=data.observations||[];
+          airportArchiveState.lastRangeRaw=true;
+          if(data.truncated)airportArchiveSetStatus('A részletes forrás több észlelést talált, mint amennyit egyben visszaadott. Szűkítsd az időszakot.');
+        }else{
+          // Több évtizedes egyedi tartomány: az évjáratokat a Firebase-ből olvassuk, nem indítunk óriási nyers adatlekérést.
+          const firstYear=Number(start.slice(0,4)),lastYear=Number(end.slice(0,4)),years=[];
+          for(let y=firstYear;y<=lastYear;y++)years.push(y);
+          for(let i=0;i<years.length;i+=4){
+            if(requestId!==airportArchiveState.requestId)return;
+            const batch=years.slice(i,i+4);
+            const loaded=await Promise.all(batch.map(async y=>{
+              if(airportArchiveState.yearCache.has(y))return {year:y,bucket:airportArchiveState.yearCache.get(y)};
+              const value=await airportArchiveFirebaseJson(`${AIRPORT_ARCHIVE_DATA_PATH}/${y}.json`).catch(()=>null);
+              if(value)airportArchiveState.yearCache.set(y,value);
+              return {year:y,bucket:value};
+            }));
+            for(const item of loaded){
+              if(!item.bucket){missingYears.push(item.year);continue;}
+              Object.values(item.bucket.days||{}).forEach(day=>{if(day.day>=start&&day.day<=end)points.push(day);});
+            }
+          }
+          airportArchiveState.lastRangeRaw=false;
+        }
+        if(requestId!==airportArchiveState.requestId)return;
+        points.sort((a,b)=>(a.epoch||Date.parse((a.time||a.day)+'T12:00:00Z'))-(b.epoch||Date.parse((b.time||b.day)+'T12:00:00Z')));
+        airportArchiveState.points=points;
+        const missingText=missingYears.length?` · ${missingYears.length} év még nem töltődött be (${missingYears.slice(0,6).join(', ')}${missingYears.length>6?'…':''}); a háttér-visszatöltés folytatja.`:'';
+        airportArchiveSetStatus(`Betöltve: ${points.length.toLocaleString('hu-HU')} ${raw?'részletes észlelés':'napi összesítés'} · ${start} – ${end}${missingText}.`);
+        airportArchiveRenderWidget();
+      }catch(e){airportArchiveState.error=e.message||String(e);airportArchiveSetStatus(airportArchiveState.error,true);airportArchiveRenderWidget();}
+      finally{if(requestId===airportArchiveState.requestId)airportArchiveState.loading=false;}
+    }
+    async function airportArchiveLoadRange(range,force=false){
+      if(!Object.prototype.hasOwnProperty.call(AIRPORT_ARCHIVE_PERIODS,range)||airportArchiveState.loading||document.visibilityState!=='visible'||!airportArchiveConfig.enabled)return;
+      if(range==='custom'){airportArchiveState.range='custom';airportArchiveRenderWidget();return;}
+      airportArchiveState.range=range;const requestId=++airportArchiveState.requestId;airportArchiveState.loading=true;airportArchiveState.error='';airportArchiveSetStatus('Az LHNY előzmények lekérése…');
+      try{
+        const now=new Date(),endKey=airportArchiveDateKey(new Date(now.getTime()+86400000));let points=[],raw=false;
+        if(range==='24h'||range==='7d'){
+          raw=true;const days=range==='24h'?2:7,startDate=new Date(now.getTime()-days*86400000),startKey=airportArchiveDateKey(startDate);
+          const cacheKey='raw|'+startKey+'|'+endKey,cache=airportArchiveState.rawCache.get(cacheKey);
+          let data=cache&&Date.now()-cache.at<5*60000&&!force?cache.data:null;
+          if(!data)data=await airportArchiveFetch('raw',startKey,endKey,force);
+          points=(data.observations||[]).filter(p=>p.epoch>=now.getTime()-(range==='24h'?86400000:7*86400000));
+          if(data.truncated)airportArchiveSetStatus('A részletes forrás ennél az időszaknál korlátozott számú rekordot adott vissza.');
+        }else{
+          const days=AIRPORT_ARCHIVE_PERIODS[range],startDate=range==='max'?new Date(AIRPORT_ARCHIVE_FIRST_DAY+'T00:00:00Z'):new Date(now.getTime()-days*86400000),startYear=startDate.getUTCFullYear(),endYear=now.getUTCFullYear();
+          const years=[];for(let y=startYear;y<=endYear;y++)years.push(y);let missingYears=[];
+          for(let i=0;i<years.length;i+=4){const batch=years.slice(i,i+4);const loaded=await Promise.all(batch.map(async y=>{if(airportArchiveState.yearCache.has(y))return {year:y,bucket:airportArchiveState.yearCache.get(y)};const value=await airportArchiveFirebaseJson(`${AIRPORT_ARCHIVE_DATA_PATH}/${y}.json`).catch(()=>null);if(value)airportArchiveState.yearCache.set(y,value);return {year:y,bucket:value};}));for(const item of loaded){if(!item.bucket){missingYears.push(item.year);continue;}Object.values(item.bucket.days||{}).forEach(p=>{if(p.day>=airportArchiveDateKey(startDate)&&p.day<=endKey)points.push(p);});}if(requestId!==airportArchiveState.requestId)return;}
+          points.sort((a,b)=>a.day.localeCompare(b.day));
+          if(missingYears.length)airportArchiveSetStatus(`A megjelenített adatok részlegesek: ${missingYears.length} év még nincs az archívumban (${missingYears.slice(0,5).join(', ')}${missingYears.length>5?'…':''}). A háttér-visszatöltés folytatja.`);else if(!points.length)airportArchiveSetStatus('Ehhez az időszakhoz még nem érkezett adat.');
+        }
+        if(requestId!==airportArchiveState.requestId)return;
+        points.sort((a,b)=>(a.epoch||Date.parse(a.day+'T12:00:00Z'))-(b.epoch||Date.parse(b.day+'T12:00:00Z')));
+        airportArchiveState.points=points;airportArchiveState.error='';airportArchiveState.lastRangeRaw=raw;airportArchiveSetStatus(points.length?`Betöltve: ${points.length.toLocaleString('hu-HU')} ${raw?'részletes észlelés':'napi összesítés'}. Forrás: IEM / HU__ASOS.`:'A kiválasztott időszakhoz még nincs tárolt észlelés.');airportArchiveRenderWidget();
+      }catch(e){airportArchiveState.error=e.message||String(e);airportArchiveSetStatus(airportArchiveState.error,true);airportArchiveRenderWidget();}
+      finally{if(requestId===airportArchiveState.requestId)airportArchiveState.loading=false;}
+    }
+    async function airportArchiveUpdateRecent(){
+      if(!airportArchiveConfig.enabled||document.visibilityState!=='visible')return;
+      const now=new Date(),end=airportArchiveDateKey(new Date(now.getTime()+86400000)),start=airportArchiveDateKey(new Date(now.getTime()-2*86400000));
+      const data=await airportArchiveFetch('summary',start,end,true);
+      const byYear={};for(const day of data.days||[]){const y=day.day.slice(0,4);if(!byYear[y])byYear[y]={};byYear[y][day.day]=day;}
+      for(const [year,days] of Object.entries(byYear)){
+        await airportArchiveFirebaseWrite(`${AIRPORT_ARCHIVE_DATA_PATH}/${year}/days.json`,days,'PATCH');
+        const cached=airportArchiveState.yearCache.get(Number(year))||{year:Number(year),days:{}};cached.days=Object.assign(cached.days||{},days);cached.updatedAt=data.fetchedAt;airportArchiveState.yearCache.set(Number(year),cached);
+      }
+      airportArchiveState.lastRefreshAt=Date.now();
+      await airportArchiveFirebaseWrite(AIRPORT_ARCHIVE_META_PATH,{lastRefreshAt:data.fetchedAt,lastSource:data.source,lastRecentDays:data.days?.length||0},'PATCH');
+      if(airportArchiveState.range==='custom'&&airportArchiveState.customEnd>=start)await airportArchiveLoadCustomRange(true);
+      else if(airportArchiveState.range==='24h'||airportArchiveState.range==='7d')await airportArchiveLoadRange(airportArchiveState.range,true);
+      else if(airportArchiveState.range!=='30d'&&AIRPORT_ARCHIVE_PERIODS[airportArchiveState.range])await airportArchiveLoadRange(airportArchiveState.range,true);
+      else if(airportArchiveState.range==='30d')await airportArchiveLoadRange('30d',true);
+    }
+    function airportArchiveMergeYearIntoCurrentView(year,bucket){
+      if(!bucket||!bucket.days||!Object.keys(bucket.days).length)return;
+      const range=airportArchiveState.range,now=new Date(),endKey=airportArchiveDateKey(now);
+      let startKey=null,endLimit=endKey;
+      if(range==='custom'){
+        if(airportArchiveState.lastRangeRaw)return;
+        startKey=airportArchiveState.customStart;endLimit=airportArchiveState.customEnd;
+      }else if(range==='max')startKey=AIRPORT_ARCHIVE_FIRST_DAY;
+      else if(['30d','90d','1y','5y','10y'].includes(range))startKey=airportArchiveDateKey(new Date(now.getTime()-AIRPORT_ARCHIVE_PERIODS[range]*86400000));
+      else return; // A 24h/7d nézet a friss részletes jelentést közvetlenül kéri.
+      if(!startKey||year<Number(startKey.slice(0,4))||year>Number(endLimit.slice(0,4)))return;
+      const merged=new Map((airportArchiveState.points||[]).map(p=>[p.day,p]));
+      Object.values(bucket.days).forEach(day=>{if(day.day>=startKey&&day.day<=endLimit)merged.set(day.day,day);});
+      airportArchiveState.points=Array.from(merged.values()).sort((a,b)=>a.day.localeCompare(b.day));
+      airportArchiveState.lastRangeRaw=false;
+      airportArchiveSetStatus(`Az archívum bővül: ${year} évjárat mentve · ${airportArchiveState.points.length.toLocaleString('hu-HU')} napi rekord a kiválasztott tartományban.`);
+      airportArchiveRenderWidget();
+    }
+    async function airportArchiveLeaseAcquire(){
+      const path='/analytics/lhny_airport_archive_meta/lease.json';
+      const lease=await airportArchiveFirebaseJson(path).catch(()=>null),now=Date.now();
+      if(lease?.expiresAt>now&&lease.owner!==airportArchiveState.owner)return false;
+      await airportArchiveFirebaseWrite(path,{owner:airportArchiveState.owner,expiresAt:now+90000,updatedAt:new Date().toISOString()});return true;
+    }
+    async function airportArchiveLeaseRelease(){try{await airportArchiveFirebaseWrite('/analytics/lhny_airport_archive_meta/lease.json',{owner:airportArchiveState.owner,expiresAt:0,updatedAt:new Date().toISOString()});}catch(e){}}
+    function airportArchivePause(){airportArchiveState.backfillPaused=true;}
+    async function airportArchiveBackfill(){
+      if(airportArchiveState.backfillRunning||!airportArchiveConfig.enabled||document.visibilityState!=='visible')return;
+      airportArchiveState.backfillRunning=true;let lease=false;
+      try{
+        lease=await airportArchiveLeaseAcquire();if(!lease){airportArchiveSetStatus('A történelmi archívumot egy másik megnyitott KÉPBEN! munkamenet tölti.');return;}
+        let meta=await airportArchiveFirebaseJson(AIRPORT_ARCHIVE_META_PATH).catch(()=>({}));meta=meta&&typeof meta==='object'?meta:{};const yearsMeta=meta.years||{};
+        airportArchiveState.meta={...meta,years:yearsMeta};airportArchiveRenderWidget();
+        const currentYear=new Date().getFullYear();
+        for(let year=currentYear;year>=AIRPORT_ARCHIVE_MIN_YEAR;year--){
+          if(!airportArchiveConfig.enabled||document.visibilityState!=='visible')break;
+          if(yearsMeta[year]?.done)continue;
+          airportArchiveState.backfillYear=year;airportArchiveSetStatus(`Történelmi visszatöltés: ${year} · egy év feldolgozása…`);
+          const start=year===AIRPORT_ARCHIVE_MIN_YEAR?AIRPORT_ARCHIVE_FIRST_DAY:`${year}-01-01`,end=year===currentYear?airportArchiveDateKey(new Date(Date.now()+86400000)):`${year+1}-01-01`;
+          const t0=Date.now(),data=await airportArchiveFetch('summary',start,end);
+          const days={};(data.days||[]).forEach(day=>{days[day.day]=day;});
+          const bucket={year,source:data.source,sourceName:'Iowa Environmental Mesonet · HU__ASOS',count:Number(data.count)||0,dayCount:Object.keys(days).length,days,updatedAt:data.fetchedAt,coverage:'observations-only',checkedEmpty:!(Number(data.count)||0)};
+          await airportArchiveFirebaseWrite(`${AIRPORT_ARCHIVE_DATA_PATH}/${year}.json`,bucket,'PUT');
+          airportArchiveState.yearCache.set(year,bucket);
+          await airportArchiveFirebaseWrite(`${AIRPORT_ARCHIVE_META_PATH}/years/${year}.json`,{done:true,count:bucket.count,dayCount:bucket.dayCount,completedAt:new Date().toISOString(),source:data.source},'PUT');
+          yearsMeta[year]={done:true,count:bucket.count,dayCount:bucket.dayCount};airportArchiveState.meta={...meta,years:yearsMeta};
+          airportArchiveMergeYearIntoCurrentView(year,bucket);
+          const total=Object.values(yearsMeta).filter(x=>x?.done).length;airportArchiveSetStatus(`Visszatöltés: ${year} elkészült · ${total}/${currentYear-AIRPORT_ARCHIVE_MIN_YEAR+1} év. ${bucket.count.toLocaleString('hu-HU')} észlelés.`);
+          airportArchiveRenderWidget();
+          const wait=Math.max(0,1250-(Date.now()-t0));if(wait)await new Promise(resolve=>setTimeout(resolve,wait));
+          if(!airportArchiveConfig.enabled||document.visibilityState!=='visible')break;
+          await airportArchiveFirebaseWrite('/analytics/lhny_airport_archive_meta/lease.json',{owner:airportArchiveState.owner,expiresAt:Date.now()+90000,updatedAt:new Date().toISOString()});
+        }
+        const complete=Object.values(yearsMeta).filter(x=>x?.done).length;
+        await airportArchiveFirebaseWrite(AIRPORT_ARCHIVE_META_PATH,{backfillComplete:complete>=currentYear-AIRPORT_ARCHIVE_MIN_YEAR+1,completedYears:complete,lastBackfillAt:new Date().toISOString(),firstDay:AIRPORT_ARCHIVE_FIRST_DAY},'PATCH');
+        if(complete>=currentYear-AIRPORT_ARCHIVE_MIN_YEAR+1)airportArchiveSetStatus(`Teljes elérhető időszak feldolgozva · ${complete} év. Új frissítések ${airportArchiveConfig.refreshMin||15} percenként.`);
+      }catch(e){airportArchiveState.error=e.message||String(e);airportArchiveState.backfillFailed=true;airportArchiveState.backfillRetryAt=Date.now()+15*60000;airportArchiveSetStatus('A visszatöltés átmenetileg megállt: '+airportArchiveState.error+' · újrapróbálás 15 perc múlva.',true);}
+      finally{if(lease)await airportArchiveLeaseRelease();airportArchiveState.backfillRunning=false;airportArchiveState.backfillYear=null;}
+    }
+    function stopAirportArchiveEngine(){if(airportArchiveState.timerId){clearInterval(airportArchiveState.timerId);airportArchiveState.timerId=null;}airportArchivePause();}
+    function startAirportArchiveEngine(){
+      if(!airportArchiveConfig?.enabled||document.visibilityState!=='visible'){stopAirportArchiveEngine();return;}
+      // A hírfolyam újrarajzolása nem indíthatja újra a timer ciklusát.
+      if(airportArchiveState.timerId)return;
+      // Először a legfrissebb 2-3 napot kérjük le, és csak utána indul az éves archívum-visszatöltés.
+      // Így a kezdő frissítés és a történelmi lekérés nem indul párhuzamosan az IEM felé.
+      if(!airportArchiveState.startupPromise){
+        airportArchiveState.startupPromise=(async()=>{
+          if(!airportArchiveState.lastRefreshAt||Date.now()-airportArchiveState.lastRefreshAt>Math.max(12,(airportArchiveConfig.refreshMin||15)-2)*60000){
+            await airportArchiveUpdateRecent().catch(e=>{airportArchiveState.error=e.message||String(e);airportArchiveSetStatus('Frissítési hiba: '+airportArchiveState.error,true);});
+          }
+          if(document.visibilityState==='visible'&&airportArchiveConfig.enabled&&!airportArchiveState.backfillRunning)await airportArchiveBackfill();
+        })().finally(()=>{airportArchiveState.startupPromise=null;});
+      }
+      airportArchiveState.timerId=setInterval(()=>{if(document.visibilityState==='visible'&&airportArchiveConfig.enabled){airportArchiveUpdateRecent().catch(e=>{airportArchiveState.error=e.message||String(e);airportArchiveSetStatus('Frissítési hiba: '+airportArchiveState.error,true);});if(airportArchiveState.backfillFailed&&Date.now()>=airportArchiveState.backfillRetryAt){airportArchiveState.backfillFailed=false;airportArchiveBackfill();}}},Math.max(15,Math.min(360,Number(airportArchiveConfig.refreshMin)||AIRPORT_ARCHIVE_REFRESH_DEFAULT))*60000);
+    }
+    document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')stopAirportArchiveEngine();else if(airportArchiveConfig?.enabled)startAirportArchiveEngine();});
+
     async function fetchDatabases() {
         const t = Date.now();
         const results = await Promise.all([
@@ -4087,10 +4758,11 @@
             fetch(`${FIREBASE_URL}/analytics/radio_stations.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
             fetch(`${FIREBASE_URL}/analytics/theme_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
             fetch(`${FIREBASE_URL}/analytics/pws_inyreg42_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
-            fetch(`${FIREBASE_URL}/analytics/space_weather_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null)
+            fetch(`${FIREBASE_URL}/analytics/space_weather_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null),
+            fetch(`${FIREBASE_URL}/analytics/airport_archive_config.json?t=${t}`, { cache: 'no-store' }).catch(() => null)
         ]);
 
-        const [workerData, filterRes, breakingRes, excludedRes, pwsRes, kockaRes, radarRes, radioRes, nyirRes, radioListRes, themeRes, pwsInyregRes, spaceWeatherRes] = results;
+        const [workerData, filterRes, breakingRes, excludedRes, pwsRes, kockaRes, radarRes, radioRes, nyirRes, radioListRes, themeRes, pwsInyregRes, spaceWeatherRes, airportArchiveRes] = results;
 
         // Az adatokat most csak eltesszük; a híroszlopok és az időjárásoszlop kirajzolása
         // a Firebase-konfigurációk beolvasása UTÁN történik (különben az enabled=false alapérték győz).
@@ -4106,7 +4778,7 @@
             newsDataForRender = localGyujtoData || null;
         }
 
-        const [filterData, breakingData, excludedData, pwsData, kockaData, radarData, radioData, nyirData, radioListData, themeData, pwsInyregData, spaceWeatherData] = await Promise.all([
+        const [filterData, breakingData, excludedData, pwsData, kockaData, radarData, radioData, nyirData, radioListData, themeData, pwsInyregData, spaceWeatherData, airportArchiveData] = await Promise.all([
             safeJsonResponse(filterRes, [], 'Tiltólista'),
             safeJsonResponse(breakingRes, [], 'Rendkívüli kulcsszavak'),
             safeJsonResponse(excludedRes, {}, 'Kizárt hírek'),
@@ -4118,7 +4790,8 @@
             safeJsonResponse(radioListRes, [], 'Rádióállomások'),
             safeJsonResponse(themeRes, null, 'Téma konfiguráció'),
             safeJsonResponse(pwsInyregRes, null, 'PWS INYREG42 konfiguráció'),
-            safeJsonResponse(spaceWeatherRes, { enabled: false }, 'Űridőjárás konfiguráció')
+            safeJsonResponse(spaceWeatherRes, { enabled: false }, 'Űridőjárás konfiguráció'),
+            safeJsonResponse(airportArchiveRes, { enabled: false, position: 4, refreshMin: 15, firstDay: AIRPORT_ARCHIVE_FIRST_DAY }, 'Repülőtéri archívum konfiguráció')
         ]);
 
         blacklistKeywords = Array.isArray(filterData) ? filterData : [];
@@ -4136,6 +4809,7 @@
             if (!Array.isArray(pwsInyreg42Config.backupStations) || !pwsInyreg42Config.backupStations.length) pwsInyreg42Config.backupStations = PWS_DEFAULT_BACKUP_STATIONS.slice();
         }
         spaceWeatherConfig = Object.assign({ enabled: false }, spaceWeatherData || {});
+        airportArchiveConfig = Object.assign({ enabled: false, position: 4, refreshMin: 15, firstDay: AIRPORT_ARCHIVE_FIRST_DAY }, airportArchiveData || {});
 
         if (newsDataForRender) {
             try {
@@ -4167,6 +4841,7 @@
         startPwsInyreg42Engine();
         if (spaceWeatherConfig && spaceWeatherConfig.enabled) startSpaceWeatherEngine();
         else stopSpaceWeatherEngine();
+        if (airportArchiveConfig && airportArchiveConfig.enabled) startAirportArchiveEngine(); else stopAirportArchiveEngine();
         startKockaPwsEngine();
         startRadarEngine();
         initRadioEngine();
